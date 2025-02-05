@@ -8,10 +8,11 @@ import {
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { User } from "../../core/models/user.model";
+import { LogInComponent } from "./components/log-in/log-in.component";
 
 @Component({
   selector: "app-landing-page",
-  imports: [RouterLink],
+  imports: [RouterLink, LogInComponent],
   templateUrl: "./landing-page.component.html",
   styleUrl: "./landing-page.component.scss",
 })

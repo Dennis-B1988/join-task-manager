@@ -1,1 +1,23 @@
-<p>log-in works!</p>
+<div class="login-form" (ngSubmit)="onSubmit()">
+  <h2>Log In</h2>
+  <span></span>
+  <form class="form" action="">
+    <div class="input-container">
+      <input type="text" placeholder="Email" name="email" [(ngModel)]="email" />
+      <img class="input-icon" src="assets/img/person.png" alt="" />
+    </div>
+    <div class="input-container">
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        [(ngModel)]="password"
+      />
+      <img class="input-icon" src="assets/img/lock.png" alt="" />
+    </div>
+    <div class="buttons">
+      <button (click)="onSubmit()">Log in</button>
+      <button class="guest-button">Guest Log in</button>
+    </div>
+  </form>
+</div>

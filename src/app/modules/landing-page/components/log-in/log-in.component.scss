@@ -1,0 +1,37 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 1.875rem;
+  padding: 3rem 7.1875rem 3rem 7.1875rem;
+  box-shadow: 0rem 0rem 0.875rem 0.1875rem #0000000a;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  position: relative;
+}
+
+input {
+  padding: 0.75rem 1.3125rem 0.75rem 1.3125rem;
+  border-radius: 0.5rem;
+  border: 0.0625rem solid #d1d1d1;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  right: 1.1rem;
+  transform: translateY(-50%);
+}
+
+.guest-button {
+  background-color: #fff;
+  color: #2a3647;
+  border: 0.0625rem solid #2a3647;
+}
