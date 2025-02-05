@@ -36,7 +36,12 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+.prettierrc
+/push.bat
 
 # System files
 .DS_Store
 Thumbs.db
+
+# API Data
+src/environment/environment.ts
