@@ -1,1 +1,60 @@
-<p>sign-up works!</p>
+<div class="sign-up-form" (ngSubmit)="onSubmit()">
+  <div class="headline">
+    <h1>Sign up</h1>
+    <img src="assets/img/blue-line.png" alt="blue underline" />
+  </div>
+
+  <form class="form" action="">
+    <div class="input-container">
+      <input type="text" placeholder="Name" name="name" [(ngModel)]="name" />
+      <img class="input-icon" src="assets/img/person.png" alt="" />
+    </div>
+    <div class="input-container">
+      <input type="text" placeholder="Email" name="email" [(ngModel)]="email" />
+      <img class="input-icon" src="assets/img/mail.png" alt="" />
+    </div>
+    <div class="input-container">
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        [(ngModel)]="password"
+      />
+      <img class="input-icon" src="assets/img/lock.png" alt="" />
+    </div>
+    <div class="input-container">
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        name="confirmPassword"
+        [(ngModel)]="confirmPassword"
+      />
+      <img class="input-icon" src="assets/img/lock.png" alt="" />
+    </div>
+  </form>
+
+  <div class="policy-checkbox">
+    @if (policy()) {
+      <img
+        (click)="checkPolicy()"
+        src="assets/img/checkmark-normal-marked.png"
+        alt=""
+      />
+    } @else {
+      <img
+        (click)="checkPolicy()"
+        src="assets/img/checkmark-normal-empty.png"
+        alt=""
+      />
+    }
+    <span>I accept the <a>Privacy Policy</a></span>
+  </div>
+
+  <div class="buttons">
+    <button (click)="onSubmit()">Sign up</button>
+  </div>
+
+  <div class="back-to-log-in">
+    <img (click)="backToLogIn()" src="assets/img/arrow-blue.png" alt="" />
+  </div>
+</div>

@@ -1,0 +1,82 @@
+@import "../../../../shared/styles/mixins";
+
+.sign-up-form {
+  @include flex(column, center, center);
+  background-color: #fff;
+  gap: 2rem;
+  border-radius: 1.875rem;
+  padding: 3rem 7.1875rem 3rem 7.1875rem;
+  box-shadow: 0rem 0rem 0.875rem 0.1875rem #0000000a;
+  position: relative;
+}
+
+.headline {
+  @include flex(column, none, center);
+  gap: 1rem;
+
+  h1 {
+    @include font(3.75rem, 700, 4.5625rem);
+  }
+}
+
+.form {
+  @include flex(column, none, none);
+  width: 26.375rem;
+  gap: 1rem;
+}
+
+.input-container {
+  position: relative;
+
+  > input {
+    @include border(0.0625rem, solid, #d1d1d1);
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1.3125rem 0.75rem 1.3125rem;
+
+    &::placeholder {
+      color: #d1d1d1;
+      font-size: 1.25rem;
+    }
+
+    // not working
+    :focus {
+      // @include border-ebony-clay;
+    }
+  }
+
+  > .input-icon {
+    position: absolute;
+    top: 50%;
+    right: 1.1rem;
+    transform: translateY(-50%);
+  }
+}
+
+.buttons {
+  @include flex(row, center, center);
+  width: 100%;
+  gap: 2.1875rem;
+}
+
+.policy-checkbox {
+  @include flex(row, none, center);
+
+  > img {
+    cursor: pointer;
+  }
+
+  > span {
+    > a {
+      color: #29abe2;
+      cursor: pointer;
+    }
+  }
+}
+
+.back-to-log-in {
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+  cursor: pointer;
+}

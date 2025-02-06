@@ -12,14 +12,18 @@
   <div class="top">
     <img src="assets/img/logo.svg" alt="logo" />
     <div class="to-sign-up">
-      <span>Not a Join user?</span>
-      <button>Sign up</button>
+      @if (!signUp()) {
+        <span>Not a Join user?</span>
+        <button (click)="viewSignUp()">Sign up</button>
+      }
     </div>
   </div>
 
-  <!-- @if (showLogin) { -->
-  <app-log-in />
-  <!-- } -->
+  @if (!signUp()) {
+    <app-log-in />
+  } @else {
+    <app-sign-up />
+  }
 
   <div class="bottom">
     <div class="policy">
