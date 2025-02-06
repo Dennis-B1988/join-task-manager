@@ -1,17 +1,4 @@
 <div class="container">
-  <!-- @if (showHeader) {
-    <header class="header">
-      <div class="header-logo">
-        <img src="assets/img/logo.svg" alt="Logo" class="final-logo" />
-      </div>
-      <nav class="nav">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-      </nav>
-    </header>
-  } -->
-
   <!-- <div class="logo-container">
     <img
       src="assets/img/logo.svg"
@@ -22,11 +9,22 @@
     />
   </div> -->
 
-  <div class="top"></div>
+  <div class="top">
+    <img src="assets/img/logo.svg" alt="logo" />
+    <div class="to-sign-up">
+      <span>Not a Join user?</span>
+      <button>Sign up</button>
+    </div>
+  </div>
 
   <!-- @if (showLogin) { -->
   <app-log-in />
   <!-- } -->
 
-  <div class="bottom"></div>
+  <div class="bottom">
+    <div class="policy">
+      <span>Privacy Policy</span>
+      <span>Legal Notice</span>
+    </div>
+  </div>
 </div>

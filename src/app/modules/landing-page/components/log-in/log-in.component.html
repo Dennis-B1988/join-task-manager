@@ -1,10 +1,12 @@
 <div class="login-form" (ngSubmit)="onSubmit()">
-  <h2>Log In</h2>
-  <span></span>
+  <div class="headline">
+    <h1>Log In</h1>
+    <img src="assets/img/blue-line.png" alt="blue underline" />
+  </div>
   <form class="form" action="">
     <div class="input-container">
       <input type="text" placeholder="Email" name="email" [(ngModel)]="email" />
-      <img class="input-icon" src="assets/img/person.png" alt="" />
+      <img class="input-icon" src="assets/img/mail.png" alt="" />
     </div>
     <div class="input-container">
       <input
@@ -15,9 +17,9 @@
       />
       <img class="input-icon" src="assets/img/lock.png" alt="" />
     </div>
-    <div class="buttons">
-      <button (click)="onSubmit()">Log in</button>
-      <button class="guest-button">Guest Log in</button>
-    </div>
   </form>
+  <div class="buttons">
+    <button (click)="onSubmit()">Log in</button>
+    <button class="guest-button">Guest Log in</button>
+  </div>
 </div>

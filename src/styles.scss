@@ -1,3 +1,6 @@
+@import "assets/font/inter.css";
+@import "./app/shared/styles/mixins";
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,7 +8,7 @@
 }
 
 html {
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
   display: flex;
   justify-content: center;
   background-color: #f6f7f8;
@@ -14,20 +17,18 @@ html {
 body {
   width: 100%;
   max-width: 90rem;
+  color: #2a3647;
 }
 
 button {
-  height: 3rem;
+  @include flex(row, center, center);
+  @include border;
+  @include font(1.3125rem, 700, 1.575rem);
   border-radius: 0.5rem;
+  height: 3rem;
   padding: 0.9375rem 1.5rem 0.9375rem 1.5rem;
   background-color: #2a3647;
   color: #fff;
-  font-size: 1.3125rem;
-  font-weight: 700;
-  line-height: 1.575rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 0.625rem;
   cursor: pointer;
 }

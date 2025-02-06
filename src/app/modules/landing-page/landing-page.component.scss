@@ -1,29 +1,51 @@
-// /* Fullscreen Container */
+@import "../../shared/styles/mixins";
+
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex(column, center, center);
   height: 100%;
   width: 100%;
-  flex-direction: column;
 }
 
 .top {
+  @include flex(row, space-between, center);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 6.25rem;
-  background-color: #fff;
+  height: 15.625rem;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.top img {
+  height: 7.5rem;
+  width: 6.25rem;
+}
+
+.to-sign-up {
+  @include flex(row, none, center);
+  gap: 2.1875rem;
+  font-size: 1.25rem;
+}
+
+.to-sign-up button {
+  font-size: 1rem;
 }
 
 .bottom {
+  @include flex(row, center, center);
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 6.25rem;
-  background-color: #fff;
+  height: 15.625rem;
+}
+
+.policy {
+  display: flex;
+  gap: 2.1875rem;
+  color: #a8a8a8;
+  cursor: pointer;
 }
 
 .form {
