@@ -1,5 +1,6 @@
 import { Component, inject, input, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormBuilder, FormsModule, Validators } from "@angular/forms";
+import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LandingPageComponent } from "../../landing-page.component";
 
 @Component({
@@ -9,6 +10,7 @@ import { LandingPageComponent } from "../../landing-page.component";
   styleUrl: "./sign-up.component.scss",
 })
 export class SignUpComponent {
+  authService = inject(AuthService);
   signUp = inject(LandingPageComponent);
 
   name = signal<string>("");
@@ -21,16 +23,20 @@ export class SignUpComponent {
     this.policy.set(!this.policy());
   }
 
-  onSubmit() {
-    console.log(
-      this.name(),
-      this.email(),
-      this.password(),
-      this.confirmPassword(),
-    );
+  onSubmit(): void {
+    this.authService
+      .signUp(this.email(), this.name(), this.password())
+      .subscribe({
+        next: () => {
+          this.signUp.signUpActive.set(false);
+        },
+        error: () => {
+          console.log("error");
+        },
+      });
   }
 
   backToLogIn() {
-    this.signUp.signUp.set(false);
+    // this.signUp.signUp.set(false);
   }
 }

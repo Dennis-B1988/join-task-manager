@@ -1,10 +1,10 @@
-<div class="login-form" (ngSubmit)="onSubmit()">
+<div class="login-form">
   <div class="headline">
     <h1>Log In</h1>
     <img src="assets/img/blue-line.png" alt="blue underline" />
   </div>
 
-  <form class="form" action="">
+  <form class="form" (ngSubmit)="onSubmit()">
     <div class="input-container">
       <input type="text" placeholder="Email" name="email" [(ngModel)]="email" />
       <img class="input-icon" src="assets/img/mail.png" alt="" />

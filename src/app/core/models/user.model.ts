@@ -1,13 +1,18 @@
-export class User {
+// export interface User {
+//   email: string;
+//   username: string;
+// }
+
+export class UserCollections {
   id: string;
   name: string;
-  mail: string;
+  email: string;
   password: string;
 
-  constructor(obj?: Partial<User>) {
+  constructor(obj?: UserCollections) {
     this.id = obj?.id || "";
     this.name = obj?.name || "";
-    this.mail = obj?.mail || "";
+    this.email = obj?.email || "";
     this.password = obj?.password || "";
   }
 
@@ -15,7 +20,7 @@ export class User {
     return {
       id: this.id,
       name: this.name,
-      mail: this.mail,
+      mail: this.email,
       password: this.password,
     };
   }

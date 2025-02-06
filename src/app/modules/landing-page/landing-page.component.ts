@@ -8,13 +8,12 @@ import {
   ViewChild,
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { User } from "../../core/models/user.model";
 import { LogInComponent } from "./components/log-in/log-in.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 
 @Component({
   selector: "app-landing-page",
-  imports: [RouterLink, LogInComponent, SignUpComponent],
+  imports: [LogInComponent, SignUpComponent],
   templateUrl: "./landing-page.component.html",
   styleUrl: "./landing-page.component.scss",
 })
@@ -23,10 +22,10 @@ export class LandingPageComponent {
   user = "Test User";
   userId = "1";
 
-  signUp = signal(false);
+  signUpActive = signal(false);
 
   viewSignUp() {
-    this.signUp.set(!this.signUp());
+    this.signUpActive.set(!this.signUpActive());
   }
 
   // animateLogo: boolean = false; // Trigger logo animation

@@ -1,5 +1,6 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-log-in",
@@ -8,10 +9,12 @@ import { FormsModule } from "@angular/forms";
   styleUrl: "./log-in.component.scss",
 })
 export class LogInComponent {
+  authService = inject(AuthService);
+
   email = signal<string>("");
   password = signal<string>("");
 
-  onSubmit() {
-    console.log(this.email(), this.password());
+  onSubmit(): void {
+    this.authService.logIn(this.email(), this.password());
   }
 }
