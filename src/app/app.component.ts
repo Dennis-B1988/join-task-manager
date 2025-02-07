@@ -13,8 +13,8 @@ export class AppComponent {
 
   authService = inject(AuthService);
 
-  ngOnInit(): void {
-    this.authService.user$.subscribe((user) => user);
-    console.log(this.authService.currentUserSig());
-  }
+  // ngOnInit(): void {
+  //   // this.authService.user$.subscribe((user) => user);
+  //   // console.log(this.authService.currentUserSig());
+  // }
 }

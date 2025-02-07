@@ -3,13 +3,13 @@
 //   username: string;
 // }
 
-export class UserCollections {
+export class User {
   id: string;
   name: string;
   email: string;
   password: string;
 
-  constructor(obj?: UserCollections) {
+  constructor(obj?: any) {
     this.id = obj?.id || "";
     this.name = obj?.name || "";
     this.email = obj?.email || "";

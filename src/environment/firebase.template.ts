@@ -1,6 +1,9 @@
+import { provideFirebaseApp } from "@angular/fire/app";
+import { provideAuth } from "@angular/fire/auth";
+import { getDatabase, provideDatabase } from "@angular/fire/database";
+import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -11,11 +14,9 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-
-const db = getFirestore(firebaseApp);
-
-const auth = getAuth(firebaseApp);
-const provider = new GoogleAuthProvider();
-
-export { auth, db, provider };
+export const firebaseProviders = [
+  provideFirebaseApp(() => initializeApp(firebaseConfig)),
+  provideAuth(() => getAuth()),
+  provideFirestore(() => getFirestore()),
+  provideDatabase(() => getDatabase()),
+];

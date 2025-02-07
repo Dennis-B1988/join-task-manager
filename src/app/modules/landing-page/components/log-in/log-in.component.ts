@@ -15,6 +15,6 @@ export class LogInComponent {
   password = signal<string>("");
 
   onSubmit(): void {
-    this.authService.logIn(this.email(), this.password());
+    // this.authService.logIn(this.email(), this.password());
   }
 }

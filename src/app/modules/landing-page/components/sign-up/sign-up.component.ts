@@ -1,5 +1,5 @@
-import { Component, inject, input, signal } from "@angular/core";
-import { FormBuilder, FormsModule, Validators } from "@angular/forms";
+import { Component, inject } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LandingPageComponent } from "../../landing-page.component";
 
@@ -10,33 +10,30 @@ import { LandingPageComponent } from "../../landing-page.component";
   styleUrl: "./sign-up.component.scss",
 })
 export class SignUpComponent {
-  authService = inject(AuthService);
-  signUp = inject(LandingPageComponent);
+  private authService = inject(AuthService);
+  private signUp = inject(LandingPageComponent);
 
-  name = signal<string>("");
-  email = signal<string>("");
-  password = signal<string>("");
-  confirmPassword = signal<string>("");
-  policy = signal<boolean>(false);
+  name = this.authService.user.name;
+  email = this.authService.user.email;
+  password = this.authService.user.password;
+  confirmPassword = "";
+  policy = false;
 
   checkPolicy() {
-    this.policy.set(!this.policy());
+    this.policy = !this.policy;
   }
 
   onSubmit(): void {
-    this.authService
-      .signUp(this.email(), this.name(), this.password())
-      .subscribe({
-        next: () => {
-          this.signUp.signUpActive.set(false);
-        },
-        error: () => {
-          console.log("error");
-        },
-      });
+    if (this.password !== this.confirmPassword) {
+      console.log("Passwords do not match");
+      return;
+    }
+    this.authService.createUser();
+    // this.clearInputs();
+    // this.signUpSuccess();
   }
 
   backToLogIn() {
-    // this.signUp.signUp.set(false);
+    this.signUp.signUpActive.set(false);
   }
 }
