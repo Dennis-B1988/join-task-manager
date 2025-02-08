@@ -1,9 +1,6 @@
 import { Component, inject, signal } from "@angular/core";
-import { signInWithEmailAndPassword } from "@angular/fire/auth";
-import { collectionData } from "@angular/fire/firestore";
 import { FormsModule } from "@angular/forms";
-import { collection, Firestore } from "firebase/firestore";
-import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 import { User } from "../../../../core/models/user.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
@@ -15,18 +12,38 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 })
 export class LogInComponent {
   authService = inject(AuthService);
+  router = inject(Router);
   user = new User();
+  userId = signal<string>("");
 
   email = this.user.email;
   password = this.user.password;
-
   rememberMe = signal<boolean>(false);
 
   checkRememberMe(): void {
     this.rememberMe.set(!this.rememberMe());
   }
 
-  onSubmit(): void {
-    this.authService.logIn(this.email, this.password);
+  async onSubmit() {
+    if (this.rememberMe() && this.email && this.password) {
+      const uid = (await this.authService.logIn(
+        this.email,
+        this.password,
+      )) as string;
+
+      if (uid) {
+        this.userId.set(uid);
+        console.log("Navigating to:", `/user/${this.userId()}/summary`);
+        this.router.navigate(["/user", uid, "summary"]);
+      } else {
+        console.error("Login failed, UID is empty.");
+      }
+    } else {
+      console.log("Not checked");
+    }
+  }
+
+  async guestLogin() {
+    console.log(this.authService.uid()); // for testing if logout works
   }
 }

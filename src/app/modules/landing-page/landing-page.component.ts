@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { getAuth } from "firebase/auth";
 import { LogInComponent } from "./components/log-in/log-in.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 
@@ -19,8 +20,10 @@ import { SignUpComponent } from "./components/sign-up/sign-up.component";
 })
 export class LandingPageComponent {
   // user = input.required<User>();
-  user = "Test User";
-  userId = "1";
+  // user = "Test User";
+  // userId = "1";
+  // auth = getAuth();
+  // user = this.auth.currentUser;
 
   signUpActive = signal(false);
 

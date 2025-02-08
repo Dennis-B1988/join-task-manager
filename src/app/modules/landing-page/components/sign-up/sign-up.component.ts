@@ -26,12 +26,18 @@ export class SignUpComponent {
   }
 
   onSubmit(): void {
-    if (this.password !== this.confirmPassword) {
+    if (
+      !this.name ||
+      !this.email ||
+      this.password !== this.confirmPassword ||
+      !this.policy
+    ) {
       console.log("Passwords do not match");
       return;
     }
     this.authService.createUser(this.name, this.email, this.password);
     this.signUp.signUpActive.set(false);
+
     // this.clearInputs();
     // this.signUpSuccess();
   }

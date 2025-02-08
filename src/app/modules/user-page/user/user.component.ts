@@ -1,4 +1,5 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, inject } from "@angular/core";
+import { AuthService } from "../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-user",
@@ -7,6 +8,10 @@ import { Component, computed, input } from "@angular/core";
   styleUrl: "./user.component.scss",
 })
 export class UserComponent {
-  // user = input.required<User>();
-  // imagePath = computed(() => "users/" + this.user().avatar);
+  authService = inject(AuthService);
+
+  signOut() {
+    this.authService.signOut();
+    console.log(this.authService.uid());
+  }
 }

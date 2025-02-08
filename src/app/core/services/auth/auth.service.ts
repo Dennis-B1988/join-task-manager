@@ -1,12 +1,12 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "@angular/fire/auth";
-import { doc, Firestore, getDoc, setDoc } from "@angular/fire/firestore";
-import { User } from "../../models/user.model";
+import { doc, Firestore, setDoc } from "@angular/fire/firestore";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +14,9 @@ import { User } from "../../models/user.model";
 export class AuthService {
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
-  user = new User();
+  private router: Router = inject(Router);
+  // user = new User();
+  uid = signal("");
 
   async createUser(displayName: string, email: string, password: string) {
     try {
@@ -40,23 +42,16 @@ export class AuthService {
   }
 
   logIn(email: string, password: string) {
-    signInWithEmailAndPassword(this.auth, email, password)
+    return signInWithEmailAndPassword(this.auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        console.log("User logged in:", user);
+        // console.log("User logged in:", user);
 
-        const userDocRef = doc(this.firestore, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
-        console.log(user.uid);
+        // const userDocRef = doc(this.firestore, "users", user.uid);
+        // const userDoc = await getDoc(userDocRef);
+        this.uid.set(user.uid);
 
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          console.log("Full user data:", userData);
-          console.log("User logged in:", user);
-          console.log(user.displayName);
-        } else {
-          console.error("No such user!");
-        }
+        return user.uid;
       })
       .catch((error) => {
         console.error("Error during login:", error);
@@ -64,6 +59,18 @@ export class AuthService {
         const errorMessage = error.message;
         console.log("Error code:", errorCode);
         console.log("Error message:", errorMessage);
+      });
+  }
+
+  signOut() {
+    this.auth
+      .signOut()
+      .then(() => {
+        this.uid.set("");
+        this.router.navigate(["/"]);
+      })
+      .catch((error) => {
+        console.error("Error during sign out:", error);
       });
   }
 }

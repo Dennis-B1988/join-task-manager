@@ -1,11 +1,9 @@
 import { Routes } from "@angular/router";
 import { SummaryComponent } from "./components/summary/summary.component";
-import { UserPageComponent } from "./user-page.component";
 
 export const routes: Routes = [
   {
     path: "",
-    component: UserPageComponent,
     children: [
       {
         path: "",
