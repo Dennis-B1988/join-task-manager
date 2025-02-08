@@ -1,59 +1,69 @@
 import { inject, Injectable } from "@angular/core";
-import { Auth, createUserWithEmailAndPassword } from "@angular/fire/auth";
-import { collection, doc, Firestore, setDoc } from "@angular/fire/firestore";
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "@angular/fire/auth";
+import { doc, Firestore, getDoc, setDoc } from "@angular/fire/firestore";
 import { User } from "../../models/user.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
+  private auth: Auth = inject(Auth);
+  private firestore: Firestore = inject(Firestore);
   user = new User();
-  auth: Auth = inject(Auth);
-  firestore: Firestore = inject(Firestore);
-  // user$ = user(this.firebaseAuth);
-  // currentUserSig = signal<User | null | undefined>(null);
 
-  async createUser() {
+  async createUser(displayName: string, email: string, password: string) {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         this.auth,
-        this.user.email,
-        this.user.password,
+        email,
+        password,
       );
-      const uid = userCredential.user.uid;
-      const usersCollection = collection(this.firestore, "users");
-      const userDocRef = doc(usersCollection, uid);
+      const user = userCredential.user;
+
+      await updateProfile(user, { displayName });
+
+      const userDocRef = doc(this.firestore, "users", user.uid);
       await setDoc(userDocRef, {
-        name: this.user.name,
-        mail: this.user.email,
-        id: uid,
+        displayName: displayName,
+        email: email,
+        uid: user.uid,
       });
-      console.log("User created and stored in Firestore:", userCredential.user);
+      console.log("User created and stored in Firestore:", user);
     } catch (error: any) {
       console.error("Error creating user:", error);
     }
   }
 
-  // signUp(email: string, username: string, password: string): Observable<void> {
-  //   const promise = createUserWithEmailAndPassword(
-  //     this.firebaseAuth,
-  //     email,
-  //     password,
-  //   ).then((response) =>
-  //     updateProfile(response.user, { displayName: username }),
-  //   );
+  logIn(email: string, password: string) {
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        console.log("User logged in:", user);
 
-  //   return from(promise);
-  // }
+        const userDocRef = doc(this.firestore, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+        console.log(user.uid);
 
-  // logIn(email: string, password: string): Observable<void> {
-  //   const promise = createUserWithEmailAndPassword(
-  //     this.firebaseAuth,
-  //     email,
-  //     password,
-  //   ).then((response) => this.currentUserSig.set(response.user));
-
-  //   console.log(this.currentUserSig());
-  //   return from(promise);
-  // }
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          console.log("Full user data:", userData);
+          console.log("User logged in:", user);
+          console.log(user.displayName);
+        } else {
+          console.error("No such user!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Error code:", errorCode);
+        console.log("Error message:", errorMessage);
+      });
+  }
 }

@@ -52,6 +52,11 @@
   }
 }
 
+.remember-me {
+  @include flex(row, center, center);
+  gap: 0.5rem;
+}
+
 .buttons {
   @include flex(row, center, center);
   width: 100%;

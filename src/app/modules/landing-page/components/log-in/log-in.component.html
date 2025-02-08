@@ -18,6 +18,23 @@
       />
       <img class="input-icon" src="assets/img/lock.png" alt="" />
     </div>
+
+    <div class="remember-me">
+      @if (rememberMe()) {
+        <img
+          (click)="checkRememberMe()"
+          src="assets/img/checkmark-normal-marked.png"
+          alt=""
+        />
+      } @else {
+        <img
+          (click)="checkRememberMe()"
+          src="assets/img/checkmark-normal-empty.png"
+          alt=""
+        />
+      }
+      <span>Remember me</span>
+    </div>
   </form>
 
   <div class="buttons">

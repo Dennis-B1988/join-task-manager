@@ -1,5 +1,10 @@
 import { Component, inject, signal } from "@angular/core";
+import { signInWithEmailAndPassword } from "@angular/fire/auth";
+import { collectionData } from "@angular/fire/firestore";
 import { FormsModule } from "@angular/forms";
+import { collection, Firestore } from "firebase/firestore";
+import { Observable } from "rxjs";
+import { User } from "../../../../core/models/user.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
@@ -10,11 +15,18 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 })
 export class LogInComponent {
   authService = inject(AuthService);
+  user = new User();
 
-  email = signal<string>("");
-  password = signal<string>("");
+  email = this.user.email;
+  password = this.user.password;
+
+  rememberMe = signal<boolean>(false);
+
+  checkRememberMe(): void {
+    this.rememberMe.set(!this.rememberMe());
+  }
 
   onSubmit(): void {
-    // this.authService.logIn(this.email(), this.password());
+    this.authService.logIn(this.email, this.password);
   }
 }

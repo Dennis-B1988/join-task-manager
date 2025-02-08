@@ -1,5 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { User } from "../../../../core/models/user.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LandingPageComponent } from "../../landing-page.component";
 
@@ -12,10 +13,11 @@ import { LandingPageComponent } from "../../landing-page.component";
 export class SignUpComponent {
   private authService = inject(AuthService);
   private signUp = inject(LandingPageComponent);
+  user = new User();
 
-  name = this.authService.user.name;
-  email = this.authService.user.email;
-  password = this.authService.user.password;
+  name = this.user.displayName;
+  email = this.user.email;
+  password = this.user.password;
   confirmPassword = "";
   policy = false;
 
@@ -28,7 +30,8 @@ export class SignUpComponent {
       console.log("Passwords do not match");
       return;
     }
-    this.authService.createUser();
+    this.authService.createUser(this.name, this.email, this.password);
+    this.signUp.signUpActive.set(false);
     // this.clearInputs();
     // this.signUpSuccess();
   }
