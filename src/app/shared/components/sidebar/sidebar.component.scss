@@ -1,0 +1,12 @@
+@import "../../../shared/styles/mixins";
+
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 100px);
+  background-color: #6b5555;
+}
+
+nav {
+  @include flex(column, center, none);
+  gap: 0.2rem;
+}

@@ -1,1 +1,8 @@
-<p>sidebar works!</p>
+<div class="sidebar">
+  <nav>
+    <button [routerLink]="['/user', userId(), 'summary']">Summary</button>
+    <button [routerLink]="['/user', userId(), 'add-tasks']">Tasks</button>
+    <button [routerLink]="['/user', userId(), 'board']">Board</button>
+    <button [routerLink]="['/user', userId(), 'contacts']">Contacts</button>
+  </nav>
+</div>

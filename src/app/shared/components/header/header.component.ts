@@ -1,17 +1,10 @@
-import { Component, inject } from "@angular/core";
-import { Auth } from "@angular/fire/auth";
-import { RouterLink } from "@angular/router";
-import { AuthService } from "../../../core/services/auth/auth.service";
-import { LogInComponent } from "../../../modules/landing-page/components/log-in/log-in.component";
+import { Component } from "@angular/core";
 import { UserComponent } from "../../../modules/user-page/user/user.component";
 
 @Component({
   selector: "app-header",
-  imports: [UserComponent, RouterLink],
+  imports: [UserComponent],
   templateUrl: "./header.component.html",
   styleUrl: "./header.component.scss",
 })
-export class HeaderComponent {
-  authService = inject(AuthService);
-  userId = this.authService.uid;
-}
+export class HeaderComponent {}
