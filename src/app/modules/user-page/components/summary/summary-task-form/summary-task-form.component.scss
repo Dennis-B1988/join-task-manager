@@ -1,0 +1,18 @@
+@import "../../../../../shared/styles/mixins";
+
+.summary-display-container {
+  @include flex(column, space-between, space-between);
+  width: 560px; // placeholder
+}
+
+.container {
+  @include flex(row, none, center);
+}
+
+.summary-display {
+  background-color: #fff;
+  box-shadow: 0px 0px 0.25rem 0px #0000001a;
+  border-radius: 1.875rem;
+  width: 264px; // placeholder
+  height: 164px; // placeholder
+}

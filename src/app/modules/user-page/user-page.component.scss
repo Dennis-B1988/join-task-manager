@@ -1,16 +1,26 @@
 @import "../../shared/styles/mixins";
 
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
 .user-page {
   @include flex(row, none, none);
+  height: 100dvh;
 }
 
 .content-container {
   @include flex(column, none, none);
   width: 100%;
-  height: 100dvh;
+  height: 100%;
 }
 
 .content {
   @include flex(row, center, center);
-  flex-grow: 1;
+  // flex-grow: 1;
+  width: 100%;
+  height: 100%;
 }
