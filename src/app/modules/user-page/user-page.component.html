@@ -1,4 +1,4 @@
-<div class="user-page">
+<!-- <div class="user-page">
   <app-sidebar></app-sidebar>
 
   <div class="content-container">
@@ -7,4 +7,18 @@
       <router-outlet />
     </div>
   </div>
+</div> -->
+
+<div class="user-page">
+  <header>
+    <app-header></app-header>
+  </header>
+
+  <aside>
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <main>
+    <router-outlet />
+  </main>
 </div>

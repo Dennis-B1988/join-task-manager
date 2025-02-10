@@ -1,6 +1,6 @@
 @import "../../../shared/styles/mixins";
 
-header {
+.header {
   @include font(1.5rem, 400 1.5rem);
   @include flex(row, space-between, center);
   @include padding(1.25rem, 2.5rem, 1.25rem, 2.5rem);
