@@ -1,8 +1,58 @@
 <div class="sidebar">
+  <div class="logo">
+    <img src="assets/img/logo-white.png" alt="logo" />
+  </div>
   <nav>
-    <button [routerLink]="['/user', userId(), 'summary']">Summary</button>
-    <button [routerLink]="['/user', userId(), 'add-tasks']">Tasks</button>
-    <button [routerLink]="['/user', userId(), 'board']">Board</button>
-    <button [routerLink]="['/user', userId(), 'contacts']">Contacts</button>
+    <span
+      [routerLink]="['/summary']"
+      routerLinkActive="active"
+      #summary="routerLinkActive"
+      ><img
+        [src]="summary.isActive ? summaryPathActive : summaryCurrentPath"
+        (mouseover)="summaryCurrentPath = summaryPathActive"
+        (mouseleave)="summaryCurrentPath = summaryPath"
+        alt="go to summary"
+    /></span>
+    <span
+      [routerLink]="['/add-tasks']"
+      routerLinkActive="active"
+      #tasks="routerLinkActive"
+    >
+      <img
+        [src]="tasks.isActive ? addTasksPathActive : addTasksCurrentPath"
+        (mouseover)="addTasksCurrentPath = addTasksPathActive"
+        (mouseleave)="addTasksCurrentPath = addTasksPath"
+        alt="go to add tasks"
+      />
+    </span>
+    <span
+      [routerLink]="['/user', userId(), 'board']"
+      routerLinkActive="active"
+      #board="routerLinkActive"
+    >
+      <img
+        [src]="board.isActive ? boardPathActive : boardCurrentPath"
+        (mouseover)="boardCurrentPath = boardPathActive"
+        (mouseleave)="boardCurrentPath = boardPath"
+        alt="go to board"
+      />
+    </span>
+    <span
+      [routerLink]="['/user', userId(), 'contacts']"
+      routerLinkActive="active"
+      #contacts="routerLinkActive"
+    >
+      <img
+        [src]="contacts.isActive ? contactsPathActive : contactsCurrentPath"
+        (mouseover)="contactsCurrentPath = contactsPathActive"
+        (mouseleave)="contactsCurrentPath = contactsPath"
+        alt="go to contacts"
+      />
+    </span>
   </nav>
+
+  <div class="policy">
+    <span>Privacy Policy</span>
+    <span>Legal notice</span>
+  </div>
 </div>

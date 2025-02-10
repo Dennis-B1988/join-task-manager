@@ -1,12 +1,43 @@
 @import "../../../shared/styles/mixins";
 
 .sidebar {
+  @include flex(column, space-between, none);
   width: 14.5rem;
   height: 100dvh;
   background-color: #2a3647;
 }
 
+.logo {
+  @include flex(row, center, center);
+  @include padding(4rem, 0, 4rem, 0);
+
+  img {
+    width: 6.25rem;
+    height: 7.5rem;
+  }
+}
+
 nav {
   @include flex(column, center, none);
-  gap: 0.2rem;
+  gap: 0.9375rem;
+
+  img {
+    cursor: pointer;
+  }
+}
+
+.policy {
+  @include flex(column, center, center);
+  @include padding(4rem, 0, 4rem, 0);
+  @include font(0.75rem, 400, 1.2rem, #a8a8a8);
+  gap: 0.25rem;
+
+  span {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  span:hover {
+    text-decoration: underline;
+  }
 }
