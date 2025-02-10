@@ -24,9 +24,9 @@ button {
   @include flex(row, center, center);
   @include border;
   @include font(1.3125rem, 700, 1.575rem);
+  @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   border-radius: 0.5rem;
   height: 3rem;
-  padding: 0.9375rem 1.5rem 0.9375rem 1.5rem;
   background-color: #2a3647;
   color: #fff;
   gap: 0.625rem;

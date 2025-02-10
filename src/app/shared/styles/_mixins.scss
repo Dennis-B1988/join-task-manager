@@ -15,3 +15,10 @@
   line-height: $line-height;
   color: $color;
 }
+
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}

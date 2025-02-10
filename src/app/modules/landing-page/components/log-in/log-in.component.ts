@@ -16,16 +16,16 @@ export class LogInComponent {
   user = new User();
   userId = signal<string>("");
 
-  email = this.user.email;
-  password = this.user.password;
-  rememberMe = signal<boolean>(false);
+  email: string = this.user.email;
+  password: string = this.user.password;
+  rememberMe: boolean = false;
 
   checkRememberMe(): void {
-    this.rememberMe.set(!this.rememberMe());
+    this.rememberMe = !this.rememberMe;
   }
 
   async onSubmit() {
-    if (this.rememberMe() && this.email && this.password) {
+    if (this.rememberMe && this.email && this.password) {
       const uid = (await this.authService.logIn(
         this.email,
         this.password,

@@ -1,14 +1,16 @@
 @import "../../shared/styles/mixins";
 
 .user-page {
-  //   width: 100%;
-  //   height: 100%;
+  @include flex(row, none, none);
 }
 
 .content-container {
-  @include flex(row, space-between, none);
+  @include flex(column, none, none);
+  width: 100%;
+  height: 100dvh;
 }
 
 .content {
-  width: 100%;
+  @include flex(row, center, center);
+  flex-grow: 1;
 }

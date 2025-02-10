@@ -15,11 +15,11 @@ export class SignUpComponent {
   private signUp = inject(LandingPageComponent);
   user = new User();
 
-  name = this.user.displayName;
-  email = this.user.email;
-  password = this.user.password;
-  confirmPassword = "";
-  policy = false;
+  name: string = this.user.displayName;
+  email: string = this.user.email;
+  password: string = this.user.password;
+  confirmPassword: string = "";
+  policy: boolean = false;
 
   checkPolicy() {
     this.policy = !this.policy;
