@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from "@angular/core";
 import {
   Auth,
   createUserWithEmailAndPassword,
+  signInAnonymously,
   signInWithEmailAndPassword,
   updateProfile,
 } from "@angular/fire/auth";
@@ -12,11 +13,18 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class AuthService {
-  private auth: Auth = inject(Auth);
-  private firestore: Firestore = inject(Firestore);
+  // private auth: Auth = inject(Auth);
+  // private firestore: Firestore = inject(Firestore);
+  // private auth: Auth;
+  // private firestore: Firestore;
   private router: Router = inject(Router);
   // user = new User();
   uid = signal("");
+
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+  ) {}
 
   async createUser(displayName: string, email: string, password: string) {
     try {
@@ -43,7 +51,7 @@ export class AuthService {
 
   logIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
-      .then(async (userCredential) => {
+      .then((userCredential) => {
         const user = userCredential.user;
         // console.log("User logged in:", user);
 
@@ -59,6 +67,18 @@ export class AuthService {
         const errorMessage = error.message;
         console.log("Error code:", errorCode);
         console.log("Error message:", errorMessage);
+      });
+  }
+
+  guestLogIn() {
+    signInAnonymously(this.auth)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("User logged in:", user);
+        this.uid.set(user.uid);
+      })
+      .catch((error) => {
+        throw new Error(error);
       });
   }
 
