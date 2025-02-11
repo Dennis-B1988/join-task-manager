@@ -39,7 +39,7 @@ export class LogInComponent {
     this.rememberMe = !this.rememberMe;
   }
 
-  async onSubmit() {
+  onSubmit() {
     if (this.rememberMe && this.email && this.password) {
       this.authService.logIn(this.email, this.password);
       // const uid = (await this.authService.logIn(

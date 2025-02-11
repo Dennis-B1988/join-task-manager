@@ -4,7 +4,7 @@
   </div>
   <nav>
     <span
-      [routerLink]="['/summary']"
+      [routerLink]="['/user', userId(), 'summary']"
       routerLinkActive="active"
       #summary="routerLinkActive"
       ><img
@@ -14,7 +14,7 @@
         alt="go to summary"
     /></span>
     <span
-      [routerLink]="['/add-tasks']"
+      [routerLink]="['/user', userId(), 'add-tasks']"
       routerLinkActive="active"
       #tasks="routerLinkActive"
     >
