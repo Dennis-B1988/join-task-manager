@@ -40,22 +40,12 @@ export class LogInComponent {
   }
 
   onSubmit() {
-    if (this.rememberMe && this.email && this.password) {
-      this.authService.logIn(this.email, this.password);
-      // const uid = (await this.authService.logIn(
-      //   this.email,
-      //   this.password,
-      // )) as string;
-
-      // if (uid) {
-      //   this.userId.set(uid);
-      //   this.router.navigate(["/user", uid, "summary"]);
-      // } else {
-      //   console.error("Login failed, UID is empty.");
-      // }
-    } else {
-      console.log("Not checked");
-    }
+    this.authService.logIn("test@test.de", "qwer1234");
+    // if (this.rememberMe && this.email && this.password) {
+    //   this.authService.logIn(this.email, this.password);
+    // } else {
+    //   console.log("Not checked");
+    // }
   }
 
   guestLogin() {

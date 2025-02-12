@@ -13,13 +13,13 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class AuthService {
+  private router: Router = inject(Router);
+  uid = signal("");
   // private auth: Auth = inject(Auth);
   // private firestore: Firestore = inject(Firestore);
   // private auth: Auth;
   // private firestore: Firestore;
-  private router: Router = inject(Router);
   // user = new User();
-  uid = signal("");
 
   constructor(
     private auth: Auth,
@@ -53,32 +53,27 @@ export class AuthService {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        // console.log("User logged in:", user);
 
-        // const userDocRef = doc(this.firestore, "users", user.uid);
-        // const userDoc = await getDoc(userDocRef);
         this.uid.set(user.uid);
 
-        return user.uid;
+        // return user.uid;
       })
       .catch((error) => {
         console.error("Error during login:", error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("Error code:", errorCode);
-        console.log("Error message:", errorMessage);
       });
   }
 
   guestLogIn() {
-    signInAnonymously(this.auth)
+    signInWithEmailAndPassword(this.auth, "Guest@join.com", "qwer1234")
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("User logged in:", user);
+
         this.uid.set(user.uid);
+
+        // return user.uid;
       })
       .catch((error) => {
-        throw new Error(error);
+        console.error("Error during guest login:", error);
       });
   }
 
@@ -93,4 +88,23 @@ export class AuthService {
         console.error("Error during sign out:", error);
       });
   }
+
+  // guestLogInAnonymously() {
+  //   signInAnonymously(this.auth)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+
+  //       const userDocRef = doc(this.firestore, "users", user.uid);
+  //       setDoc(userDocRef, {
+  //         displayName: "Guest",
+  //         uid: user.uid,
+  //       });
+
+  //       console.log("User logged in:", user);
+  //       this.uid.set(user.uid);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error during guest login:", error);
+  //     });
+  // }
 }

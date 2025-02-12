@@ -5,11 +5,11 @@ export const routes: Routes = [
   {
     path: "",
     children: [
-      {
-        path: "",
-        redirectTo: "summary",
-        pathMatch: "full",
-      },
+      // {
+      //   path: "",
+      //   redirectTo: "summary",
+      //   pathMatch: "full",
+      // },
       {
         path: "summary",
         component: SummaryComponent,
