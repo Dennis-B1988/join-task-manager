@@ -1,14 +1,17 @@
 import { DestroyRef, inject, Injectable, signal } from "@angular/core";
 import {
   Auth,
+  browserLocalPersistence,
   createUserWithEmailAndPassword,
+  setPersistence,
   signInAnonymously,
   signInWithEmailAndPassword,
   updateProfile,
+  User,
 } from "@angular/fire/auth";
 import { doc, Firestore, setDoc } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
-import { User } from "../../models/user.model";
+import { CustomUser } from "../../models/user.model";
 
 @Injectable({
   providedIn: "root",
@@ -16,7 +19,8 @@ import { User } from "../../models/user.model";
 export class AuthService {
   private router: Router = inject(Router);
   private destroyRef = inject(DestroyRef);
-  user = signal<User | null>(null);
+
+  user = signal<CustomUser | null>(null);
   userId = signal("");
   // private auth: Auth = inject(Auth);
   // private firestore: Firestore = inject(Firestore);
@@ -28,22 +32,44 @@ export class AuthService {
     private auth: Auth,
     private firestore: Firestore,
   ) {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      const parsedUser = JSON.parse(savedUser);
+      this.user.set(parsedUser);
+      this.userId.set(parsedUser.uid);
+    }
+
     const subscribe = this.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.user.set({
-          ...user,
-          displayName: user.displayName ?? "",
-        } as User);
+        this.setUser(user);
         this.userId.set(user.uid);
         this.router.navigate(["/user", user.uid, "summary"]);
         console.log("User logged in:", user.displayName);
         console.log("User Mail:", user.email);
       } else {
         this.user.set(null);
+        this.userId.set("");
       }
-    });
 
-    this.destroyRef.onDestroy(() => subscribe());
+      this.destroyRef.onDestroy(() => subscribe());
+    });
+  }
+
+  private setUser(user: User) {
+    const customUser = new CustomUser(user);
+    this.user.set(customUser);
+    // this.userId.set(user.uid);
+
+    // const customUser = {
+    //   displayName: user.displayName ?? "",
+    //   email: user.email ?? "",
+    //   uid: user.uid,
+    // };
+
+    this.user.set(customUser);
+    this.userId.set(user.uid);
+
+    localStorage.setItem("user", JSON.stringify(customUser));
   }
 
   async createUser(displayName: string, email: string, password: string) {
@@ -74,8 +100,8 @@ export class AuthService {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        console.log(user);
-        console.log(user.displayName);
+        // console.log(user);
+        // console.log(user.displayName);
 
         // this.user.set(user);
         // this.uid.set(user.uid);
@@ -92,13 +118,13 @@ export class AuthService {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        console.log(user);
-        console.log(user.displayName);
-        // this.user.set(user);
-        // this.uid.set(user.uid);
+        // console.log(user);
+        // console.log(user.displayName);
+        // // this.user.set(user);
+        // // this.uid.set(user.uid);
 
-        console.log(this.user());
-        console.log(this.user()?.displayName);
+        // console.log(this.user());
+        // console.log(this.user()?.displayName);
 
         // console.log("User logged in:", user.displayName);
         // return user.uid;
@@ -113,6 +139,7 @@ export class AuthService {
       .signOut()
       .then(() => {
         this.userId.set("");
+        localStorage.removeItem("user");
         this.router.navigate(["/"]);
       })
       .catch((error) => {

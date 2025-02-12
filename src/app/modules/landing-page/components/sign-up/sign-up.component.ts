@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { User } from "../../../../core/models/user.model";
+import { CustomUser } from "../../../../core/models/user.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LandingPageComponent } from "../../landing-page.component";
 
@@ -13,7 +13,8 @@ import { LandingPageComponent } from "../../landing-page.component";
 export class SignUpComponent {
   private authService = inject(AuthService);
   private signUp = inject(LandingPageComponent);
-  user = new User();
+  private user = inject(CustomUser);
+  // user = new User();
 
   name: string = this.user.displayName;
   email: string = this.user.email;
