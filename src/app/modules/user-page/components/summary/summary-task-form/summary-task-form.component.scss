@@ -2,11 +2,12 @@
 
 .summary-display-container {
   @include flex(column, space-between, space-between);
-  width: 560px; // placeholder
+  width: 35rem; // placeholder
+  height: 35rem; // placeholder
 }
 
 .container {
-  @include flex(row, none, center);
+  @include flex(row, space-between, space-between);
 }
 
 .summary-display {
@@ -15,4 +16,20 @@
   border-radius: 1.875rem;
   width: 264px; // placeholder
   height: 164px; // placeholder
+}
+
+.to-do-done {
+  @include flex(row, center, center);
+  width: 16.5rem;
+  height: 10.5rem;
+}
+
+.urgent {
+  width: 35rem;
+  height: 10.5rem;
+}
+
+.board-progress-feedback {
+  width: 10.5rem;
+  height: 10.5rem;
 }

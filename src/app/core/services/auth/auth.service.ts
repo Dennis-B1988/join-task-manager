@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { DestroyRef, inject, Injectable, signal } from "@angular/core";
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -8,13 +8,16 @@ import {
 } from "@angular/fire/auth";
 import { doc, Firestore, setDoc } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
+import { User } from "../../models/user.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private router: Router = inject(Router);
-  uid = signal("");
+  private destroyRef = inject(DestroyRef);
+  user = signal<User | null>(null);
+  userId = signal("");
   // private auth: Auth = inject(Auth);
   // private firestore: Firestore = inject(Firestore);
   // private auth: Auth;
@@ -24,7 +27,24 @@ export class AuthService {
   constructor(
     private auth: Auth,
     private firestore: Firestore,
-  ) {}
+  ) {
+    const subscribe = this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.user.set({
+          ...user,
+          displayName: user.displayName ?? "",
+        } as User);
+        this.userId.set(user.uid);
+        this.router.navigate(["/user", user.uid, "summary"]);
+        console.log("User logged in:", user.displayName);
+        console.log("User Mail:", user.email);
+      } else {
+        this.user.set(null);
+      }
+    });
+
+    this.destroyRef.onDestroy(() => subscribe());
+  }
 
   async createUser(displayName: string, email: string, password: string) {
     try {
@@ -50,11 +70,15 @@ export class AuthService {
   }
 
   logIn(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password)
+    signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
 
-        this.uid.set(user.uid);
+        console.log(user);
+        console.log(user.displayName);
+
+        // this.user.set(user);
+        // this.uid.set(user.uid);
 
         // return user.uid;
       })
@@ -68,8 +92,15 @@ export class AuthService {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        this.uid.set(user.uid);
+        console.log(user);
+        console.log(user.displayName);
+        // this.user.set(user);
+        // this.uid.set(user.uid);
 
+        console.log(this.user());
+        console.log(this.user()?.displayName);
+
+        // console.log("User logged in:", user.displayName);
         // return user.uid;
       })
       .catch((error) => {
@@ -81,7 +112,7 @@ export class AuthService {
     this.auth
       .signOut()
       .then(() => {
-        this.uid.set("");
+        this.userId.set("");
         this.router.navigate(["/"]);
       })
       .catch((error) => {

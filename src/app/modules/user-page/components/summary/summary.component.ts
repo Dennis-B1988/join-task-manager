@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
+import { Auth } from "@angular/fire/auth";
+import { AuthService } from "../../../../core/services/auth/auth.service";
 import { SummaryTaskFormComponent } from "./summary-task-form/summary-task-form.component";
 
 @Component({
@@ -8,5 +10,6 @@ import { SummaryTaskFormComponent } from "./summary-task-form/summary-task-form.
   styleUrl: "./summary.component.scss",
 })
 export class SummaryComponent {
-  name: string = "User Name";
+  authService = inject(AuthService);
+  userName: string = this.authService.user()?.displayName || "";
 }

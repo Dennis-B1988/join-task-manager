@@ -12,6 +12,6 @@ export class UserComponent {
 
   signOut() {
     this.authService.signOut();
-    console.log(this.authService.uid());
+    console.log(this.authService.userId());
   }
 }

@@ -17,7 +17,7 @@ export class SignUpComponent {
 
   name: string = this.user.displayName;
   email: string = this.user.email;
-  password: string = this.user.password;
+  password: string = this.user?.password || "";
   confirmPassword: string = "";
   policy: boolean = false;
 

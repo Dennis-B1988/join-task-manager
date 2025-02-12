@@ -1,18 +1,18 @@
 export class User {
   displayName: string;
   email: string;
-  password: string;
+  password?: string;
 
   constructor(obj?: any) {
-    this.displayName = obj?.name || "";
+    this.displayName = obj?.displayName || "";
     this.email = obj?.email || "";
-    this.password = obj?.password || "";
+    this.password = obj?.password || undefined;
   }
 
   public toJSON() {
     return {
-      name: this.displayName,
-      mail: this.email,
+      displayName: this.displayName,
+      email: this.email,
       password: this.password,
     };
   }
