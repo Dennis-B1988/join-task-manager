@@ -22,6 +22,7 @@
   @include flex(row, center, center);
   width: 16.5rem;
   height: 10.5rem;
+  gap: 1.875rem;
 
   div {
     @include flex(column, center, center);
@@ -29,13 +30,54 @@
 }
 
 .urgent {
+  @include flex(row, center, center);
   width: 35rem;
   height: 10.5rem;
+  gap: 3.8125rem;
 }
 
 .board-progress-feedback {
   @include flex(column, center, center);
   width: 10.5rem;
   height: 10.5rem;
-  text-wrap: wrap;
+
+  span {
+    @include padding(0, 0.9375rem, 0, 0.9375rem);
+    text-align: center;
+  }
+}
+
+.task-amount {
+  @include font(4rem, 600, 4.8rem);
+}
+
+.task-type {
+  @include font(1.25rem, 400, 1.5rem);
+}
+
+.urgent-amount-container {
+  @include flex(row, center, center);
+  gap: 1.875rem;
+}
+
+.urgent-amount-text {
+  @include flex(column, center, center);
+}
+
+.urgent-middle-line {
+  @include border(0.0625rem, solid, #d1d1d1);
+  height: 6.375rem;
+}
+
+.task-deadline-container {
+  @include flex(column, center, flex-start);
+  gap: 0.8125rem;
+}
+
+.task-deadline {
+  @include font(1rem, 400, 1.2rem);
+}
+
+.task-deadline-date {
+  @include font(1.3125rem, 700, 1.575rem);
 }
