@@ -1,7 +1,9 @@
 import {
   AfterViewInit,
   Component,
+  computed,
   ElementRef,
+  inject,
   input,
   OnInit,
   signal,
@@ -11,6 +13,7 @@ import { RouterLink } from "@angular/router";
 import { getAuth } from "firebase/auth";
 import { LogInComponent } from "./components/log-in/log-in.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
+import { LandingPageService } from "./services/landing-page.service";
 
 @Component({
   selector: "app-landing-page",
@@ -19,16 +22,12 @@ import { SignUpComponent } from "./components/sign-up/sign-up.component";
   styleUrl: "./landing-page.component.scss",
 })
 export class LandingPageComponent {
-  // user = input.required<User>();
-  // user = "Test User";
-  // userId = "1";
-  // auth = getAuth();
-  // user = this.auth.currentUser;
+  private landingPageService = inject(LandingPageService);
 
-  signUpActive = signal(false);
+  signUpActive = computed(() => this.landingPageService.signUpActive());
 
   viewSignUp() {
-    this.signUpActive.set(!this.signUpActive());
+    this.landingPageService.toggleSignUp();
   }
 
   // animateLogo: boolean = false; // Trigger logo animation

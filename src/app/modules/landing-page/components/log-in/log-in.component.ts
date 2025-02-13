@@ -1,9 +1,5 @@
-import { Component, DestroyRef, inject, signal } from "@angular/core";
-import { Auth, getAuth, onAuthStateChanged } from "@angular/fire/auth";
+import { Component, inject, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { Router } from "@angular/router";
-import { set } from "firebase/database";
-// import { User } from "../../../../core/models/user.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({

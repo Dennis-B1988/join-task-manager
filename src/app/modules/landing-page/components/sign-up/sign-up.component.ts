@@ -1,8 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CustomUser } from "../../../../core/models/user.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
-import { LandingPageComponent } from "../../landing-page.component";
+import { LandingPageService } from "../../services/landing-page.service";
 
 @Component({
   selector: "app-sign-up",
@@ -12,13 +11,11 @@ import { LandingPageComponent } from "../../landing-page.component";
 })
 export class SignUpComponent {
   private authService = inject(AuthService);
-  private signUp = inject(LandingPageComponent);
-  private user = inject(CustomUser);
-  // user = new User();
+  private landingPageService = inject(LandingPageService);
 
-  name: string = this.user.displayName;
-  email: string = this.user.email;
-  password: string = this.user?.password || "";
+  displayName: string = "";
+  email: string = "";
+  password: string = "";
   confirmPassword: string = "";
   policy: boolean = false;
 
@@ -28,7 +25,7 @@ export class SignUpComponent {
 
   onSubmit(): void {
     if (
-      !this.name ||
+      !this.displayName ||
       !this.email ||
       this.password !== this.confirmPassword ||
       !this.policy
@@ -36,14 +33,14 @@ export class SignUpComponent {
       console.log("Passwords do not match");
       return;
     }
-    this.authService.createUser(this.name, this.email, this.password);
-    this.signUp.signUpActive.set(false);
+    this.authService.createUser(this.displayName, this.email, this.password);
+    this.landingPageService.toggleSignUp();
 
     // this.clearInputs();
     // this.signUpSuccess();
   }
 
   backToLogIn() {
-    this.signUp.signUpActive.set(false);
+    this.landingPageService.toggleSignUp();
   }
 }

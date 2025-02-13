@@ -6,7 +6,12 @@
 
   <form class="form" (ngSubmit)="onSubmit()">
     <div class="input-container">
-      <input type="text" placeholder="Name" name="name" [(ngModel)]="name" />
+      <input
+        type="text"
+        placeholder="Name"
+        name="name"
+        [(ngModel)]="displayName"
+      />
       <img class="input-icon" src="assets/img/person.png" alt="" />
     </div>
     <div class="input-container">
