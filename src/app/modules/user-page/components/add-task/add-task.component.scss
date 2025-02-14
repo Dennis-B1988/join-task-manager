@@ -1,0 +1,7 @@
+@import "../../../../shared/styles/mixins";
+
+.add-task {
+  @include flex(row, center, center);
+  width: 100%;
+  height: 100%;
+}

@@ -1,5 +1,5 @@
 import { Component, computed, inject } from "@angular/core";
-import { AuthService } from "../../../core/services/auth/auth.service";
+import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-user",

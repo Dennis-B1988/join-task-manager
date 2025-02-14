@@ -5,11 +5,13 @@ export class CustomUser implements Partial<FirebaseUser> {
   email: string;
   password?: string;
   uid?: string;
+  tasks?: any[];
 
   constructor(user?: FirebaseUser) {
     this.displayName = user?.displayName ?? "";
     this.email = user?.email ?? "";
     this.uid = user?.uid ?? "";
+    this.tasks = [];
   }
 
   // constructor(obj?: any) {

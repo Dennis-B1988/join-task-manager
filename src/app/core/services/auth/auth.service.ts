@@ -9,7 +9,13 @@ import {
   updateProfile,
   User,
 } from "@angular/fire/auth";
-import { doc, Firestore, setDoc } from "@angular/fire/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  Firestore,
+  setDoc,
+} from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { CustomUser } from "../../models/user.model";
 
@@ -89,7 +95,14 @@ export class AuthService {
         email: email,
         uid: user.uid,
       });
-      console.log("User created and stored in Firestore:", user);
+      const tasksCollectionRef = collection(
+        this.firestore,
+        "users",
+        user.uid,
+        "tasks",
+      );
+      const placeholderTaskRef = doc(tasksCollectionRef, "placeholder");
+      await setDoc(placeholderTaskRef, {});
     } catch (error: any) {
       console.error("Error creating user:", error);
     }
