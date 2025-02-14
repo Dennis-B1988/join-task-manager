@@ -19,15 +19,15 @@ export class LogInComponent {
   password: string = "";
   rememberMe: boolean = false;
 
-  constructor() {
-    if (localStorage.getItem("rememberMe")) {
-      this.rememberMe = true;
-    }
-    if (this.rememberMe) {
-      this.email = this.user?.email ?? "";
-      this.password = this.user?.password ?? "";
-    }
-  }
+  // constructor() {
+  //   if (localStorage.getItem("rememberMe")) {
+  //     this.rememberMe = true;
+  //   }
+  //   if (this.rememberMe) {
+  //     this.email = this.user?.email ?? "";
+  //     this.password = this.user?.password ?? "";
+  //   }
+  // }
 
   checkRememberMe(): void {
     this.rememberMe = !this.rememberMe;

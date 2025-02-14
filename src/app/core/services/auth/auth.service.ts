@@ -1,7 +1,16 @@
-import { DestroyRef, inject, Injectable, signal } from "@angular/core";
+import {
+  DestroyRef,
+  inject,
+  Injectable,
+  OnChanges,
+  signal,
+} from "@angular/core";
 import {
   Auth,
+  browserLocalPersistence,
+  browserSessionPersistence,
   createUserWithEmailAndPassword,
+  setPersistence,
   signInAnonymously,
   signInWithEmailAndPassword,
   updateProfile,
@@ -32,21 +41,24 @@ export class AuthService {
     private auth: Auth,
     private firestore: Firestore,
   ) {
-    const savedUser = localStorage.getItem("user");
-    const rememberMe = localStorage.getItem("rememberMe");
-    if (savedUser && (this.router.url !== "/" || rememberMe)) {
-      const parsedUser = JSON.parse(savedUser);
-      this.user.set(parsedUser);
-      this.userId.set(parsedUser.uid);
-    } else {
-      this.user.set(null);
-      this.userId.set("");
-    }
+    // const savedUser = localStorage.getItem("user");
+    // const rememberMe = localStorage.getItem("rememberMe");
+    // if (savedUser && (this.router.url !== "/" || rememberMe)) {
+    //   const parsedUser = JSON.parse(savedUser);
+    //   this.user.set(parsedUser);
+    //   this.userId.set(parsedUser.uid);
+    // } else {
+    //   this.user.set(null);
+    //   this.userId.set("");
+    // }
+
+    // setPersistence(this.auth, browserLocalPersistence);
 
     const subscribe = this.auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user?.displayName != null) {
         this.setUser(user);
         this.userId.set(user.uid);
+        this.router.navigate(["/user", user.uid, "summary"]);
         console.log("User logged in:", user.displayName);
         console.log("User Mail:", user.email);
       } else {
@@ -63,7 +75,7 @@ export class AuthService {
     this.user.set(customUser);
     this.userId.set(user.uid);
 
-    localStorage.setItem("user", JSON.stringify(customUser));
+    // localStorage.setItem("user", JSON.stringify(customUser));
   }
 
   async createUser(displayName: string, email: string, password: string) {
@@ -82,22 +94,23 @@ export class AuthService {
         displayName: displayName,
         email: email,
         uid: user.uid,
+        tasks: [{}],
       });
-      const tasksCollectionRef = collection(
-        this.firestore,
-        "users",
-        user.uid,
-        "tasks",
-      );
-      const placeholderTaskRef = doc(tasksCollectionRef, "placeholder");
-      await setDoc(placeholderTaskRef, {});
+      // const tasksCollectionRef = collection(
+      //   this.firestore,
+      //   "users",
+      //   user.uid,
+      //   "tasks",
+      // );
+      // const placeholderTaskRef = doc(tasksCollectionRef, "placeholder");
+      // await setDoc(placeholderTaskRef, {});
     } catch (error: any) {
       console.error("Error creating user:", error);
     }
   }
 
   async logIn(email: string, password: string) {
-    await signInWithEmailAndPassword(this.auth, email, password)
+    signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         this.isLoading.set(true);
