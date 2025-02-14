@@ -1,9 +1,7 @@
 import { DestroyRef, inject, Injectable, signal } from "@angular/core";
 import {
   Auth,
-  browserLocalPersistence,
   createUserWithEmailAndPassword,
-  setPersistence,
   signInAnonymously,
   signInWithEmailAndPassword,
   updateProfile,
@@ -28,28 +26,27 @@ export class AuthService {
 
   user = signal<CustomUser | null>(null);
   userId = signal("");
-  // private auth: Auth = inject(Auth);
-  // private firestore: Firestore = inject(Firestore);
-  // private auth: Auth;
-  // private firestore: Firestore;
-  // user = new User();
+  isLoading = signal(false);
 
   constructor(
     private auth: Auth,
     private firestore: Firestore,
   ) {
     const savedUser = localStorage.getItem("user");
-    if (savedUser) {
+    const rememberMe = localStorage.getItem("rememberMe");
+    if (savedUser && (this.router.url !== "/" || rememberMe)) {
       const parsedUser = JSON.parse(savedUser);
       this.user.set(parsedUser);
       this.userId.set(parsedUser.uid);
+    } else {
+      this.user.set(null);
+      this.userId.set("");
     }
 
     const subscribe = this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.setUser(user);
         this.userId.set(user.uid);
-        this.router.navigate(["/user", user.uid, "summary"]);
         console.log("User logged in:", user.displayName);
         console.log("User Mail:", user.email);
       } else {
@@ -63,15 +60,6 @@ export class AuthService {
 
   private setUser(user: User) {
     const customUser = new CustomUser(user);
-    this.user.set(customUser);
-    // this.userId.set(user.uid);
-
-    // const customUser = {
-    //   displayName: user.displayName ?? "",
-    //   email: user.email ?? "",
-    //   uid: user.uid,
-    // };
-
     this.user.set(customUser);
     this.userId.set(user.uid);
 
@@ -108,39 +96,28 @@ export class AuthService {
     }
   }
 
-  logIn(email: string, password: string) {
-    signInWithEmailAndPassword(this.auth, email, password)
+  async logIn(email: string, password: string) {
+    await signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-
-        // console.log(user);
-        // console.log(user.displayName);
-
-        // this.user.set(user);
-        // this.uid.set(user.uid);
-
-        // return user.uid;
+        this.isLoading.set(true);
+        setTimeout(() => {
+          this.router.navigate(["/user", user.uid, "summary"]);
+          this.isLoading.set(false);
+        }, 500);
       })
       .catch((error) => {
         console.error("Error during login:", error);
       });
   }
 
-  guestLogIn() {
-    signInWithEmailAndPassword(this.auth, "Guest@join.com", "qwer1234")
+  async guestLogIn() {
+    await signInWithEmailAndPassword(this.auth, "Guest@join.com", "qwer1234")
       .then((userCredential) => {
         const user = userCredential.user;
-
-        // console.log(user);
-        // console.log(user.displayName);
-        // // this.user.set(user);
-        // // this.uid.set(user.uid);
-
-        // console.log(this.user());
-        // console.log(this.user()?.displayName);
-
-        // console.log("User logged in:", user.displayName);
-        // return user.uid;
+        setTimeout(() => {
+          this.router.navigate(["/user", user.uid, "summary"]);
+        }, 500);
       })
       .catch((error) => {
         console.error("Error during guest login:", error);
@@ -152,8 +129,12 @@ export class AuthService {
       .signOut()
       .then(() => {
         this.userId.set("");
-        localStorage.removeItem("user");
         this.router.navigate(["/"]);
+        if (localStorage.getItem("rememberMe")) {
+          return;
+        } else {
+          localStorage.removeItem("user");
+        }
       })
       .catch((error) => {
         console.error("Error during sign out:", error);

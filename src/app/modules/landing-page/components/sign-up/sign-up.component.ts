@@ -13,6 +13,8 @@ export class SignUpComponent {
   private authService = inject(AuthService);
   private landingPageService = inject(LandingPageService);
 
+  isLoading: boolean = false;
+
   displayName: string = "";
   email: string = "";
   password: string = "";
@@ -23,7 +25,7 @@ export class SignUpComponent {
     this.policy = !this.policy;
   }
 
-  onSubmit(): void {
+  async onSubmit() {
     if (
       !this.displayName ||
       !this.email ||
@@ -33,11 +35,20 @@ export class SignUpComponent {
       console.log("Passwords do not match");
       return;
     }
-    this.authService.createUser(this.displayName, this.email, this.password);
-    this.landingPageService.toggleSignUp();
 
-    // this.clearInputs();
-    // this.signUpSuccess();
+    this.isLoading = true;
+    try {
+      await this.authService.createUser(
+        this.displayName,
+        this.email,
+        this.password,
+      );
+    } catch (error) {
+      console.error("Error creating user:", error);
+    } finally {
+      this.isLoading = false;
+      this.landingPageService.toggleSignUp();
+    }
   }
 
   backToLogIn() {

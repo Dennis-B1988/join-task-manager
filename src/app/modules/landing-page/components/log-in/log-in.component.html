@@ -38,7 +38,9 @@
   </form>
 
   <div class="buttons">
-    <button (click)="onSubmit()">Log in</button>
-    <button class="guest-button" (click)="guestLogin()">Guest Log in</button>
+    <button (click)="onSubmit()" [disabled]="isLoading">Log in</button>
+    <button class="guest-button" (click)="guestLogin()" [disabled]="isLoading">
+      Guest Log in
+    </button>
   </div>
 </div>
