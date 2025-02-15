@@ -52,8 +52,6 @@ export class AuthService {
     //   this.userId.set("");
     // }
 
-    // setPersistence(this.auth, browserLocalPersistence);
-
     const subscribe = this.auth.onAuthStateChanged((user) => {
       if (user?.displayName != null) {
         this.setUser(user);
@@ -96,45 +94,47 @@ export class AuthService {
         uid: user.uid,
         tasks: [{}],
       });
-      // const tasksCollectionRef = collection(
-      //   this.firestore,
-      //   "users",
-      //   user.uid,
-      //   "tasks",
-      // );
-      // const placeholderTaskRef = doc(tasksCollectionRef, "placeholder");
-      // await setDoc(placeholderTaskRef, {});
     } catch (error: any) {
       console.error("Error creating user:", error);
     }
   }
 
-  async logIn(email: string, password: string) {
-    signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        this.isLoading.set(true);
-        setTimeout(() => {
-          this.router.navigate(["/user", user.uid, "summary"]);
-          this.isLoading.set(false);
-        }, 500);
-      })
-      .catch((error) => {
-        console.error("Error during login:", error);
-      });
+  async logIn(email: string, password: string): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      const userCredential = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+      setTimeout(() => {
+        this.router.navigate(["/user", user.uid, "summary"]);
+        this.isLoading.set(false);
+      }, 500);
+    } catch (error) {
+      console.error("Login error:", error);
+      this.isLoading.set(false);
+    }
   }
 
-  async guestLogIn() {
-    await signInWithEmailAndPassword(this.auth, "Guest@join.com", "qwer1234")
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setTimeout(() => {
-          this.router.navigate(["/user", user.uid, "summary"]);
-        }, 500);
-      })
-      .catch((error) => {
-        console.error("Error during guest login:", error);
-      });
+  async guestLogIn(): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      const credentials = await signInWithEmailAndPassword(
+        this.auth,
+        "guest@join.com",
+        "qwer1234",
+      );
+      const user = credentials.user;
+      setTimeout(() => {
+        this.router.navigate(["/user", user.uid, "summary"]);
+        this.isLoading.set(false);
+      }, 500);
+    } catch (error) {
+      console.error("Login error:", error);
+      this.isLoading.set(false);
+    }
   }
 
   signOut() {
