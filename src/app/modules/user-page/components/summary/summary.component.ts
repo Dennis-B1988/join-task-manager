@@ -10,5 +10,5 @@ import { SummaryTaskFormComponent } from "./summary-task-form/summary-task-form.
 })
 export class SummaryComponent {
   authService = inject(AuthService);
-  userName = computed(() => this.authService.user()?.displayName);
+  userName = computed(() => this.authService.user()?.displayName.split(" ")[0]);
 }

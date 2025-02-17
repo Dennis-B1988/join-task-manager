@@ -1,28 +1,13 @@
-import {
-  DestroyRef,
-  inject,
-  Injectable,
-  OnChanges,
-  signal,
-} from "@angular/core";
+import { DestroyRef, inject, Injectable, signal } from "@angular/core";
 import {
   Auth,
-  browserLocalPersistence,
-  browserSessionPersistence,
   createUserWithEmailAndPassword,
-  setPersistence,
   signInAnonymously,
   signInWithEmailAndPassword,
   updateProfile,
   User,
 } from "@angular/fire/auth";
-import {
-  addDoc,
-  collection,
-  doc,
-  Firestore,
-  setDoc,
-} from "@angular/fire/firestore";
+import { doc, Firestore, setDoc } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { CustomUser } from "../../models/user.model";
 
@@ -34,24 +19,15 @@ export class AuthService {
   private destroyRef = inject(DestroyRef);
 
   user = signal<CustomUser | null>(null);
-  userId = signal("");
-  isLoading = signal(false);
+  userId = signal<string>("");
+
+  wrongEmail = signal<boolean>(false);
+  wrongPassword = signal<boolean>(false);
 
   constructor(
     private auth: Auth,
     private firestore: Firestore,
   ) {
-    // const savedUser = localStorage.getItem("user");
-    // const rememberMe = localStorage.getItem("rememberMe");
-    // if (savedUser && (this.router.url !== "/" || rememberMe)) {
-    //   const parsedUser = JSON.parse(savedUser);
-    //   this.user.set(parsedUser);
-    //   this.userId.set(parsedUser.uid);
-    // } else {
-    //   this.user.set(null);
-    //   this.userId.set("");
-    // }
-
     const subscribe = this.auth.onAuthStateChanged((user) => {
       if (user?.displayName != null) {
         this.setUser(user);
@@ -72,8 +48,6 @@ export class AuthService {
     const customUser = new CustomUser(user);
     this.user.set(customUser);
     this.userId.set(user.uid);
-
-    // localStorage.setItem("user", JSON.stringify(customUser));
   }
 
   async createUser(displayName: string, email: string, password: string) {
@@ -100,8 +74,9 @@ export class AuthService {
   }
 
   async logIn(email: string, password: string): Promise<void> {
+    this.wrongEmail.set(false);
+    this.wrongPassword.set(false);
     try {
-      this.isLoading.set(true);
       const userCredential = await signInWithEmailAndPassword(
         this.auth,
         email,
@@ -110,17 +85,18 @@ export class AuthService {
       const user = userCredential.user;
       setTimeout(() => {
         this.router.navigate(["/user", user.uid, "summary"]);
-        this.isLoading.set(false);
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
-      this.isLoading.set(false);
+      if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
+      if (error.code === "auth/missing-password") this.wrongPassword.set(true);
+      if (error.code === "auth/invalid-credential")
+        this.wrongPassword.set(true);
     }
   }
 
   async guestLogIn(): Promise<void> {
     try {
-      this.isLoading.set(true);
       const credentials = await signInWithEmailAndPassword(
         this.auth,
         "guest@join.com",
@@ -129,11 +105,9 @@ export class AuthService {
       const user = credentials.user;
       setTimeout(() => {
         this.router.navigate(["/user", user.uid, "summary"]);
-        this.isLoading.set(false);
       }, 500);
     } catch (error) {
       console.error("Login error:", error);
-      this.isLoading.set(false);
     }
   }
 

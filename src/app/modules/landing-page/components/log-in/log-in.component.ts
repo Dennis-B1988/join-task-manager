@@ -1,49 +1,47 @@
-import { Component, inject, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Component, computed, inject, input } from "@angular/core";
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-log-in",
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: "./log-in.component.html",
   styleUrl: "./log-in.component.scss",
 })
 export class LogInComponent {
   private authService = inject(AuthService);
-  private user = this.authService.user();
-  userId = signal<string>("");
+
+  userId = input<string>();
   isLoading: boolean = false;
 
-  email: string = this.user?.email ?? "";
-  password: string = "";
-  rememberMe: boolean = false;
+  wrongEmail = computed(() => this.authService.wrongEmail());
+  wrongPassword = computed(() => this.authService.wrongPassword());
 
-  // constructor() {
-  //   if (localStorage.getItem("rememberMe")) {
-  //     this.rememberMe = true;
-  //   }
-  //   if (this.rememberMe) {
-  //     this.email = this.user?.email ?? "";
-  //     this.password = this.user?.password ?? "";
-  //   }
-  // }
-
-  checkRememberMe(): void {
-    this.rememberMe = !this.rememberMe;
-    if (this.rememberMe) {
-      localStorage.setItem("rememberMe", "true");
-    } else {
-      localStorage.removeItem("rememberMe");
-    }
-  }
+  loginForm = new FormGroup({
+    email: new FormControl<string>("", {
+      nonNullable: true,
+      validators: [Validators.email, Validators.required],
+    }),
+    password: new FormControl<string>("", {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(6)],
+    }),
+  });
 
   async onSubmit() {
-    if (this.email && this.password) {
+    if (this.loginForm.get("email") && this.loginForm.get("password")) {
       this.isLoading = true;
       try {
-        await this.authService.logIn(this.email, this.password);
-      } catch (error) {
+        await this.authService.logIn(
+          this.loginForm.get("email")!.value,
+          this.loginForm.get("password")!.value,
+        );
+      } catch (error: any) {
         console.error("Login failed:", error);
       } finally {
         this.isLoading = false;

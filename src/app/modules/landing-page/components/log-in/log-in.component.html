@@ -1,4 +1,4 @@
-<div class="login-form">
+<div class="login-form" [formGroup]="loginForm">
   <div class="headline">
     <h1>Log In</h1>
     <img src="assets/img/blue-line.png" alt="blue underline" />
@@ -6,7 +6,13 @@
 
   <form class="form" (ngSubmit)="onSubmit()">
     <div class="input-container">
-      <input type="text" placeholder="Email" name="email" [(ngModel)]="email" />
+      <input
+        type="text"
+        placeholder="Email"
+        name="email"
+        formControlName="email"
+        [class]="wrongEmail() ? 'input-error' : ''"
+      />
       <img class="input-icon" src="assets/img/mail.png" alt="" />
     </div>
     <div class="input-container">
@@ -14,26 +20,10 @@
         type="password"
         placeholder="Password"
         name="password"
-        [(ngModel)]="password"
+        formControlName="password"
+        [class]="wrongPassword() ? 'input-error' : ''"
       />
       <img class="input-icon" src="assets/img/lock.png" alt="" />
-    </div>
-
-    <div class="remember-me">
-      @if (rememberMe) {
-        <img
-          (click)="checkRememberMe()"
-          src="assets/img/checkmark-normal-marked.png"
-          alt=""
-        />
-      } @else {
-        <img
-          (click)="checkRememberMe()"
-          src="assets/img/checkmark-normal-empty.png"
-          alt=""
-        />
-      }
-      <span>Remember me</span>
     </div>
   </form>
 
