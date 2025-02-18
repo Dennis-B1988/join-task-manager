@@ -66,7 +66,7 @@ export class AuthService {
         displayName: displayName,
         email: email,
         uid: user.uid,
-        tasks: [{}],
+        tasks: [],
       });
     } catch (error: any) {
       console.error("Error creating user:", error);

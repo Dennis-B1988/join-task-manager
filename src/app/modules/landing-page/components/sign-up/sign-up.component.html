@@ -1,4 +1,4 @@
-<div class="sign-up-form">
+<div class="sign-up-form" [formGroup]="signupForm">
   <div class="headline">
     <h1>Sign up</h1>
     <img src="assets/img/blue-line.png" alt="blue underline" />
@@ -10,31 +10,40 @@
         type="text"
         placeholder="Name"
         name="name"
-        [(ngModel)]="displayName"
+        formControlName="displayName"
       />
-      <img class="input-icon" src="assets/img/person.png" alt="" />
+      <img class="input-icon" src="assets/img/person.png" alt="display name" />
     </div>
     <div class="input-container">
-      <input type="text" placeholder="Email" name="email" [(ngModel)]="email" />
-      <img class="input-icon" src="assets/img/mail.png" alt="" />
+      <input
+        type="text"
+        placeholder="Email"
+        name="email"
+        formControlName="email"
+      />
+      <img class="input-icon" src="assets/img/mail.png" alt="email" />
     </div>
-    <div class="input-container">
+    <div class="input-container" formGroupName="passwords">
       <input
         type="password"
         placeholder="Password"
         name="password"
-        [(ngModel)]="password"
+        formControlName="password"
       />
-      <img class="input-icon" src="assets/img/lock.png" alt="" />
+      <img class="input-icon" src="assets/img/lock.png" alt="password" />
     </div>
-    <div class="input-container">
+    <div class="input-container" formGroupName="passwords">
       <input
         type="password"
         placeholder="Confirm Password"
         name="confirmPassword"
-        [(ngModel)]="confirmPassword"
+        formControlName="confirmPassword"
       />
-      <img class="input-icon" src="assets/img/lock.png" alt="" />
+      <img
+        class="input-icon"
+        src="assets/img/lock.png"
+        alt="confirm password"
+      />
     </div>
   </form>
 
@@ -43,13 +52,13 @@
       <img
         (click)="checkPolicy()"
         src="assets/img/checkmark-normal-marked.png"
-        alt=""
+        alt="policy checked"
       />
     } @else {
       <img
         (click)="checkPolicy()"
         src="assets/img/checkmark-normal-empty.png"
-        alt=""
+        alt="policy unchecked"
       />
     }
     <span>I accept the <a>Privacy Policy</a></span>
@@ -60,6 +69,10 @@
   </div>
 
   <div class="back-to-log-in">
-    <img (click)="backToLogIn()" src="assets/img/arrow-blue.png" alt="" />
+    <img
+      (click)="backToLogIn()"
+      src="assets/img/arrow-blue.png"
+      alt="back to log in"
+    />
   </div>
 </div>

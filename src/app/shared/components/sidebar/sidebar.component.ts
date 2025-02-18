@@ -10,8 +10,8 @@ import { AuthService } from "../../../core/services/auth/auth.service";
 })
 export class SidebarComponent {
   authService = inject(AuthService);
-  // userId = this.authService.userId();
-  userId = input<string>();
+  userId = this.authService.userId();
+  // userId = input<string>();
 
   summaryPath: string = "assets/img/summary.png";
   summaryPathActive: string = "assets/img/summary-hover.png";
