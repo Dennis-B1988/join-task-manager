@@ -1,6 +1,8 @@
 import { User as FirebaseUser } from "@angular/fire/auth";
 
 export class CustomUser implements Partial<FirebaseUser> {
+  firstName: string;
+  lastName: string;
   displayName: string;
   email: string;
   password?: string;
@@ -8,7 +10,10 @@ export class CustomUser implements Partial<FirebaseUser> {
   tasks?: any[];
 
   constructor(user?: FirebaseUser) {
-    this.displayName = user?.displayName ?? "";
+    // this.firstName = user?.displayName ?? "";
+    this.firstName = "";
+    this.lastName = "";
+    this.displayName = `${this.firstName} ${this.lastName}`;
     this.email = user?.email ?? "";
     this.uid = user?.uid ?? "";
     this.tasks = [];

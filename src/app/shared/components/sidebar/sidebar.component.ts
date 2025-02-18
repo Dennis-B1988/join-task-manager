@@ -9,8 +9,8 @@ import { AuthService } from "../../../core/services/auth/auth.service";
   styleUrl: "./sidebar.component.scss",
 })
 export class SidebarComponent {
-  authService = inject(AuthService);
-  userId = this.authService.userId();
+  // authService = inject(AuthService);
+  // userId = this.authService.userId();
   // userId = input<string>();
 
   summaryPath: string = "assets/img/summary.png";

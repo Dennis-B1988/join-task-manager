@@ -19,7 +19,7 @@ export const routes: Routes = [
     component: LandingPageComponent,
   },
   {
-    path: "user/:userId",
+    path: "",
     component: UserPageComponent,
     loadChildren: () =>
       import("./modules/user-page/user-page.routes").then((m) => m.routes),

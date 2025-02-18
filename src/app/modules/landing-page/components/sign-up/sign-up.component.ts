@@ -30,10 +30,11 @@ export class SignUpComponent {
   private authService = inject(AuthService);
   private landingPageService = inject(LandingPageService);
 
+  displayName: string = "";
   isLoading: boolean = false;
 
   signupForm = new FormGroup({
-    displayName: new FormControl<string>("", {
+    displayname: new FormControl<string>("", {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -64,20 +65,25 @@ export class SignUpComponent {
 
   async onSubmit() {
     if (
-      !this.signupForm.get("displayName") ||
+      !this.signupForm.get("firstname") ||
+      !this.signupForm.get("lastname") ||
       !this.signupForm.get("email") ||
-      this.signupForm.get("passwords")!.get("password")!.value !==
-        this.signupForm.get("passwords")!.get("confirmPassword")!.value ||
       !this.policy
     ) {
-      console.log("Passwords do not match");
       return;
+    }
+
+    if (
+      this.signupForm.get("passwords")!.get("password")!.value !==
+      this.signupForm.get("passwords")!.get("confirmPassword")!.value
+    ) {
+      return console.log("Passwords do not match");
     }
 
     this.isLoading = true;
     try {
       await this.authService.createUser(
-        this.signupForm.get("displayName")!.value,
+        this.signupForm.get("displayname")!.value,
         this.signupForm.get("email")!.value,
         this.signupForm.get("passwords")!.get("password")!.value,
       );

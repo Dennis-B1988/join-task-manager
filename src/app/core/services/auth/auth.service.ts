@@ -31,8 +31,7 @@ export class AuthService {
     const subscribe = this.auth.onAuthStateChanged((user) => {
       if (user?.displayName != null) {
         this.setUser(user);
-        this.userId.set(user.uid);
-        this.router.navigate(["/user", user.uid, "summary"]);
+        this.router.navigate(["/summary"]);
         console.log("User logged in:", user.displayName);
         console.log("User Mail:", user.email);
       } else {
@@ -65,7 +64,7 @@ export class AuthService {
       await setDoc(userDocRef, {
         displayName: displayName,
         email: email,
-        uid: user.uid,
+        // uid: user.uid,
         tasks: [],
       });
     } catch (error: any) {
@@ -83,9 +82,9 @@ export class AuthService {
         password,
       );
       const user = userCredential.user;
-      setTimeout(() => {
-        this.router.navigate(["/user", user.uid, "summary"]);
-      }, 500);
+      // setTimeout(() => {
+      //   this.router.navigate(["/summary"]);
+      // }, 500);
     } catch (error: any) {
       console.error("Login error:", error);
       if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
@@ -103,9 +102,9 @@ export class AuthService {
         "qwer1234",
       );
       const user = credentials.user;
-      setTimeout(() => {
-        this.router.navigate(["/user", user.uid, "summary"]);
-      }, 500);
+      // setTimeout(() => {
+      //   this.router.navigate(["/user", user.uid, "summary"]);
+      // }, 500);
     } catch (error) {
       console.error("Login error:", error);
     }
@@ -115,13 +114,8 @@ export class AuthService {
     this.auth
       .signOut()
       .then(() => {
-        this.userId.set("");
+        // this.userId.set("");
         this.router.navigate(["/"]);
-        if (localStorage.getItem("rememberMe")) {
-          return;
-        } else {
-          localStorage.removeItem("user");
-        }
       })
       .catch((error) => {
         console.error("Error during sign out:", error);
