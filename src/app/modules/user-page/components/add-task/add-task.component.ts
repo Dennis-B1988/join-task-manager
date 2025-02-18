@@ -1,4 +1,4 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, computed, effect, inject, signal } from "@angular/core";
 import {
   arrayUnion,
   doc,
@@ -17,13 +17,19 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 })
 export class AddTaskComponent {
   authService = inject(AuthService);
+  firestore = inject(Firestore);
   tasks = signal<any>([]);
 
-  constructor(private firestore: Firestore) {
-    this.loadTasks();
-    onSnapshot(doc(this.firestore, "users", this.authService.userId()), () =>
-      this.loadTasks(),
-    );
+  userId = computed(() => this.authService.userId());
+
+  constructor() {
+    effect(() => {
+      const id = this.userId();
+      if (id) {
+        this.loadTasks();
+        onSnapshot(doc(this.firestore, "users", id), () => this.loadTasks());
+      }
+    });
   }
 
   async loadTasks() {

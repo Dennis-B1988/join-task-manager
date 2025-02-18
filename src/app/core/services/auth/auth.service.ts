@@ -28,13 +28,18 @@ export class AuthService {
     private auth: Auth,
     private firestore: Firestore,
   ) {
-    const subscribe = this.auth.onAuthStateChanged((user) => {
-      if (user?.displayName != null) {
-        this.setUser(user);
-        this.router.navigate(["/summary"]);
+    const subscribe = this.auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        await this.setUser(user);
+
+        if (this.router.url === "/") {
+          this.router.navigate(["/summary"]);
+        }
+
         console.log("User logged in:", user.displayName);
         console.log("User Mail:", user.email);
       } else {
+        console.log("User logged out");
         this.user.set(null);
         this.userId.set("");
       }
@@ -43,10 +48,12 @@ export class AuthService {
     });
   }
 
-  private setUser(user: User) {
+  private async setUser(user: User) {
+    await user.reload();
     const customUser = new CustomUser(user);
     this.user.set(customUser);
     this.userId.set(user.uid);
+    console.log("User set:", this.user());
   }
 
   async createUser(displayName: string, email: string, password: string) {
@@ -102,8 +109,9 @@ export class AuthService {
         "qwer1234",
       );
       const user = credentials.user;
+      // await this.setUser(user);
       // setTimeout(() => {
-      //   this.router.navigate(["/user", user.uid, "summary"]);
+      //   this.router.navigate(["/summary"]);
       // }, 500);
     } catch (error) {
       console.error("Login error:", error);
@@ -111,10 +119,12 @@ export class AuthService {
   }
 
   signOut() {
+    this.user.set(null);
+    this.userId.set("");
+
     this.auth
       .signOut()
       .then(() => {
-        // this.userId.set("");
         this.router.navigate(["/"]);
       })
       .catch((error) => {

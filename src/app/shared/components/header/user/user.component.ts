@@ -11,7 +11,10 @@ export class UserComponent {
   authService = inject(AuthService);
 
   userName = computed(() => {
-    const displayName = this.authService.user()?.displayName ?? "Guest";
+    const user = this.authService.user();
+    if (!user) return "G";
+
+    const displayName = user.displayName ?? "Guest";
     return displayName === "Guest"
       ? "G"
       : displayName?.includes(" ")
@@ -20,8 +23,16 @@ export class UserComponent {
             .map((name) => name[0])
             .join("")
             .toUpperCase()
-        : displayName?.slice(0, 1);
+        : displayName?.charAt(0).toUpperCase();
   });
+
+  constructor() {
+    console.log("Initial User:", this.authService.user());
+
+    setTimeout(() => {
+      console.log("Updated User:", this.authService.user());
+    }, 5000);
+  }
 
   signOut() {
     this.authService.signOut();
