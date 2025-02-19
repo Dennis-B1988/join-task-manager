@@ -13,7 +13,7 @@ import { RouterLink } from "@angular/router";
 import { getAuth } from "firebase/auth";
 import { LogInComponent } from "./components/log-in/log-in.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
-import { LandingPageService } from "./services/landing-page.service";
+import { LandingPageService } from "./services/landing-page/landing-page.service";
 
 @Component({
   selector: "app-landing-page",

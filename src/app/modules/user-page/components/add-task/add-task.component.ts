@@ -1,18 +1,10 @@
-import { Component, computed, effect, inject, signal } from "@angular/core";
-import {
-  arrayUnion,
-  doc,
-  Firestore,
-  getDoc,
-  onSnapshot,
-  updateDoc,
-} from "@angular/fire/firestore";
-import { AuthService } from "../../../../core/services/auth/auth.service";
+import { Component, inject } from "@angular/core";
 import { TasksService } from "../../services/tasks.service";
+import { TaskFormComponent } from "./task-form/task-form.component";
 
 @Component({
   selector: "app-add-task",
-  imports: [],
+  imports: [TaskFormComponent],
   templateUrl: "./add-task.component.html",
   styleUrl: "./add-task.component.scss",
 })

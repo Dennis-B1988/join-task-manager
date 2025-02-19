@@ -1,0 +1,39 @@
+@import "../../../../../shared/styles/mixins";
+
+.task-form-container {
+  @include flex(row, space-between, center);
+  width: 100%;
+  height: 100%;
+}
+
+.task-form-left-side {
+  width: 40%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.task-form-right-side {
+  width: 40%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.task-form-middle-line {
+  @include border(0.0625rem, solid, #d1d1d1);
+  height: 100%;
+}
+
+.task-div {
+  @include flex(column, center, flex-start);
+  width: 100%;
+  height: 100%;
+  gap: 0.5rem;
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+  }
+}

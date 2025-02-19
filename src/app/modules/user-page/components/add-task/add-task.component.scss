@@ -1,7 +1,40 @@
 @import "../../../../shared/styles/mixins";
 
-.add-task {
-  @include flex(row, center, center);
+.task-main {
+  @include flex(column, center, center);
   width: 100%;
   height: 100%;
+}
+
+.task-container {
+  width: 80%;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.75fr 2.5fr 0.75fr;
+}
+
+.headline {
+  @include flex(row, flex-start, center);
+  width: 100%;
+  height: 100%;
+  background-color: aqua;
+
+  h1 {
+    @include font(3.8125rem, 700, 4.575rem);
+  }
+}
+
+.task-content {
+  background-color: blue;
+}
+
+.create-task {
+  @include flex(row, space-between, center);
+  background-color: red;
+}
+
+.buttons {
+  @include flex(row, space-between, center);
+  gap: 1rem;
 }

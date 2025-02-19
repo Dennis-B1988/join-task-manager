@@ -1,3 +1,19 @@
-<div class="add-task">
-  <button (click)="addTask()">Add Task</button>
+<div class="task-main">
+  <div class="task-container">
+    <div class="headline">
+      <h1>Add Task</h1>
+    </div>
+    <div class="task-content">
+      <app-task-form></app-task-form>
+    </div>
+    <div class="create-task">
+      <div class="required">
+        <span class="red">*</span><span>This field is required</span>
+      </div>
+      <div class="buttons">
+        <button class="clear">Cancel</button>
+        <button appButton (click)="addTask()">Create Task</button>
+      </div>
+    </div>
+  </div>
 </div>

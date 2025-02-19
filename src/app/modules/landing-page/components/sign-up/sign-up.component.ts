@@ -7,7 +7,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { AuthService } from "../../../../core/services/auth/auth.service";
-import { LandingPageService } from "../../services/landing-page.service";
+import { LandingPageService } from "../../services/landing-page/landing-page.service";
 
 function passwordMatchValidator(
   controlPassword: string,
