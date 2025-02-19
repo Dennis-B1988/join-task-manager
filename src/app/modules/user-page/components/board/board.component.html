@@ -1,13 +1,36 @@
 <div class="tasks-container">
-  @for (task of tasks(); track task.id) {
-    <ul (click)="deleteTask(task.id)">
-      <li>
-        <span>{{ task.id }}</span>
-        <span>{{ task.title }}</span>
-        <span>{{ task.description }}</span>
-        <span>{{ task.priority }}</span>
-        <span>{{ task.status }}</span>
-      </li>
-    </ul>
-  }
+  <div class="urgent">
+    @for (task of tasks(); track task.id) {
+      @if (task.priority == "Urgent") {
+        <div class="show-task">
+          <ul (click)="deleteTask(task.id)">
+            <li>
+              <span>{{ task.id }}</span>
+              <span>{{ task.title }}</span>
+              <span>{{ task.description }}</span>
+              <span>{{ task.priority }}</span>
+              <span>{{ task.status }}</span>
+            </li>
+          </ul>
+        </div>
+      }
+    }
+  </div>
+  <div class="low">
+    @for (task of tasks(); track task.id) {
+      @if (task.priority == "Low") {
+        <div class="show-task">
+          <ul (click)="deleteTask(task.id)">
+            <li>
+              <span>{{ task.id }}</span>
+              <span>{{ task.title }}</span>
+              <span>{{ task.description }}</span>
+              <span>{{ task.priority }}</span>
+              <span>{{ task.status }}</span>
+            </li>
+          </ul>
+        </div>
+      }
+    }
+  </div>
 </div>

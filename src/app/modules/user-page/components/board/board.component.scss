@@ -1,0 +1,23 @@
+@import "../../../../shared/styles/mixins";
+
+.tasks-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.show-task {
+  @include flex(column, center, center);
+  width: 10px;
+  height: 150px;
+}
+
+.urgent {
+  @include flex(column, center, center);
+}
+
+.low {
+  @include flex(column, center, center);
+}

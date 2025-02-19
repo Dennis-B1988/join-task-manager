@@ -60,7 +60,7 @@ export class TasksService {
       id: new Date().getTime(),
       title: "New Task",
       description: "Description",
-      priority: "Low",
+      priority: "Urgent",
       status: "To Do",
     };
 
