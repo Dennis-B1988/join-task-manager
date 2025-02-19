@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
+import { TasksService } from "../../services/tasks.service";
 
 @Component({
   selector: "app-board",
@@ -7,7 +8,13 @@ import { Component } from "@angular/core";
   styleUrl: "./board.component.scss",
 })
 export class BoardComponent {
-  constructor() {}
+  tasksService = inject(TasksService);
+
+  tasks = computed(() => this.tasksService.tasks());
+
+  deleteTask(id: number) {
+    this.tasksService.deleteTask(id);
+  }
 
   // Filter for later use
   // tasksQuery = query(
