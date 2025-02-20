@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, ViewChild } from "@angular/core";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks.service";
 import { TaskFormComponent } from "./task-form/task-form.component";
@@ -12,7 +12,11 @@ import { TaskFormComponent } from "./task-form/task-form.component";
 export class AddTaskComponent {
   tasksService = inject(TasksService);
 
+  @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent;
+
   addTask() {
-    this.tasksService.addTask();
+    if (this.taskFormComponent) {
+      this.taskFormComponent.onSubmit();
+    }
   }
 }

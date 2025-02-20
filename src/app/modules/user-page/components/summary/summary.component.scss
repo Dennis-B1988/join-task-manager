@@ -12,6 +12,11 @@
 }
 
 .summary-container {
+  @include flex(row, space-between, center);
+  width: 80%;
+}
+
+.summary-content {
   @include flex(column, center, flex-start);
   gap: 50px;
 }

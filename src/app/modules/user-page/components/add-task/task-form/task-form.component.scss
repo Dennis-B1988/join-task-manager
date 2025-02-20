@@ -1,6 +1,6 @@
 @import "../../../../../shared/styles/mixins";
 
-.task-form-container {
+.task-form {
   @include flex(row, space-between, center);
   @include font(1.25rem, 400, 1.5rem);
   width: 100%;

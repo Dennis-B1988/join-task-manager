@@ -4,7 +4,7 @@
       <h1>Add Task</h1>
     </section>
     <section class="task-content">
-      <app-task-form></app-task-form>
+      <app-task-form (submit)="addTask()"></app-task-form>
     </section>
     <section class="task-buttons">
       <div class="create-task">

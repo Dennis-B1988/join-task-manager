@@ -16,6 +16,7 @@ import {
   updateDoc,
 } from "@angular/fire/firestore";
 import { onSnapshot } from "firebase/firestore";
+import { Task } from "../../../core/models/task.model";
 import { AuthService } from "../../../core/services/auth/auth.service";
 
 @Injectable({
@@ -27,9 +28,9 @@ export class TasksService {
   injector = inject(EnvironmentInjector);
   tasks = signal<any[]>([]);
 
-  taskPriority: string = "";
-
   userId = computed(() => this.authService.userId());
+
+  taskPriority: string = "";
 
   constructor() {
     effect(() => {
@@ -52,19 +53,13 @@ export class TasksService {
     });
   }
 
-  async addTask() {
+  async addTask(task: Task) {
     const userId = this.authService.userId();
     if (!userId) return;
 
     const docRef = doc(this.firestore, "users", this.authService.userId());
 
-    const newTask = {
-      id: new Date().getTime(),
-      title: "New Task",
-      description: "Description",
-      priority: "Urgent",
-      status: "To Do",
-    };
+    const newTask = { ...task, id: new Date().getTime() };
 
     await updateDoc(docRef, { tasks: arrayUnion(newTask) });
   }

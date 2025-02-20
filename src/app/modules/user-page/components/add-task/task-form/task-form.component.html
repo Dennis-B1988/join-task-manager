@@ -1,8 +1,18 @@
-<div class="task-form-container">
+<form
+  class="task-form"
+  name="taskForm"
+  (onSubmit)="onSubmit()"
+  [formGroup]="taskForm"
+>
   <div class="task-form-left-side">
     <div class="title task-div">
       <span>Title<span class="red">*</span></span>
-      <input type="text" name="title" placeholder="Enter a title" />
+      <input
+        type="text"
+        name="title"
+        placeholder="Enter a title"
+        formControlName="title"
+      />
     </div>
     <div class="description task-div">
       <span>Description</span>
@@ -10,6 +20,7 @@
         type="text"
         name="description"
         placeholder="Enter a description"
+        formControlName="description"
       ></textarea>
     </div>
     <div class="assigned-to task-div">
@@ -23,7 +34,12 @@
   <div class="task-form-right-side">
     <div class="due-date task-div">
       <span>Due date<span class="red">*</span></span>
-      <input type="text" name="dueDate" placeholder="dd/mm/yyyy" />
+      <input
+        type="text"
+        name="dueDate"
+        placeholder="dd/mm/yyyy"
+        formControlName="dueDate"
+      />
     </div>
     <div class="priority task-div">
       <span>Prio</span>
@@ -60,8 +76,9 @@
     </div>
     <div class="category task-div">
       <span>Category<span class="red">*</span></span>
-      <select name="category" id="category">
+      <select name="category" id="category" formControlName="category">
         <option value="">Select task category</option>
+        <option value="Work">Work</option>
       </select>
     </div>
     <div class="subtasks task-div">
@@ -69,4 +86,4 @@
       <input type="text" name="subtasks" placeholder="Add new subtasks" />
     </div>
   </div>
-</div>
+</form>
