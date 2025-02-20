@@ -1,19 +1,31 @@
-<div class="task-main">
+<main class="task-main">
   <div class="task-container">
-    <div class="headline">
+    <section class="task-headline">
       <h1>Add Task</h1>
-    </div>
-    <div class="task-content">
+    </section>
+    <section class="task-content">
       <app-task-form></app-task-form>
-    </div>
-    <div class="create-task">
-      <div class="required">
-        <span class="red">*</span><span>This field is required</span>
+    </section>
+    <section class="task-buttons">
+      <div class="create-task">
+        <span class="required-text"
+          ><span class="red">*</span>This field is required</span
+        >
+        <div class="buttons">
+          <button appButton class="clear">
+            Cancel
+            <span ngProjectAs="[icon]"
+              ><img src="assets/img/iconoir_cancel.png" alt=""
+            /></span>
+          </button>
+          <button appButton (click)="addTask()">
+            Create Task
+            <span ngProjectAs="[icon]"
+              ><img src="assets/img/check.png" alt="checkmark"
+            /></span>
+          </button>
+        </div>
       </div>
-      <div class="buttons">
-        <button class="clear">Cancel</button>
-        <button appButton (click)="addTask()">Create Task</button>
-      </div>
-    </div>
+    </section>
   </div>
-</div>
+</main>

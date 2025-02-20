@@ -1,11 +1,18 @@
-// :host {
-//   height: 3rem;
-//   border-radius: 0.5rem;
-//   background-color: #2a3647;
-//   color: #fff;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 0.625rem;
-//   cursor: pointer;
-// }
+@import "../../../shared/styles/mixins";
+
+:host {
+  @include flex(row, center, center);
+  @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
+  @include border(0.0625rem, solid, #2a3647);
+  @include font(1.3125rem, 700, 1.575rem);
+  border-radius: 0.625rem;
+  background-color: #2a3647;
+  color: #fff;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}

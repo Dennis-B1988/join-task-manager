@@ -14,27 +14,49 @@
   grid-template-rows: 0.75fr 2.5fr 0.75fr;
 }
 
-.headline {
+.task-headline {
   @include flex(row, flex-start, center);
   width: 100%;
   height: 100%;
-  background-color: aqua;
 
   h1 {
     @include font(3.8125rem, 700, 4.575rem);
   }
 }
 
-.task-content {
-  background-color: blue;
+.task-buttons {
+  @include flex(row, none, flex-end);
+  width: 100%;
+  height: 100%;
 }
 
 .create-task {
-  @include flex(row, space-between, center);
-  background-color: red;
+  @include flex(row, space-between, flex-end);
+  width: 100%;
+}
+
+.required-text {
+  @include flex(row, none, none);
 }
 
 .buttons {
   @include flex(row, space-between, center);
   gap: 1rem;
+}
+
+.clear {
+  @include font(1.25rem, 400, 1.5rem);
+  background-color: #fff;
+  color: #2a3647;
+
+  span {
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+.red {
+  color: red;
 }

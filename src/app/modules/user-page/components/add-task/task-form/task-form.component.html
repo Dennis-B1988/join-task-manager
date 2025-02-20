@@ -1,12 +1,16 @@
 <div class="task-form-container">
-  <div class="task-form-left-side task-form-grid">
+  <div class="task-form-left-side">
     <div class="title task-div">
-      <span>Title</span>
-      <input type="text" />
+      <span>Title<span class="red">*</span></span>
+      <input type="text" name="title" placeholder="Enter a title" />
     </div>
     <div class="description task-div">
       <span>Description</span>
-      <textarea type="text"></textarea>
+      <textarea
+        type="text"
+        name="description"
+        placeholder="Enter a description"
+      ></textarea>
     </div>
     <div class="assigned-to task-div">
       <span>Assigned to</span>
@@ -16,26 +20,53 @@
     </div>
   </div>
   <div class="task-form-middle-line"></div>
-  <div class="task-form-right-side task-form-grid">
+  <div class="task-form-right-side">
     <div class="due-date task-div">
       <span>Due date<span class="red">*</span></span>
-      <input type="date" />
+      <input type="text" name="dueDate" placeholder="dd/mm/yyyy" />
     </div>
     <div class="priority task-div">
       <span>Prio</span>
       <div class="priority-select">
-        <span>Urgent <img src="" alt="" /></span>
-        <span>Medium <img src="" alt="" /></span>
-        <span>Low <img src="" alt="" /></span>
+        <span [class]="urgent ? 'urgent' : ''" (click)="setPriority('Urgent')"
+          >Urgent
+          <img
+            [src]="
+              urgent
+                ? 'assets/img/prio-urgent-active.png'
+                : 'assets/img/prio-urgent.png'
+            "
+            alt=""
+        /></span>
+        <span [class]="medium ? 'medium' : ''" (click)="setPriority('Medium')"
+          >Medium
+          <img
+            [src]="
+              medium
+                ? 'assets/img/prio-medium-active.png'
+                : 'assets/img/prio-medium.png'
+            "
+            alt=""
+        /></span>
+        <span [class]="low ? 'low' : ''" (click)="setPriority('Low')"
+          >Low
+          <img
+            [src]="
+              low ? 'assets/img/prio-low-active.png' : 'assets/img/prio-low.png'
+            "
+            alt=""
+        /></span>
       </div>
     </div>
     <div class="category task-div">
       <span>Category<span class="red">*</span></span>
-      <select name="category" id="category"></select>
+      <select name="category" id="category">
+        <option value="">Select task category</option>
+      </select>
     </div>
     <div class="subtasks task-div">
       <span>Subtasks</span>
-      <input type="text" />
+      <input type="text" name="subtasks" placeholder="Add new subtasks" />
     </div>
   </div>
 </div>

@@ -27,6 +27,8 @@ export class TasksService {
   injector = inject(EnvironmentInjector);
   tasks = signal<any[]>([]);
 
+  taskPriority: string = "";
+
   userId = computed(() => this.authService.userId());
 
   constructor() {
