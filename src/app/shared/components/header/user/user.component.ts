@@ -1,5 +1,6 @@
 import { Component, computed, inject } from "@angular/core";
 import { AuthService } from "../../../../core/services/auth/auth.service";
+import { UserService } from "../../../../core/services/user/user.service";
 
 @Component({
   selector: "app-user",
@@ -9,6 +10,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 })
 export class UserComponent {
   authService = inject(AuthService);
+  userService = inject(UserService);
 
   userName = computed(() => {
     const user = this.authService.user();
@@ -36,6 +38,7 @@ export class UserComponent {
 
   signOut() {
     this.authService.signOut();
+    this.userService.deleteGuestDocument();
     console.log(this.authService.userId());
   }
 }
