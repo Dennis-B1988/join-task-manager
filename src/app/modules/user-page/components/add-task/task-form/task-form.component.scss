@@ -59,6 +59,10 @@
       color: #d1d1d1;
     }
   }
+
+  input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
 }
 
 .priority-select {
@@ -110,6 +114,14 @@
     top: 50%;
     right: 1.25rem;
     transform: translateY(-50%);
+  }
+}
+
+.pointer {
+  cursor: pointer;
+
+  select {
+    cursor: pointer;
   }
 }
 
