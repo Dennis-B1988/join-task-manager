@@ -95,6 +95,24 @@
   }
 }
 
+.input-container {
+  width: 100%;
+  position: relative;
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    transform: translateY(-50%);
+  }
+}
+
 .red {
   color: red;
 }

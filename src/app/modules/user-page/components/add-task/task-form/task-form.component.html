@@ -25,9 +25,12 @@
     </div>
     <div class="assigned-to task-div">
       <span>Assigned to</span>
-      <select name="assignedTo" id="assignedTo" class="assigned-to task-div">
-        <option value="">Select contacts to assign</option>
-      </select>
+      <div class="input-container">
+        <select name="assignedTo" id="assignedTo" class="assigned-to task-div">
+          <option value="">Select contacts to assign</option>
+        </select>
+        <img src="assets/img/arrow_dropdown_down.png" alt="Assign users" />
+      </div>
     </div>
   </div>
   <div class="task-form-middle-line"></div>
@@ -35,7 +38,7 @@
     <div class="due-date task-div">
       <span>Due date<span class="red">*</span></span>
       <input
-        type="text"
+        type="date"
         name="dueDate"
         placeholder="dd/mm/yyyy"
         formControlName="dueDate"
@@ -76,14 +79,20 @@
     </div>
     <div class="category task-div">
       <span>Category<span class="red">*</span></span>
-      <select name="category" id="category" formControlName="category">
-        <option value="">Select task category</option>
-        <option value="Work">Work</option>
-      </select>
+      <div class="input-container">
+        <select name="category" id="category" formControlName="category">
+          <option value="">Select task category</option>
+          <option value="Work">Work</option>
+        </select>
+        <img src="assets/img/arrow_dropdown_down.png" alt="Choose category" />
+      </div>
     </div>
     <div class="subtasks task-div">
       <span>Subtasks</span>
-      <input type="text" name="subtasks" placeholder="Add new subtasks" />
+      <div class="input-container">
+        <input type="text" name="subtasks" placeholder="Add new subtasks" />
+        <img src="assets/img/subtasks_add.png" alt="Add subtask" />
+      </div>
     </div>
   </div>
 </form>
