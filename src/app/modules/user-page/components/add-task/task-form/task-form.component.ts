@@ -21,6 +21,10 @@ export class TaskFormComponent {
   medium: boolean = true;
   low: boolean = false;
 
+  assignedToOpen: boolean = false;
+  categoryOpen: boolean = false;
+  today = new Date().toISOString().split("T")[0];
+
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
       validators: [Validators.required],
@@ -75,5 +79,29 @@ export class TaskFormComponent {
     this.tasksService.addTask(newTask);
     console.log(newTask);
     this.taskForm.reset();
+  }
+
+  get assignedToDropdown() {
+    if (!this.assignedToOpen) {
+      return "assets/img/arrow_dropdown_down.png";
+    } else {
+      return "assets/img/arrow_dropdown_up.png";
+    }
+  }
+
+  get categoryDropdown() {
+    if (!this.categoryOpen) {
+      return "assets/img/arrow_dropdown_down.png";
+    } else {
+      return "assets/img/arrow_dropdown_up.png";
+    }
+  }
+
+  toggleAssignedToDropdown() {
+    this.assignedToOpen = !this.assignedToOpen;
+  }
+
+  toggleCategoryDropdown() {
+    this.categoryOpen = !this.categoryOpen;
   }
 }

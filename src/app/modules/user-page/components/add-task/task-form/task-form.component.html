@@ -26,10 +26,15 @@
     <div class="assigned-to task-div">
       <span>Assigned to</span>
       <div class="input-container pointer">
-        <select name="assignedTo" id="assignedTo" class="assigned-to task-div">
+        <select
+          name="assignedTo"
+          id="assignedTo"
+          class="assigned-to task-div"
+          (click)="toggleAssignedToDropdown()"
+        >
           <option value="">Select contacts to assign</option>
         </select>
-        <img src="assets/img/arrow_dropdown_down.png" alt="Assign users" />
+        <img [src]="assignedToDropdown" alt="Assign users" />
       </div>
     </div>
   </div>
@@ -41,6 +46,7 @@
         type="date"
         name="dueDate"
         placeholder="dd/mm/yyyy"
+        [min]="today"
         formControlName="dueDate"
       />
     </div>
@@ -80,11 +86,16 @@
     <div class="category task-div">
       <span>Category<span class="red">*</span></span>
       <div class="input-container pointer">
-        <select name="category" id="category" formControlName="category">
+        <select
+          name="category"
+          id="category"
+          formControlName="category"
+          (click)="toggleCategoryDropdown()"
+        >
           <option value="">Select task category</option>
           <option value="Work">Work</option>
         </select>
-        <img src="assets/img/arrow_dropdown_down.png" alt="Choose category" />
+        <img [src]="categoryDropdown" alt="Choose category" />
       </div>
     </div>
     <div class="subtasks task-div">
