@@ -44,6 +44,7 @@
       <span>Due date<span class="red">*</span></span>
       <input
         type="date"
+        type="date"
         name="dueDate"
         placeholder="dd/mm/yyyy"
         [min]="today"
@@ -100,6 +101,10 @@
     </div>
     <div class="subtasks task-div">
       <span>Subtasks</span>
+      <div class="input-container">
+        <input type="text" name="subtasks" placeholder="Add new subtasks" />
+        <img src="assets/img/subtasks_add.png" alt="Add subtask" />
+      </div>
       <div class="input-container">
         <input type="text" name="subtasks" placeholder="Add new subtasks" />
         <img src="assets/img/subtasks_add.png" alt="Add subtask" />
