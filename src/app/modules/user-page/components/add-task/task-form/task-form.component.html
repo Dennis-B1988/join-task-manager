@@ -12,7 +12,21 @@
         name="title"
         placeholder="Enter a title"
         formControlName="title"
+        [style]="
+          taskForm.controls.title.invalid && taskForm.controls.title.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
       />
+      <p
+        [class]="
+          taskForm.controls.title.invalid && taskForm.controls.title.touched
+            ? 'visible'
+            : 'hidden'
+        "
+      >
+        Please enter a title
+      </p>
     </div>
     <div class="description task-div">
       <span>Description</span>
@@ -20,7 +34,6 @@
         type="text"
         name="description"
         placeholder="Enter a description"
-        formControlName="description"
       ></textarea>
     </div>
     <div class="assigned-to task-div">
@@ -48,39 +61,42 @@
         placeholder="dd/mm/yyyy"
         [min]="today"
         formControlName="dueDate"
+        [style]="
+          taskForm.controls.dueDate.invalid && taskForm.controls.dueDate.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
       />
+      <p
+        [class]="
+          taskForm.controls.dueDate.invalid && taskForm.controls.dueDate.touched
+            ? 'visible'
+            : 'hidden'
+        "
+      >
+        Please enter a date
+      </p>
     </div>
     <div class="priority task-div">
       <span>Prio</span>
       <div class="priority-select">
-        <span [class]="urgent ? 'urgent' : ''" (click)="setPriority('Urgent')"
-          >Urgent
-          <img
-            [src]="
-              urgent
-                ? 'assets/img/prio-urgent-active.png'
-                : 'assets/img/prio-urgent.png'
-            "
-            alt=""
-        /></span>
-        <span [class]="medium ? 'medium' : ''" (click)="setPriority('Medium')"
-          >Medium
-          <img
-            [src]="
-              medium
-                ? 'assets/img/prio-medium-active.png'
-                : 'assets/img/prio-medium.png'
-            "
-            alt=""
-        /></span>
-        <span [class]="low ? 'low' : ''" (click)="setPriority('Low')"
-          >Low
-          <img
-            [src]="
-              low ? 'assets/img/prio-low-active.png' : 'assets/img/prio-low.png'
-            "
-            alt=""
-        /></span>
+        @for (prio of ["Urgent", "Medium", "Low"]; track prio) {
+          <span
+            [class]="priority === prio ? prio.toLowerCase() : ''"
+            (click)="setPriority(prio)"
+          >
+            {{ prio }}
+            <img
+              [src]="
+                'assets/img/prio-' +
+                prio.toLowerCase() +
+                (priority === prio ? '-active' : '') +
+                '.png'
+              "
+              [alt]="prio + ' priority'"
+            />
+          </span>
+        }
       </div>
     </div>
     <div class="category task-div">
@@ -91,12 +107,28 @@
           id="category"
           formControlName="category"
           (click)="toggleCategoryDropdown()"
+          [style]="
+            taskForm.controls.category.invalid &&
+            taskForm.controls.category.touched
+              ? 'border-color: #ff8190'
+              : ''
+          "
         >
           <option value="">Select task category</option>
           <option value="Work">Work</option>
         </select>
         <img [src]="categoryDropdown" alt="Choose category" />
       </div>
+      <p
+        [class]="
+          taskForm.controls.category.invalid &&
+          taskForm.controls.category.touched
+            ? 'visible'
+            : 'hidden'
+        "
+      >
+        Please select a category
+      </p>
     </div>
     <div class="subtasks task-div">
       <span>Subtasks</span>

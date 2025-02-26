@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -17,9 +17,7 @@ import { TasksService } from "../../../services/tasks.service";
 export class TaskFormComponent {
   private tasksService = inject(TasksService);
 
-  urgent: boolean = false;
-  medium: boolean = true;
-  low: boolean = false;
+  priority: string = "Medium";
 
   assignedToOpen: boolean = false;
   categoryOpen: boolean = false;
@@ -29,9 +27,7 @@ export class TaskFormComponent {
     title: new FormControl<string>("", {
       validators: [Validators.required],
     }),
-    description: new FormControl<string>("", {
-      validators: [],
-    }),
+    description: new FormControl<string>("", {}),
     dueDate: new FormControl<string>("", {
       validators: [Validators.required],
     }),
@@ -41,44 +37,53 @@ export class TaskFormComponent {
   });
 
   setPriority(prio: string) {
-    if (prio === "Urgent") {
-      this.urgent = true;
-      this.medium = false;
-      this.low = false;
-      this.tasksService.taskPriority = "Urgent";
-    }
-    if (prio === "Medium") {
-      this.urgent = false;
-      this.medium = true;
-      this.low = false;
-      this.tasksService.taskPriority = "Medium";
-    }
-    if (prio === "Low") {
-      this.urgent = false;
-      this.medium = false;
-      this.low = true;
-      this.tasksService.taskPriority = "Low";
-    }
-    console.log(this.urgent, this.medium, this.low);
+    this.priority = prio;
+    this.tasksService.taskPriority = prio;
+    // if (prio === "Urgent") {
+    //   this.urgent = true;
+    //   this.medium = this.low = false;
+    //   this.tasksService.taskPriority = "Urgent";
+    // }
+    // if (prio === "Medium") {
+    //   this.medium = true;
+    //   this.urgent = this.low = false;
+    //   this.tasksService.taskPriority = "Medium";
+    // }
+    // if (prio === "Low") {
+    //   this.low = true;
+    //   this.urgent = this.medium = false;
+    //   this.tasksService.taskPriority = "Low";
+    // }
+    // console.log(this.urgent, this.medium, this.low);
     console.log(this.tasksService.taskPriority);
   }
 
   onSubmit() {
-    if (!this.taskForm.valid) return;
+    if (!this.taskForm.valid) {
+      this.taskForm.markAllAsTouched();
+      return;
+    }
 
+    const formValue = this.taskForm.value;
     const newTask: Task = {
       id: new Date().getTime(),
-      title: this.taskForm.get("title")?.value!,
-      description: this.taskForm.get("description")?.value!,
-      dueDate: this.taskForm.get("dueDate")?.value!,
+      title: formValue.title || "",
+      description: formValue.description || "",
+      dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority,
-      category: this.taskForm.get("category")?.value!,
+      category: formValue.category || "",
       status: "To Do",
     };
 
     this.tasksService.addTask(newTask);
     console.log(newTask);
     this.taskForm.reset();
+  }
+
+  onClear() {
+    this.taskForm.reset();
+    this.taskForm.get("category")?.setValue("");
+    this.priority = "Medium";
   }
 
   get assignedToDropdown() {

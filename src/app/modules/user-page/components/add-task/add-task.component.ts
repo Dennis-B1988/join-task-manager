@@ -11,12 +11,19 @@ import { TaskFormComponent } from "./task-form/task-form.component";
 })
 export class AddTaskComponent {
   tasksService = inject(TasksService);
+  clearButtonHover: boolean = false;
 
   @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent;
 
   addTask() {
     if (this.taskFormComponent) {
       this.taskFormComponent.onSubmit();
+    }
+  }
+
+  clearTask() {
+    if (this.taskFormComponent) {
+      this.taskFormComponent.onClear();
     }
   }
 }

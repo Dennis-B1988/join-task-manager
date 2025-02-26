@@ -1,5 +1,18 @@
 @import "../../../../../shared/styles/mixins";
 
+p {
+  @include font(0.75rem, 400, 0.9rem);
+  color: #ff8190;
+
+  &.visible {
+    visibility: visible;
+  }
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
 .task-form {
   @include flex(row, space-between, center);
   @include font(1.25rem, 400, 1.5rem);
@@ -57,6 +70,13 @@
   textarea {
     &::placeholder {
       color: #d1d1d1;
+    }
+  }
+
+  input,
+  textarea {
+    &:focus {
+      outline: none;
     }
   }
 
