@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, HostListener, inject } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -18,9 +18,9 @@ export class TaskFormComponent {
   private tasksService = inject(TasksService);
 
   priority: string = "Medium";
-
   assignedToOpen: boolean = false;
-  categoryOpen: boolean = false;
+  isCategoryOpen: boolean = false;
+
   today = new Date().toISOString().split("T")[0];
 
   taskForm = new FormGroup({
@@ -39,22 +39,7 @@ export class TaskFormComponent {
   setPriority(prio: string) {
     this.priority = prio;
     this.tasksService.taskPriority = prio;
-    // if (prio === "Urgent") {
-    //   this.urgent = true;
-    //   this.medium = this.low = false;
-    //   this.tasksService.taskPriority = "Urgent";
-    // }
-    // if (prio === "Medium") {
-    //   this.medium = true;
-    //   this.urgent = this.low = false;
-    //   this.tasksService.taskPriority = "Medium";
-    // }
-    // if (prio === "Low") {
-    //   this.low = true;
-    //   this.urgent = this.medium = false;
-    //   this.tasksService.taskPriority = "Low";
-    // }
-    // console.log(this.urgent, this.medium, this.low);
+
     console.log(this.tasksService.taskPriority);
   }
 
@@ -95,7 +80,7 @@ export class TaskFormComponent {
   }
 
   get categoryDropdown() {
-    if (!this.categoryOpen) {
+    if (!this.isCategoryOpen) {
       return "assets/img/arrow_dropdown_down.png";
     } else {
       return "assets/img/arrow_dropdown_up.png";
@@ -106,7 +91,12 @@ export class TaskFormComponent {
     this.assignedToOpen = !this.assignedToOpen;
   }
 
-  toggleCategoryDropdown() {
-    this.categoryOpen = !this.categoryOpen;
+  toggleCategoryDropdown(isOpen: boolean) {
+    this.isCategoryOpen = isOpen;
+    console.log(this.isCategoryOpen);
+  }
+
+  onCategoryChange() {
+    this.toggleCategoryDropdown(false);
   }
 }

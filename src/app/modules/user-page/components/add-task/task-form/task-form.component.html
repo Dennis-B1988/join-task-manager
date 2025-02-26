@@ -106,7 +106,9 @@
           name="category"
           id="category"
           formControlName="category"
-          (click)="toggleCategoryDropdown()"
+          (focus)="toggleCategoryDropdown(true)"
+          (blur)="toggleCategoryDropdown(false)"
+          (change)="onCategoryChange()"
           [style]="
             taskForm.controls.category.invalid &&
             taskForm.controls.category.touched
@@ -117,7 +119,7 @@
           <option value="">Select task category</option>
           <option value="Work">Work</option>
         </select>
-        <img [src]="categoryDropdown" alt="Choose category" />
+        <img [src]="categoryDropdown" alt="" />
       </div>
       <p
         [class]="
