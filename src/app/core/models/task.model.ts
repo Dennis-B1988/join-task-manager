@@ -5,5 +5,6 @@ export interface Task {
   dueDate: string;
   priority: string;
   category: string;
+  subtask: string[];
   status: string;
 }

@@ -34,6 +34,7 @@
         type="text"
         name="description"
         placeholder="Enter a description"
+        formControlName="description"
       ></textarea>
     </div>
     <div class="assigned-to task-div">
@@ -127,8 +128,25 @@
     <div class="subtasks task-div">
       <span>Subtasks</span>
       <div class="input-container">
-        <input type="text" name="subtasks" placeholder="Add new subtasks" />
-        <img src="assets/img/subtasks_add.png" alt="Add subtask" />
+        <input
+          type="text"
+          name="subtasks"
+          placeholder="Add new subtasks"
+          formControlName="subtask"
+        />
+        <img
+          src="assets/img/subtasks_add.png"
+          alt="Add subtask"
+          (click)="addSubtask(taskForm.get('subtask')?.value || '')"
+        />
+      </div>
+      <div class="subtasks-list">
+        @for (subtask of subTasks; track subtask) {
+          <div class="subtask">
+            <span class="subtask-item">x</span
+            ><span class="subtask-text">{{ subtask }}</span>
+          </div>
+        }
       </div>
     </div>
   </div>

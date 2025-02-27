@@ -19,7 +19,7 @@ export class TaskFormComponent {
 
   priority: string = "Medium";
   today = new Date().toISOString().split("T")[0];
-  subTasks: [] = [];
+  subTasks: any[] = [];
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
@@ -32,6 +32,7 @@ export class TaskFormComponent {
     category: new FormControl<string>("", {
       validators: [Validators.required],
     }),
+    subtask: new FormControl<string>("", {}),
   });
 
   setPriority(prio: string) {
@@ -41,12 +42,23 @@ export class TaskFormComponent {
     console.log(this.tasksService.taskPriority);
   }
 
+  addSubtask(subTask: string) {
+    this.subTasks.push(subTask);
+    console.log(subTask);
+  }
+
+  onClear() {
+    this.taskForm.reset();
+    this.priority = "Medium";
+    this.taskForm.get("category")?.setValue("");
+    this.subTasks = [];
+  }
+
   onSubmit() {
     if (!this.taskForm.valid) {
       this.taskForm.markAllAsTouched();
       return;
     }
-
     const formValue = this.taskForm.value;
     const newTask: Task = {
       id: new Date().getTime(),
@@ -55,17 +67,12 @@ export class TaskFormComponent {
       dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority,
       category: formValue.category || "",
+      subtask: this.subTasks,
       status: "To Do",
     };
 
     this.tasksService.addTask(newTask);
     console.log(newTask);
-    this.taskForm.reset();
-  }
-
-  onClear() {
-    this.taskForm.reset();
-    this.taskForm.get("category")?.setValue("");
-    this.priority = "Medium";
+    this.onClear();
   }
 }
