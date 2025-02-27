@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -18,10 +18,8 @@ export class TaskFormComponent {
   private tasksService = inject(TasksService);
 
   priority: string = "Medium";
-  assignedToOpen: boolean = false;
-  isCategoryOpen: boolean = false;
-
   today = new Date().toISOString().split("T")[0];
+  subTasks: [] = [];
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
@@ -69,34 +67,5 @@ export class TaskFormComponent {
     this.taskForm.reset();
     this.taskForm.get("category")?.setValue("");
     this.priority = "Medium";
-  }
-
-  get assignedToDropdown() {
-    if (!this.assignedToOpen) {
-      return "assets/img/arrow_dropdown_down.png";
-    } else {
-      return "assets/img/arrow_dropdown_up.png";
-    }
-  }
-
-  get categoryDropdown() {
-    if (!this.isCategoryOpen) {
-      return "assets/img/arrow_dropdown_down.png";
-    } else {
-      return "assets/img/arrow_dropdown_up.png";
-    }
-  }
-
-  toggleAssignedToDropdown() {
-    this.assignedToOpen = !this.assignedToOpen;
-  }
-
-  toggleCategoryDropdown(isOpen: boolean) {
-    this.isCategoryOpen = isOpen;
-    console.log(this.isCategoryOpen);
-  }
-
-  onCategoryChange() {
-    this.toggleCategoryDropdown(false);
   }
 }

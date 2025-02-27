@@ -31,7 +31,7 @@ p {
   @include flex(column, none, flex-start);
   width: 45%;
   height: 100%;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .task-form-middle-line {

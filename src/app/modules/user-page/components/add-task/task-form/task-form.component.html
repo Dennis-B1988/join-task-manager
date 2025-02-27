@@ -39,15 +39,10 @@
     <div class="assigned-to task-div">
       <span>Assigned to</span>
       <div class="input-container pointer">
-        <select
-          name="assignedTo"
-          id="assignedTo"
-          class="assigned-to task-div"
-          (click)="toggleAssignedToDropdown()"
-        >
+        <select name="assignedTo" id="assignedTo" class="assigned-to task-div">
           <option value="">Select contacts to assign</option>
         </select>
-        <img [src]="assignedToDropdown" alt="Assign users" />
+        <img src="assets/img/arrow_dropdown_down.png" alt="Assign users" />
       </div>
     </div>
   </div>
@@ -106,9 +101,6 @@
           name="category"
           id="category"
           formControlName="category"
-          (focus)="toggleCategoryDropdown(true)"
-          (blur)="toggleCategoryDropdown(false)"
-          (change)="onCategoryChange()"
           [style]="
             taskForm.controls.category.invalid &&
             taskForm.controls.category.touched
@@ -119,7 +111,7 @@
           <option value="">Select task category</option>
           <option value="Work">Work</option>
         </select>
-        <img [src]="categoryDropdown" alt="" />
+        <img src="assets/img/arrow_dropdown_down.png" alt="" />
       </div>
       <p
         [class]="
