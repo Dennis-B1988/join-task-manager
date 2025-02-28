@@ -7,7 +7,6 @@ import {
   runInInjectionContext,
   signal,
 } from "@angular/core";
-import { user } from "@angular/fire/auth";
 import {
   arrayUnion,
   doc,

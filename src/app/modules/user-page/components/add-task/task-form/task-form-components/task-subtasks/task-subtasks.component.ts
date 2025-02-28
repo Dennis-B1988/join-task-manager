@@ -14,6 +14,10 @@ export class TaskSubtasksComponent {
 
   subTasks = this.subTasksService.subTasks;
 
+  constructor() {
+    console.log("Task form:", this.taskForm);
+  }
+
   addSubtask() {
     if (!this.taskForm.get("subtask")?.value) return;
     this.subTasksService.addSubtask(this.taskForm.get("subtask")?.value);
