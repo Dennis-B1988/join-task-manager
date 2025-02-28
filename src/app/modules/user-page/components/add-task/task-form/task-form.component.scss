@@ -146,16 +146,53 @@ p {
   }
 }
 
-.pointer {
-  cursor: pointer;
+// .pointer {
+//   cursor: pointer;
 
-  select {
+//   select {
+//     cursor: pointer;
+//   }
+// }
+
+.red {
+  color: red;
+}
+
+.dropdown {
+  img {
+    z-index: 15;
+  }
+}
+
+.category {
+  input {
+    position: relative;
+    z-index: 10;
     cursor: pointer;
   }
 }
 
-.red {
-  color: red;
+.category-dropdown {
+  @include flex(column, flex-start, flex-start);
+  @include padding(0.75rem, 0, 0, 0);
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0.625rem;
+  z-index: 5;
+  box-shadow: 0px 0px 14px 3px #0000000a;
+
+  span {
+    @include padding(0.75rem, 1rem, 0.75rem, 1rem);
+    width: 100%;
+
+    &:hover {
+      background-color: #d1d1d1;
+      border-radius: 0.625rem;
+      cursor: pointer;
+    }
+  }
 }
 
 .subtasks-list {

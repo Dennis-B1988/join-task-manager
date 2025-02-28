@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, effect, inject } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -6,6 +6,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { Task } from "../../../../../core/models/task.model";
+import { ContactsService } from "../../../services/contacts/contacts.service";
 import { TasksService } from "../../../services/tasks.service";
 
 @Component({
@@ -16,9 +17,15 @@ import { TasksService } from "../../../services/tasks.service";
 })
 export class TaskFormComponent {
   private tasksService = inject(TasksService);
+  private contactsService = inject(ContactsService);
 
   priority: string = "Medium";
   today = new Date().toISOString().split("T")[0];
+  contacts: string[] = [];
+  assignedTo: string[] = [];
+  assignedToOpen: boolean = false;
+  categories: string[] = ["Technical Task", "User Story"];
+  categoryOpen: boolean = false;
   subTasks: any[] = [];
 
   taskForm = new FormGroup({
@@ -26,6 +33,7 @@ export class TaskFormComponent {
       validators: [Validators.required],
     }),
     description: new FormControl<string>("", {}),
+    assignedTo: new FormControl<string>("", {}),
     dueDate: new FormControl<string>("", {
       validators: [Validators.required],
     }),
@@ -35,11 +43,42 @@ export class TaskFormComponent {
     subtask: new FormControl<string>("", {}),
   });
 
+  constructor() {
+    effect(() => {
+      this.contacts = this.contactsService
+        .contacts()
+        .map((contact) => contact.name);
+    });
+    setTimeout(() => {
+      console.log(this.contacts);
+    }, 2000);
+  }
+
   setPriority(prio: string) {
     this.priority = prio;
     this.tasksService.taskPriority = prio;
 
     console.log(this.tasksService.taskPriority);
+  }
+
+  setContact(contact: string) {
+    this.taskForm.get("assignedTo")?.setValue(contact);
+    this.assignedToOpen = false;
+  }
+
+  setCategory(category: string) {
+    this.taskForm.get("category")?.setValue(category);
+    this.categoryOpen = false;
+  }
+
+  toggleCategory() {
+    this.categoryOpen = !this.categoryOpen;
+    console.log(this.categoryOpen);
+  }
+
+  removeFocus(event: FocusEvent) {
+    const inputElement = event.target as HTMLInputElement;
+    inputElement.blur();
   }
 
   addSubtask(subTask: string) {
@@ -64,6 +103,7 @@ export class TaskFormComponent {
       id: new Date().getTime(),
       title: formValue.title || "",
       description: formValue.description || "",
+      assignedTo: this.assignedTo,
       dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority,
       category: formValue.category || "",
