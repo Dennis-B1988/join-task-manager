@@ -47,10 +47,19 @@
           placeholder="Select contacts to assign"
           formControlName="assignedTo"
           [readOnly]="true"
+          (click)="toggleAssignedTo(); $event.preventDefault()"
+          (focus)="removeFocus($event)"
         />
-        <img src="assets/img/arrow_dropdown_down.png" alt="Assign users" />
+        <img
+          [src]="
+            assignedToOpen
+              ? 'assets/img/arrow_dropdown_up.png'
+              : 'assets/img/arrow_dropdown_down.png'
+          "
+          alt="Assign users"
+        />
         @if (assignedToOpen) {
-          <div class="category-dropdown">
+          <div class="assigned-to-dropdown">
             @for (contact of contacts; track contact) {
               <span (click)="setContact(contact)">
                 {{ contact }}
@@ -87,31 +96,12 @@
         Please enter a date
       </p>
     </div>
-    <div class="priority task-div">
-      <span>Prio</span>
-      <div class="priority-select">
-        @for (prio of ["Urgent", "Medium", "Low"]; track prio) {
-          <span
-            [class]="priority === prio ? prio.toLowerCase() : ''"
-            (click)="setPriority(prio)"
-          >
-            {{ prio }}
-            <img
-              [src]="
-                'assets/img/prio-' +
-                prio.toLowerCase() +
-                (priority === prio ? '-active' : '') +
-                '.png'
-              "
-              [alt]="prio + ' priority'"
-            />
-          </span>
-        }
-      </div>
-    </div>
+
+    <app-task-priority></app-task-priority>
+
     <div class="category task-div">
       <span>Category<span class="red">*</span></span>
-      <div class="input-container dropdown pointer">
+      <div class="input-container dropdown">
         <input
           name="category"
           id="category"
@@ -156,7 +146,8 @@
         Please select a category
       </p>
     </div>
-    <div class="subtasks task-div">
+    <app-task-subtasks [taskForm]="taskForm"></app-task-subtasks>
+    <!-- <div class="subtasks task-div">
       <span>Subtasks</span>
       <div class="input-container">
         <input
@@ -179,6 +170,6 @@
           </div>
         }
       </div>
-    </div>
+    </div> -->
   </div>
 </form>

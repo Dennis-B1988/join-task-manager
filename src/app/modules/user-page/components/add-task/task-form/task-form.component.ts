@@ -1,4 +1,11 @@
-import { Component, computed, effect, inject } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  HostListener,
+  inject,
+  signal,
+} from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -8,10 +15,12 @@ import {
 import { Task } from "../../../../../core/models/task.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { TasksService } from "../../../services/tasks.service";
+import { TaskPriorityComponent } from "./task-form-components/task-priority/task-priority.component";
+import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task-subtasks.component";
 
 @Component({
   selector: "app-task-form",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TaskPriorityComponent, TaskSubtasksComponent],
   templateUrl: "./task-form.component.html",
   styleUrl: "./task-form.component.scss",
 })
@@ -26,7 +35,7 @@ export class TaskFormComponent {
   assignedToOpen: boolean = false;
   categories: string[] = ["Technical Task", "User Story"];
   categoryOpen: boolean = false;
-  subTasks: any[] = [];
+  subTasks = signal<string[]>([]);
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
@@ -54,11 +63,15 @@ export class TaskFormComponent {
     }, 2000);
   }
 
-  setPriority(prio: string) {
-    this.priority = prio;
-    this.tasksService.taskPriority = prio;
+  // setPriority(prio: string) {
+  //   this.priority = prio;
+  //   this.tasksService.taskPriority = prio;
 
-    console.log(this.tasksService.taskPriority);
+  //   console.log(this.tasksService.taskPriority);
+  // }
+
+  toggleAssignedTo() {
+    this.assignedToOpen = !this.assignedToOpen;
   }
 
   setContact(contact: string) {
@@ -66,14 +79,20 @@ export class TaskFormComponent {
     this.assignedToOpen = false;
   }
 
+  toggleCategory() {
+    this.categoryOpen = !this.categoryOpen;
+    console.log(this.categoryOpen);
+  }
+
   setCategory(category: string) {
     this.taskForm.get("category")?.setValue(category);
     this.categoryOpen = false;
   }
 
-  toggleCategory() {
-    this.categoryOpen = !this.categoryOpen;
-    console.log(this.categoryOpen);
+  blurDropdown() {
+    this.assignedToOpen = false;
+    this.categoryOpen = false;
+    console.log(this.assignedToOpen);
   }
 
   removeFocus(event: FocusEvent) {
@@ -81,16 +100,11 @@ export class TaskFormComponent {
     inputElement.blur();
   }
 
-  addSubtask(subTask: string) {
-    this.subTasks.push(subTask);
-    console.log(subTask);
-  }
-
   onClear() {
     this.taskForm.reset();
     this.priority = "Medium";
     this.taskForm.get("category")?.setValue("");
-    this.subTasks = [];
+    this.subTasks.set([]);
   }
 
   onSubmit() {
@@ -107,12 +121,31 @@ export class TaskFormComponent {
       dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority,
       category: formValue.category || "",
-      subtask: this.subTasks,
+      subtask: this.subTasks(),
       status: "To Do",
     };
 
     this.tasksService.addTask(newTask);
     console.log(newTask);
     this.onClear();
+  }
+
+  @HostListener("document:click", ["$event"])
+  closeDropdownOnClickOutside(event: Event) {
+    const assignedToInputElement = document.getElementById("assignedTo");
+    const categoryInputElement = document.getElementById("category");
+    if (
+      assignedToInputElement &&
+      !assignedToInputElement.contains(event.target as Node)
+    ) {
+      this.assignedToOpen = false;
+    }
+
+    if (
+      categoryInputElement &&
+      !categoryInputElement.contains(event.target as Node)
+    ) {
+      this.categoryOpen = false;
+    }
   }
 }

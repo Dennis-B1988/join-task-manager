@@ -1,0 +1,45 @@
+@import "../../../../../../../shared/styles/mixins";
+
+:host {
+  width: 100%;
+}
+
+.priority-select {
+  @include flex(row, space-between, center);
+  width: 100%;
+
+  span {
+    @include flex(row, center, center);
+    @include font(1.25rem, 400, 1.5rem);
+    @include padding(1rem, 0.625rem, 1rem, 0.625rem);
+    width: 30%;
+    border-radius: 0.625rem;
+    gap: 0.5rem;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  .urgent {
+    @include font(1.3125rem, 700, 1.575rem);
+    background-color: #ff3d00;
+    color: #fff;
+  }
+
+  .medium {
+    @include font(1.3125rem, 700, 1.575rem);
+    background-color: #ffa800;
+    color: #fff;
+  }
+
+  .low {
+    @include font(1.3125rem, 700, 1.575rem);
+    background-color: #7ae229;
+    color: #fff;
+  }
+}
+
+.task-div {
+  @include flex(column, center, flex-start);
+  width: 100%;
+  gap: 0.5rem;
+}

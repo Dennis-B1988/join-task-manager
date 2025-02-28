@@ -1,0 +1,24 @@
+<div class="subtasks task-div">
+  <span>Subtasks</span>
+  <div class="input-container">
+    <input
+      type="text"
+      name="subtask"
+      placeholder="Add new subtasks"
+      formControlName="subtask"
+    />
+    <img
+      src="assets/img/subtasks_add.png"
+      alt="Add subtask"
+      (click)="addSubtask()"
+    />
+  </div>
+  <div class="subtasks-list">
+    @for (subtask of subTasks(); track subtask) {
+      <div class="subtask">
+        <span class="subtask-item">x</span
+        ><span class="subtask-text">{{ subtask }}</span>
+      </div>
+    }
+  </div>
+</div>

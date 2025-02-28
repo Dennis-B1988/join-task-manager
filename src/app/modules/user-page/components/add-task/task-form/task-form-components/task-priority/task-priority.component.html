@@ -1,0 +1,22 @@
+<div class="priority task-div">
+  <span>Prio</span>
+  <div class="priority-select">
+    @for (prio of ["Urgent", "Medium", "Low"]; track prio) {
+      <span
+        [class]="priority === prio ? prio.toLowerCase() : ''"
+        (click)="setPriority(prio)"
+      >
+        {{ prio }}
+        <img
+          [src]="
+            'assets/img/prio-' +
+            prio.toLowerCase() +
+            (priority === prio ? '-active' : '') +
+            '.png'
+          "
+          [alt]="prio + ' priority'"
+        />
+      </span>
+    }
+  </div>
+</div>
