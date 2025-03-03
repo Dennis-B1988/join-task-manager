@@ -29,6 +29,7 @@ export class ContactsService {
     onSnapshot(userDoc, (docSnap) => {
       if (docSnap.exists()) {
         this.contacts.set(docSnap.data()?.["contacts"] || []);
+        console.log(this.contacts());
       } else {
         this.contacts.set([]);
       }

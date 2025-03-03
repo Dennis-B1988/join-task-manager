@@ -32,7 +32,7 @@ export class TaskFormComponent {
 
   priority: string = "Medium";
   today = new Date().toISOString().split("T")[0];
-  contacts: string[] = [];
+  contacts: any[] = [];
   assignedTo: string[] = [];
   assignedToOpen: boolean = false;
   categories: string[] = ["Technical Task", "User Story"];
@@ -56,9 +56,10 @@ export class TaskFormComponent {
 
   constructor() {
     effect(() => {
-      this.contacts = this.contactsService
-        .contacts()
-        .map((contact) => contact.name);
+      this.contacts = this.contactsService.contacts().map((contact) => ({
+        displayName: contact.displayName,
+        initials: contact.initials,
+      }));
     });
     setTimeout(() => {
       console.log(this.contacts);

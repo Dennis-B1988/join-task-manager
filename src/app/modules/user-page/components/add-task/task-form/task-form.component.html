@@ -62,7 +62,8 @@
           <div class="assigned-to-dropdown">
             @for (contact of contacts; track contact) {
               <span (click)="setContact(contact)">
-                {{ contact }}
+                {{ contact.initials }} | {{ contact.displayName }}
+                <img src="assets/img/checkmark-normal-empty.png" alt="" />
               </span>
             }
           </div>
