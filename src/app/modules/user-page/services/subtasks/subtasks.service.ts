@@ -55,4 +55,8 @@ export class SubtasksService {
   addSubtask(subtask: string) {
     this.subTasks.update((tasks) => [...tasks, subtask]);
   }
+
+  clearSubtasks() {
+    this.subTasks.set([]);
+  }
 }

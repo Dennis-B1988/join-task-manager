@@ -1,10 +1,10 @@
-import { Component, inject, Input, WritableSignal } from "@angular/core";
-import { Form, FormGroup } from "@angular/forms";
+import { Component, inject, Input } from "@angular/core";
+import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { SubtasksService } from "../../../../../services/subtasks/subtasks.service";
 
 @Component({
   selector: "app-task-subtasks",
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: "./task-subtasks.component.html",
   styleUrl: "./task-subtasks.component.scss",
 })
@@ -14,13 +14,16 @@ export class TaskSubtasksComponent {
 
   subTasks = this.subTasksService.subTasks;
 
-  constructor() {
-    console.log("Task form:", this.taskForm);
-  }
-
   addSubtask() {
-    if (!this.taskForm.get("subtask")?.value) return;
-    this.subTasksService.addSubtask(this.taskForm.get("subtask")?.value);
+    const subtaskValue = this.taskForm.get("subtask")?.value;
+
+    console.log(subtaskValue);
+
+    if (!subtaskValue) return;
+
+    this.subTasksService.addSubtask(subtaskValue);
+    this.taskForm.get("subtask")?.reset();
+
     console.log(this.subTasks());
   }
 }

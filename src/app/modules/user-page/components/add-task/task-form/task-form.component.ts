@@ -14,6 +14,7 @@ import {
 } from "@angular/forms";
 import { Task } from "../../../../../core/models/task.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
+import { SubtasksService } from "../../../services/subtasks/subtasks.service";
 import { TasksService } from "../../../services/tasks.service";
 import { TaskPriorityComponent } from "./task-form-components/task-priority/task-priority.component";
 import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task-subtasks.component";
@@ -27,6 +28,7 @@ import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task
 export class TaskFormComponent {
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
+  private subTasksService = inject(SubtasksService);
 
   priority: string = "Medium";
   today = new Date().toISOString().split("T")[0];
@@ -35,7 +37,7 @@ export class TaskFormComponent {
   assignedToOpen: boolean = false;
   categories: string[] = ["Technical Task", "User Story"];
   categoryOpen: boolean = false;
-  subTasks = signal<string[]>([]);
+  subTasks = computed(() => this.subTasksService.subTasks());
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
@@ -103,8 +105,8 @@ export class TaskFormComponent {
   onClear() {
     this.taskForm.reset();
     this.priority = "Medium";
-    this.taskForm.get("category")?.setValue("");
-    this.subTasks.set([]);
+    // this.taskForm.get("category")?.setValue("");
+    this.subTasksService.clearSubtasks();
   }
 
   onSubmit() {
