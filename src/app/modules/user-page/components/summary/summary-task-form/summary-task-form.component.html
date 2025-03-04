@@ -3,7 +3,7 @@
     <div class="to-do-done summary-display">
       <img src="assets/img/to-do.png" alt="to do" />
       <div>
-        <span class="task-amount">0</span>
+        <span class="task-amount">{{ toDoAmount() }}</span>
         <span class="task-type">To-do</span>
       </div>
     </div>
@@ -21,13 +21,17 @@
       <div class="urgent-amount-container">
         <img src="assets/img/urgent.png" alt="urgent" />
         <div class="urgent-amount-text">
-          <span class="task-amount">0</span>
+          <span class="task-amount">{{ urgentAmount() }}</span>
           <span class="task-type">Done</span>
         </div>
       </div>
       <div class="urgent-middle-line"></div>
       <div class="task-deadline-container">
-        <span class="task-deadline-date">Date</span>
+        <span class="task-deadline-date">
+          @if (taskWithShortestDueDate()) {
+            {{ taskWithShortestDueDate()?.dueDate | date: "dd/MM/yyyy" }}
+          }
+        </span>
         <span class="task-deadline">Upcoming Deadline</span>
       </div>
     </div>
@@ -35,15 +39,15 @@
 
   <div class="bottom container">
     <div class="board-progress-feedback summary-display">
-      <span class="task-amount">0</span>
+      <span class="task-amount">{{ totalTasks() }}</span>
       <span class="task-type">Tasks in Board</span>
     </div>
     <div class="board-progress-feedback summary-display">
-      <span class="task-amount">0</span>
+      <span class="task-amount">{{ inProgressAmount() }}</span>
       <span class="task-type">Tasks in Progress</span>
     </div>
     <div class="board-progress-feedback summary-display">
-      <span class="task-amount">0</span>
+      <span class="task-amount">{{ awaitingFeedbackAmount() }}</span>
       <span class="task-type">Awaiting Feedback</span>
     </div>
   </div>
