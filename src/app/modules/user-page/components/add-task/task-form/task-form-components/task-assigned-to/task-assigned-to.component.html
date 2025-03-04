@@ -1,0 +1,41 @@
+<div class="assigned-to task-div" [formGroup]="taskForm()">
+  <span>Assigned to</span>
+  <div class="input-container dropdown">
+    <input
+      name="assignedTo"
+      id="assignedTo"
+      class="assigned-to task-div"
+      placeholder="Select contacts to assign"
+      formControlName="assignedTo"
+      [readOnly]="true"
+      (click)="toggleAssignedTo(); $event.preventDefault()"
+      (focus)="removeFocus($event)"
+    />
+    <img
+      [src]="
+        assignedToOpen
+          ? 'assets/img/arrow_dropdown_up.png'
+          : 'assets/img/arrow_dropdown_down.png'
+      "
+      alt="Assign users"
+    />
+    @if (assignedToOpen) {
+      <div class="assigned-to-dropdown">
+        @for (contact of contacts; track contact) {
+          <span (click)="assignContact(contact)">
+            {{ contact.initials }} | {{ contact.displayName }}
+            <img src="assets/img/checkmark-normal-empty.png" alt="" />
+          </span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="assigned-to-list">
+    @for (contact of assignedToTask(); track contact) {
+      <div class="assigned-to-item">
+        {{ contact.initials }} | {{ contact.displayName }}
+      </div>
+    }
+  </div>
+</div>

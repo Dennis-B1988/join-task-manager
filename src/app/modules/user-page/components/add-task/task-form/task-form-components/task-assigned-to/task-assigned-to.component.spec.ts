@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskDropdownsComponent } from './task-dropdowns.component';
+import { TaskAssignedToComponent } from './task-assigned-to.component';
 
-describe('TaskDropdownsComponent', () => {
-  let component: TaskDropdownsComponent;
-  let fixture: ComponentFixture<TaskDropdownsComponent>;
+describe('TaskAssignedToComponent', () => {
+  let component: TaskAssignedToComponent;
+  let fixture: ComponentFixture<TaskAssignedToComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskDropdownsComponent]
+      imports: [TaskAssignedToComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TaskDropdownsComponent);
+    fixture = TestBed.createComponent(TaskAssignedToComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

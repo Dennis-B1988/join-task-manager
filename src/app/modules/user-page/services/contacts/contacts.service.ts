@@ -10,6 +10,7 @@ export class ContactsService {
   private firestore = inject(Firestore);
 
   contacts = signal<any[]>([]);
+  assignedToTask = signal<any[]>([]);
 
   constructor() {
     effect(() => {
@@ -34,5 +35,9 @@ export class ContactsService {
         this.contacts.set([]);
       }
     });
+  }
+
+  addContactToTask(contact: any) {
+    this.assignedToTask.set([...this.assignedToTask(), contact]);
   }
 }

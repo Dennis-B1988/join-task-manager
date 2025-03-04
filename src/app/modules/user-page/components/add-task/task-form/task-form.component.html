@@ -37,40 +37,10 @@
         formControlName="description"
       ></textarea>
     </div>
-    <div class="assigned-to task-div">
-      <span>Assigned to</span>
-      <div class="input-container dropdown">
-        <input
-          name="assignedTo"
-          id="assignedTo"
-          class="assigned-to task-div"
-          placeholder="Select contacts to assign"
-          formControlName="assignedTo"
-          [readOnly]="true"
-          (click)="toggleAssignedTo(); $event.preventDefault()"
-          (focus)="removeFocus($event)"
-        />
-        <img
-          [src]="
-            assignedToOpen
-              ? 'assets/img/arrow_dropdown_up.png'
-              : 'assets/img/arrow_dropdown_down.png'
-          "
-          alt="Assign users"
-        />
-        @if (assignedToOpen) {
-          <div class="assigned-to-dropdown">
-            @for (contact of contacts; track contact) {
-              <span (click)="setContact(contact)">
-                {{ contact.initials }} | {{ contact.displayName }}
-                <img src="assets/img/checkmark-normal-empty.png" alt="" />
-              </span>
-            }
-          </div>
-        }
-      </div>
-    </div>
+
+    <app-task-assigned-to [taskForm]="taskForm"></app-task-assigned-to>
   </div>
+
   <div class="task-form-middle-line"></div>
   <div class="task-form-right-side">
     <div class="due-date task-div">
@@ -148,29 +118,5 @@
       </p>
     </div>
     <app-task-subtasks [taskForm]="taskForm"></app-task-subtasks>
-    <!-- <div class="subtasks task-div">
-      <span>Subtasks</span>
-      <div class="input-container">
-        <input
-          type="text"
-          name="subtasks"
-          placeholder="Add new subtasks"
-          formControlName="subtask"
-        />
-        <img
-          src="assets/img/subtasks_add.png"
-          alt="Add subtask"
-          (click)="addSubtask(taskForm.get('subtask')?.value || '')"
-        />
-      </div>
-      <div class="subtasks-list">
-        @for (subtask of subTasks; track subtask) {
-          <div class="subtask">
-            <span class="subtask-item">x</span
-            ><span class="subtask-text">{{ subtask }}</span>
-          </div>
-        }
-      </div>
-    </div> -->
   </div>
 </form>
