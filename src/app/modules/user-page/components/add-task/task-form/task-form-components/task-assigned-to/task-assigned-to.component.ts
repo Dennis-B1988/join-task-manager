@@ -19,7 +19,11 @@ import { ContactsService } from "../../../../../services/contacts/contacts.servi
 export class TaskAssignedToComponent {
   private contactsService = inject(ContactsService);
   taskForm = input.required<FormGroup>();
-  assignedToTask = computed(() => this.contactsService.assignedToTask());
+  assignedToTask = computed(() =>
+    this.contactsService
+      .assignedToTask()
+      .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
+  );
   assignedToOpen: boolean = false;
   contacts: any[] = [];
 
@@ -40,21 +44,32 @@ export class TaskAssignedToComponent {
   }
 
   assignContact(contact: string) {
-    this.contactsService.addContactToTask(contact);
+    if (this.assignedToTask().includes(contact)) {
+      this.contactsService.removeContactFromTask(contact);
+    } else {
+      this.contactsService.addContactToTask(contact);
+    }
   }
 
-  removeFocus(event: FocusEvent) {
-    const inputElement = event.target as HTMLInputElement;
-    inputElement.blur();
+  removeContact(contact: string) {
+    this.contactsService.removeContactFromTask(contact);
   }
 
   @HostListener("document:click", ["$event"])
   closeDropdownOnClickOutside(event: Event) {
     const assignedToInputElement = document.getElementById("assignedTo");
-    if (
-      assignedToInputElement &&
-      !assignedToInputElement.contains(event.target as Node)
-    ) {
+    const assignedToDropdownElement = document.querySelector(
+      ".assigned-to-dropdown",
+    );
+
+    const isClickInsideInput = assignedToInputElement?.contains(
+      event.target as Node,
+    );
+    const isClickInsideDropdown = assignedToDropdownElement?.contains(
+      event.target as Node,
+    );
+
+    if (this.assignedToOpen && !isClickInsideInput && !isClickInsideDropdown) {
       this.assignedToOpen = false;
     }
   }

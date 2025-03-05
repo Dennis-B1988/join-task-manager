@@ -29,7 +29,14 @@ export class ContactsService {
 
     onSnapshot(userDoc, (docSnap) => {
       if (docSnap.exists()) {
-        this.contacts.set(docSnap.data()?.["contacts"] || []);
+        this.contacts.set(
+          docSnap
+            .data()
+            ?.[
+              "contacts"
+            ].sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)) ||
+            [],
+        );
         console.log(this.contacts());
       } else {
         this.contacts.set([]);
@@ -39,5 +46,11 @@ export class ContactsService {
 
   addContactToTask(contact: any) {
     this.assignedToTask.set([...this.assignedToTask(), contact]);
+    console.log(this.assignedToTask());
+  }
+
+  removeContactFromTask(contact: any) {
+    this.assignedToTask.set(this.assignedToTask().filter((c) => c !== contact));
+    console.log(this.assignedToTask());
   }
 }

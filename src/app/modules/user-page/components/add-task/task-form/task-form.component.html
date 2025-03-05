@@ -3,11 +3,19 @@
   name="taskForm"
   (onSubmit)="onSubmit()"
   [formGroup]="taskForm"
+  aria-label="Create a new task"
 >
-  <div class="task-form-left-side">
+  <section
+    class="task-form-left-side"
+    role="group"
+    aria-labelledby="left-section-heading"
+  >
     <div class="title task-div">
-      <span>Title<span class="red">*</span></span>
+      <label for="title-input"
+        >Title<span class="red" aria-hidden="true">*</span></label
+      >
       <input
+        id="title-input"
         type="text"
         name="title"
         placeholder="Enter a title"
@@ -29,8 +37,9 @@
       </p>
     </div>
     <div class="description task-div">
-      <span>Description</span>
+      <label for="description">Description</label>
       <textarea
+        id="description"
         type="text"
         name="description"
         placeholder="Enter a description"
@@ -39,13 +48,21 @@
     </div>
 
     <app-task-assigned-to [taskForm]="taskForm"></app-task-assigned-to>
-  </div>
+  </section>
 
   <div class="task-form-middle-line"></div>
-  <div class="task-form-right-side">
+
+  <section
+    class="task-form-right-side"
+    role="group"
+    aria-labelledby="right-section-heading"
+  >
     <div class="due-date task-div">
-      <span>Due date<span class="red">*</span></span>
+      <label for="dueDate"
+        >Due date<span class="red" aria-hidden="true">*</span></label
+      >
       <input
+        id="dueDate"
         type="date"
         name="dueDate"
         placeholder="dd/mm/yyyy"
@@ -71,11 +88,13 @@
     <app-task-priority></app-task-priority>
 
     <div class="category task-div">
-      <span>Category<span class="red">*</span></span>
+      <label for="category"
+        >Category<span class="red" aria-hidden="true">*</span></label
+      >
       <div class="input-container dropdown">
         <input
-          name="category"
           id="category"
+          name="category"
           placeholder="Select a category"
           formControlName="category"
           [style]="
@@ -89,6 +108,7 @@
           (focus)="removeFocus($event)"
         />
         <img
+          class="input-icon"
           [src]="
             categoryOpen
               ? 'assets/img/arrow_dropdown_up.png'
@@ -118,5 +138,5 @@
       </p>
     </div>
     <app-task-subtasks [taskForm]="taskForm"></app-task-subtasks>
-  </div>
+  </section>
 </form>

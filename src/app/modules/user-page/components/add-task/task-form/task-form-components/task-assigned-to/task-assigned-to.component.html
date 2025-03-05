@@ -9,9 +9,9 @@
       formControlName="assignedTo"
       [readOnly]="true"
       (click)="toggleAssignedTo(); $event.preventDefault()"
-      (focus)="removeFocus($event)"
     />
     <img
+      class="input-icon"
       [src]="
         assignedToOpen
           ? 'assets/img/arrow_dropdown_up.png'
@@ -22,10 +22,25 @@
     @if (assignedToOpen) {
       <div class="assigned-to-dropdown">
         @for (contact of contacts; track contact) {
-          <span (click)="assignContact(contact)">
-            {{ contact.initials }} | {{ contact.displayName }}
-            <img src="assets/img/checkmark-normal-empty.png" alt="" />
-          </span>
+          <div
+            [class]="
+              assignedToTask().includes(contact)
+                ? 'assigned-to-item selected'
+                : 'assigned-to-item'
+            "
+            (click)="assignContact(contact)"
+          >
+            <span class="contact-initials"> {{ contact.initials }} </span> |
+            <span class="contact-name">{{ contact.displayName }} </span>
+            <img
+              [src]="
+                assignedToTask().includes(contact)
+                  ? 'assets/img/checkmark-normal-marked.png'
+                  : 'assets/img/checkmark-normal-empty.png'
+              "
+              alt=""
+            />
+          </div>
         }
       </div>
     }
@@ -33,9 +48,9 @@
 
   <div class="assigned-to-list">
     @for (contact of assignedToTask(); track contact) {
-      <div class="assigned-to-item">
-        {{ contact.initials }} | {{ contact.displayName }}
-      </div>
+      <span (click)="removeContact(contact)">
+        {{ contact.initials }}
+      </span>
     }
   </div>
 </div>
