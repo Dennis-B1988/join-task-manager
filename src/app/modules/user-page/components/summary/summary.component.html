@@ -1,17 +1,17 @@
 <main class="summary">
-  <div class="summary-container">
-    <div class="summary-content">
-      <div class="headline">
-        <span class="title">Join 360</span>
-        <span class="blue-line"></span>
-        <span class="subtitle">Key Metrics at a Glance</span>
-      </div>
+  <!-- <div class="summary-container"> -->
+  <section class="summary-content">
+    <header class="headline">
+      <h1 class="title">Join 360</h1>
+      <span class="blue-line"></span>
+      <p class="subtitle">Key Metrics at a Glance</p>
+    </header>
 
-      <app-summary-task-form></app-summary-task-form>
-    </div>
+    <app-summary-task-form></app-summary-task-form>
+  </section>
 
-    <span class="greeting"
-      >{{ greeting }} <span>{{ userName() }}</span></span
-    >
-  </div>
+  <p class="greeting">
+    {{ greeting }} <span>{{ userName() }}</span>
+  </p>
+  <!-- </div> -->
 </main>

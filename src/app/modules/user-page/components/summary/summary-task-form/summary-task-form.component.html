@@ -1,54 +1,67 @@
-<div class="summary-display-container">
+<section class="summary-display-container" aria-label="Task Summary Dashboard">
   <div class="top container">
-    <div class="to-do-done summary-display">
+    <article class="to-do-done summary-display" aria-labelledby="todo-heading">
       <img src="assets/img/to-do.png" alt="to do" />
       <div>
-        <span class="task-amount">{{ toDoAmount() }}</span>
+        <output class="task-amount">{{ toDoAmount() }}</output>
         <span class="task-type">To-do</span>
       </div>
-    </div>
-    <div class="to-do-done summary-display">
+    </article>
+    <article class="to-do-done summary-display" aria-labelledby="done-heading">
       <img src="assets/img/done.png" alt="done" />
       <div>
-        <span class="task-amount">0</span>
+        <output class="task-amount">0</output>
         <span class="task-type">Done</span>
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="middle">
-    <div class="urgent summary-display">
+    <article class="urgent summary-display" aria-labelledby="urgent-heading">
       <div class="urgent-amount-container">
-        <img src="assets/img/urgent.png" alt="urgent" />
+        <img
+          src="assets/img/urgent.png"
+          alt="Urgent Tasks Icon"
+          aria-hidden="true"
+        />
         <div class="urgent-amount-text">
-          <span class="task-amount">{{ urgentAmount() }}</span>
+          <output class="task-amount">{{ urgentAmount() }}</output>
           <span class="task-type">Done</span>
         </div>
       </div>
-      <div class="urgent-middle-line"></div>
+      <div class="urgent-middle-line" aria-hidden="true"></div>
       <div class="task-deadline-container">
-        <span class="task-deadline-date">
+        <time class="task-deadline-date" aria-live="polite">
           @if (taskWithShortestDueDate()) {
             {{ taskWithShortestDueDate()?.dueDate | date: "dd/MM/yyyy" }}
           }
-        </span>
+        </time>
         <span class="task-deadline">Upcoming Deadline</span>
       </div>
-    </div>
+    </article>
   </div>
 
   <div class="bottom container">
-    <div class="board-progress-feedback summary-display">
-      <span class="task-amount">{{ totalTasks() }}</span>
+    <article
+      class="board-progress-feedback summary-display"
+      aria-labelledby="total-tasks-heading"
+    >
+      <output class="task-amount">{{ totalTasks() }}</output>
       <span class="task-type">Tasks in Board</span>
-    </div>
-    <div class="board-progress-feedback summary-display">
-      <span class="task-amount">{{ inProgressAmount() }}</span>
+    </article>
+    <article
+      class="board-progress-feedback summary-display"
+      aria-labelledby="progress-tasks-heading"
+    >
+      <output class="task-amount">{{ inProgressAmount() }}</output>
       <span class="task-type">Tasks in Progress</span>
-    </div>
-    <div class="board-progress-feedback summary-display">
-      <span class="task-amount">{{ awaitingFeedbackAmount() }}</span>
+    </article>
+    <article
+      class="board-progress-feedback summary-display"
+      aria-labelledby="feedback-tasks-heading"
+    >
+      <output class="task-amount">{{ awaitingFeedbackAmount() }}</output>
       <span class="task-type">Awaiting Feedback</span>
-    </div>
+    </article>
   </div>
-</div>
+</section>
