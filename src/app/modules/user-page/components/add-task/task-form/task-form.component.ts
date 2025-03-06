@@ -43,7 +43,6 @@ export class TaskFormComponent {
   categoryOpen: boolean = false;
   assignedTo = computed(() => this.contactsService.assignedToTask());
   subTasks = computed(() => this.subTasksService.subTasks());
-  priority = this.tasksService.taskPriority;
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
@@ -89,10 +88,9 @@ export class TaskFormComponent {
 
   onClear() {
     this.taskForm.reset();
-    this.tasksService.taskPriority = "Medium";
+    this.tasksService.setTaskPriority("Medium");
     // this.taskForm.get("category")?.setValue("");
     this.subTasksService.clearSubtasks();
-    console.log(this.priority);
     console.log(this.tasksService.taskPriority);
   }
 
@@ -108,7 +106,7 @@ export class TaskFormComponent {
       description: formValue.description || "",
       assignedTo: this.assignedTo(),
       dueDate: formValue.dueDate || "",
-      priority: this.priority,
+      priority: this.tasksService.taskPriority(),
       category: formValue.category || "",
       subtask: this.subTasks(),
       status: "To Do",

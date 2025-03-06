@@ -29,7 +29,7 @@ export class TasksService {
 
   userId = computed(() => this.authService.userId());
 
-  taskPriority: string = "Medium";
+  taskPriority = signal("Medium");
 
   constructor() {
     effect(() => {
@@ -114,5 +114,10 @@ export class TasksService {
 
     await deleteDoc(taskDocRef);
     console.log("Task deleted:", taskId);
+  }
+
+  setTaskPriority(priority: string) {
+    this.taskPriority.set(priority);
+    console.log("Priority:", this.taskPriority());
   }
 }

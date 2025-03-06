@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { TasksService } from "../../../../../services/tasks/tasks.service";
 
 @Component({
@@ -9,11 +9,10 @@ import { TasksService } from "../../../../../services/tasks/tasks.service";
 })
 export class TaskPriorityComponent {
   tasksService = inject(TasksService);
-  priority = this.tasksService.taskPriority;
+  priority = computed(() => this.tasksService.taskPriority());
 
   setPriority(prio: string) {
-    this.priority = prio;
-    this.tasksService.taskPriority = prio;
+    this.tasksService.setTaskPriority(prio);
 
     console.log("Priority:", this.tasksService.taskPriority);
   }
