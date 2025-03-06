@@ -9,12 +9,12 @@ import { TasksService } from "../../../../../services/tasks/tasks.service";
 })
 export class TaskPriorityComponent {
   tasksService = inject(TasksService);
-  priority: string = "Medium";
+  priority = this.tasksService.taskPriority;
 
   setPriority(prio: string) {
     this.priority = prio;
     this.tasksService.taskPriority = prio;
 
-    console.log(this.tasksService.taskPriority);
+    console.log("Priority:", this.tasksService.taskPriority);
   }
 }

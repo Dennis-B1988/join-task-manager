@@ -12,7 +12,7 @@ export class BoardComponent {
 
   tasks = computed(() => this.tasksService.tasks());
 
-  deleteTask(id: number) {
+  deleteTask(id: string) {
     this.tasksService.deleteTask(id);
   }
 

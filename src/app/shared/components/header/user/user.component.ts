@@ -30,10 +30,6 @@ export class UserComponent {
 
   constructor() {
     console.log("Initial User:", this.authService.user());
-
-    setTimeout(() => {
-      console.log("Updated User:", this.authService.user());
-    }, 5000);
   }
 
   signOut() {

@@ -55,6 +55,7 @@ export class LogInComponent {
     this.isLoading = true;
     try {
       await this.authService.guestLogIn();
+      // this.authService.guestLogInAnonymously();
     } catch (error) {
       console.error("Guest login failed:", error);
     } finally {

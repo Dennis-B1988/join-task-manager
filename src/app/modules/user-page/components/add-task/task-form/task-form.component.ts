@@ -37,13 +37,13 @@ export class TaskFormComponent {
   private contactsService = inject(ContactsService);
   private subTasksService = inject(SubtasksService);
 
-  priority: string = "Medium";
   today = new Date().toISOString().split("T")[0];
 
   categories: string[] = ["Technical Task", "User Story"];
   categoryOpen: boolean = false;
   assignedTo = computed(() => this.contactsService.assignedToTask());
   subTasks = computed(() => this.subTasksService.subTasks());
+  priority = this.tasksService.taskPriority;
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {
@@ -89,9 +89,11 @@ export class TaskFormComponent {
 
   onClear() {
     this.taskForm.reset();
-    this.priority = "Medium";
+    this.tasksService.taskPriority = "Medium";
     // this.taskForm.get("category")?.setValue("");
     this.subTasksService.clearSubtasks();
+    console.log(this.priority);
+    console.log(this.tasksService.taskPriority);
   }
 
   onSubmit() {
@@ -101,12 +103,12 @@ export class TaskFormComponent {
     }
     const formValue = this.taskForm.value;
     const newTask: Task = {
-      id: new Date().getTime(),
+      // id: new Date().getTime(),
       title: formValue.title || "",
       description: formValue.description || "",
       assignedTo: this.assignedTo(),
       dueDate: formValue.dueDate || "",
-      priority: this.tasksService.taskPriority,
+      priority: this.priority,
       category: formValue.category || "",
       subtask: this.subTasks(),
       status: "To Do",

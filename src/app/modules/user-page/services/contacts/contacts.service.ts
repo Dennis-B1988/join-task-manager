@@ -34,10 +34,9 @@ export class ContactsService {
             .data()
             ?.[
               "contacts"
-            ].sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)) ||
+            ]?.sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)) ||
             [],
         );
-        console.log(this.contacts());
       } else {
         this.contacts.set([]);
       }

@@ -7,7 +7,14 @@ import {
   updateProfile,
   User,
 } from "@angular/fire/auth";
-import { doc, Firestore, getDoc, setDoc } from "@angular/fire/firestore";
+import {
+  collection,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { CustomUser } from "../../models/user.model";
 
@@ -60,7 +67,12 @@ export class AuthService {
 
     const userData = userDocSnap.exists() ? userDocSnap.data() : {};
 
-    const customUser = new CustomUser(user, userData);
+    // Fetch tasks and contacts separately
+    const tasks = await this.fetchTasks(user.uid);
+    const contacts = await this.fetchContacts(user.uid);
+
+    // const customUser = new CustomUser(user, userData);
+    const customUser = new CustomUser(user, { ...userData, tasks, contacts });
     this.user.set(customUser);
     this.userId.set(user.uid);
 
@@ -86,8 +98,8 @@ export class AuthService {
       await setDoc(userDocRef, {
         displayName: displayName,
         email: email,
-        tasks: [],
-        contacts: [],
+        // tasks: [],
+        // contacts: [],
       });
     } catch (error: any) {
       console.error("Error creating user:", error);
@@ -163,10 +175,33 @@ export class AuthService {
   //       });
 
   //       console.log("User logged in:", user);
-  //       this.uid.set(user.uid);
+  //       this.setUser(user);
   //     })
   //     .catch((error) => {
   //       console.error("Error during guest login:", error);
   //     });
   // }
+
+  /**
+   * Fetches tasks from the user's Firestore subcollection.
+   */
+  private async fetchTasks(userId: string): Promise<any[]> {
+    const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
+    const tasksSnapshot = await getDocs(tasksCollection);
+
+    return tasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+
+  /**
+   * Fetches contacts from the user's Firestore subcollection.
+   */
+  private async fetchContacts(userId: string): Promise<any[]> {
+    const contactsCollection = collection(
+      this.firestore,
+      `users/${userId}/contacts`,
+    );
+    const contactsSnapshot = await getDocs(contactsCollection);
+
+    return contactsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
 }

@@ -19,7 +19,7 @@
       "
       alt="Assign users"
     />
-    @if (assignedToOpen) {
+    @if (assignedToOpen && contacts.length > 0) {
       <div class="assigned-to-dropdown">
         @for (contact of contacts; track contact) {
           <div
