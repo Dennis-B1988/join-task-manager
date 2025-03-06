@@ -7,7 +7,7 @@ import {
   updateProfile,
   User,
 } from "@angular/fire/auth";
-import { doc, Firestore, setDoc } from "@angular/fire/firestore";
+import { doc, Firestore, getDoc, setDoc } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { CustomUser } from "../../models/user.model";
 
@@ -46,17 +46,32 @@ export class AuthService {
 
       this.destroyRef.onDestroy(() => subscribe());
     });
+
+    setTimeout(() => {
+      console.log("User from auth:", this.user());
+    }, 5000);
   }
 
-  private async setUser(user: User) {
+  private async setUser(user: User): Promise<void> {
     await user.reload();
-    const customUser = new CustomUser(user);
+
+    const userDocRef = doc(this.firestore, "users", user.uid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    const userData = userDocSnap.exists() ? userDocSnap.data() : {};
+
+    const customUser = new CustomUser(user, userData);
     this.user.set(customUser);
     this.userId.set(user.uid);
+
     console.log("User set:", this.user());
   }
 
-  async createUser(displayName: string, email: string, password: string) {
+  async createUser(
+    displayName: string,
+    email: string,
+    password: string,
+  ): Promise<void> {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         this.auth,
@@ -71,8 +86,8 @@ export class AuthService {
       await setDoc(userDocRef, {
         displayName: displayName,
         email: email,
-        // uid: user.uid,
         tasks: [],
+        contacts: [],
       });
     } catch (error: any) {
       console.error("Error creating user:", error);
@@ -89,6 +104,8 @@ export class AuthService {
         password,
       );
       const user = userCredential.user;
+
+      await this.setUser(user);
       // setTimeout(() => {
       //   this.router.navigate(["/summary"]);
       // }, 500);
@@ -109,6 +126,8 @@ export class AuthService {
         "qwer1234",
       );
       const user = credentials.user;
+
+      await this.setUser(user);
       // await this.setUser(user);
       // setTimeout(() => {
       //   this.router.navigate(["/summary"]);

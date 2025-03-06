@@ -1,6 +1,6 @@
 import { Component, inject, ViewChild } from "@angular/core";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
-import { TasksService } from "../../services/tasks.service";
+import { TasksService } from "../../services/tasks/tasks.service";
 import { TaskFormComponent } from "./task-form/task-form.component";
 
 @Component({

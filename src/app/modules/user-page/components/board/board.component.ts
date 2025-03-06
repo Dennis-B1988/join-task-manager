@@ -1,5 +1,5 @@
 import { Component, computed, inject } from "@angular/core";
-import { TasksService } from "../../services/tasks.service";
+import { TasksService } from "../../services/tasks/tasks.service";
 
 @Component({
   selector: "app-board",

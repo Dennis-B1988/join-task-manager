@@ -15,8 +15,8 @@ import {
   updateDoc,
 } from "@angular/fire/firestore";
 import { onSnapshot } from "firebase/firestore";
-import { Task } from "../../../core/models/task.model";
-import { AuthService } from "../../../core/services/auth/auth.service";
+import { Task } from "../../../../core/models/task.model";
+import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Injectable({
   providedIn: "root",
