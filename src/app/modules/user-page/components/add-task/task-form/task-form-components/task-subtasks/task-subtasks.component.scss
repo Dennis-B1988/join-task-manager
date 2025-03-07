@@ -1,4 +1,5 @@
 @import "../../../../../../../shared/styles/mixins";
+@import "../../styles/shared-form";
 
 :host {
   width: 100%;
@@ -7,7 +8,7 @@
 .subtasks-list {
   width: 100%;
   height: 65px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .subtask {
@@ -25,56 +26,56 @@
   width: 95%;
 }
 
-.input-container {
-  width: 100%;
-  position: relative;
+// .input-container {
+//   width: 100%;
+//   position: relative;
 
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
+//   select {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+//   }
 
-  .input-icon {
-    position: absolute;
-    top: 50%;
-    right: 1.25rem;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-}
+//   .input-icon {
+//     position: absolute;
+//     top: 50%;
+//     right: 1.25rem;
+//     transform: translateY(-50%);
+//     cursor: pointer;
+//   }
+// }
 
-.task-div {
-  @include flex(column, center, flex-start);
-  width: 100%;
-  gap: 0.5rem;
+// .task-div {
+//   @include flex(column, center, flex-start);
+//   width: 100%;
+//   gap: 0.5rem;
 
-  input,
-  textarea,
-  select {
-    @include font(1.25rem, 400, 1.5rem);
-    @include border(0.0625rem, solid, #d1d1d1);
-    width: 100%;
-    border-radius: 0.625rem;
-    background-color: #fff;
-  }
+//   input,
+//   textarea,
+//   select {
+//     @include font(1.25rem, 400, 1.5rem);
+//     @include border(0.0625rem, solid, #d1d1d1);
+//     width: 100%;
+//     border-radius: 0.625rem;
+//     background-color: #fff;
+//   }
 
-  input,
-  select {
-    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
-  }
+//   input,
+//   select {
+//     @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
+//   }
 
-  input,
-  textarea {
-    &::placeholder {
-      color: #d1d1d1;
-    }
-  }
+//   input,
+//   textarea {
+//     &::placeholder {
+//       color: #d1d1d1;
+//     }
+//   }
 
-  input,
-  textarea {
-    &:focus {
-      outline: none;
-    }
-  }
-}
+//   input,
+//   textarea {
+//     &:focus {
+//       outline: none;
+//     }
+//   }
+// }

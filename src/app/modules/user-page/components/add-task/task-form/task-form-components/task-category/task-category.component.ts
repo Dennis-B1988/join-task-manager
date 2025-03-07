@@ -27,17 +27,17 @@ export class TaskCategoryComponent {
   @HostListener("document:click", ["$event"])
   closeDropdownOnClickOutside(event: Event) {
     const assignedToInputElement = document.getElementById("category");
-    const assignedToDropdownElement =
-      document.querySelector(".category-dropdown");
+    // const assignedToDropdownElement =
+    //   document.querySelector(".category-dropdown");
 
     const isClickInsideInput = assignedToInputElement?.contains(
       event.target as Node,
     );
-    const isClickInsideDropdown = assignedToDropdownElement?.contains(
-      event.target as Node,
-    );
+    // const isClickInsideDropdown = assignedToDropdownElement?.contains(
+    //   event.target as Node,
+    // );
 
-    if (this.categoryOpen && !isClickInsideInput && !isClickInsideDropdown) {
+    if (this.categoryOpen && !isClickInsideInput) {
       this.categoryOpen = false;
     }
   }
