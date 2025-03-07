@@ -1,12 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  HostListener,
-  inject,
-  input,
-  signal,
-} from "@angular/core";
+import { Component, computed, HostListener, inject } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -18,6 +10,7 @@ import { ContactsService } from "../../../services/contacts/contacts.service";
 import { SubtasksService } from "../../../services/subtasks/subtasks.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
 import { TaskAssignedToComponent } from "./task-form-components/task-assigned-to/task-assigned-to.component";
+import { TaskCategoryComponent } from "./task-form-components/task-category/task-category.component";
 import { TaskPriorityComponent } from "./task-form-components/task-priority/task-priority.component";
 import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task-subtasks.component";
 
@@ -28,6 +21,7 @@ import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task
     TaskPriorityComponent,
     TaskSubtasksComponent,
     TaskAssignedToComponent,
+    TaskCategoryComponent,
   ],
   templateUrl: "./task-form.component.html",
   styleUrl: "./task-form.component.scss",
@@ -39,8 +33,6 @@ export class TaskFormComponent {
 
   today = new Date().toISOString().split("T")[0];
 
-  categories: string[] = ["Technical Task", "User Story"];
-  categoryOpen: boolean = false;
   assignedTo = computed(() => this.contactsService.assignedToTask());
   subTasks = computed(() => this.subTasksService.subTasks());
 
@@ -59,22 +51,14 @@ export class TaskFormComponent {
     subtask: new FormControl<string>("", {}),
   });
 
+  formValid = this.taskForm.controls;
+
   // setPriority(prio: string) {
   //   this.priority = prio;
   //   this.tasksService.taskPriority = prio;
 
   //   console.log(this.tasksService.taskPriority);
   // }
-
-  toggleCategory() {
-    this.categoryOpen = !this.categoryOpen;
-    console.log(this.categoryOpen);
-  }
-
-  setCategory(category: string) {
-    this.taskForm.get("category")?.setValue(category);
-    this.categoryOpen = false;
-  }
 
   // blurDropdown() {
   //   this.assignedToOpen = false;
@@ -115,17 +99,5 @@ export class TaskFormComponent {
     this.tasksService.addTask(newTask);
     console.log(newTask);
     this.onClear();
-  }
-
-  @HostListener("document:click", ["$event"])
-  closeDropdownOnClickOutside(event: Event) {
-    const categoryInputElement = document.getElementById("category");
-
-    if (
-      categoryInputElement &&
-      !categoryInputElement.contains(event.target as Node)
-    ) {
-      this.categoryOpen = false;
-    }
   }
 }

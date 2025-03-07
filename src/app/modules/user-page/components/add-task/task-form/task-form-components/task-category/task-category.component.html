@@ -1,0 +1,48 @@
+<div class="category task-div" [formGroup]="taskForm()">
+  <label for="category"
+    >Category<span class="red" aria-hidden="true">*</span></label
+  >
+  <div class="input-container dropdown">
+    <input
+      id="category"
+      name="category"
+      placeholder="Select a category"
+      formControlName="category"
+      [style]="
+        taskForm().get('category')?.invalid &&
+        taskForm().get('category')?.touched
+          ? 'border-color: #ff8190'
+          : ''
+      "
+      [readOnly]="true"
+      (click)="toggleCategory(); $event.preventDefault()"
+    />
+    <img
+      class="input-icon"
+      [src]="
+        categoryOpen
+          ? 'assets/img/arrow_dropdown_up.png'
+          : 'assets/img/arrow_dropdown_down.png'
+      "
+      alt=""
+    />
+    @if (categoryOpen) {
+      <div class="category-dropdown">
+        @for (category of categories; track category) {
+          <span (click)="setCategory(category)">
+            {{ category }}
+          </span>
+        }
+      </div>
+    }
+  </div>
+  <p
+    [class]="
+      taskForm().get('category')?.invalid && taskForm().get('category')?.touched
+        ? 'visible'
+        : 'hidden'
+    "
+  >
+    Please select a category
+  </p>
+</div>

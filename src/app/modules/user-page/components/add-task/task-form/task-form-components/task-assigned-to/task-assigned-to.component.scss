@@ -1,90 +1,8 @@
 @import "../../../../../../../shared/styles/mixins";
+@import "../../styles/shared-form";
 
 :host {
   width: 100%;
-}
-
-.input-container {
-  width: 100%;
-  position: relative;
-
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
-  .input-icon {
-    position: absolute;
-    top: 50%;
-    right: 1.25rem;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-}
-
-.task-div {
-  @include flex(column, center, flex-start);
-  width: 100%;
-  gap: 0.5rem;
-
-  input {
-    @include font(1.25rem, 400, 1.5rem);
-    @include border(0.0625rem, solid, #d1d1d1);
-    width: 100%;
-    border-radius: 0.625rem;
-    background-color: #fff;
-  }
-
-  input {
-    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
-  }
-
-  input {
-    &::placeholder {
-      color: #d1d1d1;
-    }
-  }
-
-  input {
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
-.dropdown {
-  img {
-    z-index: 15;
-  }
-}
-
-.assigned-to {
-  input {
-    position: relative;
-    z-index: 10;
-    cursor: pointer;
-  }
-}
-
-.assigned-to-dropdown {
-  @include flex(column, flex-start, flex-start);
-  @include padding(0.75rem, 0, 0, 0);
-  position: absolute;
-  top: 45px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 0.625rem;
-  z-index: 5;
-  box-shadow: 0px 0px 14px 3px #0000000a;
-
-  .contact-initials {
-    width: 10%;
-  }
-
-  .contact-name {
-    width: 80%;
-  }
 }
 
 .assigned-to-item {
@@ -120,4 +38,12 @@
     font-weight: 700;
     cursor: pointer;
   }
+}
+
+.contact-initials {
+  width: 10%;
+}
+
+.contact-name {
+  width: 80%;
 }

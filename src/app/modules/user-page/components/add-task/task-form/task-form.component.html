@@ -21,14 +21,14 @@
         placeholder="Enter a title"
         formControlName="title"
         [style]="
-          taskForm.controls.title.invalid && taskForm.controls.title.touched
+          formValid.title.invalid && formValid.title.touched
             ? 'border-color: #ff8190'
             : ''
         "
       />
       <p
         [class]="
-          taskForm.controls.title.invalid && taskForm.controls.title.touched
+          formValid.title.invalid && formValid.title.touched
             ? 'visible'
             : 'hidden'
         "
@@ -69,14 +69,14 @@
         [min]="today"
         formControlName="dueDate"
         [style]="
-          taskForm.controls.dueDate.invalid && taskForm.controls.dueDate.touched
+          formValid.dueDate.invalid && formValid.dueDate.touched
             ? 'border-color: #ff8190'
             : ''
         "
       />
       <p
         [class]="
-          taskForm.controls.dueDate.invalid && taskForm.controls.dueDate.touched
+          formValid.dueDate.invalid && formValid.dueDate.touched
             ? 'visible'
             : 'hidden'
         "
@@ -86,57 +86,7 @@
     </div>
 
     <app-task-priority></app-task-priority>
-
-    <div class="category task-div">
-      <label for="category"
-        >Category<span class="red" aria-hidden="true">*</span></label
-      >
-      <div class="input-container dropdown">
-        <input
-          id="category"
-          name="category"
-          placeholder="Select a category"
-          formControlName="category"
-          [style]="
-            taskForm.controls.category.invalid &&
-            taskForm.controls.category.touched
-              ? 'border-color: #ff8190'
-              : ''
-          "
-          [readOnly]="true"
-          (click)="toggleCategory(); $event.preventDefault()"
-          (focus)="removeFocus($event)"
-        />
-        <img
-          class="input-icon"
-          [src]="
-            categoryOpen
-              ? 'assets/img/arrow_dropdown_up.png'
-              : 'assets/img/arrow_dropdown_down.png'
-          "
-          alt=""
-        />
-        @if (categoryOpen) {
-          <div class="category-dropdown">
-            @for (category of categories; track category) {
-              <span (click)="setCategory(category)">
-                {{ category }}
-              </span>
-            }
-          </div>
-        }
-      </div>
-      <p
-        [class]="
-          taskForm.controls.category.invalid &&
-          taskForm.controls.category.touched
-            ? 'visible'
-            : 'hidden'
-        "
-      >
-        Please select a category
-      </p>
-    </div>
+    <app-task-category [taskForm]="taskForm"></app-task-category>
     <app-task-subtasks [taskForm]="taskForm"></app-task-subtasks>
   </section>
 </form>
