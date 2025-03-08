@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.priority {
+  @include flex(column, center, flex-start);
+  gap: 0.5rem;
+}
+
 .priority-select {
   @include flex(row, space-between, center);
   width: 100%;
@@ -36,10 +41,4 @@
     background-color: #7ae229;
     color: #fff;
   }
-}
-
-.task-div {
-  @include flex(column, center, flex-start);
-  width: 100%;
-  gap: 0.5rem;
 }

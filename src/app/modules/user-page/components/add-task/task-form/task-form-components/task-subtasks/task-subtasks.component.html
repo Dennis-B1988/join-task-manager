@@ -1,6 +1,6 @@
-<div class="subtasks task-div" [formGroup]="taskForm()">
+<div class="subtasks task-input-textarea" [formGroup]="taskForm()">
   <span>Subtasks</span>
-  <div class="input-container">
+  <div class="pr-input-container">
     <input
       type="text"
       name="subtask"
@@ -14,10 +14,9 @@
       (click)="addSubtask()"
     />
   </div>
-  <div class="subtasks-list">
+  <div class="subtasks-list-container">
     @for (subtask of subTasks(); track subtask) {
-      <ul class="subtask" contenteditable="true">
-        <!-- <span class="subtask-item">x</span> -->
+      <ul class="subtasks-list">
         <li class="subtask-text">{{ subtask }}</li>
       </ul>
     }

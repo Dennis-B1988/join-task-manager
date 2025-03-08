@@ -1,10 +1,10 @@
-<div class="assigned-to task-div" [formGroup]="taskForm()">
+<div class="assigned-to task-input-textarea" [formGroup]="taskForm()">
   <span>Assigned to</span>
-  <div class="input-container dropdown">
+  <div class="pr-input-container dropdown-container">
     <input
       name="assignedTo"
       id="assignedTo"
-      class="assigned-to task-div"
+      class="assigned-to task-input-textarea"
       placeholder="Select contacts to assign"
       formControlName="assignedTo"
       [readOnly]="true"
@@ -20,7 +20,7 @@
       alt="Assign users"
     />
     @if (assignedToOpen && contacts.length > 0) {
-      <div class="assigned-to-dropdown">
+      <div class="dropdown">
         @for (contact of contacts; track contact) {
           <div
             [class]="

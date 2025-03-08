@@ -11,15 +11,9 @@ p {
   }
 }
 
-.input-container {
+.pr-input-container {
   width: 100%;
   position: relative;
-
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
 
   .input-icon {
     position: absolute;
@@ -30,42 +24,35 @@ p {
   }
 }
 
-.task-div {
+.task-input-textarea {
   @include flex(column, center, flex-start);
   width: 100%;
   gap: 0.5rem;
 
+  input {
+    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
+  }
+
+  textarea {
+    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
+    min-width: 100%;
+    height: 7.5rem;
+    resize: none;
+    overflow-y: auto;
+  }
+
   input,
-  textarea,
-  select {
+  textarea {
     @include font(1.25rem, 400, 1.5rem);
     @include border(0.0625rem, solid, #d1d1d1);
     width: 100%;
     border-radius: 0.625rem;
     background-color: #fff;
-  }
 
-  input,
-  select {
-    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
-  }
-
-  textarea {
-    @include padding(1.125rem, 1rem, 1.125rem, 1rem);
-    min-width: 100%;
-    height: 7.5rem;
-    resize: none;
-  }
-
-  input,
-  textarea {
     &::placeholder {
       color: #d1d1d1;
     }
-  }
 
-  input,
-  textarea {
     &:focus {
       outline: none;
     }
@@ -82,40 +69,25 @@ p {
   // input[type="date"]::-moz-calendar-picker-indicator {
   //   cursor: pointer;
   // }
+  // .subtask {
+  //   input {
+  //     padding-right: 3rem;
+  //   }
+  // }
 }
 
-.input-container {
-  width: 100%;
-  position: relative;
+// .input-container {
+//   width: 100%;
+//   position: relative;
 
-  select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
-  .input-icon {
-    position: absolute;
-    top: 50%;
-    right: 1.25rem;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-}
-
-// .pointer {
-//   cursor: pointer;
-
-//   select {
+//   .input-icon {
+//     position: absolute;
+//     top: 50%;
+//     right: 1.25rem;
+//     transform: translateY(-50%);
 //     cursor: pointer;
 //   }
 // }
-
-.dropdown {
-  img {
-    z-index: 15;
-  }
-}
 
 .assigned-to,
 .category {
@@ -126,8 +98,13 @@ p {
   }
 }
 
-.assigned-to-dropdown,
-.category-dropdown {
+.dropdown-container {
+  img {
+    z-index: 15;
+  }
+}
+
+.dropdown {
   @include flex(column, flex-start, flex-start);
   @include padding(0.75rem, 0, 0, 0);
   position: absolute;
@@ -137,17 +114,4 @@ p {
   border-radius: 0.625rem;
   z-index: 5;
   box-shadow: 0px 0px 14px 3px #0000000a;
-}
-
-.category-dropdown {
-  span {
-    @include padding(0.75rem, 1rem, 0.75rem, 1rem);
-    width: 100%;
-
-    &:hover {
-      background-color: #d1d1d1;
-      border-radius: 0.625rem;
-      cursor: pointer;
-    }
-  }
 }

@@ -5,77 +5,18 @@
   width: 100%;
 }
 
-.subtasks-list {
+.subtasks {
+  input {
+    padding-right: 3rem;
+  }
+}
+
+.subtasks-list-container {
   width: 100%;
   height: 65px;
   overflow-y: auto;
 }
 
-.subtask {
-  @include flex(row, space-between, center);
-  @include font(1rem, 400, 1.2rem);
-  @include padding(0.375rem, 1rem, 0.375rem, 1rem);
-}
-
-.subtask-item {
-  width: 5%;
-  text-align: center;
-}
-
 .subtask-text {
-  width: 95%;
+  width: 100%;
 }
-
-// .input-container {
-//   width: 100%;
-//   position: relative;
-
-//   select {
-//     -webkit-appearance: none;
-//     -moz-appearance: none;
-//     appearance: none;
-//   }
-
-//   .input-icon {
-//     position: absolute;
-//     top: 50%;
-//     right: 1.25rem;
-//     transform: translateY(-50%);
-//     cursor: pointer;
-//   }
-// }
-
-// .task-div {
-//   @include flex(column, center, flex-start);
-//   width: 100%;
-//   gap: 0.5rem;
-
-//   input,
-//   textarea,
-//   select {
-//     @include font(1.25rem, 400, 1.5rem);
-//     @include border(0.0625rem, solid, #d1d1d1);
-//     width: 100%;
-//     border-radius: 0.625rem;
-//     background-color: #fff;
-//   }
-
-//   input,
-//   select {
-//     @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
-//   }
-
-//   input,
-//   textarea {
-//     &::placeholder {
-//       color: #d1d1d1;
-//     }
-//   }
-
-//   input,
-//   textarea {
-//     &:focus {
-//       outline: none;
-//     }
-//   }
-// }

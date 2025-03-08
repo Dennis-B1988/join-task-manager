@@ -10,7 +10,7 @@
     role="group"
     aria-labelledby="left-section-heading"
   >
-    <div class="title task-div">
+    <div class="title task-input-textarea">
       <label for="title-input"
         >Title<span class="red" aria-hidden="true">*</span></label
       >
@@ -36,7 +36,7 @@
         Please enter a title
       </p>
     </div>
-    <div class="description task-div">
+    <div class="description task-input-textarea">
       <label for="description">Description</label>
       <textarea
         id="description"
@@ -50,14 +50,14 @@
     <app-task-assigned-to [taskForm]="taskForm"></app-task-assigned-to>
   </section>
 
-  <div class="task-form-middle-line"></div>
+  <div class="task-form-middle-line" aria-hidden="true"></div>
 
   <section
     class="task-form-right-side"
     role="group"
     aria-labelledby="right-section-heading"
   >
-    <div class="due-date task-div">
+    <div class="due-date task-input-textarea">
       <label for="dueDate"
         >Due date<span class="red" aria-hidden="true">*</span></label
       >
