@@ -74,9 +74,9 @@
   gap: 0.8125rem;
 }
 
-.task-deadline {
-  @include font(1rem, 400, 1.2rem);
-}
+// .task-deadline {
+//   @include font(1rem, 400, 1.2rem);
+// }
 
 .task-deadline-date {
   @include font(1.3125rem, 700, 1.575rem);

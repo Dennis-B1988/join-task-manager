@@ -31,12 +31,17 @@
       </div>
       <div class="urgent-middle-line" aria-hidden="true"></div>
       <div class="task-deadline-container">
-        <time class="task-deadline-date" aria-live="polite">
-          @if (taskWithShortestDueDate()) {
+        @if (
+          taskWithShortestDueDate() &&
+          taskWithShortestDueDate()?.dueDate > currentDate
+        ) {
+          <time class="task-deadline-date" aria-live="polite">
             {{ taskWithShortestDueDate()?.dueDate | date: "dd/MM/yyyy" }}
-          }
-        </time>
-        <span class="task-deadline">Upcoming Deadline</span>
+          </time>
+          <span>Upcoming Deadline</span>
+        } @else {
+          <span>No Upcoming Deadlines</span>
+        }
       </div>
     </article>
   </div>

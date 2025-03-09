@@ -4,7 +4,6 @@
     <input
       name="assignedTo"
       id="assignedTo"
-      class="assigned-to task-input-textarea"
       placeholder="Select contacts to assign"
       formControlName="assignedTo"
       [readOnly]="true"
@@ -30,7 +29,8 @@
             "
             (click)="assignContact(contact)"
           >
-            <span class="contact-initials"> {{ contact.initials }} </span> |
+            <span class="contact-initials">{{ contact.initials }}</span>
+            |
             <span class="contact-name">{{ contact.displayName }} </span>
             <img
               [src]="

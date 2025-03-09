@@ -50,4 +50,6 @@ export class SummaryTaskFormComponent {
         : currentTask;
     });
   });
+
+  currentDate = new Date();
 }
