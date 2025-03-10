@@ -27,7 +27,7 @@
                 ? 'assigned-to-item selected'
                 : 'assigned-to-item'
             "
-            (click)="assignContact(contact)"
+            (click)="assignContactToTask(contact)"
           >
             <span class="contact-initials">{{ contact.initials }}</span>
             |
@@ -48,7 +48,10 @@
 
   <div class="assigned-to-list">
     @for (contact of assignedToTask(); track contact) {
-      <span (click)="removeContact(contact)">
+      <span
+        (click)="removeContactFromTask(contact)"
+        [style]="'background-color: ' + contact.color"
+      >
         {{ contact.initials }}
       </span>
     }

@@ -43,6 +43,7 @@ export class ContactsService {
           return {
             id: doc.id,
             ...(doc.data() as Contact),
+            color: this.generateColor(doc.data()["displayName"]),
           };
         })
         .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName));
@@ -76,5 +77,17 @@ export class ContactsService {
   removeContactFromTask(contact: any) {
     this.assignedToTask.set(this.assignedToTask().filter((c) => c !== contact));
     console.log(this.assignedToTask());
+  }
+
+  private generateColor(name: string): string {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const hue = Math.abs(hash % 360);
+    const saturation = 100; // More vibrant colors
+    const lightness = 50; // Brighter colors
+
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
 }
