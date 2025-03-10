@@ -17,14 +17,16 @@ import {
 import { addDoc, collection, deleteDoc, onSnapshot } from "firebase/firestore";
 import { Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
+import { UnsubscripeService } from "../../../../core/services/unsubscripe/unsubscripe.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class TasksService {
-  authService = inject(AuthService);
-  firestore = inject(Firestore);
-  injector = inject(EnvironmentInjector);
+  private authService = inject(AuthService);
+  private firestore = inject(Firestore);
+  private injector = inject(EnvironmentInjector);
+  private unsubscripeService = inject(UnsubscripeService);
   tasks = signal<any[]>([]);
 
   userId = computed(() => this.authService.userId());
@@ -55,7 +57,7 @@ export class TasksService {
   loadTasks(userId: string) {
     const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
 
-    onSnapshot(tasksCollection, (snapshot) => {
+    const unsubscripeService = onSnapshot(tasksCollection, (snapshot) => {
       const tasksData = snapshot.docs.map((doc) => {
         return {
           id: doc.id, // Firestore document ID
@@ -65,6 +67,8 @@ export class TasksService {
 
       this.tasks.set(tasksData);
     });
+
+    this.unsubscripeService.add(unsubscripeService);
   }
 
   // async addTask(task: Task) {

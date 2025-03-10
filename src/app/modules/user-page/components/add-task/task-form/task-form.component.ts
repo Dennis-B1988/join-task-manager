@@ -65,10 +65,10 @@ export class TaskFormComponent {
   //   this.categoryOpen = false;
   // }
 
-  removeFocus(event: FocusEvent) {
-    const inputElement = event.target as HTMLInputElement;
-    inputElement.blur();
-  }
+  // removeFocus(event: FocusEvent) {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   inputElement.blur();
+  // }
 
   onClear() {
     this.taskForm.reset();

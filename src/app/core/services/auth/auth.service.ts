@@ -17,13 +17,14 @@ import {
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { CustomUser } from "../../models/user.model";
+import { UnsubscripeService } from "../unsubscripe/unsubscripe.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private router: Router = inject(Router);
-  private destroyRef = inject(DestroyRef);
+  private unsubscripeService = inject(UnsubscripeService);
 
   user = signal<CustomUser | null>(null);
   userId = signal<string>("");
@@ -35,7 +36,7 @@ export class AuthService {
     private auth: Auth,
     private firestore: Firestore,
   ) {
-    const subscribe = this.auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = this.auth.onAuthStateChanged(async (user) => {
       if (user) {
         await this.setUser(user);
 
@@ -51,7 +52,7 @@ export class AuthService {
         this.userId.set("");
       }
 
-      this.destroyRef.onDestroy(() => subscribe());
+      this.unsubscripeService.add(unsubscribe);
     });
 
     setTimeout(() => {

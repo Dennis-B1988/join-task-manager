@@ -31,11 +31,14 @@ export class TaskAssignedToComponent {
     effect(() => {
       this.contacts = this.contactsService.contacts().map((contact) => ({
         displayName: contact.displayName,
-        initials: contact.initials,
+        initials: contact.displayName
+          .split(" ")
+          .map((name: string) => name[0])
+          .join(""),
       }));
     });
     setTimeout(() => {
-      console.log(this.contacts);
+      console.log("Contacts to task:", this.contacts);
     }, 2000);
   }
 
@@ -46,6 +49,7 @@ export class TaskAssignedToComponent {
   assignContact(contact: string) {
     if (this.assignedToTask().includes(contact)) {
       this.contactsService.removeContactFromTask(contact);
+      console.log(contact);
     } else {
       this.contactsService.addContactToTask(contact);
     }
@@ -55,12 +59,18 @@ export class TaskAssignedToComponent {
     this.contactsService.removeContactFromTask(contact);
   }
 
+  getRandomColor(): string {
+    const hue = Math.floor(Math.random() * 360); // Full color range
+    const saturation = Math.floor(Math.random() * 40) + 40; // 40-80% saturation
+    const lightness = Math.floor(Math.random() * 30) + 40; // 40-70% lightness
+
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  }
+
   @HostListener("document:click", ["$event"])
   closeDropdownOnClickOutside(event: Event) {
     const assignedToInputElement = document.getElementById("assignedTo");
-    const assignedToDropdownElement = document.querySelector(
-      ".assigned-to-dropdown",
-    );
+    const assignedToDropdownElement = document.querySelector(".dropdown");
 
     const isClickInsideInput = assignedToInputElement?.contains(
       event.target as Node,
