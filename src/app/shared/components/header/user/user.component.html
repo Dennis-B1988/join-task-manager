@@ -1,5 +1,14 @@
 <div class="user">
-  <a (click)="signOut()">
-    <span>{{ userName() }}</span>
-  </a>
+  <!-- <a (click)="signOut()"> -->
+  <span (click)="toggleUserMenu()">{{ userName() }}</span>
+  <!-- </a> -->
+
+  @if (menuOpen) {
+    <ul class="menu">
+      <li>Help</li>
+      <li>Legal Notice</li>
+      <li>Privacy Policy</li>
+      <li (click)="signOut()">Log out</li>
+    </ul>
+  }
 </div>
