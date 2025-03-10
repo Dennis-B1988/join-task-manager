@@ -25,20 +25,17 @@
   }
 
   .urgent {
-    @include font(1.3125rem, 700, 1.575rem);
+    @include font(1.3125rem, 700, 1.575rem, #fff);
     background-color: #ff3d00;
-    color: #fff;
   }
 
   .medium {
-    @include font(1.3125rem, 700, 1.575rem);
+    @include font(1.3125rem, 700, 1.575rem, #fff);
     background-color: #ffa800;
-    color: #fff;
   }
 
   .low {
-    @include font(1.3125rem, 700, 1.575rem);
+    @include font(1.3125rem, 700, 1.575rem, #fff);
     background-color: #7ae229;
-    color: #fff;
   }
 }

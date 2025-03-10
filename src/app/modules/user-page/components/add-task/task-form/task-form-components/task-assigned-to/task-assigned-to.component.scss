@@ -6,19 +6,36 @@
 }
 
 .assigned-to-item {
-  @include flex(row, space-between, center);
-  @include padding(0.75rem, 1rem, 0.75rem, 1rem);
+  // @include flex(row, space-between, center);
+  @include padding(0.4375rem, 1rem, 0.4375rem, 1rem);
   width: 100%;
 
   &:hover {
-    background-color: #d1d1d1;
-    border-radius: 0.625rem;
     cursor: pointer;
   }
 }
 
+.contact-item {
+  @include flex(row, flex-start, center);
+  gap: 1rem;
+}
+
+.contact-initials {
+  @include flex(row, center, center);
+  @include font(0.75rem, 400, 1.2rem, #fff);
+  @include border(0.125rem, solid, #fff);
+  border-radius: 50%;
+  width: 2.875rem;
+  height: 2.875rem;
+}
+
+.contact-name {
+  width: 80%;
+}
+
 .selected {
-  background-color: #d1d1d1;
+  background-color: #2a3647;
+  color: #fff;
   border-radius: 0.625rem;
 }
 
@@ -26,24 +43,23 @@
   @include flex(row, flex-start, flex-start);
   gap: 0.5rem;
   width: 100%;
-  height: 65px;
+  height: 6.0625rem;
   overflow-y: auto;
 
   span {
     @include flex(row, center, center);
-    // @include border(0.1875rem);
-    width: 3rem;
-    height: 3rem;
+    @include font(0.75rem, 400, 1.2rem, #fff);
+    @include border(0.125rem, solid, #fff);
+    flex-wrap: wrap;
     border-radius: 50%;
-    font-weight: 700;
+    min-width: 2.875rem;
+    min-height: 2.875rem;
     cursor: pointer;
   }
 }
 
-.contact-initials {
-  width: 10%;
-}
-
-.contact-name {
-  width: 80%;
+.no-results {
+  @include flex(row, center, center);
+  width: 100%;
+  height: 100%;
 }

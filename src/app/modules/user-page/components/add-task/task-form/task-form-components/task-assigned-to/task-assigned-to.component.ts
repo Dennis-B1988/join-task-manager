@@ -20,7 +20,8 @@ export class TaskAssignedToComponent {
   private contactsService = inject(ContactsService);
   taskForm = input.required<FormGroup>();
   assignedToOpen: boolean = false;
-  contacts: any[] = [];
+  contacts = signal<any[]>([]);
+  searchContact = signal<string>("");
 
   assignedToTask = computed(() =>
     this.contactsService
@@ -28,16 +29,30 @@ export class TaskAssignedToComponent {
       .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
   );
 
+  filteredContacts = computed(() => {
+    const searchTerm = this.searchContact().toLowerCase();
+
+    return searchTerm.length >= 3
+      ? this.contacts().filter((contact) =>
+          contact.displayName.toLowerCase().includes(searchTerm),
+        )
+      : this.contacts();
+  });
+
   constructor() {
     effect(() => {
-      this.contacts = this.contactsService.contacts().map((contact) => ({
-        displayName: contact.displayName,
-        color: contact.color,
-        initials: contact.displayName
-          .split(" ")
-          .map((name: string) => name[0])
-          .join(""),
-      }));
+      const fetchedContacts = this.contactsService
+        .contacts()
+        .map((contact) => ({
+          displayName: contact.displayName,
+          color: contact.color,
+          initials: contact.displayName
+            .split(" ")
+            .map((name: string) => name[0])
+            .join(""),
+        }));
+
+      this.contacts.set(fetchedContacts);
     });
     setTimeout(() => {
       console.log("Contacts to task:", this.contacts);
@@ -48,7 +63,13 @@ export class TaskAssignedToComponent {
     this.assignedToOpen = !this.assignedToOpen;
   }
 
-  assignContactToTask(contact: string) {
+  searchContacts(event: Event) {
+    const searchValue = (event.target as HTMLInputElement).value.trim();
+    this.searchContact.set(searchValue.length >= 3 ? searchValue : "");
+    console.log(this.searchContact());
+  }
+
+  assignContactToTask(contact: any) {
     if (this.assignedToTask().includes(contact)) {
       this.contactsService.removeContactFromTask(contact);
       console.log(contact);
@@ -57,7 +78,7 @@ export class TaskAssignedToComponent {
     }
   }
 
-  removeContactFromTask(contact: string) {
+  removeContactFromTask(contact: any) {
     this.contactsService.removeContactFromTask(contact);
   }
 

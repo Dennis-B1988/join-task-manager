@@ -6,8 +6,8 @@
       id="assignedTo"
       placeholder="Select contacts to assign"
       formControlName="assignedTo"
-      [readOnly]="true"
-      (click)="toggleAssignedTo(); $event.preventDefault()"
+      (click)="toggleAssignedTo()"
+      (input)="searchContacts($event)"
     />
     <img
       class="input-icon"
@@ -18,9 +18,9 @@
       "
       alt="Assign users"
     />
-    @if (assignedToOpen && contacts.length > 0) {
+    @if (assignedToOpen && filteredContacts().length > 0) {
       <div class="dropdown">
-        @for (contact of contacts; track contact) {
+        @for (contact of filteredContacts(); track contact) {
           <div
             [class]="
               assignedToTask().includes(contact)
@@ -29,20 +29,27 @@
             "
             (click)="assignContactToTask(contact)"
           >
-            <span class="contact-initials">{{ contact.initials }}</span>
-            |
-            <span class="contact-name">{{ contact.displayName }} </span>
-            <img
-              [src]="
-                assignedToTask().includes(contact)
-                  ? 'assets/img/checkmark-normal-marked.png'
-                  : 'assets/img/checkmark-normal-empty.png'
-              "
-              alt=""
-            />
+            <div class="contact-item">
+              <span
+                class="contact-initials"
+                [style]="'background-color: ' + contact.color"
+                >{{ contact.initials }}</span
+              >
+              <span class="contact-name">{{ contact.displayName }} </span>
+              <img
+                [src]="
+                  assignedToTask().includes(contact)
+                    ? 'assets/img/checkmark-checked-white.png'
+                    : 'assets/img/checkmark-assigned-to.png'
+                "
+                alt=""
+              />
+            </div>
           </div>
         }
       </div>
+    } @else if (assignedToOpen && filteredContacts().length == 0) {
+      <div class="dropdown no-results">No contacts found</div>
     }
   </div>
 

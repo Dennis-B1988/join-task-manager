@@ -23,11 +23,10 @@ body {
 button {
   @include flex(row, center, center);
   @include border(0.0625rem, solid, #2a3647);
-  @include font(1.3125rem, 700, 1.575rem);
+  @include font(1.3125rem, 700, 1.575rem, #fff);
   @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   border-radius: 0.625rem;
   background-color: #2a3647;
-  color: #fff;
   cursor: pointer;
 }
 

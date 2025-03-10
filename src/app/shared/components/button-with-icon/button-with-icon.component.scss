@@ -4,10 +4,9 @@
   @include flex(row, center, center);
   @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   @include border(0.0625rem, solid, #2a3647);
-  @include font(1.3125rem, 700, 1.575rem);
+  @include font(1.3125rem, 700, 1.575rem, #fff);
   border-radius: 0.625rem;
   background-color: #2a3647;
-  color: #fff;
   gap: 0.25rem;
   cursor: pointer;
 }

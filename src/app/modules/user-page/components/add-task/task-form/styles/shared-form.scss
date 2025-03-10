@@ -1,6 +1,5 @@
 p {
-  @include font(0.75rem, 400, 0.9rem);
-  color: #ff8190;
+  @include font(0.75rem, 400, 0.9rem, #ff8190);
 
   &.visible {
     visibility: visible;

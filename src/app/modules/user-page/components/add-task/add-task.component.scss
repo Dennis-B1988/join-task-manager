@@ -45,9 +45,8 @@
 }
 
 .clear {
-  @include font(1.25rem, 400, 1.5rem);
+  @include font(1.25rem, 400, 1.5rem, #2a3647);
   background-color: #fff;
-  color: #2a3647;
 
   &:hover {
     @include border(0.0625rem, solid, #29abe2);

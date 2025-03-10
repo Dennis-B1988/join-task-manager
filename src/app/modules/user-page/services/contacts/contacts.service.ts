@@ -1,11 +1,9 @@
-import { DestroyRef, effect, inject, Injectable, signal } from "@angular/core";
+import { effect, inject, Injectable, signal } from "@angular/core";
 import {
   addDoc,
   collection,
-  doc,
   Firestore,
   onSnapshot,
-  Unsubscribe,
 } from "@angular/fire/firestore";
 import { Contact } from "../../../../core/models/contact.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";

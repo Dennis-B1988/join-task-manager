@@ -27,7 +27,7 @@
       alt=""
     />
     @if (categoryOpen) {
-      <div class="dropdown category-dropdown">
+      <div class="category-dropdown dropdown">
         @for (category of categories; track category) {
           <span (click)="setCategory(category)">
             {{ category }}
