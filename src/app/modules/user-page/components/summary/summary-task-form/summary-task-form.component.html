@@ -52,12 +52,9 @@
       </div>
       <div class="urgent-middle-line" aria-hidden="true"></div>
       <div class="task-deadline-container">
-        @if (
-          taskWithShortestDueDate() &&
-          taskWithShortestDueDate()?.dueDate > currentDate
-        ) {
+        @if (taskWithShortestDueDate() && urgentAmount()) {
           <time class="task-deadline-date" aria-live="polite">
-            {{ taskWithShortestDueDate()?.dueDate | date: "dd/MM/yyyy" }}
+            {{ taskWithShortestDueDate() | date: "dd/MM/yyyy" }}
           </time>
           <span>Upcoming Deadline</span>
         } @else {

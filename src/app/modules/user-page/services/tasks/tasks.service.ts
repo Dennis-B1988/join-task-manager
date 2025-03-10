@@ -57,18 +57,21 @@ export class TasksService {
   loadTasks(userId: string) {
     const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
 
-    const unsubscripeService = onSnapshot(tasksCollection, (snapshot) => {
-      const tasksData = snapshot.docs.map((doc) => {
-        return {
-          id: doc.id, // Firestore document ID
-          ...(doc.data() as Task), // Explicitly cast doc.data() as Task
-        };
+    runInInjectionContext(this.injector, async () => {
+      const unsubscripeService = onSnapshot(tasksCollection, (snapshot) => {
+        const tasksData = snapshot.docs.map((doc) => {
+          return {
+            id: doc.id, // Firestore document ID
+            ...(doc.data() as Task), // Explicitly cast doc.data() as Task
+          };
+        });
+
+        this.tasks.set(tasksData);
+        console.log("Tasks loaded:", this.tasks());
       });
 
-      this.tasks.set(tasksData);
+      this.unsubscripeService.add(unsubscripeService);
     });
-
-    this.unsubscripeService.add(unsubscripeService);
   }
 
   // async addTask(task: Task) {

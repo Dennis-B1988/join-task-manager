@@ -1,4 +1,9 @@
-import { Injectable } from "@angular/core";
+import {
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+} from "@angular/core";
 import {
   collection,
   deleteDoc,
@@ -13,19 +18,23 @@ import {
   providedIn: "root",
 })
 export class UserService {
+  private injector = inject(EnvironmentInjector);
+
   constructor(private firestore: Firestore) {}
 
   async deleteGuestDocument() {
     const userRef = collection(this.firestore, "users");
 
     const userQuery = query(userRef, where("displayName", "==", "Anon")); // Change to Guest later
-    const querySnapshot = await getDocs(userQuery);
+    runInInjectionContext(this.injector, async () => {
+      const querySnapshot = await getDocs(userQuery);
 
-    querySnapshot.forEach(async (document) => {
-      await deleteDoc(doc(this.firestore, "users", document.id));
-      console.log("Document deleted:", document.id);
+      querySnapshot.forEach(async (document) => {
+        await deleteDoc(doc(this.firestore, "users", document.id));
+        console.log("Document deleted:", document.id);
+      });
+
+      console.log("Guest document deleted.");
     });
-
-    console.log("Guest document deleted.");
   }
 }

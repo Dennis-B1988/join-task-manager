@@ -1,5 +1,6 @@
 import { DatePipe } from "@angular/common";
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
+import { set } from "firebase/database";
 import { TasksService } from "../../../services/tasks/tasks.service";
 
 @Component({
@@ -39,19 +40,47 @@ export class SummaryTaskFormComponent {
         .length,
   );
 
+  // taskWithShortestDueDate = computed(() => {
+  //   const tasks = this.tasksService.tasks();
+
+  //   if (tasks.length === 0) return null;
+
+  //   return tasks.reduce((earliestTask, currentTask) => {
+  //     const earliestDate = new Date(earliestTask.dueDate);
+  //     const currentDate = new Date(currentTask.dueDate);
+
+  //     return earliestDate < currentDate ? earliestTask : currentTask;
+  //   });
+  // });
+
   taskWithShortestDueDate = computed(() => {
     const tasks = this.tasksService.tasks();
-
     if (tasks.length === 0) return null;
 
-    return tasks.reduce((earliestTask, currentTask) => {
-      return new Date(earliestTask.dueDate) < new Date(currentTask.dueDate)
-        ? earliestTask
-        : currentTask;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const futureTasks = tasks.filter(
+      (task) => new Date(task.dueDate) > today && task.priority === "Urgent",
+    );
+
+    const earliestTask = futureTasks.reduce((earliest, current) => {
+      return new Date(earliest.dueDate) < new Date(current.dueDate)
+        ? earliest
+        : current;
     });
+
+    console.log("Earliest task:", earliestTask);
+    return new Date(earliestTask.dueDate);
   });
 
-  currentDate = new Date();
+  // currentDate = signal(new Date());
   toDoHover: boolean = false;
   doneHover: boolean = false;
+
+  constructor() {
+    setTimeout(() => {
+      console.log("Tasks Summary:", this.tasksSummary());
+    }, 5000);
+  }
 }

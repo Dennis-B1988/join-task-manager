@@ -1,4 +1,11 @@
-import { DestroyRef, inject, Injectable, signal } from "@angular/core";
+import {
+  DestroyRef,
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+  signal,
+} from "@angular/core";
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -25,6 +32,7 @@ import { UnsubscripeService } from "../unsubscripe/unsubscripe.service";
 export class AuthService {
   private router: Router = inject(Router);
   private unsubscripeService = inject(UnsubscripeService);
+  private injector = inject(EnvironmentInjector);
 
   user = signal<CustomUser | null>(null);
   userId = signal<string>("");
@@ -64,20 +72,21 @@ export class AuthService {
     await user.reload();
 
     const userDocRef = doc(this.firestore, "users", user.uid);
-    const userDocSnap = await getDoc(userDocRef);
 
-    const userData = userDocSnap.exists() ? userDocSnap.data() : {};
+    runInInjectionContext(this.injector, async () => {
+      const userDocSnap = await getDoc(userDocRef);
 
-    // Fetch tasks and contacts separately
-    const tasks = await this.fetchTasks(user.uid);
-    const contacts = await this.fetchContacts(user.uid);
+      const userData = userDocSnap.exists() ? userDocSnap.data() : {};
 
-    // const customUser = new CustomUser(user, userData);
-    const customUser = new CustomUser(user, { ...userData, tasks, contacts });
-    this.user.set(customUser);
-    this.userId.set(user.uid);
+      const tasks = await this.fetchTasks(user.uid);
+      const contacts = await this.fetchContacts(user.uid);
 
-    console.log("User set:", this.user());
+      const customUser = new CustomUser(user, { ...userData, tasks, contacts });
+      this.user.set(customUser);
+      this.userId.set(user.uid);
+
+      console.log("User set:", this.user());
+    });
   }
 
   async createUser(
@@ -99,8 +108,6 @@ export class AuthService {
       await setDoc(userDocRef, {
         displayName: displayName,
         email: email,
-        // tasks: [],
-        // contacts: [],
       });
     } catch (error: any) {
       console.error("Error creating user:", error);
@@ -188,9 +195,11 @@ export class AuthService {
    */
   private async fetchTasks(userId: string): Promise<any[]> {
     const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
-    const tasksSnapshot = await getDocs(tasksCollection);
 
-    return tasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    return runInInjectionContext(this.injector, async () => {
+      const tasksSnapshot = await getDocs(tasksCollection);
+      return tasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    });
   }
 
   /**
@@ -201,8 +210,13 @@ export class AuthService {
       this.firestore,
       `users/${userId}/contacts`,
     );
-    const contactsSnapshot = await getDocs(contactsCollection);
+    return runInInjectionContext(this.injector, async () => {
+      const contactsSnapshot = await getDocs(contactsCollection);
 
-    return contactsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      return contactsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+    });
   }
 }

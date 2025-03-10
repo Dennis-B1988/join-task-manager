@@ -1,4 +1,11 @@
-import { effect, inject, Injectable, signal } from "@angular/core";
+import {
+  effect,
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+  signal,
+} from "@angular/core";
 import {
   addDoc,
   collection,
@@ -16,6 +23,7 @@ export class ContactsService {
   private authService = inject(AuthService);
   private firestore = inject(Firestore);
   private unsubscripeService = inject(UnsubscripeService);
+  private injector = inject(EnvironmentInjector);
 
   contacts = signal<any[]>([]);
   assignedToTask = signal<any[]>([]);
@@ -35,23 +43,25 @@ export class ContactsService {
       `users/${userId}/contacts`,
     );
 
-    const unsubscribe = onSnapshot(contactsCollection, (snapshot) => {
-      const contactsData = snapshot.docs
-        .map((doc) => {
-          return {
-            id: doc.id,
-            ...(doc.data() as Contact),
-            color: this.generateColor(doc.data()["displayName"]),
-          };
-        })
-        .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName));
+    runInInjectionContext(this.injector, async () => {
+      const unsubscribe = onSnapshot(contactsCollection, (snapshot) => {
+        const contactsData = snapshot.docs
+          .map((doc) => {
+            return {
+              id: doc.id,
+              ...(doc.data() as Contact),
+              color: this.generateColor(doc.data()["displayName"]),
+            };
+          })
+          .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName));
 
-      this.contacts.set(contactsData);
+        this.contacts.set(contactsData);
 
-      console.log("Contacts loaded:", contactsData);
+        console.log("Contacts loaded:", contactsData);
+      });
+
+      this.unsubscripeService.add(unsubscribe);
     });
-
-    this.unsubscripeService.add(unsubscribe);
   }
 
   async createContact(contact: any) {
