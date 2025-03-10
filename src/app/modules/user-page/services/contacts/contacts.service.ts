@@ -1,5 +1,6 @@
 import { DestroyRef, effect, inject, Injectable, signal } from "@angular/core";
 import {
+  addDoc,
   collection,
   doc,
   Firestore,
@@ -37,12 +38,14 @@ export class ContactsService {
     );
 
     const unsubscribe = onSnapshot(contactsCollection, (snapshot) => {
-      const contactsData = snapshot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...(doc.data() as Contact),
-        };
-      });
+      const contactsData = snapshot.docs
+        .map((doc) => {
+          return {
+            id: doc.id,
+            ...(doc.data() as Contact),
+          };
+        })
+        .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName));
 
       this.contacts.set(contactsData);
 
@@ -52,14 +55,18 @@ export class ContactsService {
     this.unsubscripeService.add(unsubscribe);
   }
 
-  // createContact(contact: any) {
-  //   const userId = this.authService.userId();
-  //   if (!userId) return;
+  async createContact(contact: any) {
+    const userId = this.authService.userId();
+    if (!userId) return;
 
-  //   const userDoc = doc(this.firestore, "users", userId);
+    const contactsCollection = collection(
+      this.firestore,
+      `users/${userId}/contacts`,
+    );
 
-  //   updateDoc(userDoc, { contacts: arrayUnion(contact) });
-  // }
+    await addDoc(contactsCollection, contact);
+    console.log("Contact created:", contact);
+  }
 
   addContactToTask(contact: any) {
     this.assignedToTask.set([...this.assignedToTask(), contact]);
