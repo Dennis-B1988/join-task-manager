@@ -52,4 +52,6 @@ export class SummaryTaskFormComponent {
   });
 
   currentDate = new Date();
+  toDoHover: boolean = false;
+  doneHover: boolean = false;
 }

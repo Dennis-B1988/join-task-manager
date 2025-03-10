@@ -1,14 +1,32 @@
 <section class="summary-display-container" aria-label="Task Summary Dashboard">
   <div class="top container">
-    <article class="to-do-done summary-display" aria-labelledby="todo-heading">
-      <img src="assets/img/to-do.png" alt="to do" />
+    <article
+      class="to-do-done summary-display hover"
+      aria-labelledby="todo-heading"
+      (mouseenter)="toDoHover = true"
+      (mouseleave)="toDoHover = false"
+    >
+      <img
+        [src]="
+          toDoHover ? 'assets/img/to-do-hover.png' : 'assets/img/to-do.png'
+        "
+        alt="Tasks in to do"
+      />
       <div>
         <output class="task-amount">{{ toDoAmount() }}</output>
         <span class="task-type">To-do</span>
       </div>
     </article>
-    <article class="to-do-done summary-display" aria-labelledby="done-heading">
-      <img src="assets/img/done.png" alt="done" />
+    <article
+      class="to-do-done summary-display hover"
+      aria-labelledby="done-heading"
+      (mouseenter)="doneHover = true"
+      (mouseleave)="doneHover = false"
+    >
+      <img
+        [src]="doneHover ? 'assets/img/done-hover.png' : 'assets/img/done.png'"
+        alt="Tasks in done"
+      />
       <div>
         <output class="task-amount">0</output>
         <span class="task-type">Done</span>
@@ -17,7 +35,10 @@
   </div>
 
   <div class="middle">
-    <article class="urgent summary-display" aria-labelledby="urgent-heading">
+    <article
+      class="urgent summary-display hover"
+      aria-labelledby="urgent-heading"
+    >
       <div class="urgent-amount-container">
         <img
           src="assets/img/urgent.png"
@@ -48,21 +69,21 @@
 
   <div class="bottom container">
     <article
-      class="board-progress-feedback summary-display"
+      class="board-progress-feedback summary-display hover"
       aria-labelledby="total-tasks-heading"
     >
       <output class="task-amount">{{ totalTasks() }}</output>
       <span class="task-type">Tasks in Board</span>
     </article>
     <article
-      class="board-progress-feedback summary-display"
+      class="board-progress-feedback summary-display hover"
       aria-labelledby="progress-tasks-heading"
     >
       <output class="task-amount">{{ inProgressAmount() }}</output>
       <span class="task-type">Tasks in Progress</span>
     </article>
     <article
-      class="board-progress-feedback summary-display"
+      class="board-progress-feedback summary-display hover"
       aria-labelledby="feedback-tasks-heading"
     >
       <output class="task-amount">{{ awaitingFeedbackAmount() }}</output>

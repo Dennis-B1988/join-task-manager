@@ -14,7 +14,7 @@ export class UserComponent {
   userService = inject(UserService);
   unsubscripeService = inject(UnsubscripeService);
 
-  menuOpen = false;
+  menuOpen: boolean = false;
 
   userName = computed(() => {
     const user = this.authService.user();
