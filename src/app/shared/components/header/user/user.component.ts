@@ -1,11 +1,12 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, Host, HostListener, inject } from "@angular/core";
+import { RouterLink } from "@angular/router";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { UnsubscripeService } from "../../../../core/services/unsubscripe/unsubscripe.service";
 import { UserService } from "../../../../core/services/user/user.service";
 
 @Component({
   selector: "app-user",
-  imports: [],
+  imports: [RouterLink],
   templateUrl: "./user.component.html",
   styleUrl: "./user.component.scss",
 })
@@ -46,5 +47,15 @@ export class UserComponent {
     this.unsubscripeService.unsubscripeAll();
     this.toggleUserMenu();
     console.log(this.authService.userId());
+  }
+
+  @HostListener("document:click", ["$event"])
+  closeUserMenu(event: Event) {
+    if (this.menuOpen) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest(".user")) {
+        this.menuOpen = false;
+      }
+    }
   }
 }

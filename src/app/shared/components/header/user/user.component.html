@@ -4,11 +4,15 @@
   <!-- </a> -->
 
   @if (menuOpen) {
-    <ul class="menu">
-      <li>Help</li>
-      <li>Legal Notice</li>
-      <li>Privacy Policy</li>
-      <li (click)="signOut()">Log out</li>
-    </ul>
+    <nav class="menu">
+      <!-- <li [routerLink]="['/help']" (click)="toggleUserMenu()">Help</li> -->
+      <span [routerLink]="['/legal-notice']" (click)="toggleUserMenu()">
+        Legal Notice
+      </span>
+      <span [routerLink]="['/privacy-policy']" (click)="toggleUserMenu()">
+        Privacy Policy
+      </span>
+      <span (click)="signOut()">Log out</span>
+    </nav>
   }
 </div>

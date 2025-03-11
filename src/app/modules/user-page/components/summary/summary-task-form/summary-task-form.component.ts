@@ -40,19 +40,6 @@ export class SummaryTaskFormComponent {
         .length,
   );
 
-  // taskWithShortestDueDate = computed(() => {
-  //   const tasks = this.tasksService.tasks();
-
-  //   if (tasks.length === 0) return null;
-
-  //   return tasks.reduce((earliestTask, currentTask) => {
-  //     const earliestDate = new Date(earliestTask.dueDate);
-  //     const currentDate = new Date(currentTask.dueDate);
-
-  //     return earliestDate < currentDate ? earliestTask : currentTask;
-  //   });
-  // });
-
   taskWithShortestDueDate = computed(() => {
     const tasks = this.tasksService.tasks();
     if (tasks.length === 0) return null;
@@ -74,7 +61,6 @@ export class SummaryTaskFormComponent {
     return new Date(earliestTask.dueDate);
   });
 
-  // currentDate = signal(new Date());
   toDoHover: boolean = false;
   doneHover: boolean = false;
 
