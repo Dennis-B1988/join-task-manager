@@ -1,4 +1,21 @@
-<div class="tasks-container">
+<main class="board">
+  <header class="board-header">
+    <h1>Board</h1>
+    <div class="search-and-create">
+      <input type="text" />
+      <button appButton>
+        Add task
+        <span ngProjectAs="[icon]"
+          ><img src="assets/img/add.png" alt="checkmark"
+        /></span>
+      </button>
+    </div>
+  </header>
+
+  <app-board-task-container></app-board-task-container>
+</main>
+
+<!-- <div class="tasks-container">
   <div class="urgent">
     @for (task of tasks(); track task.id) {
       @if (task.priority == "Urgent") {
@@ -33,4 +50,4 @@
       }
     }
   </div>
-</div>
+</div> -->
