@@ -9,10 +9,6 @@ import { TasksService } from "../../../../services/tasks/tasks.service";
 })
 export class BoardTaskContainerComponent {
   tasksService = inject(TasksService);
-  // toDo = input("toDo");
-  // inProgress = input("inProgress");
-  // awaitingFeedback = input("awaitingFeedback");
-  // done = input("done");
   status = input.required<string>();
   title = input.required<string>();
 

@@ -1,5 +1,13 @@
 @import "../../shared/styles/mixins";
 
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Take available space */
+  overflow: hidden;
+  max-height: 100%; /* Prevent stretching */
+}
+
 .user-page {
   display: grid;
   grid-template-columns: 14.5rem 1fr;
@@ -21,27 +29,4 @@ aside {
 main {
   grid-area: main;
   overflow: hidden;
-  // height: 100%; // Take full height of grid area
-  // display: flex; // Important for router-outlet content
-  // flex-direction: column;
-}
-
-// router-outlet {
-//   display: block;
-//   height: 0; // Router outlet itself doesn't take space
-// }
-
-// router-outlet + * {
-//   flex: 1; // Router outlet rendered content takes all available space
-//   height: 100%; // Ensure full height
-//   min-height: 0; // Critical for flex children to enable overflow
-//   overflow: hidden; // Handle overflow at component level
-// }
-
-:host {
-  display: flex;
-  flex-direction: column;
-  flex: 1; /* Take available space */
-  overflow: hidden;
-  max-height: 100%; /* Prevent stretching */
 }

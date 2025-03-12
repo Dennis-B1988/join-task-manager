@@ -1,16 +1,21 @@
 <div class="task-container">
   <div class="task-header">
     <span>{{ title() }}</span>
+    <img src="assets/img/plus_button.png" alt="Add task to {{ title() }}" />
   </div>
   <div class="task-list">
-    @for (task of filteredTasks(); track task.id) {
-      <div class="show-task">
-        <span>{{ task.id }}</span>
-        <span>{{ task.title }}</span>
-        <span>{{ task.description }}</span>
-        <span>{{ task.priority }}</span>
-        <span>{{ task.status }}</span>
-      </div>
+    @if (filteredTasks().length > 0) {
+      @for (task of filteredTasks(); track task.id) {
+        <div class="show-task">
+          <span>{{ task.id }}</span>
+          <span>{{ task.title }}</span>
+          <span>{{ task.description }}</span>
+          <span>{{ task.priority }}</span>
+          <span>{{ task.status }}</span>
+        </div>
+      }
+    } @else {
+      <div class="no-task">No tasks {{ title() }}</div>
     }
   </div>
 </div>

@@ -2,7 +2,13 @@
   <header class="board-header">
     <h1>Board</h1>
     <div class="search-and-create">
-      <input type="text" />
+      <div class="search-container">
+        <input type="text" class="find-task" placeholder="Find Task" />
+        <div class="search-image" aria-hidden="true">
+          <span class="line"></span>
+          <img src="assets/img/search.png" alt="Search Button" />
+        </div>
+      </div>
       <button appButton>
         Add task
         <span ngProjectAs="[icon]"
