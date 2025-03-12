@@ -12,42 +12,22 @@
     </div>
   </header>
 
-  <app-board-task-container></app-board-task-container>
+  <section class="board-main">
+    <app-board-task-container
+      [status]="TODO"
+      [title]="TODO"
+    ></app-board-task-container>
+    <app-board-task-container
+      [status]="IN_PROGRESS"
+      [title]="IN_PROGRESS"
+    ></app-board-task-container>
+    <app-board-task-container
+      [status]="AWAITING_FEEDBACK"
+      [title]="AWAITING_FEEDBACK"
+    ></app-board-task-container>
+    <app-board-task-container
+      [status]="DONE"
+      [title]="DONE"
+    ></app-board-task-container>
+  </section>
 </main>
-
-<!-- <div class="tasks-container">
-  <div class="urgent">
-    @for (task of tasks(); track task.id) {
-      @if (task.priority == "Urgent") {
-        <div class="show-task">
-          <ul (click)="deleteTask(task.id)">
-            <li>
-              <span>{{ task.id }}</span>
-              <span>{{ task.title }}</span>
-              <span>{{ task.description }}</span>
-              <span>{{ task.priority }}</span>
-              <span>{{ task.status }}</span>
-            </li>
-          </ul>
-        </div>
-      }
-    }
-  </div>
-  <div class="low">
-    @for (task of tasks(); track task.id) {
-      @if (task.priority == "Low") {
-        <div class="show-task">
-          <ul (click)="deleteTask(task.id)">
-            <li>
-              <span>{{ task.id }}</span>
-              <span>{{ task.title }}</span>
-              <span>{{ task.description }}</span>
-              <span>{{ task.priority }}</span>
-              <span>{{ task.status }}</span>
-            </li>
-          </ul>
-        </div>
-      }
-    }
-  </div>
-</div> -->

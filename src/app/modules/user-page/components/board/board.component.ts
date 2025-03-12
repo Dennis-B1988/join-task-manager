@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { TasksService } from "../../services/tasks/tasks.service";
 import { BoardTaskContainerComponent } from "./board-task-container/board-task-container/board-task-container.component";
 
@@ -10,6 +10,11 @@ import { BoardTaskContainerComponent } from "./board-task-container/board-task-c
 })
 export class BoardComponent {
   tasksService = inject(TasksService);
+
+  readonly TODO = "To Do";
+  readonly IN_PROGRESS = "In Progress";
+  readonly AWAITING_FEEDBACK = "Awaiting Feedback";
+  readonly DONE = "Done";
 
   tasks = computed(() => this.tasksService.tasks());
 
