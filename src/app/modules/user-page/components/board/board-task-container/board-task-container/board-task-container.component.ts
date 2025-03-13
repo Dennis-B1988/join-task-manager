@@ -1,10 +1,14 @@
 import { Component, computed, inject, input } from "@angular/core";
+import {
+  MatProgressBarModule,
+  ProgressBarMode,
+} from "@angular/material/progress-bar";
 import { ContactsService } from "../../../../services/contacts/contacts.service";
 import { TasksService } from "../../../../services/tasks/tasks.service";
 
 @Component({
   selector: "app-board-task-container",
-  imports: [],
+  imports: [MatProgressBarModule],
   templateUrl: "./board-task-container.component.html",
   styleUrl: "./board-task-container.component.scss",
 })
@@ -13,6 +17,10 @@ export class BoardTaskContainerComponent {
   private contactsService = inject(ContactsService);
   status = input.required<string>();
   title = input.required<string>();
+  finishedSubtasks = 1;
+  mode: ProgressBarMode = "determinate";
+  value = 50;
+  bufferValue = 75;
 
   tasks = computed(() => this.tasksService.tasks());
 
@@ -26,17 +34,17 @@ export class BoardTaskContainerComponent {
       .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
   );
 
-  get taskPriority() {
-    const priority = this.tasksService.taskPriority();
-    if (priority == "Urgent") return "urgent";
-    if (priority == "Medium") return "medium";
-    if (priority == "Low") return "low";
-    return null;
-  }
-
   constructor() {
     setTimeout(() => {
       console.log("Tasks:", this.filteredTasks());
     }, 5000);
+  }
+
+  getOpenSubtasks(task: any): string {
+    return task.subtask?.find((subtask: any) => subtask.open)?.open || [];
+  }
+
+  getDoneSubtasks(task: any): string {
+    return task.subtask?.find((subtask: any) => subtask.done)?.done || [];
   }
 }
