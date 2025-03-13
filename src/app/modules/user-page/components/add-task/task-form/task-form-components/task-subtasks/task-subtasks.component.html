@@ -15,10 +15,10 @@
     />
   </div>
   <div class="subtasks-list-container">
-    @for (subtask of subTasks(); track subtask) {
-      <ul class="subtasks-list">
+    <ul class="subtasks-list">
+      @for (subtask of subTasks(); track subtask) {
         <li class="subtask-text">{{ subtask }}</li>
-      </ul>
-    }
+      }
+    </ul>
   </div>
 </div>

@@ -53,7 +53,8 @@ export class SubtasksService {
   // }
 
   addSubtask(subtask: string) {
-    this.subTasks.update((tasks) => [...tasks, subtask, open]);
+    this.subTasks.update((tasks) => [...tasks, subtask]);
+    console.log(this.subTasks());
   }
 
   clearSubtasks() {

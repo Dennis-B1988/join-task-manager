@@ -6,6 +6,6 @@ export interface Task {
   dueDate: string;
   priority: string;
   category: string;
-  subtask: string[];
+  subtask: { open: string[]; done: string[] };
   status: string;
 }

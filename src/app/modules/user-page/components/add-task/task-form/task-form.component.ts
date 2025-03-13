@@ -84,6 +84,12 @@ export class TaskFormComponent {
       return;
     }
     const formValue = this.taskForm.value;
+
+    const subtasks = {
+      open: this.subTasks() || [],
+      done: [],
+    };
+
     const newTask: Task = {
       // id: new Date().getTime(),
       title: formValue.title || "",
@@ -92,7 +98,7 @@ export class TaskFormComponent {
       dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority(),
       category: formValue.category || "",
-      subtask: this.subTasks(),
+      subtask: subtasks,
       status: "To Do",
     };
 

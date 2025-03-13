@@ -41,10 +41,10 @@ export class BoardTaskContainerComponent {
   }
 
   getOpenSubtasks(task: any): string {
-    return task.subtask?.find((subtask: any) => subtask.open)?.open || [];
+    return task.subtask?.open || [];
   }
 
   getDoneSubtasks(task: any): string {
-    return task.subtask?.find((subtask: any) => subtask.done)?.done || [];
+    return task.subtask?.done || [];
   }
 }
