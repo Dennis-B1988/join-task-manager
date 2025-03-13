@@ -79,12 +79,12 @@
 .task {
   @include flex(column, space-between, flex-start);
   @include border(0.0625rem, solid, #d1d1d1);
-  width: 100%;
-  gap: 0.5rem;
   padding: 1rem;
+  width: 100%;
+  gap: 1.5rem;
   margin-bottom: 0.5rem;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 1.5rem;
   flex-shrink: 0; // Prevent task cards from shrinking
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
@@ -101,6 +101,35 @@
   box-shadow: 0px 0px 4px 0px #00000029;
   background-color: #e7e7e7;
   height: 3rem;
+}
+
+.category {
+  @include flex(row, center, center);
+  @include font(1rem, 400, 1.2rem, #fff);
+  @include padding(0.25rem, 1rem, 0.25rem, 1rem);
+  border-radius: 0.5rem;
+}
+
+.title {
+  @include font(1rem, 700, 1.2rem, #000);
+}
+
+.description {
+  @include font(1rem, 400, 1.2rem, #ababab);
+}
+
+.subtask {
+  @include flex(row, space-between, center);
+  @include font(0.75rem, 400, 1.2rem, #000);
+  width: 100%;
+  gap: 0.625rem;
+}
+
+.progress-bar {
+  background-color: #f4f4f4;
+  width: 60%;
+  height: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .assigned-to-status-container {

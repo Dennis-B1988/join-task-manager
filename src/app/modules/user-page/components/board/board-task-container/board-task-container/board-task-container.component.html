@@ -7,9 +7,25 @@
     @if (filteredTasks().length > 0) {
       @for (task of filteredTasks(); track task.id) {
         <div class="task">
-          <span>{{ task.category }}</span>
-          <span>{{ task.title }}</span>
-          <span>{{ task.description }}</span>
+          <span
+            class="category"
+            [style]="
+              task.category === 'User Story'
+                ? 'background-color: #0038FF;'
+                : 'background-color: #1FD7C1;'
+            "
+            >{{ task.category }}</span
+          >
+          <span class="title">{{ task.title }}</span>
+          <span class="description">{{ task.description }}</span>
+          @if (task.subtask.length > 0) {
+            <div class="subtask">
+              <output class="progress-bar"></output>
+              <output class="subtasks-amount">
+                0/{{ task.subtask.length }} Subtasks
+              </output>
+            </div>
+          }
           <div class="assigned-to-status-container">
             <output class="assigned-to">
               @for (assigned of task.assignedTo; track assigned.initials) {
