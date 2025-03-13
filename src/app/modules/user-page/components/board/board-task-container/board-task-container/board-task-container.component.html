@@ -6,12 +6,25 @@
   <div class="task-list">
     @if (filteredTasks().length > 0) {
       @for (task of filteredTasks(); track task.id) {
-        <div class="show-task">
-          <span>{{ task.id }}</span>
+        <div class="task">
+          <span>{{ task.category }}</span>
           <span>{{ task.title }}</span>
           <span>{{ task.description }}</span>
-          <span>{{ task.priority }}</span>
-          <span>{{ task.status }}</span>
+          <div class="assigned-to-status-container">
+            <output class="assigned-to">
+              @for (assigned of task.assignedTo; track assigned.initials) {
+                <span
+                  class="assigned-initials"
+                  [style]="'background-color: ' + assigned.color"
+                  >{{ assigned.initials }}</span
+                >
+              }
+            </output>
+            <img
+              [src]="'assets/img/prio-' + task.priority.toLowerCase() + '.png'"
+              alt=""
+            />
+          </div>
         </div>
       }
     } @else {

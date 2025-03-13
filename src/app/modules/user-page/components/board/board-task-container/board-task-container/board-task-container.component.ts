@@ -1,4 +1,5 @@
 import { Component, computed, inject, input } from "@angular/core";
+import { ContactsService } from "../../../../services/contacts/contacts.service";
 import { TasksService } from "../../../../services/tasks/tasks.service";
 
 @Component({
@@ -8,7 +9,8 @@ import { TasksService } from "../../../../services/tasks/tasks.service";
   styleUrl: "./board-task-container.component.scss",
 })
 export class BoardTaskContainerComponent {
-  tasksService = inject(TasksService);
+  private tasksService = inject(TasksService);
+  private contactsService = inject(ContactsService);
   status = input.required<string>();
   title = input.required<string>();
 
@@ -17,4 +19,24 @@ export class BoardTaskContainerComponent {
   filteredTasks = computed(() =>
     this.tasks().filter((task) => task.status == this.status()),
   );
+
+  assignedToTask = computed(() =>
+    this.contactsService
+      .assignedToTask()
+      .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
+  );
+
+  get taskPriority() {
+    const priority = this.tasksService.taskPriority();
+    if (priority == "Urgent") return "urgent";
+    if (priority == "Medium") return "medium";
+    if (priority == "Low") return "low";
+    return null;
+  }
+
+  constructor() {
+    setTimeout(() => {
+      console.log("Tasks:", this.filteredTasks());
+    }, 5000);
+  }
 }

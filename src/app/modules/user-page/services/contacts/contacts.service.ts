@@ -35,6 +35,10 @@ export class ContactsService {
         this.loadContacts(userId);
       }
     });
+
+    setTimeout(() => {
+      console.log("Contacts:", this.contacts());
+    }, 5000);
   }
 
   loadContacts(userId: string) {
