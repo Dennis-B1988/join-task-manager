@@ -1,18 +1,30 @@
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+  transferArrayItem,
+} from "@angular/cdk/drag-drop";
 import { Component, computed, inject, input } from "@angular/core";
+import { Firestore } from "@angular/fire/firestore";
 import {
   MatProgressBarModule,
   ProgressBarMode,
 } from "@angular/material/progress-bar";
+import { doc, updateDoc } from "firebase/firestore";
+import { Task } from "../../../../../../core/models/task.model";
+import { AuthService } from "../../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../../services/contacts/contacts.service";
 import { TasksService } from "../../../../services/tasks/tasks.service";
 
 @Component({
   selector: "app-board-task-container",
-  imports: [MatProgressBarModule],
+  imports: [MatProgressBarModule, DragDropModule],
   templateUrl: "./board-task-container.component.html",
   styleUrl: "./board-task-container.component.scss",
 })
 export class BoardTaskContainerComponent {
+  private firestore = inject(Firestore);
+  private authService = inject(AuthService);
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
   status = input.required<string>();
@@ -21,6 +33,23 @@ export class BoardTaskContainerComponent {
   mode: ProgressBarMode = "determinate";
   value = 50;
   bufferValue = 75;
+  // connectedList = ["To Do", "In Progress", "Awaiting Feedback", "Done"];
+
+  // Define these constants to avoid string mismatches
+  readonly TODO = "To Do";
+  readonly IN_PROGRESS = "In Progress";
+  readonly AWAITING_FEEDBACK = "Awaiting Feedback";
+  readonly DONE = "Done";
+
+  // Update to use the actual container IDs from your template
+  get connectedList() {
+    return [
+      this.TODO,
+      this.IN_PROGRESS,
+      this.AWAITING_FEEDBACK,
+      this.DONE,
+    ].filter((s) => s !== this.status());
+  }
 
   tasks = computed(() => this.tasksService.tasks());
 
@@ -46,5 +75,45 @@ export class BoardTaskContainerComponent {
 
   getDoneSubtasks(task: any): string {
     return task.subtask?.done || [];
+  }
+
+  async drop(event: CdkDragDrop<any[]>, newStatus: string) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    } else {
+      const userId = this.authService.userId();
+      if (!userId) return;
+
+      const taskToMove = event.previousContainer.data[event.previousIndex];
+
+      if (!taskToMove || !taskToMove.id) {
+        console.error("No valid task or task ID found.");
+        return;
+      }
+
+      try {
+        const taskRef = doc(
+          this.firestore,
+          `users/${userId}/tasks/${taskToMove.id}`,
+        );
+        await updateDoc(taskRef, { status: newStatus });
+        console.log("Task status updated:", taskToMove.id, newStatus);
+
+        this.tasksService.updateLocalTaskStatus(taskToMove.id, newStatus);
+
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      } catch (error) {
+        console.error("Error updating task status:", error);
+      }
+    }
   }
 }

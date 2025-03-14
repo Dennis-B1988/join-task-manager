@@ -7,7 +7,7 @@ import {
   runInInjectionContext,
   signal,
 } from "@angular/core";
-import { doc, Firestore } from "@angular/fire/firestore";
+import { doc, Firestore, updateDoc } from "@angular/fire/firestore";
 import { addDoc, collection, deleteDoc, onSnapshot } from "firebase/firestore";
 import { Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
@@ -76,19 +76,55 @@ export class TasksService {
     console.log("Task added:", task);
   }
 
-  async deleteTask(taskId: string) {
-    const userId = this.authService.userId();
-    if (!userId) return;
+  // async addTask(task: Task) {
+  // async addTask(task: any) {
+  //   const userId = this.authService.userId();
+  //   if (!userId) return;
 
-    const taskDocRef = doc(this.firestore, `users/${userId}/tasks/${taskId}`);
+  //   // const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
+  //   try {
+  //     const docRef = await addDoc(
+  //       collection(this.firestore, `users/${userId}/tasks`),
+  //       task,
+  //     );
 
-    await deleteDoc(taskDocRef);
-    console.log("Task deleted:", taskId);
-  }
+  //     task.id = docRef.id;
+  //     return task;
+  //   } catch (error) {
+  //     console.error("Error adding task:", error);
+  //   }
+
+  //   // await addDoc(tasksCollection, task);
+  //   // console.log("Task added:", task);
+  // }
+
+  // async deleteTask(taskId: string) {
+  //   const userId = this.authService.userId();
+  //   if (!userId) return;
+
+  //   const taskDocRef = doc(this.firestore, `users/${userId}/tasks/${taskId}`);
+
+  //   await deleteDoc(taskDocRef);
+  //   console.log("Task deleted:", taskId);
+  // }
 
   setTaskPriority(priority: string) {
     this.taskPriority.set(priority);
     console.log("Priority:", this.taskPriority());
+  }
+
+  updateLocalTaskStatus(taskId: string, newStatus: string): void {
+    // Create a new array to avoid direct mutation
+    const updatedTasks = this.tasks().map((task) => {
+      if (task.id === taskId) {
+        // Create a new task object with the updated status
+        return { ...task, status: newStatus };
+      }
+      return task;
+    });
+
+    // Update the signal with the new tasks array
+    this.tasks.set(updatedTasks);
   }
 
   private generateColor(name: string): string {

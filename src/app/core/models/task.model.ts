@@ -1,8 +1,8 @@
 export interface Task {
-  // id: number;
+  // id: string;
   title: string;
   description: string;
-  assignedTo: string[];
+  assignedTo: { displayName: string; initials: string }[];
   dueDate: string;
   priority: string;
   category: string;

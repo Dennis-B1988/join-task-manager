@@ -3,10 +3,17 @@
     <span>{{ title() }}</span>
     <img src="assets/img/plus_button.png" alt="Add task to {{ title() }}" />
   </div>
-  <div class="task-list">
+  <div
+    [id]="status()"
+    class="task-list"
+    cdkDropList
+    [cdkDropListData]="filteredTasks()"
+    [cdkDropListConnectedTo]="connectedList"
+    (cdkDropListDropped)="drop($event, status())"
+  >
     @if (filteredTasks().length > 0) {
       @for (task of filteredTasks(); track task.id) {
-        <div class="task">
+        <div class="task" cdkDrag>
           <span
             class="category"
             [style]="

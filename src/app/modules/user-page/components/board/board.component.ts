@@ -18,13 +18,7 @@ export class BoardComponent {
 
   tasks = computed(() => this.tasksService.tasks());
 
-  deleteTask(id: string) {
-    this.tasksService.deleteTask(id);
-  }
-
-  // Filter for later use
-  // tasksQuery = query(
-  //   collection(this.firestore, "users", userId, "tasks"),
-  //   where("task", "!=", null),
-  // );
+  // deleteTask(id: string) {
+  //   this.tasksService.deleteTask(id);
+  // }
 }

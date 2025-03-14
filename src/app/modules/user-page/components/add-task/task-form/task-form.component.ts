@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -34,6 +34,12 @@ export class TaskFormComponent {
   today = new Date().toISOString().split("T")[0];
 
   assignedTo = computed(() => this.contactsService.assignedToTask());
+  filterAssignedTo = computed(() =>
+    this.assignedTo().map((assigned) => ({
+      displayName: assigned.displayName,
+      initials: assigned.initials,
+    })),
+  );
   subTasks = computed(() => this.subTasksService.subTasks());
 
   taskForm = new FormGroup({
@@ -70,6 +76,12 @@ export class TaskFormComponent {
   //   inputElement.blur();
   // }
 
+  constructor() {
+    setTimeout(() => {
+      console.log("Assigned to:", this.filterAssignedTo());
+    }, 4000);
+  }
+
   onClear() {
     this.taskForm.reset();
     this.tasksService.setTaskPriority("Medium");
@@ -91,10 +103,10 @@ export class TaskFormComponent {
     };
 
     const newTask: Task = {
-      // id: new Date().getTime(),
+      // id: ,
       title: formValue.title || "",
       description: formValue.description || "",
-      assignedTo: this.assignedTo(),
+      assignedTo: this.filterAssignedTo() || [],
       dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority(),
       category: formValue.category || "",
