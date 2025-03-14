@@ -17,7 +17,7 @@
   <div class="subtasks-list-container">
     <ul class="subtasks-list">
       @for (subtask of subTasks(); track subtask) {
-        <li class="subtask-text">{{ subtask }}</li>
+        <li class="subtask-text">{{ subtask.subtaskValue }}</li>
       }
     </ul>
   </div>

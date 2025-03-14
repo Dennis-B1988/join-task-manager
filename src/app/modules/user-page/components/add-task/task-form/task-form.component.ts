@@ -76,18 +76,11 @@ export class TaskFormComponent {
   //   inputElement.blur();
   // }
 
-  constructor() {
-    setTimeout(() => {
-      console.log("Assigned to:", this.filterAssignedTo());
-    }, 4000);
-  }
-
   onClear() {
     this.taskForm.reset();
+    this.contactsService.assignedToTask.set([]);
     this.tasksService.setTaskPriority("Medium");
-    // this.taskForm.get("category")?.setValue("");
     this.subTasksService.clearSubtasks();
-    console.log(this.tasksService.taskPriority);
   }
 
   onSubmit() {
@@ -103,7 +96,6 @@ export class TaskFormComponent {
     };
 
     const newTask: Task = {
-      // id: ,
       title: formValue.title || "",
       description: formValue.description || "",
       assignedTo: this.filterAssignedTo() || [],

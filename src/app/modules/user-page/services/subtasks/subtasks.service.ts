@@ -52,8 +52,8 @@ export class SubtasksService {
   //   updateDoc(docRef, { "tasks.subtasks": arrayUnion(subtask) });
   // }
 
-  addSubtask(subtask: string) {
-    this.subTasks.update((tasks) => [...tasks, subtask]);
+  addSubtask(subtaskValue: string, id: string) {
+    this.subTasks.update((tasks) => [...tasks, { id, subtaskValue }]);
     console.log(this.subTasks());
   }
 
