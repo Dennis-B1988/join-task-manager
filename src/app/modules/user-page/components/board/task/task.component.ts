@@ -1,5 +1,5 @@
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { Component, computed, input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import {
   MatProgressBar,
   ProgressBarMode,

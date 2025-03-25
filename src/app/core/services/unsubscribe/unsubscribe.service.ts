@@ -3,20 +3,20 @@ import { Injectable, OnDestroy } from "@angular/core";
 @Injectable({
   providedIn: "root",
 })
-export class UnsubscripeService implements OnDestroy {
+export class UnsubscribeService implements OnDestroy {
   private subscriptions: (() => void)[] = [];
 
   add(unsub: () => void) {
     this.subscriptions.push(unsub);
   }
 
-  unsubscripeAll() {
+  unsubscribeAll() {
     this.subscriptions.forEach((unsub) => unsub());
     this.subscriptions = [];
     console.log("All subscriptions unsubscribed");
   }
 
   ngOnDestroy() {
-    this.unsubscripeAll();
+    this.unsubscribeAll();
   }
 }

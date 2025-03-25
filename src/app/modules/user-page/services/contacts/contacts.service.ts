@@ -14,7 +14,7 @@ import {
 } from "@angular/fire/firestore";
 import { Contact } from "../../../../core/models/contact.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
-import { UnsubscripeService } from "../../../../core/services/unsubscripe/unsubscripe.service";
+import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
 
 @Injectable({
   providedIn: "root",
@@ -22,7 +22,7 @@ import { UnsubscripeService } from "../../../../core/services/unsubscripe/unsubs
 export class ContactsService {
   private authService = inject(AuthService);
   private firestore = inject(Firestore);
-  private unsubscripeService = inject(UnsubscripeService);
+  private UnsubscribeService = inject(UnsubscribeService);
   private injector = inject(EnvironmentInjector);
 
   contacts = signal<any[]>([]);
@@ -64,7 +64,7 @@ export class ContactsService {
         console.log("Contacts loaded:", contactsData);
       });
 
-      this.unsubscripeService.add(unsubscribe);
+      this.UnsubscribeService.add(unsubscribe);
     });
   }
 

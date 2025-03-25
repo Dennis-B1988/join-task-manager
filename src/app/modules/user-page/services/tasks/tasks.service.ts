@@ -11,7 +11,7 @@ import { doc, Firestore, updateDoc } from "@angular/fire/firestore";
 import { addDoc, collection, deleteDoc, onSnapshot } from "firebase/firestore";
 import { Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
-import { UnsubscripeService } from "../../../../core/services/unsubscripe/unsubscripe.service";
+import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +20,7 @@ export class TasksService {
   private authService = inject(AuthService);
   private firestore = inject(Firestore);
   private injector = inject(EnvironmentInjector);
-  private unsubscripeService = inject(UnsubscripeService);
+  private UnsubscribeService = inject(UnsubscribeService);
   tasks = signal<any[]>([]);
 
   userId = computed(() => this.authService.userId());
@@ -40,7 +40,7 @@ export class TasksService {
     const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
 
     runInInjectionContext(this.injector, async () => {
-      const unsubscripeService = onSnapshot(tasksCollection, (snapshot) => {
+      const UnsubscribeService = onSnapshot(tasksCollection, (snapshot) => {
         const tasksData = snapshot.docs.map((doc) => {
           const taskData = doc.data() as Task;
 
@@ -62,7 +62,7 @@ export class TasksService {
         console.log("Tasks loaded:", this.tasks());
       });
 
-      this.unsubscripeService.add(unsubscripeService);
+      this.UnsubscribeService.add(UnsubscribeService);
     });
   }
 

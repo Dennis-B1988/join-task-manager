@@ -6,12 +6,7 @@ import {
 } from "@angular/cdk/drag-drop";
 import { Component, computed, inject, input } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
-import {
-  MatProgressBarModule,
-  ProgressBarMode,
-} from "@angular/material/progress-bar";
 import { doc, updateDoc } from "firebase/firestore";
-import { Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
@@ -19,7 +14,7 @@ import { TaskComponent } from "../task/task.component";
 
 @Component({
   selector: "app-board-task-container",
-  imports: [MatProgressBarModule, DragDropModule, TaskComponent],
+  imports: [DragDropModule, TaskComponent],
   templateUrl: "./board-task-container.component.html",
   styleUrl: "./board-task-container.component.scss",
 })
