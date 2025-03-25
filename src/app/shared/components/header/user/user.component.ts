@@ -1,7 +1,7 @@
 import { Component, computed, Host, HostListener, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { AuthService } from "../../../../core/services/auth/auth.service";
-import { UnsubscripeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
+import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
 import { UserService } from "../../../../core/services/user/user.service";
 
 @Component({
@@ -13,7 +13,7 @@ import { UserService } from "../../../../core/services/user/user.service";
 export class UserComponent {
   authService = inject(AuthService);
   userService = inject(UserService);
-  UnsubscripeService = inject(UnsubscripeService);
+  UnsubscribeService = inject(UnsubscribeService);
 
   menuOpen: boolean = false;
 
@@ -44,7 +44,7 @@ export class UserComponent {
   signOut() {
     this.authService.signOut();
     this.userService.deleteGuestDocument();
-    this.UnsubscripeService.unsubscripeAll();
+    this.UnsubscribeService.unsubscribeAll();
     this.toggleUserMenu();
     console.log(this.authService.userId());
   }

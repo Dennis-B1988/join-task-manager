@@ -24,14 +24,14 @@ import {
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import { CustomUser } from "../../models/user.model";
-import { UnsubscripeService } from "../unsubscribe/unsubscribe.service";
+import { UnsubscribeService } from "../unsubscribe/unsubscribe.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private router: Router = inject(Router);
-  private UnsubscripeService = inject(UnsubscripeService);
+  private UnsubscribeService = inject(UnsubscribeService);
   private injector = inject(EnvironmentInjector);
 
   user = signal<CustomUser | null>(null);
@@ -60,7 +60,7 @@ export class AuthService {
         this.userId.set("");
       }
 
-      this.UnsubscripeService.add(unsubscribe);
+      this.UnsubscribeService.add(unsubscribe);
     });
 
     setTimeout(() => {

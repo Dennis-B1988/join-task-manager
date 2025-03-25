@@ -1,11 +1,12 @@
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { Component, input } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import {
   MatProgressBar,
   ProgressBarMode,
 } from "@angular/material/progress-bar";
 import { Contact } from "../../../../../core/models/contact.model";
 import { Task } from "../../../../../core/models/task.model";
+import { ContactsService } from "../../../services/contacts/contacts.service";
 
 @Component({
   selector: "app-task",
@@ -14,6 +15,7 @@ import { Task } from "../../../../../core/models/task.model";
   styleUrl: "./task.component.scss",
 })
 export class TaskComponent {
+  contactsService = inject(ContactsService);
   task = input.required<Task>();
   contact: Contact[] = [];
 
@@ -30,23 +32,6 @@ export class TaskComponent {
   }
 
   getContactColor(name: string): string {
-    const contact = this.contact.find((c) => c.displayName === name);
-    if (contact) {
-      return contact.color;
-    }
-
-    return this.generateColor(name);
-  }
-
-  private generateColor(name: string): string {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-      hash = name.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const hue = Math.abs(hash % 360);
-    const saturation = 100; // More vibrant colors
-    const lightness = 50; // Brighter colors
-
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    return this.contactsService.generateColor(name);
   }
 }

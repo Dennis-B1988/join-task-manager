@@ -12,12 +12,14 @@ import { addDoc, collection, deleteDoc, onSnapshot } from "firebase/firestore";
 import { Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
+import { ContactsService } from "../contacts/contacts.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class TasksService {
   private authService = inject(AuthService);
+  private contactsService = inject(ContactsService);
   private firestore = inject(Firestore);
   private injector = inject(EnvironmentInjector);
   private UnsubscribeService = inject(UnsubscribeService);
@@ -48,7 +50,7 @@ export class TasksService {
             Array.isArray(taskData.assignedTo) ? taskData.assignedTo : []
           ).map((user: any) => ({
             ...user,
-            color: this.generateColor(user.displayName),
+            color: this.contactsService.generateColor(user.displayName),
           }));
 
           return {
@@ -125,17 +127,5 @@ export class TasksService {
 
     // Update the signal with the new tasks array
     this.tasks.set(updatedTasks);
-  }
-
-  private generateColor(name: string): string {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-      hash = name.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const hue = Math.abs(hash % 360);
-    const saturation = 100; // More vibrant colors
-    const lightness = 50; // Brighter colors
-
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
 }
