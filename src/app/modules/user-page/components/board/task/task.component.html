@@ -1,0 +1,51 @@
+<div class="task" cdkDrag>
+  <span
+    class="category"
+    [style]="
+      task().category === 'User Story'
+        ? 'background-color: #0038FF;'
+        : 'background-color: #1FD7C1;'
+    "
+    >{{ task().category }}</span
+  >
+  <span class="title">{{ task().title }}</span>
+  <span class="description">{{ task().description }}</span>
+  @if (getOpenSubtasks(task).length > 0) {
+    <div class="subtask">
+      <!-- <output
+                class="progress-bar"
+                [style]="'background-color: ' + task().color"
+              ></output> -->
+      <mat-progress-bar
+        class="progress-bar"
+        [mode]="mode"
+        [value]="
+          getDoneSubtasks(task).length > 0
+            ? (getDoneSubtasks(task).length / getOpenSubtasks(task).length) *
+              100
+            : 0
+        "
+      >
+      </mat-progress-bar>
+      <output class="subtasks-amount">
+        {{ getDoneSubtasks(task).length }}/{{ getOpenSubtasks(task).length }}
+        Subtasks
+      </output>
+    </div>
+  }
+  <div class="assigned-to-status-container">
+    <output class="assigned-to">
+      @for (assigned of task().assignedTo; track assigned.initials) {
+        <span
+          class="assigned-initials"
+          [style]="'background-color: ' + getContactColor(assigned.displayName)"
+          >{{ assigned.initials }}</span
+        >
+      }
+    </output>
+    <img
+      [src]="'assets/img/prio-' + task().priority.toLowerCase() + '.png'"
+      alt="Priority {{ task().priority }}"
+    />
+  </div>
+</div>

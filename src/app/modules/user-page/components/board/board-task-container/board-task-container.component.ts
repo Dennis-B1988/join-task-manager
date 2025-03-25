@@ -11,14 +11,15 @@ import {
   ProgressBarMode,
 } from "@angular/material/progress-bar";
 import { doc, updateDoc } from "firebase/firestore";
-import { Task } from "../../../../../../core/models/task.model";
-import { AuthService } from "../../../../../../core/services/auth/auth.service";
-import { ContactsService } from "../../../../services/contacts/contacts.service";
-import { TasksService } from "../../../../services/tasks/tasks.service";
+import { Task } from "../../../../../core/models/task.model";
+import { AuthService } from "../../../../../core/services/auth/auth.service";
+import { ContactsService } from "../../../services/contacts/contacts.service";
+import { TasksService } from "../../../services/tasks/tasks.service";
+import { TaskComponent } from "../task/task.component";
 
 @Component({
   selector: "app-board-task-container",
-  imports: [MatProgressBarModule, DragDropModule],
+  imports: [MatProgressBarModule, DragDropModule, TaskComponent],
   templateUrl: "./board-task-container.component.html",
   styleUrl: "./board-task-container.component.scss",
 })
@@ -30,7 +31,6 @@ export class BoardTaskContainerComponent {
   status = input.required<string>();
   title = input.required<string>();
   finishedSubtasks = 1;
-  mode: ProgressBarMode = "determinate";
   value = 50;
   bufferValue = 75;
   // connectedList = ["To Do", "In Progress", "Awaiting Feedback", "Done"];
@@ -67,14 +67,6 @@ export class BoardTaskContainerComponent {
     setTimeout(() => {
       console.log("Tasks:", this.filteredTasks());
     }, 5000);
-  }
-
-  getOpenSubtasks(task: any): string {
-    return task.subtask?.open || [];
-  }
-
-  getDoneSubtasks(task: any): string {
-    return task.subtask?.done || [];
   }
 
   async drop(event: CdkDragDrop<any[]>, newStatus: string) {

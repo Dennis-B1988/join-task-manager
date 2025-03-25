@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from "@angular/core";
 import { TasksService } from "../../services/tasks/tasks.service";
-import { BoardTaskContainerComponent } from "./board-task-container/board-task-container/board-task-container.component";
+import { BoardTaskContainerComponent } from "./board-task-container/board-task-container.component";
 
 @Component({
   selector: "app-board",

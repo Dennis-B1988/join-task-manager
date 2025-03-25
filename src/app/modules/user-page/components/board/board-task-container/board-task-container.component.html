@@ -1,0 +1,22 @@
+<div class="task-container">
+  <div class="task-header">
+    <span>{{ title() }}</span>
+    <img src="assets/img/plus_button.png" alt="Add task to {{ title() }}" />
+  </div>
+  <div
+    [id]="status()"
+    class="task-list"
+    cdkDropList
+    [cdkDropListData]="filteredTasks()"
+    [cdkDropListConnectedTo]="connectedList"
+    (cdkDropListDropped)="drop($event, status())"
+  >
+    @if (filteredTasks().length > 0) {
+      @for (task of filteredTasks(); track task.id) {
+        <app-task [task]="task"></app-task>
+      }
+    } @else {
+      <div class="no-task">No tasks {{ title() }}</div>
+    }
+  </div>
+</div>
