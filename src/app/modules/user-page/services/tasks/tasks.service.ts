@@ -50,7 +50,7 @@ export class TasksService {
             Array.isArray(taskData.assignedTo) ? taskData.assignedTo : []
           ).map((user: any) => ({
             ...user,
-            color: this.contactsService.generateColor(user.displayName),
+            color: this.contactsService.generateContactColor(user.displayName),
           }));
 
           return {

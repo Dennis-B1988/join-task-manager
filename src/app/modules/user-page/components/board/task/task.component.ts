@@ -17,11 +17,8 @@ import { ContactsService } from "../../../services/contacts/contacts.service";
 export class TaskComponent {
   contactsService = inject(ContactsService);
   task = input.required<Task>();
-  contact: Contact[] = [];
 
   mode: ProgressBarMode = "determinate";
-
-  color: string = "#1FD7C1";
 
   getOpenSubtasks(task: any): string {
     return task.subtask?.open || [];
@@ -32,6 +29,6 @@ export class TaskComponent {
   }
 
   getContactColor(name: string): string {
-    return this.contactsService.generateColor(name);
+    return this.contactsService.generateContactColor(name);
   }
 }

@@ -54,7 +54,7 @@ export class ContactsService {
             return {
               id: doc.id,
               ...(doc.data() as Contact),
-              color: this.generateColor(doc.data()["displayName"]),
+              // color: this.generateContactColor(doc.data()["displayName"]),
             };
           })
           .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName));
@@ -91,7 +91,7 @@ export class ContactsService {
     console.log(this.assignedToTask());
   }
 
-  generateColor(name: string): string {
+  generateContactColor(name: string): string {
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
