@@ -17,29 +17,29 @@ export class SubtasksService {
 
   subTasks = signal<any[]>([]);
 
-  // constructor() {
-  //   effect(() => {
-  //     const id = this.authService.userId();
-  //     if (id) {
-  //       this.loadSubtasks();
-  //     }
-  //   });
-  // }
+  constructor() {
+    effect(() => {
+      const id = this.authService.userId();
+      if (id) {
+        this.loadSubtasks();
+      }
+    });
+  }
 
-  // loadSubtasks() {
-  //   const userId = this.authService.userId();
-  //   if (!userId) return;
+  loadSubtasks() {
+    const userId = this.authService.userId();
+    if (!userId) return;
 
-  //   const userDoc = doc(this.firestore, "users", userId);
+    const userDoc = doc(this.firestore, "users", userId);
 
-  //   onSnapshot(userDoc, (docSnap) => {
-  //     if (docSnap.exists()) {
-  //       this.subTasks.set(docSnap.data()?.["tasks"]["subtasks"] || []);
-  //     } else {
-  //       this.subTasks.set([]);
-  //     }
-  //   });
-  // }
+    onSnapshot(userDoc, (docSnap) => {
+      if (docSnap.exists()) {
+        this.subTasks.set(docSnap.data()?.["tasks"]["subtasks"] || []);
+      } else {
+        this.subTasks.set([]);
+      }
+    });
+  }
 
   // addSubtask(subtask: string) {
   //   const userId = this.authService.userId();

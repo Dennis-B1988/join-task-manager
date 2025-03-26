@@ -4,13 +4,14 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject, input, signal } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { doc, updateDoc } from "firebase/firestore";
+import { Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
-import { TaskComponent } from "../task/task.component";
+import { TaskComponent } from "./task/task.component";
 
 @Component({
   selector: "app-board-task-container",
@@ -60,9 +61,13 @@ export class BoardTaskContainerComponent {
 
   constructor() {
     setTimeout(() => {
-      console.log("Tasks:", this.filteredTasks());
+      console.log("Filtered Tasks:", this.filteredTasks());
     }, 5000);
   }
+
+  // trackByTaskId(index: number, task: Task): string {
+  //   return task.id; // Ensure each task has a unique ID
+  // }
 
   async drop(event: CdkDragDrop<any[]>, newStatus: string) {
     if (event.previousContainer === event.container) {
