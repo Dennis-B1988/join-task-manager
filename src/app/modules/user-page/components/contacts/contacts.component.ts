@@ -1,22 +1,12 @@
 import { Component, inject } from "@angular/core";
 import { ContactsService } from "../../services/contacts/contacts.service";
+import { ContactsContainerComponent } from "./contacts-container/contacts-container.component";
+import { ContactsInformationComponent } from "./contacts-information/contacts-information.component";
 
 @Component({
   selector: "app-contacts",
-  imports: [],
+  imports: [ContactsContainerComponent, ContactsInformationComponent],
   templateUrl: "./contacts.component.html",
   styleUrl: "./contacts.component.scss",
 })
-export class ContactsComponent {
-  private contactsService = inject(ContactsService);
-
-  contact: any = {
-    displayName: "Risette Twinings",
-    phone: "123-456-7890",
-    email: "sB4wY@example.com",
-  };
-
-  addContact() {
-    this.contactsService.createContact(this.contact);
-  }
-}
+export class ContactsComponent {}
