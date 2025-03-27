@@ -1,4 +1,13 @@
-.contacts-information {
-  width: 100%;
+@import "../../../../../shared/styles/mixins";
+
+:host {
+  @include flex(column, center, center);
+  width: 65%;
   height: 100%;
+}
+
+.contacts-information {
+  @include flex(column, center, center);
+  width: 80%;
+  height: 80%;
 }

@@ -1,4 +1,5 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
+import { Contact } from "../../../../../core/models/contact.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 
 @Component({
@@ -10,11 +11,33 @@ import { ContactsService } from "../../../services/contacts/contacts.service";
 export class ContactsContainerComponent {
   private contactsService = inject(ContactsService);
 
+  sortedContacts = computed(() =>
+    this.contactsService
+      .contacts()
+      .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
+  );
+
+  groupedContacts = computed(() => {
+    const groups: { [key: string]: Contact[] } = {};
+    for (const contact of this.sortedContacts()) {
+      const firstLetter = contact.displayName[0].toUpperCase();
+      if (!groups[firstLetter]) {
+        groups[firstLetter] = [];
+      }
+      groups[firstLetter].push(contact);
+    }
+    return groups;
+  });
+
   contact: any = {
     displayName: "Risette Twinings",
     phone: "123-456-7890",
     email: "sB4wY@example.com",
   };
+
+  getGroupedLetters(): string[] {
+    return Object.keys(this.groupedContacts());
+  }
 
   addContact() {
     this.contactsService.createContact(this.contact);

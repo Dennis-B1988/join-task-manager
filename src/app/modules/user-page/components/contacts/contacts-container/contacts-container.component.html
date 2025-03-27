@@ -1,11 +1,23 @@
 <section class="contacts-container">
   <div class="add-contact">
-    <button (click)="addContact()">Add Contact</button>
+    <button appButton (click)="addContact()">
+      Add new contact
+      <span ngProjectAs="[icon]">
+        <img src="assets/img/person_add.png" alt="Add new contact" />
+      </span>
+    </button>
   </div>
 
-  <!-- @for {
-    <div class="contact">
-      <app-contact></app-contact>
+  @for (letter of getGroupedLetters(); track letter) {
+    <div class="contact-group">
+      <span class="group-header">{{ letter }}</span>
+
+      @for (contact of groupedContacts()[letter]; track contact.id) {
+        <div class="contact">
+          <!-- <app-contact [contact]="contact" /> -->
+          <span>{{ contact.displayName }}</span>
+        </div>
+      }
     </div>
-  } -->
+  }
 </section>

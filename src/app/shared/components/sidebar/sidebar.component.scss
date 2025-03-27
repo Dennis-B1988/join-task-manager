@@ -1,7 +1,7 @@
 @import "../../../shared/styles/mixins";
 
 .sidebar {
-  @include flex(column, space-between, none);
+  @include flex(column, space-between, unset);
   width: 14.5rem;
   height: 100dvh;
   background-color: #2a3647;
@@ -18,7 +18,7 @@
 }
 
 nav {
-  @include flex(column, center, none);
+  @include flex(column, center, unset);
   gap: 0.9375rem;
 
   img {
