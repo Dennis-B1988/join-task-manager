@@ -43,13 +43,9 @@ export class TaskAssignedToComponent {
     effect(() => {
       const fetchedContacts = this.contactsService
         .contacts()
-        .map((contact) => ({
+        .filter((contact) => ({
           displayName: contact.displayName,
-          color: contact.color,
-          initials: contact.displayName
-            .split(" ")
-            .map((name: string) => name[0])
-            .join(""),
+          // color: contact.color,
         }));
 
       this.contacts.set(fetchedContacts);
@@ -76,6 +72,14 @@ export class TaskAssignedToComponent {
     } else {
       this.contactsService.addContactToTask(contact);
     }
+  }
+
+  getContactColor(contact: any) {
+    return this.contactsService.generateContactColor(contact);
+  }
+
+  getContactInitials(contact: any) {
+    return this.contactsService.getInitials(contact);
   }
 
   removeContactFromTask(contact: any) {

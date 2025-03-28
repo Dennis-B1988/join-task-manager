@@ -46,17 +46,17 @@ export class TasksService {
         const tasksData = snapshot.docs.map((doc) => {
           const taskData = doc.data() as Task;
 
-          const updatedAssignedTo = (
-            Array.isArray(taskData.assignedTo) ? taskData.assignedTo : []
-          ).map((user: any) => ({
-            ...user,
-            color: this.contactsService.generateContactColor(user.displayName),
-          }));
+          // const updatedAssignedTo = (
+          //   Array.isArray(taskData.assignedTo) ? taskData.assignedTo : []
+          // ).map((user: any) => ({
+          //   ...user,
+          //   // color: this.contactsService.generateContactColor(user.displayName),
+          // }));
 
           return {
             id: doc.id, // Firestore document ID
             ...taskData,
-            assignedTo: updatedAssignedTo,
+            // assignedTo: updatedAssignedTo,
           };
         });
 

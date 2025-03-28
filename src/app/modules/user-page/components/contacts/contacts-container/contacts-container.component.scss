@@ -23,3 +23,24 @@
     gap: 1rem;
   }
 }
+
+.contact {
+  @include flex(row, space-between, center);
+  width: 90%;
+  cursor: pointer;
+}
+
+.initials {
+  @include flex(row, center, center);
+  @include font(1.3125rem, 400, 1.5rem, #fff);
+  @include border(0.125rem, solid, #fff);
+  border-radius: 50%;
+  width: 2.625rem;
+  height: 2.625rem;
+}
+
+.contact-info {
+  @include flex(row, flex-start, center);
+  gap: 1rem;
+  width: 100%;
+}

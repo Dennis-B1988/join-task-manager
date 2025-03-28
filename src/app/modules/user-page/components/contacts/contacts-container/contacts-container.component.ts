@@ -42,4 +42,12 @@ export class ContactsContainerComponent {
   addContact() {
     this.contactsService.createContact(this.contact);
   }
+
+  getContactColor(contact: string) {
+    return this.contactsService.generateContactColor(contact);
+  }
+
+  getContactInitials(contact: string) {
+    return this.contactsService.getInitials(contact);
+  }
 }

@@ -34,11 +34,11 @@
   }
   <div class="assigned-to-status-container">
     <output class="assigned-to">
-      @for (assigned of task().assignedTo; track assigned.initials) {
+      @for (assigned of task().assignedTo; track $index) {
         <span
           class="assigned-initials"
           [style]="'background-color: ' + getContactColor(assigned.displayName)"
-          >{{ assigned.initials }}</span
+          >{{ getContactInitials(assigned.displayName) }}</span
         >
       }
     </output>

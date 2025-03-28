@@ -2,7 +2,7 @@ export interface Task {
   id?: string;
   title: string;
   description: string;
-  assignedTo: { displayName: string; initials: string }[];
+  assignedTo: { displayName: string }[];
   dueDate: string;
   priority: string;
   category: string;

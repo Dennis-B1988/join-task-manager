@@ -37,10 +37,16 @@ export class TaskFormComponent {
   filterAssignedTo = computed(() =>
     this.assignedTo().map((assigned) => ({
       displayName: assigned.displayName,
-      initials: assigned.initials,
     })),
   );
+
   subTasks = computed(() => this.subTasksService.subTasks());
+
+  constructor() {
+    setTimeout(() => {
+      console.log("Assigned ", this.filterAssignedTo());
+    }, 3000);
+  }
 
   taskForm = new FormGroup({
     title: new FormControl<string>("", {

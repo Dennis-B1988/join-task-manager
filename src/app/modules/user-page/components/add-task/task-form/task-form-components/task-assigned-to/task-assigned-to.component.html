@@ -32,8 +32,10 @@
             <div class="contact-item">
               <span
                 class="contact-initials"
-                [style]="'background-color: ' + contact.color"
-                >{{ contact.initials }}</span
+                [style]="
+                  'background-color: ' + getContactColor(contact.displayName)
+                "
+                >{{ getContactInitials(contact.displayName) }}</span
               >
               <span class="contact-name">{{ contact.displayName }} </span>
               <img
@@ -57,9 +59,9 @@
     @for (contact of assignedToTask(); track contact) {
       <span
         (click)="removeContactFromTask(contact)"
-        [style]="'background-color: ' + contact.color"
+        [style]="'background-color: ' + getContactColor(contact.displayName)"
       >
-        {{ contact.initials }}
+        {{ getContactInitials(contact.displayName) }}
       </span>
     }
   </div>

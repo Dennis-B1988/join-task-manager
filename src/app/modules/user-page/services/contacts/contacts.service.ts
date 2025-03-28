@@ -38,6 +38,7 @@ export class ContactsService {
 
     setTimeout(() => {
       console.log("Contacts:", this.contacts());
+      console.log("Assigned to task:", this.assignedToTask());
     }, 5000);
   }
 
@@ -101,5 +102,12 @@ export class ContactsService {
     const lightness = 50; // Brighter colors
 
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  }
+
+  getInitials(name: string) {
+    if (!name) return "";
+    const names = name.trim().split(" ");
+    if (names.length === 1) return names[0].toUpperCase();
+    return names[0][0].toUpperCase() + names[1][0].toUpperCase();
   }
 }

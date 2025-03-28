@@ -27,4 +27,8 @@ export class TaskComponent {
   getContactColor(name: string): string {
     return this.contactsService.generateContactColor(name);
   }
+
+  getContactInitials(name: string): string {
+    return this.contactsService.getInitials(name);
+  }
 }
