@@ -6,6 +6,7 @@
 }
 
 .contacts-container {
+  @include flex(column, flex-start, center);
   width: 100%;
   height: 100%;
   background: #ffffff;
@@ -24,15 +25,32 @@
   }
 }
 
+.contact-group {
+  width: 80%;
+}
+
+.group-header {
+  @include font(1.25rem, 400, 120%, #000);
+  @include padding(1.0625rem, 2.25rem, 1.0625rem, 2.25rem);
+  width: 100%;
+}
+
+.group-divider {
+  @include border(0.0625rem, solid, #d1d1d1);
+  width: 100%;
+}
+
 .contact {
-  @include flex(row, space-between, center);
+  @include flex(row, flex-start, center);
+  @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   width: 90%;
+  gap: 2.1875rem;
   cursor: pointer;
 }
 
 .initials {
   @include flex(row, center, center);
-  @include font(1.3125rem, 400, 1.5rem, #fff);
+  @include font(0.75rem, 400, 120%, #fff);
   @include border(0.125rem, solid, #fff);
   border-radius: 50%;
   width: 2.625rem;
@@ -40,7 +58,6 @@
 }
 
 .contact-info {
-  @include flex(row, flex-start, center);
-  gap: 1rem;
-  width: 100%;
+  @include flex(column, flex-start, flex-start);
+  gap: 0.3125rem;
 }

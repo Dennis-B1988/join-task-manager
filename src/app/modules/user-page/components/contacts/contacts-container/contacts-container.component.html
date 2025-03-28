@@ -10,7 +10,8 @@
 
   @for (letter of getGroupedLetters(); track letter) {
     <div class="contact-group">
-      <span class="group-header">{{ letter }}</span>
+      <div class="group-header">{{ letter }}</div>
+      <div class="group-divider"></div>
 
       @for (contact of groupedContacts()[letter]; track contact.id) {
         <div class="contact">
@@ -19,8 +20,9 @@
             [style]="
               'background-color: ' + getContactColor(contact.displayName)
             "
-            >{{ getContactInitials(contact.displayName) }}</span
           >
+            {{ getContactInitials(contact.displayName) }}
+          </span>
           <div class="contact-info">
             <span>{{ contact.displayName }}</span>
             <span>{{ contact.email }}</span>
