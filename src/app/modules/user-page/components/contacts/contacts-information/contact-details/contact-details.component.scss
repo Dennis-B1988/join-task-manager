@@ -1,0 +1,69 @@
+@import "../../../../../../shared/styles/mixins";
+
+.contact-header {
+  @include flex(row, flex-start, center);
+  gap: 3.375rem;
+
+  h2 {
+    @include font(2.9375rem, 500, 120%, #000);
+  }
+}
+
+.contact-data {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+  height: 100%;
+  gap: 1.3125rem;
+}
+
+.initials {
+  @include flex(row, center, center);
+  @include font(2.9375rem, 500, 1.2rem, #fff);
+  @include border(0.1875rem, solid, #fff);
+  border-radius: 50%;
+  width: 7.5rem;
+  height: 7.5rem;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+  background-color: #29abe2;
+}
+
+.edit-delete {
+  @include flex(row, flex-start, center);
+  gap: 1.875rem;
+  cursor: pointer;
+
+  div {
+    @include flex(row, flex-start, center);
+    @include font(1rem, 400, 120%, #2a3647);
+    gap: 0.8125rem;
+  }
+}
+
+h3 {
+  @include font(1.25rem, 400, 120%, #000);
+  @include padding(1.875rem, 0, 1.875rem, 0);
+}
+
+.contact-info {
+  @include flex(column, flex-start, flex-start);
+  gap: 1.375rem;
+
+  h4 {
+    @include font(1rem, 700, 120%, #000);
+  }
+
+  p {
+    @include font(1rem, 400, 120%, #000);
+  }
+
+  .email-address {
+    color: #007cee;
+    cursor: pointer;
+  }
+}
+
+.email,
+.phone {
+  @include flex(column, flex-start, flex-start);
+  gap: 0.9375rem;
+}

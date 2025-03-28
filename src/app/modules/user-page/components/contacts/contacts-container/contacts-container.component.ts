@@ -50,4 +50,9 @@ export class ContactsContainerComponent {
   getContactInitials(contact: string) {
     return this.contactsService.getInitials(contact);
   }
+
+  lookAtContactInformation(contact: any) {
+    this.contactsService.activeContact.set(contact);
+    console.log("Active contact:", this.contactsService.activeContact());
+  }
 }

@@ -12,6 +12,8 @@ import {
   Firestore,
   onSnapshot,
 } from "@angular/fire/firestore";
+import { NavigationStart, Router } from "@angular/router";
+import { filter } from "rxjs";
 import { Contact } from "../../../../core/models/contact.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
@@ -25,8 +27,9 @@ export class ContactsService {
   private UnsubscribeService = inject(UnsubscribeService);
   private injector = inject(EnvironmentInjector);
 
-  contacts = signal<any[]>([]);
+  contacts = signal<Contact[]>([]);
   assignedToTask = signal<any[]>([]);
+  activeContact = signal<Contact | null>(null);
 
   constructor() {
     effect(() => {

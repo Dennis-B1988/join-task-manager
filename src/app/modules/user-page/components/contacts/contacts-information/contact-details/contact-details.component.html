@@ -1,0 +1,38 @@
+<div class="contact-data">
+  <article class="contact-header">
+    <span
+      class="initials"
+      [style]="
+        'background-color: ' + getContactColor(activeContact()!.displayName)
+      "
+      >{{ getContactInitials(activeContact()!.displayName) }}</span
+    >
+    <div class="contact-name">
+      <h2>{{ activeContact()!.displayName }}</h2>
+      <div class="edit-delete">
+        <div class="edit">
+          <img src="assets/img/edit.png" alt="" />
+          <span>Edit</span>
+        </div>
+        <div class="delete">
+          <img src="assets/img/delete.png" alt="" />
+          <span>Delete</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <h3>Contact Information</h3>
+
+  <article class="contact-info">
+    <div class="email">
+      <h4>Email</h4>
+      <p class="email-address">{{ activeContact()!.email }}</p>
+    </div>
+
+    <div class="phone">
+      <h4>Phone</h4>
+      <p>{{ activeContact()!.phone }}</p>
+    </div>
+  </article>
+</div>

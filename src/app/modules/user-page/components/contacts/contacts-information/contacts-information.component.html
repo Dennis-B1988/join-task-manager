@@ -5,38 +5,7 @@
     <p>Better with a team</p>
   </article>
 
-  <div class="contact-data">
-    <article class="contact-header">
-      <!-- <div class="contact-initials"> -->
-      <span class="initials">MC</span>
-      <!-- </div> -->
-      <div class="contact-name">
-        <h2>Mariabell Crois</h2>
-        <div class="edit-delete">
-          <div class="edit">
-            <img src="assets/img/edit.png" alt="" />
-            <span>Edit</span>
-          </div>
-          <div class="delete">
-            <img src="assets/img/delete.png" alt="" />
-            <span>Delete</span>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <h3>Contact Information</h3>
-
-    <article class="contact-info">
-      <div class="email">
-        <h4>Email</h4>
-        <p class="email-address">4kDy2example.com</p>
-      </div>
-
-      <div class="phone">
-        <h4>Phone</h4>
-        <p>123456789</p>
-      </div>
-    </article>
-  </div>
+  @if (activeContact() !== null) {
+    <app-contact-details></app-contact-details>
+  }
 </section>

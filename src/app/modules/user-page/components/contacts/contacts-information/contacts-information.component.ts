@@ -1,20 +1,15 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { ContactsService } from "../../../services/contacts/contacts.service";
+import { ContactDetailsComponent } from "./contact-details/contact-details.component";
 
 @Component({
   selector: "app-contacts-information",
-  imports: [],
+  imports: [ContactDetailsComponent],
   templateUrl: "./contacts-information.component.html",
   styleUrl: "./contacts-information.component.scss",
 })
 export class ContactsInformationComponent {
   private contactsService = inject(ContactsService);
 
-  getContactColor(name: string): string {
-    return this.contactsService.generateContactColor(name);
-  }
-
-  getContactInitials(name: string): string {
-    return this.contactsService.getInitials(name);
-  }
+  activeContact = computed(() => this.contactsService.activeContact());
 }
