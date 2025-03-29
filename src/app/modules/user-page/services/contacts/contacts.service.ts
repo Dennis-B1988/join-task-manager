@@ -12,8 +12,6 @@ import {
   Firestore,
   onSnapshot,
 } from "@angular/fire/firestore";
-import { NavigationStart, Router } from "@angular/router";
-import { filter } from "rxjs";
 import { Contact } from "../../../../core/models/contact.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
@@ -29,7 +27,9 @@ export class ContactsService {
 
   contacts = signal<Contact[]>([]);
   assignedToTask = signal<any[]>([]);
-  activeContact = signal<Contact | null>(null);
+  showContact = signal<Contact | null>(null);
+  addContact = signal<boolean>(true);
+  editContact = signal<boolean>(false);
 
   constructor() {
     effect(() => {

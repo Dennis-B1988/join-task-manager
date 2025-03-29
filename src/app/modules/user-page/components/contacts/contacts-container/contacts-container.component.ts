@@ -11,7 +11,7 @@ import { ContactsService } from "../../../services/contacts/contacts.service";
 export class ContactsContainerComponent {
   private contactsService = inject(ContactsService);
 
-  activeContact = computed(() => this.contactsService.activeContact());
+  showContact = computed(() => this.contactsService.showContact());
 
   sortedContacts = computed(() =>
     this.contactsService
@@ -31,18 +31,18 @@ export class ContactsContainerComponent {
     return groups;
   });
 
-  contact: any = {
-    displayName: "Risette Twinings",
-    phone: "123-456-7890",
-    email: "sB4wY@example.com",
-  };
+  // contact: any = {
+  //   displayName: "Risette Twinings",
+  //   phone: "123-456-7890",
+  //   email: "sB4wY@example.com",
+  // };
 
   getGroupedLetters(): string[] {
     return Object.keys(this.groupedContacts());
   }
 
   addContact() {
-    this.contactsService.createContact(this.contact);
+    // this.contactsService.createContact(this.contact);
   }
 
   getContactColor(contact: string) {
@@ -54,7 +54,7 @@ export class ContactsContainerComponent {
   }
 
   lookAtContactInformation(contact: any) {
-    this.contactsService.activeContact.set(contact);
-    console.log("Active contact:", this.contactsService.activeContact());
+    this.contactsService.showContact.set(contact);
+    console.log("Active contact:", this.contactsService.showContact());
   }
 }

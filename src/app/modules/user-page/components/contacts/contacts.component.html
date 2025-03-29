@@ -1,7 +1,9 @@
-<!-- <section class="contacts-left-container"> -->
-<app-contacts-container></app-contacts-container>
-<!-- </section> -->
+<section class="contacts-page">
+  <app-contacts-container></app-contacts-container>
 
-<!-- <section class="contacts-right-container"> -->
-<app-contacts-information></app-contacts-information>
-<!-- </section> -->
+  <app-contacts-information></app-contacts-information>
+
+  @if (addContact() || editContact()) {
+    <app-contact-form></app-contact-form>
+  }
+</section>

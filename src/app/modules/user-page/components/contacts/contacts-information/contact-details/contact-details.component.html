@@ -3,12 +3,12 @@
     <span
       class="initials"
       [style]="
-        'background-color: ' + getContactColor(activeContact()!.displayName)
+        'background-color: ' + getContactColor(showContact()!.displayName)
       "
-      >{{ getContactInitials(activeContact()!.displayName) }}</span
+      >{{ getContactInitials(showContact()!.displayName) }}</span
     >
     <div class="contact-name">
-      <h2>{{ activeContact()!.displayName }}</h2>
+      <h2>{{ showContact()!.displayName }}</h2>
       <div class="edit-delete">
         <div class="edit">
           <img src="assets/img/edit.png" alt="" />
@@ -27,12 +27,12 @@
   <article class="contact-info">
     <div class="email">
       <h4>Email</h4>
-      <p class="email-address">{{ activeContact()!.email }}</p>
+      <p class="email-address">{{ showContact()!.email }}</p>
     </div>
 
     <div class="phone">
       <h4>Phone</h4>
-      <p>{{ activeContact()!.phone }}</p>
+      <p>{{ showContact()!.phone }}</p>
     </div>
   </article>
 </div>

@@ -13,15 +13,15 @@ export class ContactDetailsComponent {
   private contactsService = inject(ContactsService);
   private router = inject(Router);
 
-  activeContact = computed(() => this.contactsService.activeContact());
+  showContact = computed(() => this.contactsService.showContact());
 
   private subscribe = this.router.events
     .pipe(filter((event) => event instanceof NavigationStart))
     .subscribe((event: NavigationStart) => {
       if (!event.url.startsWith("/contacts")) {
-        this.contactsService.activeContact.set(null);
+        this.contactsService.showContact.set(null);
 
-        console.log("Active contact reset:", this.activeContact());
+        console.log("Active contact reset:", this.showContact());
       }
     });
 

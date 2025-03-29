@@ -16,7 +16,7 @@
       @for (contact of groupedContacts()[letter]; track contact.id) {
         <div
           [class]="
-            contact.displayName === activeContact()?.displayName
+            contact.displayName === showContact()?.displayName
               ? 'contact active'
               : 'contact'
           "
