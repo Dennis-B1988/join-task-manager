@@ -1,0 +1,63 @@
+@import "../../../../../../shared/styles/mixins";
+
+:host {
+  @include flex(row, center, center);
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+// .form-container {
+//   @include flex(row, space-between, center);
+//   width: 100%;
+//   height: 100%;
+// }
+
+.close {
+  @include flex(row, flex-end, center);
+  width: 90%;
+
+  position: absolute;
+  top: 3rem;
+  //   right: 1.25rem;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+}
+
+.form {
+  @include flex(column, center, center);
+  width: 100%;
+  //   height: 100%;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.inputs {
+  @include flex(column, center, center);
+  width: 100%;
+  //   height: 100%;
+  gap: 2rem;
+
+  input {
+    @include font(1.25rem, 400, 120%, #000);
+    @include padding(0.8125rem, 1.3125rem, 0.8125rem, 1.3125rem);
+    @include border(0.0625rem, solid, #d1d1d1);
+    width: 90%;
+    // height: 2.9375rem;
+    border-radius: 0.625rem;
+
+    &::placeholder {
+      color: #d1d1d1;
+    }
+  }
+}
+
+.buttons {
+  @include flex(row, flex-start, center);
+  width: 90%;
+  gap: 1.5rem;
+}
