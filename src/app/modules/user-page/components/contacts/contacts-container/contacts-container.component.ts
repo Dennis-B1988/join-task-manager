@@ -43,6 +43,7 @@ export class ContactsContainerComponent {
 
   addContact() {
     // this.contactsService.createContact(this.contact);
+    this.contactsService.addContact.set(true);
   }
 
   getContactColor(contact: string) {
