@@ -1,10 +1,11 @@
 import { Component, computed, inject, signal } from "@angular/core";
+import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
 import { BoardTaskContainerComponent } from "./board-task-container/board-task-container.component";
 
 @Component({
   selector: "app-board",
-  imports: [BoardTaskContainerComponent],
+  imports: [BoardTaskContainerComponent, ButtonWithIconComponent],
   templateUrl: "./board.component.html",
   styleUrl: "./board.component.scss",
 })
