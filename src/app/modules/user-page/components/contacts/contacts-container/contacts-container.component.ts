@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, input } from "@angular/core";
 import { Contact } from "../../../../../core/models/contact.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 
@@ -10,6 +10,8 @@ import { ContactsService } from "../../../services/contacts/contacts.service";
 })
 export class ContactsContainerComponent {
   private contactsService = inject(ContactsService);
+
+  activeContact = computed(() => this.contactsService.activeContact());
 
   sortedContacts = computed(() =>
     this.contactsService

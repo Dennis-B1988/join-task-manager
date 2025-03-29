@@ -14,7 +14,14 @@
       <div class="group-divider"></div>
 
       @for (contact of groupedContacts()[letter]; track contact.id) {
-        <div class="contact" (click)="lookAtContactInformation(contact)">
+        <div
+          [class]="
+            contact.displayName === activeContact()?.displayName
+              ? 'contact active'
+              : 'contact'
+          "
+          (click)="lookAtContactInformation(contact)"
+        >
           <span
             class="initials"
             [style]="
@@ -24,8 +31,8 @@
             {{ getContactInitials(contact.displayName) }}
           </span>
           <div class="contact-info">
-            <span>{{ contact.displayName }}</span>
-            <span>{{ contact.email }}</span>
+            <span class="contact-name">{{ contact.displayName }}</span>
+            <span class="contact-email">{{ contact.email }}</span>
           </div>
         </div>
       }
