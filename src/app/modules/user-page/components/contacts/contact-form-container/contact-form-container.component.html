@@ -1,8 +1,12 @@
 <section class="contact-form-container">
   <div class="form">
-    <article class="form-left-side">
-      <h2>Add Contact</h2>
-    </article>
+    <div class="form-left-side">
+      <article class="title">
+        <img src="assets/img/logo-white.png" alt="" />
+        <h2>{{ addContact() ? "Add" : "Edit" }} Contact</h2>
+        <div class="blue-line" aria-hidden="true"></div>
+      </article>
+    </div>
 
     <div class="form-middle">
       <div

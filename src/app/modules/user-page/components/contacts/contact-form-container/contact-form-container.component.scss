@@ -49,9 +49,24 @@
   border-bottom-left-radius: 1.875rem;
   // position: relative;
 
+  img {
+    width: 3.375rem;
+  }
+
   h2 {
     @include font(3.8125rem, 700, 120%, #fff);
   }
+}
+
+.title {
+  @include flex(column, center, flex-start);
+  gap: 1rem;
+}
+
+.blue-line {
+  width: 5.625rem;
+  height: 0.1875rem;
+  background-color: #29abe2;
 }
 
 .form-middle {
