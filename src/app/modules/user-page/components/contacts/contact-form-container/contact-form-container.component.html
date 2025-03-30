@@ -1,0 +1,32 @@
+<section class="contact-form-container">
+  <div class="form">
+    <article class="form-left-side">
+      <h2>Add Contact</h2>
+    </article>
+
+    <div class="form-middle">
+      <div
+        class="image"
+        [style.background-color]="
+          addContact() ? '#d2d2d2' : getContactColor(showContact()!.displayName)
+        "
+      >
+        @if (addContact()) {
+          <img src="assets/img/person_white.png" alt="Add new contact" />
+        } @else if (editContact()) {
+          <span class="initials">{{
+            getContactInitials(showContact()!.displayName)
+          }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-right-side">
+      @if (addContact()) {
+        <app-contact-form [contact]="addNewContact"></app-contact-form>
+      } @else if (editContact()) {
+        <app-contact-form [contact]="editExistingContact"></app-contact-form>
+      }
+    </div>
+  </div>
+</section>

@@ -60,14 +60,9 @@
   @include flex(row, flex-start, center);
   width: 90%;
   gap: 1.5rem;
-
-  button {
-    // @include flex(row, center, center);
-  }
 }
 
 .cancel {
-  //   @include flex(row, center, center);
   @include font(1.25rem, 400, 120%, #2a3647);
   background-color: #fff;
 }

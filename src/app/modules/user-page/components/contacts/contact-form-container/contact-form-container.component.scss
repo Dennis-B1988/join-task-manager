@@ -65,13 +65,18 @@
   @include flex(column, center, center);
   width: 7.5rem;
   height: 7.5rem;
-  background-color: #d1d1d1;
   border-radius: 50%;
+  // background-color: ;
 
   img {
     width: 4rem;
     height: 4rem;
   }
+}
+
+.initials {
+  @include flex(row, center, center);
+  @include font(2.9375rem, 500, 1.2rem, #fff);
 }
 
 .form-right-side {

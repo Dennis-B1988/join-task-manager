@@ -9,8 +9,10 @@ import {
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
   onSnapshot,
+  setDoc,
 } from "@angular/fire/firestore";
 import { Contact } from "../../../../core/models/contact.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
@@ -83,6 +85,18 @@ export class ContactsService {
 
     await addDoc(contactsCollection, contact);
     console.log("Contact created:", contact);
+  }
+
+  async updateContact(contact: any) {
+    const userId = this.authService.userId();
+    if (!userId) return;
+
+    const contactsCollection = collection(
+      this.firestore,
+      `users/${userId}/contacts`,
+    );
+
+    await setDoc(doc(contactsCollection, contact.id), contact);
   }
 
   addContactToTask(contact: any) {
