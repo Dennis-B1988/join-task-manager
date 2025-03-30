@@ -29,6 +29,15 @@ export class ContactDetailsComponent {
     this.subscribe.unsubscribe();
   }
 
+  editExistingContact() {
+    this.contactsService.editContact.set(true);
+  }
+
+  deleteContact() {
+    this.contactsService.deleteContact(this.showContact()?.id!);
+    this.contactsService.showContact.set(null);
+  }
+
   getContactColor(name: string): string {
     return this.contactsService.generateContactColor(name);
   }

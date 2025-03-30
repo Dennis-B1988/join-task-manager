@@ -30,12 +30,12 @@
 .edit-delete {
   @include flex(row, flex-start, center);
   gap: 1.875rem;
-  cursor: pointer;
 
   div {
     @include flex(row, flex-start, center);
     @include font(1rem, 400, 120%, #2a3647);
     gap: 0.8125rem;
+    cursor: pointer;
   }
 }
 

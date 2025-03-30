@@ -42,9 +42,7 @@ export class ContactsContainerComponent {
   }
 
   addContact() {
-    // this.contactsService.createContact(this.contact);
-    // this.contactsService.addContact.set(true);
-    this.contactsService.editContact.set(true);
+    this.contactsService.addContact.set(true);
   }
 
   getContactColor(contact: string) {

@@ -16,7 +16,7 @@
         <img src="assets/img/cancel.png" alt="" />
       </span>
     </button>
-    <button appButton class="save">
+    <button appButton class="save" (click)="onSubmit()">
       {{ contact().saveButton }}
       <span ngProjectAs="[icon]">
         <img src="assets/img/check.png" alt="" />

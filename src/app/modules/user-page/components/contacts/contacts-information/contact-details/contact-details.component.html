@@ -10,11 +10,11 @@
     <div class="contact-name">
       <h2>{{ showContact()!.displayName }}</h2>
       <div class="edit-delete">
-        <div class="edit">
+        <div class="edit" (click)="editExistingContact()">
           <img src="assets/img/edit.png" alt="" />
           <span>Edit</span>
         </div>
-        <div class="delete">
+        <div class="delete" (click)="deleteContact()">
           <img src="assets/img/delete.png" alt="" />
           <span>Delete</span>
         </div>

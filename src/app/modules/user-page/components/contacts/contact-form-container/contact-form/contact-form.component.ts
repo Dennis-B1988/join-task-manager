@@ -43,7 +43,11 @@ export class ContactFormComponent {
 
   constructor() {
     effect(() => {
-      if (!this.contactsService.showContact()) return;
+      if (
+        !this.contactsService.showContact() ||
+        !this.contactsService.editContact()
+      )
+        return;
       const currentContact = this.showContact();
 
       this.contactForm.patchValue({
@@ -61,7 +65,8 @@ export class ContactFormComponent {
     }
 
     const contact = {
-      name: this.contactForm.value.name!,
+      id: this.showContact()?.id,
+      displayName: this.contactForm.value.name!,
       email: this.contactForm.value.email!,
       phone: this.contactForm.value.phone!,
     };
@@ -71,6 +76,7 @@ export class ContactFormComponent {
       this.contactsService.addContact.set(false);
     } else if (this.contactsService.editContact()) {
       this.contactsService.updateContact(contact);
+      this.contactsService.showContact.set(contact);
       this.contactsService.editContact.set(false);
     }
     this.contactForm.reset();
@@ -78,5 +84,6 @@ export class ContactFormComponent {
 
   closeForm() {
     this.contactsService.addContact.set(false);
+    this.contactsService.editContact.set(false);
   }
 }

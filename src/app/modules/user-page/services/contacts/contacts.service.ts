@@ -9,6 +9,7 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   Firestore,
   onSnapshot,
@@ -83,8 +84,10 @@ export class ContactsService {
       `users/${userId}/contacts`,
     );
 
-    await addDoc(contactsCollection, contact);
-    console.log("Contact created:", contact);
+    const { id, ...contactData } = contact;
+
+    await addDoc(contactsCollection, contactData);
+    console.log("Contact created:", contactData);
   }
 
   async updateContact(contact: any) {
@@ -96,7 +99,23 @@ export class ContactsService {
       `users/${userId}/contacts`,
     );
 
-    await setDoc(doc(contactsCollection, contact.id), contact);
+    const { id, ...contactData } = contact;
+
+    await setDoc(doc(contactsCollection, id), contactData);
+    console.log("Contact updated:", contactData);
+  }
+
+  async deleteContact(contactId: string) {
+    const userId = this.authService.userId();
+    if (!userId) return;
+
+    const contactsCollection = collection(
+      this.firestore,
+      `users/${userId}/contacts`,
+    );
+
+    await deleteDoc(doc(contactsCollection, contactId));
+    console.log("Contact deleted:", contactId);
   }
 
   addContactToTask(contact: any) {
@@ -123,8 +142,12 @@ export class ContactsService {
 
   getInitials(name: string) {
     if (!name) return "";
+
     const names = name.trim().split(" ");
-    if (names.length === 1) return names[0].toUpperCase();
+
+    if (names.length === 1) {
+      return names[0][0].toUpperCase();
+    }
     return names[0][0].toUpperCase() + names[1][0].toUpperCase();
   }
 }
