@@ -43,18 +43,23 @@ export class ContactFormComponent {
 
   constructor() {
     effect(() => {
-      if (
-        !this.contactsService.showContact() ||
-        !this.contactsService.editContact()
-      )
-        return;
+      if (this.contactsService.addContact()) {
+        this.contactForm.patchValue({
+          phone: "+49",
+        });
+      }
+
+      if (!this.contactsService.showContact()) return;
+
       const currentContact = this.showContact();
 
-      this.contactForm.patchValue({
-        name: currentContact?.displayName,
-        email: currentContact?.email,
-        phone: currentContact?.phone,
-      });
+      if (this.contactsService.editContact()) {
+        this.contactForm.patchValue({
+          name: currentContact?.displayName,
+          email: currentContact?.email,
+          phone: currentContact?.phone,
+        });
+      }
     });
   }
 
