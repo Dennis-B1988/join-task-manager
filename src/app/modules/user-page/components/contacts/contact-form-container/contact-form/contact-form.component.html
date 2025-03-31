@@ -3,23 +3,32 @@
 </div>
 
 <form class="form" action="submit" [formGroup]="contactForm">
-  <div class="inputs">
-    <input type="text" placeholder="Name" formControlName="name" />
-    <input type="email" placeholder="Email" formControlName="email" />
-    <input type="text" placeholder="Phone" formControlName="phone" />
+  <div class="form-inputs">
+    <div class="inputs">
+      <input type="text" placeholder="Name" formControlName="name" />
+      <img src="assets/img/person.png" alt="Enter Name" />
+    </div>
+    <div class="inputs">
+      <input type="email" placeholder="Email" formControlName="email" />
+      <img src="assets/img/mail.png" alt="Enter Email" />
+    </div>
+    <div class="inputs">
+      <input type="text" placeholder="Phone" formControlName="phone" />
+      <img src="assets/img/phone.png" alt="Enter Phone" />
+    </div>
   </div>
 
   <div class="buttons">
     <button appButton class="cancel">
       {{ contact().cancelButton }}
       <span ngProjectAs="[icon]">
-        <img src="assets/img/cancel.png" alt="" />
+        <img src="assets/img/cancel.png" alt="Cancel and Close" />
       </span>
     </button>
     <button appButton class="save" (click)="onSubmit()">
       {{ contact().saveButton }}
       <span ngProjectAs="[icon]">
-        <img src="assets/img/check.png" alt="" />
+        <img src="assets/img/check.png" alt="Submit and Close" />
       </span>
     </button>
   </div>
