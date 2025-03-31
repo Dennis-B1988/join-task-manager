@@ -25,6 +25,8 @@ export class TasksService {
   taskPriority = signal("Medium");
   editTask = signal<boolean>(false);
   selectedTask = signal<Task | null>(null);
+  searchTaskTerm = signal<string>("");
+  // searchTaskList = signal<Task[]>([]);
 
   userId = computed(() => this.authService.userId());
 
@@ -94,5 +96,23 @@ export class TasksService {
 
     // Update the signal with the new tasks array
     this.tasks.set(updatedTasks);
+  }
+
+  // searchTask(search: string) {
+  //   this.searchTaskTerm.set(search);
+
+  //   if (search.length === 0) {
+  //     this.searchTaskList.set([]);
+  //     return;
+  //   }
+
+  //   const filteredTasks = this.tasks().filter((task) => {
+  //     return task.title.toLowerCase().includes(search.toLowerCase());
+  //   });
+
+  //   this.searchTaskList.set(filteredTasks);
+  // }
+  searchTask(search: string) {
+    this.searchTaskTerm.set(search.toLowerCase());
   }
 }

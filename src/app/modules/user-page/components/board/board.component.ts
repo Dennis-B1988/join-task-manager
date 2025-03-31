@@ -26,7 +26,9 @@ export class BoardComponent {
 
   editTask = computed(() => this.tasksService.editTask());
 
-  // deleteTask(id: string) {
-  //   this.tasksService.deleteTask(id);
-  // }
+  searchTask(event: Event) {
+    const searchValue = (event.target as HTMLInputElement).value.trim();
+    this.tasksService.searchTask(searchValue);
+    console.log(this.tasksService.searchTaskTerm());
+  }
 }

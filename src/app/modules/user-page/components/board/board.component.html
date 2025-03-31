@@ -3,7 +3,12 @@
     <h1>Board</h1>
     <div class="search-and-create">
       <div class="search-container">
-        <input type="text" class="find-task" placeholder="Find Task" />
+        <input
+          type="text"
+          class="find-task"
+          placeholder="Find Task"
+          (input)="searchTask($event)"
+        />
         <div class="search-image" aria-hidden="true">
           <span class="line"></span>
           <img src="assets/img/search.png" alt="Search Button" />

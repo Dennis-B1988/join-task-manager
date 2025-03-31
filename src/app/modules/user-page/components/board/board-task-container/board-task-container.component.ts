@@ -48,10 +48,25 @@ export class BoardTaskContainerComponent {
   }
 
   tasks = computed(() => this.tasksService.tasks());
+  searchTearm = computed(() => this.tasksService.searchTaskTerm());
 
-  filteredTasks = computed(() =>
-    this.tasks().filter((task) => task.status == this.status()),
-  );
+  // filteredTasks = computed(() =>
+  //   this.tasks().filter((task) => task.status == this.status()),
+  // );
+  filteredTasks = computed(() => {
+    const allTasks = this.tasks();
+    const term = this.searchTearm();
+
+    return allTasks.filter((task) => {
+      const matchesSearch = !term || task.title.toLowerCase().includes(term);
+      const matchesStatus = task.status === this.status();
+      return matchesSearch && matchesStatus;
+    });
+  });
+
+  // filteredSearchTasks = computed(() =>
+  //   this.searchTask().filter((task) => task.status == this.status()),
+  // );
 
   assignedToTask = computed(() =>
     this.contactsService
@@ -64,10 +79,6 @@ export class BoardTaskContainerComponent {
       console.log("Filtered Tasks:", this.filteredTasks());
     }, 5000);
   }
-
-  // trackByTaskId(index: number, task: Task): string {
-  //   return task.id; // Ensure each task has a unique ID
-  // }
 
   async drop(event: CdkDragDrop<any[]>, newStatus: string) {
     if (event.previousContainer === event.container) {
