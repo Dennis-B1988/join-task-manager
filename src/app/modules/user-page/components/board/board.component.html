@@ -36,4 +36,10 @@
       [title]="DONE"
     ></app-board-task-container>
   </section>
+
+  @if (editTask()) {
+    <div class="edit-task-overlay">
+      <app-edit-task></app-edit-task>
+    </div>
+  }
 </main>

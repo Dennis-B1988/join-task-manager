@@ -6,6 +6,7 @@ import {
   onSnapshot,
   updateDoc,
 } from "@angular/fire/firestore";
+import { Subtask } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Injectable({
@@ -15,7 +16,7 @@ export class SubtasksService {
   private authService = inject(AuthService);
   private firestore = inject(Firestore);
 
-  subTasks = signal<any[]>([]);
+  subTasks = signal<Subtask[]>([]);
 
   // constructor() {
   //   effect(() => {
@@ -61,6 +62,16 @@ export class SubtasksService {
     this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
     console.log(this.subTasks());
   }
+
+  // moveSubtaskToDone(id: string) {
+  //   this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
+  //   console.log(this.subTasks());
+  // }
+
+  // moveSubtaskToOpen(id: string) {
+  //   this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
+  //   console.log(this.subTasks());
+  // }
 
   clearSubtasks() {
     this.subTasks.set([]);

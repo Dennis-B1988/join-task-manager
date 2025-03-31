@@ -6,6 +6,14 @@ export interface Task {
   dueDate: string;
   priority: string;
   category: string;
-  subtask: { open: string[]; done: string[] };
+  subtask: {
+    open: Subtask[];
+    done: Subtask[];
+  };
   status: string;
+}
+
+export interface Subtask {
+  id?: string;
+  subtaskValue: string;
 }

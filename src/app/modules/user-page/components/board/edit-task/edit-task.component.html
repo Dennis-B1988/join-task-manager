@@ -1,0 +1,33 @@
+<div class="edit-task">
+  <div class="category">{{ selectedTask()?.category }}</div>
+  <div class="title">{{ selectedTask()?.title }}</div>
+  <div class="description">{{ selectedTask()?.description }}</div>
+  <div class="due-date">{{ selectedTask()?.dueDate }}</div>
+  <div class="priority">{{ selectedTask()?.priority }}</div>
+  <div class="assigned-to">
+    @for (assigned of selectedTask()?.assignedTo; track $index) {
+      <span class="assigned-initials">{{
+        getContactInitials(assigned.displayName)
+      }}</span>
+    }
+  </div>
+  <div class="subtasks">
+    @for (subtask of selectedTask()?.subtask?.open; track subtask.id) {
+      <div class="subtask">
+        <input type="checkbox" (change)="toggleSubtaskStatus(subtask, true)" />
+        <span class="subtask-title">{{ subtask.subtaskValue }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="subtasks-divider"></div>
+
+  <div class="subtasks">
+    @for (subtask of selectedTask()?.subtask?.done; track subtask.id) {
+      <div class="subtask">
+        <input type="checkbox" (change)="toggleSubtaskStatus(subtask, false)" />
+        <span class="subtask-title">{{ subtask.subtaskValue }}</span>
+      </div>
+    }
+  </div>
+</div>

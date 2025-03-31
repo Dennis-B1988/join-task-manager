@@ -7,27 +7,26 @@ import {
   runInInjectionContext,
   signal,
 } from "@angular/core";
-import { doc, Firestore, updateDoc } from "@angular/fire/firestore";
-import { addDoc, collection, deleteDoc, onSnapshot } from "firebase/firestore";
+import { doc, Firestore, setDoc } from "@angular/fire/firestore";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
-import { ContactsService } from "../contacts/contacts.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class TasksService {
   private authService = inject(AuthService);
-  private contactsService = inject(ContactsService);
   private firestore = inject(Firestore);
   private injector = inject(EnvironmentInjector);
   private UnsubscribeService = inject(UnsubscribeService);
   tasks = signal<any[]>([]);
+  taskPriority = signal("Medium");
+  editTask = signal<boolean>(false);
+  selectedTask = signal<Task | null>(null);
 
   userId = computed(() => this.authService.userId());
-
-  taskPriority = signal("Medium");
 
   constructor() {
     effect(() => {
@@ -46,17 +45,9 @@ export class TasksService {
         const tasksData = snapshot.docs.map((doc) => {
           const taskData = doc.data() as Task;
 
-          // const updatedAssignedTo = (
-          //   Array.isArray(taskData.assignedTo) ? taskData.assignedTo : []
-          // ).map((user: any) => ({
-          //   ...user,
-          //   // color: this.contactsService.generateContactColor(user.displayName),
-          // }));
-
           return {
             id: doc.id, // Firestore document ID
             ...taskData,
-            // assignedTo: updatedAssignedTo,
           };
         });
 
@@ -78,37 +69,13 @@ export class TasksService {
     console.log("Task added:", task);
   }
 
-  // async addTask(task: Task) {
-  // async addTask(task: any) {
-  //   const userId = this.authService.userId();
-  //   if (!userId) return;
+  async updateTask(task: Task) {
+    const userId = this.authService.userId();
+    if (!userId || !task.id) return;
 
-  //   // const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
-  //   try {
-  //     const docRef = await addDoc(
-  //       collection(this.firestore, `users/${userId}/tasks`),
-  //       task,
-  //     );
-
-  //     task.id = docRef.id;
-  //     return task;
-  //   } catch (error) {
-  //     console.error("Error adding task:", error);
-  //   }
-
-  //   // await addDoc(tasksCollection, task);
-  //   // console.log("Task added:", task);
-  // }
-
-  // async deleteTask(taskId: string) {
-  //   const userId = this.authService.userId();
-  //   if (!userId) return;
-
-  //   const taskDocRef = doc(this.firestore, `users/${userId}/tasks/${taskId}`);
-
-  //   await deleteDoc(taskDocRef);
-  //   console.log("Task deleted:", taskId);
-  // }
+    const taskDoc = doc(this.firestore, `users/${userId}/tasks`, task.id);
+    await setDoc(taskDoc, task);
+  }
 
   setTaskPriority(priority: string) {
     this.taskPriority.set(priority);

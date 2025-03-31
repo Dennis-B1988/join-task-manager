@@ -8,6 +8,7 @@ import { Contact } from "../../../../../../core/models/contact.model";
 import { Task } from "../../../../../../core/models/task.model";
 import { ContactsService } from "../../../../services/contacts/contacts.service";
 import { SubtasksService } from "../../../../services/subtasks/subtasks.service";
+import { TasksService } from "../../../../services/tasks/tasks.service";
 
 @Component({
   selector: "app-task",
@@ -16,6 +17,7 @@ import { SubtasksService } from "../../../../services/subtasks/subtasks.service"
   styleUrl: "./task.component.scss",
 })
 export class TaskComponent {
+  private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
   task = input.required<Task>();
 
@@ -30,5 +32,10 @@ export class TaskComponent {
 
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
+  }
+
+  editTask(task: Task) {
+    this.tasksService.editTask.set(true);
+    this.tasksService.selectedTask.set(task);
   }
 }

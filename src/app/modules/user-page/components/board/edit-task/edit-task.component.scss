@@ -1,0 +1,23 @@
+@import "../../../../../shared/styles/mixins";
+
+:host {
+  @include flex(row, center, center);
+}
+
+.edit-task {
+  @include flex(column, center, center);
+  width: 400px;
+  height: 600px;
+  gap: 1rem;
+  background-color: #fff;
+}
+
+.subtasks {
+  @include flex(column, center, center);
+  //   gap: 1rem;
+}
+
+.subtasks-divider {
+  @include border(0.0625rem, solid, #d1d1d1);
+  width: 100%;
+}
