@@ -10,7 +10,7 @@
   >
   <span class="title">{{ task().title }}</span>
   <span class="description">{{ task().description }}</span>
-  @if (openSubtasks().length > 0) {
+  @if (openSubtasks().length > 0 || doneSubtasks().length > 0) {
     <div class="subtask">
       <!-- <output
                 class="progress-bar"
@@ -20,14 +20,18 @@
         class="progress-bar"
         [mode]="mode"
         [value]="
-          doneSubtasks().length > 0
-            ? (doneSubtasks().length / openSubtasks().length) * 100
-            : 0
+          openSubtasks().length > 0
+            ? (doneSubtasks().length /
+                (openSubtasks().length + doneSubtasks().length)) *
+              100
+            : 100
         "
       >
       </mat-progress-bar>
       <output class="subtasks-amount">
-        {{ doneSubtasks().length }}/{{ openSubtasks().length }}
+        {{ doneSubtasks().length }}/{{
+          openSubtasks().length + doneSubtasks().length
+        }}
         Subtasks
       </output>
     </div>
