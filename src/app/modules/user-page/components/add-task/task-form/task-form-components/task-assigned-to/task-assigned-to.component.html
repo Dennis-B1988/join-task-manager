@@ -18,8 +18,36 @@
       "
       alt="Assign users"
     />
-    @if (assignedToOpen && filteredContacts().length > 0) {
+    @if (assignedToOpen) {
       <div class="dropdown">
+        <div
+          [class]="
+            assignedToTask().includes(user())
+              ? 'assigned-to-item selected'
+              : 'assigned-to-item'
+          "
+          (click)="assignContactToTask(user())"
+        >
+          <div class="contact-item">
+            <span
+              class="contact-initials"
+              [style]="
+                'background-color: ' + getContactColor(user()?.displayName)
+              "
+              >{{ getContactInitials(user()?.displayName) }}</span
+            >
+            <span class="contact-name">{{ user()?.displayName }} (You) </span>
+            <img
+              [src]="
+                assignedToTask().includes(user())
+                  ? 'assets/img/checkmark-checked-white.png'
+                  : 'assets/img/checkmark-assigned-to.png'
+              "
+              alt=""
+            />
+          </div>
+        </div>
+
         @for (contact of filteredContacts(); track contact) {
           <div
             [class]="

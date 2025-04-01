@@ -8,6 +8,7 @@ import {
   signal,
 } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { AuthService } from "../../../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../../../services/contacts/contacts.service";
 
 @Component({
@@ -17,11 +18,14 @@ import { ContactsService } from "../../../../../services/contacts/contacts.servi
   styleUrl: "./task-assigned-to.component.scss",
 })
 export class TaskAssignedToComponent {
+  private authService = inject(AuthService);
   private contactsService = inject(ContactsService);
   taskForm = input.required<FormGroup>();
   assignedToOpen: boolean = false;
   contacts = signal<any[]>([]);
   searchContact = signal<string>("");
+
+  user = computed(() => this.authService.user());
 
   assignedToTask = computed(() =>
     this.contactsService
