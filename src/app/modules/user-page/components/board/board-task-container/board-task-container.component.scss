@@ -73,7 +73,7 @@
   flex: 1; // Take remaining space
   min-height: 0; // Critical for allowing overflow to work in flex children
   overflow-y: auto; // Enable vertical scrolling
-  cursor: pointer;
+  // cursor: pointer;
 }
 
 .no-task {

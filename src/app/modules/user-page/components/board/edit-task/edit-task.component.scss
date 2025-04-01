@@ -6,10 +6,50 @@
 
 .edit-task {
   @include flex(column, center, center);
-  width: 400px;
-  height: 600px;
-  gap: 1rem;
+  @include padding(3rem, 2.5rem, 3rem, 2.5rem);
+  width: 525px;
+  // height: 600px;
+  border-radius: 1.875rem;
+  gap: 1.5rem;
   background-color: #fff;
+  box-shadow: 0px 0px 4px 0px #00000029;
+}
+
+.category {
+  @include flex(row, space-between, center);
+  width: 100%;
+
+  img {
+    cursor: pointer;
+  }
+}
+
+.task-details {
+  @include flex(column, flex-start, flex-start);
+  width: 100%;
+
+  h2 {
+    @include font(3.8125rem, 700, 120%, #000);
+  }
+
+  p {
+    @include font(1.25rem, 400, 120%, #000);
+  }
+}
+
+.task-type-text {
+  @include flex(row, flex-start, center);
+  width: 100%;
+  gap: 0.5rem;
+
+  span {
+    @include font(1.25rem, 400, 120%, #2a3647);
+    width: 25%;
+  }
+
+  p {
+    @include font(1.25rem, 400, 120%, #000);
+  }
 }
 
 .subtasks {

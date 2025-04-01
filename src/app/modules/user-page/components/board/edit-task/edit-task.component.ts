@@ -19,6 +19,14 @@ export class EditTaskComponent {
     console.log(this.selectedTask());
   }
 
+  get selectedPriority() {
+    if (this.selectedTask()?.priority === "Urgent") return "urgent";
+    if (this.selectedTask()?.priority === "Medium") return "medium";
+    if (this.selectedTask()?.priority === "Low") return "low";
+
+    return "";
+  }
+
   toggleSubtaskStatus(subtask: Subtask, isDone: boolean) {
     const task = this.selectedTask();
     if (!task) return;
@@ -36,5 +44,12 @@ export class EditTaskComponent {
 
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
+  }
+
+  closeForm() {
+    console.log("Task selected:", this.tasksService.selectedTask());
+    this.tasksService.editTask.set(false);
+    this.tasksService.selectedTask.set(null);
+    console.log("Task selected after close:", this.tasksService.selectedTask());
   }
 }
