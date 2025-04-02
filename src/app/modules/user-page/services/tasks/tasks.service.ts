@@ -7,7 +7,7 @@ import {
   runInInjectionContext,
   signal,
 } from "@angular/core";
-import { doc, Firestore, setDoc } from "@angular/fire/firestore";
+import { deleteDoc, doc, Firestore, setDoc } from "@angular/fire/firestore";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
@@ -77,6 +77,14 @@ export class TasksService {
 
     const taskDoc = doc(this.firestore, `users/${userId}/tasks`, task.id);
     await setDoc(taskDoc, task);
+  }
+
+  async deleteTask(taskId: string) {
+    const userId = this.authService.userId();
+    if (!userId) return;
+
+    const taskDoc = doc(this.firestore, `users/${userId}/tasks`, taskId);
+    await deleteDoc(taskDoc);
   }
 
   setTaskPriority(priority: string) {

@@ -42,18 +42,23 @@ export class EditTaskComponent {
     this.tasksService.updateTask(task);
   }
 
+  closeForm() {
+    console.log("Task selected:", this.tasksService.selectedTask());
+    this.tasksService.editTask.set(false);
+    this.tasksService.selectedTask.set(null);
+    console.log("Task selected after close:", this.tasksService.selectedTask());
+  }
+
+  deleteTask(task: Task) {
+    this.tasksService.deleteTask(task.id!);
+    this.closeForm();
+  }
+
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
   }
 
   getContactColor(name: string): string {
     return this.contactsService.generateContactColor(name);
-  }
-
-  closeForm() {
-    console.log("Task selected:", this.tasksService.selectedTask());
-    this.tasksService.editTask.set(false);
-    this.tasksService.selectedTask.set(null);
-    console.log("Task selected after close:", this.tasksService.selectedTask());
   }
 }
