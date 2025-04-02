@@ -27,9 +27,16 @@
     <span>Assigned to:</span>
     <div class="assigned-contacts">
       @for (assigned of selectedTask()?.assignedTo; track $index) {
-        <span class="assigned-initials">{{
-          getContactInitials(assigned.displayName)
-        }}</span>
+        <div class="assigned">
+          <span
+            class="assigned-initials"
+            [style]="
+              'background-color: ' + getContactColor(assigned.displayName)
+            "
+            >{{ getContactInitials(assigned.displayName) }}</span
+          >
+          <span class="assigned-name">{{ assigned.displayName }}</span>
+        </div>
       }
     </div>
   </div>

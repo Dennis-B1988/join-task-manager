@@ -46,6 +46,10 @@ export class EditTaskComponent {
     return this.contactsService.getInitials(name);
   }
 
+  getContactColor(name: string): string {
+    return this.contactsService.generateContactColor(name);
+  }
+
   closeForm() {
     console.log("Task selected:", this.tasksService.selectedTask());
     this.tasksService.editTask.set(false);
