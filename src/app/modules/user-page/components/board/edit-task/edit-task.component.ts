@@ -19,6 +19,18 @@ export class EditTaskComponent {
 
   selectedTask = computed(() => this.tasksService.selectedTask());
 
+  sortedAssignedTo = computed(() => {
+    const currentUser = this.user();
+    if (!currentUser || !currentUser.displayName)
+      return this.selectedTask()?.assignedTo;
+
+    return this.selectedTask()?.assignedTo.sort((a: any, b: any) => {
+      if (a.displayName === currentUser.displayName) return -1;
+      if (b.displayName === currentUser.displayName) return 1;
+      return a.displayName.localeCompare(b.displayName);
+    });
+  });
+
   sortedSubtasks = computed(() => {
     const task = this.selectedTask();
     if (!task) return [];

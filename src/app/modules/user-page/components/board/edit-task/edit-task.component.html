@@ -26,7 +26,7 @@
   <div class="assigned-to-container">
     <span>Assigned to:</span>
     <div class="assigned-contacts">
-      @for (assigned of selectedTask()?.assignedTo; track $index) {
+      @for (assigned of sortedAssignedTo(); track $index) {
         <div class="assigned">
           <span
             class="assigned-initials"
@@ -47,18 +47,6 @@
   <div class="subtasks-container">
     <span>Subtasks</span>
     <div class="subtasks">
-      <!-- @for (subtask of selectedTask()?.subtask?.open; track subtask.id) {
-        <div class="subtask" (click)="toggleSubtaskStatus(subtask, true)">
-          <img src="assets/img/checkmark-normal-empty.png" alt="" />
-          <span class="subtask-title">{{ subtask.subtaskValue }}</span>
-        </div>
-      }
-      @for (subtask of selectedTask()?.subtask?.done; track subtask.id) {
-        <div class="subtask" (click)="toggleSubtaskStatus(subtask, false)">
-          <img src="assets/img/checkmark-normal-marked.png" alt="" />
-          <span class="subtask-title">{{ subtask.subtaskValue }}</span>
-        </div>
-      } -->
       @for (subtask of sortedSubtasks(); track subtask.id) {
         <div class="subtask" (click)="toggleSubtaskStatus(subtask)">
           <img
