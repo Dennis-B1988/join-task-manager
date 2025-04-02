@@ -35,7 +35,11 @@
             "
             >{{ getContactInitials(assigned.displayName) }}</span
           >
-          <span class="assigned-name">{{ assigned.displayName }}</span>
+          @if (assigned.displayName === user()?.displayName) {
+            <span class="assigned-name">{{ assigned.displayName }} (You)</span>
+          } @else {
+            <span class="assigned-name">{{ assigned.displayName }}</span>
+          }
         </div>
       }
     </div>
@@ -43,7 +47,7 @@
   <div class="subtasks-container">
     <span>Subtasks</span>
     <div class="subtasks">
-      @for (subtask of selectedTask()?.subtask?.open; track subtask.id) {
+      <!-- @for (subtask of selectedTask()?.subtask?.open; track subtask.id) {
         <div class="subtask" (click)="toggleSubtaskStatus(subtask, true)">
           <img src="assets/img/checkmark-normal-empty.png" alt="" />
           <span class="subtask-title">{{ subtask.subtaskValue }}</span>
@@ -52,6 +56,19 @@
       @for (subtask of selectedTask()?.subtask?.done; track subtask.id) {
         <div class="subtask" (click)="toggleSubtaskStatus(subtask, false)">
           <img src="assets/img/checkmark-normal-marked.png" alt="" />
+          <span class="subtask-title">{{ subtask.subtaskValue }}</span>
+        </div>
+      } -->
+      @for (subtask of sortedSubtasks(); track subtask.id) {
+        <div class="subtask" (click)="toggleSubtaskStatus(subtask)">
+          <img
+            src="assets/img/{{
+              subtask.done
+                ? 'checkmark-normal-marked.png'
+                : 'checkmark-normal-empty.png'
+            }}"
+            alt=""
+          />
           <span class="subtask-title">{{ subtask.subtaskValue }}</span>
         </div>
       }

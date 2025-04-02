@@ -16,4 +16,5 @@ export interface Task {
 export interface Subtask {
   id?: string;
   subtaskValue: string;
+  done: boolean;
 }

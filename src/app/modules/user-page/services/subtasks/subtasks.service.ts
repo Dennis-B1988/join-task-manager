@@ -54,7 +54,10 @@ export class SubtasksService {
   // }
 
   addSubtask(subtaskValue: string, id: string) {
-    this.subTasks.update((tasks) => [...tasks, { id, subtaskValue }]);
+    this.subTasks.update((tasks) => [
+      ...tasks,
+      { id, subtaskValue, done: false },
+    ]);
     console.log(this.subTasks());
   }
 

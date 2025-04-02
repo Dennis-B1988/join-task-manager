@@ -8,6 +8,7 @@ import {
   signal,
 } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { CustomUser } from "../../../../../../../core/models/user.model";
 import { AuthService } from "../../../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../../../services/contacts/contacts.service";
 
@@ -25,22 +26,41 @@ export class TaskAssignedToComponent {
   contacts = signal<any[]>([]);
   searchContact = signal<string>("");
 
-  user = computed(() => this.authService.user());
+  user = computed<CustomUser | null>(() => this.authService.user());
 
-  assignedToTask = computed(() =>
-    this.contactsService
-      .assignedToTask()
-      .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
-  );
+  // assignedToTask = computed(() =>
+  //   this.contactsService
+  //     .assignedToTask()
+  //     .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
+  // );
 
   filteredContacts = computed(() => {
     const searchTerm = this.searchContact().toLowerCase();
+    const currentUser = this.user();
+    if (!currentUser || !currentUser.displayName)
+      return this.contactsService.contacts();
 
     return searchTerm.length >= 3
       ? this.contacts().filter((contact) =>
           contact.displayName.toLowerCase().includes(searchTerm),
         )
-      : this.contacts();
+      : this.contactsService.contacts().sort((a: any, b: any) => {
+          if (a.displayName === currentUser.displayName) return -1;
+          if (b.displayName === currentUser.displayName) return 1;
+          return a.displayName.localeCompare(b.displayName);
+        });
+  });
+
+  assignedToTask = computed(() => {
+    const currentUser = this.user();
+    if (!currentUser || !currentUser.displayName)
+      return this.contactsService.assignedToTask();
+
+    return this.contactsService.assignedToTask().sort((a: any, b: any) => {
+      if (a.displayName === currentUser.displayName) return -1;
+      if (b.displayName === currentUser.displayName) return 1;
+      return a.displayName.localeCompare(b.displayName);
+    });
   });
 
   constructor() {

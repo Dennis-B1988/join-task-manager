@@ -15,18 +15,4 @@ export class CustomUser implements Partial<FirebaseUser> {
     this.tasks = userData?.tasks ?? [];
     this.contacts = userData?.contacts ?? [];
   }
-
-  // constructor(obj?: any) {
-  //   this.displayName = obj?.displayName ?? "";
-  //   this.email = obj?.email ?? "";
-  //   this.password = obj?.password || undefined;
-  // }
-
-  // public toJSON() {
-  //   return {
-  //     displayName: this.displayName,
-  //     email: this.email,
-  //     password: this.password,
-  //   };
-  // }
 }

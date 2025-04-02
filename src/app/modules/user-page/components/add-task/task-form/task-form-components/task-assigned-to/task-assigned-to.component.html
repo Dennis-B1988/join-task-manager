@@ -20,7 +20,7 @@
     />
     @if (assignedToOpen) {
       <div class="dropdown">
-        <div
+        <!-- <div
           [class]="
             assignedToTask().includes(user())
               ? 'assigned-to-item selected'
@@ -46,7 +46,7 @@
               alt=""
             />
           </div>
-        </div>
+        </div> -->
 
         @for (contact of filteredContacts(); track contact) {
           <div
@@ -65,7 +65,13 @@
                 "
                 >{{ getContactInitials(contact.displayName) }}</span
               >
-              <span class="contact-name">{{ contact.displayName }} </span>
+              @if (contact.displayName === user()?.displayName) {
+                <span class="contact-name"
+                  >{{ contact.displayName }} (You)
+                </span>
+              } @else {
+                <span class="contact-name">{{ contact.displayName }} </span>
+              }
               <img
                 [src]="
                   assignedToTask().includes(contact)
