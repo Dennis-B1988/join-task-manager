@@ -13,6 +13,8 @@ export class ContactDetailsComponent {
   private contactsService = inject(ContactsService);
   private router = inject(Router);
 
+  delete: boolean = false;
+
   showContact = computed(() => this.contactsService.showContact());
 
   private subscribe = this.router.events
@@ -31,6 +33,14 @@ export class ContactDetailsComponent {
 
   editExistingContact() {
     this.contactsService.editContact.set(true);
+  }
+
+  openDeleteModal() {
+    this.delete = true;
+  }
+
+  closeDeleteModal() {
+    this.delete = false;
   }
 
   deleteContact() {

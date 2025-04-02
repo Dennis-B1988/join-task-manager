@@ -14,7 +14,7 @@
           <img src="assets/img/edit.png" alt="" />
           <span>Edit</span>
         </div>
-        <div class="delete" (click)="deleteContact()">
+        <div class="delete" (click)="openDeleteModal()">
           <img src="assets/img/delete.png" alt="" />
           <span>Delete</span>
         </div>
@@ -35,4 +35,18 @@
       <p>{{ showContact()!.phone }}</p>
     </div>
   </article>
+
+  @if (delete) {
+    <div class="delete-contact">
+      <h4>Are you sure you want to delete this contact?</h4>
+      <div class="buttons">
+        <button appButton class="cancel" (click)="closeDeleteModal()">
+          Cancel
+        </button>
+        <button appButton class="delete" (click)="deleteContact()">
+          Delete
+        </button>
+      </div>
+    </div>
+  }
 </div>
