@@ -31,6 +31,10 @@
 
 .description {
   @include font(1rem, 400, 1.2rem, #ababab);
+  width: 100%;
+  max-height: 200px;
+  overflow-wrap: break-word;
+  overflow-y: auto;
 }
 
 .subtask {

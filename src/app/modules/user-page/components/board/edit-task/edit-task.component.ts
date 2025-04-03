@@ -34,9 +34,11 @@ export class EditTaskComponent {
   sortedSubtasks = computed(() => {
     const task = this.selectedTask();
     if (!task) return [];
-    return [...task.subtask.open, ...task.subtask.done].sort(
-      (a, b) => Number(a.done) - Number(b.done),
-    );
+
+    return [
+      ...task.subtask.open.map((s) => ({ ...s, done: false })),
+      ...task.subtask.done.map((s) => ({ ...s, done: true })),
+    ].sort((a, b) => Number(a.done) - Number(b.done)); // Keeps open before done
   });
 
   constructor() {
@@ -51,23 +53,21 @@ export class EditTaskComponent {
     return "";
   }
 
-  // toggleSubtaskStatus(subtask: Subtask, isDone: boolean) {
-  //   const task = this.selectedTask();
-  //   if (!task) return;
-
-  //   if (isDone) {
-  //     task.subtask.open = task.subtask.open.filter((s) => s.id !== subtask.id);
-  //     task.subtask.done.push(subtask);
-  //   } else {
-  //     task.subtask.done = task.subtask.done.filter((s) => s.id !== subtask.id);
-  //     task.subtask.open.push(subtask);
-  //   }
-
-  //   this.tasksService.updateTask(task);
-  // }
-
   toggleSubtaskStatus(subtask: Subtask) {
+    const task = this.selectedTask();
+    if (!task) return;
+
+    if (subtask.done) {
+      task.subtask.done = task.subtask.done.filter((s) => s.id !== subtask.id);
+      task.subtask.open.push(subtask);
+    } else {
+      task.subtask.open = task.subtask.open.filter((s) => s.id !== subtask.id);
+      task.subtask.done.push(subtask);
+    }
+
     subtask.done = !subtask.done;
+
+    this.tasksService.updateTask({ ...task });
   }
 
   closeForm() {
