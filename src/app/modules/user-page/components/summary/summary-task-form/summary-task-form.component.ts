@@ -1,11 +1,12 @@
 import { DatePipe } from "@angular/common";
 import { Component, computed, inject, signal } from "@angular/core";
+import { RouterLink } from "@angular/router";
 import { set } from "firebase/database";
 import { TasksService } from "../../../services/tasks/tasks.service";
 
 @Component({
   selector: "app-summary-task-form",
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: "./summary-task-form.component.html",
   styleUrl: "./summary-task-form.component.scss",
 })

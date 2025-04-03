@@ -1,4 +1,11 @@
-import { Component, computed, inject, signal } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  inject,
+  signal,
+} from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
 import { BoardTaskContainerComponent } from "./board-task-container/board-task-container.component";
@@ -14,8 +21,9 @@ import { EditTaskComponent } from "./edit-task/edit-task.component";
   templateUrl: "./board.component.html",
   styleUrl: "./board.component.scss",
 })
-export class BoardComponent {
-  tasksService = inject(TasksService);
+export class BoardComponent implements AfterViewInit {
+  private tasksService = inject(TasksService);
+  private route = inject(ActivatedRoute);
 
   readonly TODO = "To Do";
   readonly IN_PROGRESS = "In Progress";
@@ -25,6 +33,17 @@ export class BoardComponent {
   tasks = computed(() => this.tasksService.tasks());
 
   editTask = computed(() => this.tasksService.editTask());
+
+  ngAfterViewInit() {
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  }
 
   searchTask(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value.trim();

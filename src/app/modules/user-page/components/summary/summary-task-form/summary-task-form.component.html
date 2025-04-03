@@ -5,6 +5,8 @@
       aria-labelledby="todo-heading"
       (mouseenter)="toDoHover = true"
       (mouseleave)="toDoHover = false"
+      [routerLink]="['/board']"
+      fragment="todo"
     >
       <img
         [src]="
@@ -22,6 +24,8 @@
       aria-labelledby="done-heading"
       (mouseenter)="doneHover = true"
       (mouseleave)="doneHover = false"
+      [routerLink]="['/board']"
+      fragment="done"
     >
       <img
         [src]="doneHover ? 'assets/img/done-hover.png' : 'assets/img/done.png'"
@@ -38,6 +42,8 @@
     <article
       class="urgent summary-display hover"
       aria-labelledby="urgent-heading"
+      [routerLink]="['/board']"
+      fragment="urgent"
     >
       <div class="urgent-amount-container">
         <img
@@ -68,6 +74,7 @@
     <article
       class="board-progress-feedback summary-display hover"
       aria-labelledby="total-tasks-heading"
+      [routerLink]="['/board']"
     >
       <output class="task-amount">{{ totalTasks() }}</output>
       <span class="task-type">Tasks in Board</span>
@@ -75,6 +82,8 @@
     <article
       class="board-progress-feedback summary-display hover"
       aria-labelledby="progress-tasks-heading"
+      [routerLink]="['/board']"
+      fragment="in-progress"
     >
       <output class="task-amount">{{ inProgressAmount() }}</output>
       <span class="task-type">Tasks in Progress</span>
@@ -82,6 +91,8 @@
     <article
       class="board-progress-feedback summary-display hover"
       aria-labelledby="feedback-tasks-heading"
+      [routerLink]="['/board']"
+      fragment="awaiting-feedback"
     >
       <output class="task-amount">{{ awaitingFeedbackAmount() }}</output>
       <span class="task-type">Awaiting Feedback</span>

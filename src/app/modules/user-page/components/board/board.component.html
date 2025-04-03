@@ -25,18 +25,22 @@
 
   <section class="board-main">
     <app-board-task-container
+      id="todo"
       [status]="TODO"
       [title]="TODO"
     ></app-board-task-container>
     <app-board-task-container
+      id="in-progress"
       [status]="IN_PROGRESS"
       [title]="IN_PROGRESS"
     ></app-board-task-container>
     <app-board-task-container
+      id="awaiting-feedback"
       [status]="AWAITING_FEEDBACK"
       [title]="AWAITING_FEEDBACK"
     ></app-board-task-container>
     <app-board-task-container
+      id="done"
       [status]="DONE"
       [title]="DONE"
     ></app-board-task-container>
