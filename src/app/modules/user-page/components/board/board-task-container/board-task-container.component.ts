@@ -80,6 +80,11 @@ export class BoardTaskContainerComponent {
     }, 5000);
   }
 
+  setTaskStatus(status: string) {
+    this.tasksService.taskStatus.set(status);
+    console.log(status);
+  }
+
   async drop(event: CdkDragDrop<any[]>, newStatus: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(

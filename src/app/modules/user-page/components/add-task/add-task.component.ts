@@ -10,13 +10,14 @@ import { TaskFormComponent } from "./task-form/task-form.component";
   styleUrl: "./add-task.component.scss",
 })
 export class AddTaskComponent {
-  tasksService = inject(TasksService);
+  private tasksService = inject(TasksService);
   clearButtonHover: boolean = false;
 
   @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent;
 
   addTask() {
     if (this.taskFormComponent) {
+      this.tasksService.taskStatus.set("To Do");
       this.taskFormComponent.onSubmit();
     }
   }

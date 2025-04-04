@@ -1,7 +1,13 @@
 <div class="task-container">
   <div class="task-header">
     <span>{{ title() }}</span>
-    <img src="assets/img/plus_button.png" alt="Add task to {{ title() }}" />
+    @if (title() != "Done") {
+      <img
+        src="assets/img/plus_button.png"
+        alt="Add task to {{ title() }}"
+        (click)="setTaskStatus(title())"
+      />
+    }
   </div>
   <div
     [id]="status()"

@@ -31,6 +31,8 @@ export class TaskFormComponent {
   private contactsService = inject(ContactsService);
   private subTasksService = inject(SubtasksService);
 
+  private taskStatus = computed(() => this.tasksService.taskStatus());
+
   today = new Date().toISOString().split("T")[0];
 
   assignedTo = computed(() => this.contactsService.assignedToTask());
@@ -65,23 +67,6 @@ export class TaskFormComponent {
 
   formValid = this.taskForm.controls;
 
-  // setPriority(prio: string) {
-  //   this.priority = prio;
-  //   this.tasksService.taskPriority = prio;
-
-  //   console.log(this.tasksService.taskPriority);
-  // }
-
-  // blurDropdown() {
-  //   this.assignedToOpen = false;
-  //   this.categoryOpen = false;
-  // }
-
-  // removeFocus(event: FocusEvent) {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   inputElement.blur();
-  // }
-
   onClear() {
     this.taskForm.reset();
     this.contactsService.assignedToTask.set([]);
@@ -109,7 +94,7 @@ export class TaskFormComponent {
       priority: this.tasksService.taskPriority(),
       category: formValue.category || "",
       subtask: subtasks,
-      status: "To Do",
+      status: this.taskStatus(),
     };
 
     this.tasksService.addTask(newTask);

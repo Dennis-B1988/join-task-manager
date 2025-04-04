@@ -22,7 +22,8 @@ export class TasksService {
   private injector = inject(EnvironmentInjector);
   private UnsubscribeService = inject(UnsubscribeService);
   tasks = signal<any[]>([]);
-  taskPriority = signal("Medium");
+  taskPriority = signal<string>("Medium");
+  taskStatus = signal<string>("To Do");
   editTask = signal<boolean>(false);
   selectedTask = signal<Task | null>(null);
   searchTaskTerm = signal<string>("");
