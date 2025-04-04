@@ -14,7 +14,7 @@
           <img src="assets/img/search.png" alt="Search Button" />
         </div>
       </div>
-      <button appButton>
+      <button appButton (click)="toggleAddTaskAndSetStatus('To Do')">
         Add task
         <span ngProjectAs="[icon]"
           ><img src="assets/img/add.png" alt="checkmark"
@@ -49,6 +49,12 @@
   @if (editTask()) {
     <div class="edit-task-overlay">
       <app-edit-task></app-edit-task>
+    </div>
+  }
+
+  @if (addTaskToBoard()) {
+    <div class="add-task-overlay">
+      <app-add-task-from-board></app-add-task-from-board>
     </div>
   }
 </main>

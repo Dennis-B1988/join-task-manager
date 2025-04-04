@@ -24,6 +24,7 @@ export class TasksService {
   tasks = signal<any[]>([]);
   taskPriority = signal<string>("Medium");
   taskStatus = signal<string>("To Do");
+  addTaskToBoard = signal<boolean>(false);
   editTask = signal<boolean>(false);
   selectedTask = signal<Task | null>(null);
   searchTaskTerm = signal<string>("");

@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute } from "@angular/router";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
+import { AddTaskFromBoardComponent } from "./add-task-from-board/add-task-from-board.component";
 import { BoardTaskContainerComponent } from "./board-task-container/board-task-container.component";
 import { EditTaskComponent } from "./edit-task/edit-task.component";
 
@@ -17,6 +18,7 @@ import { EditTaskComponent } from "./edit-task/edit-task.component";
     BoardTaskContainerComponent,
     ButtonWithIconComponent,
     EditTaskComponent,
+    AddTaskFromBoardComponent,
   ],
   templateUrl: "./board.component.html",
   styleUrl: "./board.component.scss",
@@ -32,6 +34,7 @@ export class BoardComponent implements AfterViewInit {
 
   tasks = computed(() => this.tasksService.tasks());
 
+  addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
   editTask = computed(() => this.tasksService.editTask());
 
   ngAfterViewInit() {
@@ -49,5 +52,10 @@ export class BoardComponent implements AfterViewInit {
     const searchValue = (event.target as HTMLInputElement).value.trim();
     this.tasksService.searchTask(searchValue);
     console.log(this.tasksService.searchTaskTerm());
+  }
+
+  toggleAddTaskAndSetStatus(status: string) {
+    this.tasksService.taskStatus.set(status);
+    this.tasksService.addTaskToBoard.set(true);
   }
 }

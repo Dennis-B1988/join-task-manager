@@ -48,6 +48,7 @@ export class BoardTaskContainerComponent {
   }
 
   tasks = computed(() => this.tasksService.tasks());
+  addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
   searchTearm = computed(() => this.tasksService.searchTaskTerm());
 
   // filteredTasks = computed(() =>
@@ -80,9 +81,11 @@ export class BoardTaskContainerComponent {
     }, 5000);
   }
 
-  setTaskStatus(status: string) {
+  toggleAddTaskAndSetStatus(status: string) {
     this.tasksService.taskStatus.set(status);
-    console.log(status);
+    this.tasksService.addTaskToBoard.set(true);
+    console.log(this.addTaskToBoard());
+    console.log(this.tasksService.taskStatus());
   }
 
   async drop(event: CdkDragDrop<any[]>, newStatus: string) {
