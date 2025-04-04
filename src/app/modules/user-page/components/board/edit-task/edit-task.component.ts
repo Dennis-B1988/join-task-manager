@@ -38,7 +38,7 @@ export class EditTaskComponent {
     return [
       ...task.subtask.open.map((s) => ({ ...s, done: false })),
       ...task.subtask.done.map((s) => ({ ...s, done: true })),
-    ].sort((a, b) => Number(a.done) - Number(b.done)); // Keeps open before done
+    ].sort((a, b) => Number(a.done) - Number(b.done));
   });
 
   constructor() {
