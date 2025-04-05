@@ -91,4 +91,12 @@ export class ContactFormComponent {
     this.contactsService.addContact.set(false);
     this.contactsService.editContact.set(false);
   }
+
+  openDeleteModal() {
+    this.contactsService.showDeleteContact.set(true);
+  }
+
+  closeDeleteModal() {
+    this.contactsService.showDeleteContact.set(false);
+  }
 }

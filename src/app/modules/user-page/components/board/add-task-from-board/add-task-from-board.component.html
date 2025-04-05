@@ -1,10 +1,10 @@
 <section class="add-task-container">
   <header class="task-header">
     <h2>Add Task</h2>
+    <img src="assets/img/cancel.png" alt="Close Button" (click)="closeForm()" />
   </header>
   <app-task-form (submit)="addTask()"></app-task-form>
   <footer class="task-footer">
-    <!-- <div class="create-task"> -->
     <span class="required-text"
       ><span class="red">*</span>This field is required</span
     >
@@ -34,6 +34,5 @@
         /></span>
       </button>
     </div>
-    <!-- </div> -->
   </footer>
 </section>

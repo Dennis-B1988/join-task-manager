@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, input } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
 import { filter } from "rxjs";
 import { ContactsService } from "../../../../services/contacts/contacts.service";
@@ -13,9 +13,8 @@ export class ContactDetailsComponent {
   private contactsService = inject(ContactsService);
   private router = inject(Router);
 
-  delete: boolean = false;
-
   showContact = computed(() => this.contactsService.showContact());
+  showDeleteContact = computed(() => this.contactsService.showDeleteContact());
 
   private subscribe = this.router.events
     .pipe(filter((event) => event instanceof NavigationStart))
@@ -36,11 +35,11 @@ export class ContactDetailsComponent {
   }
 
   openDeleteModal() {
-    this.delete = true;
+    this.contactsService.showDeleteContact.set(true);
   }
 
   closeDeleteModal() {
-    this.delete = false;
+    this.contactsService.showDeleteContact.set(false);
   }
 
   deleteContact() {

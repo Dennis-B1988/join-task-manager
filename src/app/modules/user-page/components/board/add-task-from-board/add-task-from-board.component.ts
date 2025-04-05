@@ -28,6 +28,10 @@ export class AddTaskFromBoardComponent implements OnDestroy {
     }
   }
 
+  closeForm() {
+    this.tasksService.addTaskToBoard.set(false);
+  }
+
   ngOnDestroy() {
     this.tasksService.addTaskToBoard.set(false);
   }
