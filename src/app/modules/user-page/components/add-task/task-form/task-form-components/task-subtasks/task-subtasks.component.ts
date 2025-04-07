@@ -16,28 +16,29 @@ export class TaskSubtasksComponent {
   subTasks = this.subTasksService.subTasks;
   // subTasks = signal<Subtask[]>([]);
 
-  addSubtask() {
-    const subtaskValue = this.taskForm().get("subtask")?.value;
-    const subtaskId = crypto.randomUUID();
-
-    console.log("Subtask:", subtaskValue, subtaskId);
-
-    if (!subtaskValue) return;
-
-    this.subTasksService.addSubtask(subtaskValue, subtaskId);
-    this.taskForm().get("subtask")?.reset();
-
-    console.log(this.subTasks());
-  }
-
   // addSubtask() {
-  //   const form = this.taskForm();
-  //   const subtaskValue = form.get("subtask")?.value;
+  //   const subtaskValue = this.taskForm().get("subtask")?.value;
   //   const subtaskId = crypto.randomUUID();
+
+  //   console.log("Subtask:", subtaskValue, subtaskId);
 
   //   if (!subtaskValue) return;
 
   //   this.subTasksService.addSubtask(subtaskValue, subtaskId);
-  //   form.get("subtask")?.reset();
+  //   this.taskForm().get("subtask")?.reset();
+
+  //   console.log(this.subTasks());
   // }
+
+  addSubtask() {
+    const form = this.taskForm();
+    const subtaskValue = form.get("subtask")?.value;
+    const subtaskId = crypto.randomUUID();
+
+    if (!subtaskValue) return;
+
+    this.subTasksService.addSubtask(subtaskValue, subtaskId);
+    form.get("subtask")?.reset();
+    console.log(this.subTasks());
+  }
 }

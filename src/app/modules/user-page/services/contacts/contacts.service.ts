@@ -46,7 +46,7 @@ export class ContactsService {
     setTimeout(() => {
       console.log("Contacts:", this.contacts());
       console.log("Assigned to task:", this.assignedToTask());
-    }, 5000);
+    }, 1000);
   }
 
   loadContacts(userId: string) {
@@ -119,14 +119,34 @@ export class ContactsService {
     console.log("Contact deleted:", contactId);
   }
 
+  // addContactToTask(contact: any) {
+  //   this.assignedToTask.set([...this.assignedToTask(), contact]);
+  //   console.log(this.assignedToTask());
+  // }
+
   addContactToTask(contact: any) {
-    this.assignedToTask.set([...this.assignedToTask(), contact]);
-    console.log(this.assignedToTask());
+    const current = this.assignedToTask();
+    const exists = current.some((c) => c.displayName === contact.displayName);
+
+    if (!exists) {
+      this.assignedToTask.set([...current, contact]);
+    }
+
+    console.log("Assigned:", this.assignedToTask());
   }
 
+  // removeContactFromTask(contact: any) {
+  //   this.assignedToTask.set(this.assignedToTask().filter((c) => c !== contact));
+  //   console.log(this.assignedToTask());
+  // }
+
   removeContactFromTask(contact: any) {
-    this.assignedToTask.set(this.assignedToTask().filter((c) => c !== contact));
-    console.log(this.assignedToTask());
+    const updated = this.assignedToTask().filter(
+      (c) => c.displayName !== contact.displayName,
+    );
+    this.assignedToTask.set(updated);
+
+    console.log("Updated Assigned:", updated);
   }
 
   generateContactColor(name: string): string {

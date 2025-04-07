@@ -14,6 +14,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { Subtask, Task } from "../../../../../core/models/task.model";
+import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { SubtasksService } from "../../../services/subtasks/subtasks.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
@@ -35,6 +36,7 @@ import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task
   styleUrl: "./task-form.component.scss",
 })
 export class TaskFormComponent implements OnDestroy {
+  private authService = inject(AuthService);
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
   private subTasksService = inject(SubtasksService);
@@ -57,11 +59,22 @@ export class TaskFormComponent implements OnDestroy {
     effect(() => {
       const task = this.selectedTask();
       this.tasksService.taskPriority.set(task?.priority || "Medium");
-      if (task) this.taskForm.patchValue(task);
+      if (task) {
+        this.taskForm.patchValue({
+          title: task.title,
+          description: task.description,
+          dueDate: task.dueDate,
+          priority: task.priority || "Medium",
+          category: task.category,
+          status: task.status,
+        });
+        // const userId = this.authService.userId();
+        // if (userId) this.contactsService.loadContacts(userId);
+      }
     });
     setTimeout(() => {
       console.log("Assigned ", this.filterAssignedTo());
-    }, 3000);
+    }, 1000);
   }
 
   taskForm = new FormGroup({
@@ -83,22 +96,20 @@ export class TaskFormComponent implements OnDestroy {
       open: [],
       done: [],
     }),
-    subtaskInput: new FormControl(""),
+    // subtaskInput: new FormControl(""),
     status: new FormControl<string>("", {}),
   });
 
   formValid = this.taskForm.controls;
 
-  editTask = {
-    title: this.selectedTask()?.title || "",
-    description: this.selectedTask()?.description || "",
-    assignedTo: this.selectedTask()?.assignedTo || [],
-    dueDate: this.selectedTask()?.dueDate || "",
-    priority: this.selectedTask()?.priority || "",
-    category: this.selectedTask()?.category || "",
-    subtask: this.selectedTask()?.subtask || { open: [], done: [] },
-    status: this.selectedTask()?.status || "",
-  };
+  // editTask = {
+  //   title: this.selectedTask()?.title || "",
+  //   description: this.selectedTask()?.description || "",
+  //   dueDate: this.selectedTask()?.dueDate || "",
+  //   priority: this.selectedTask()?.priority || "",
+  //   category: this.selectedTask()?.category || "",
+  //   status: this.selectedTask()?.status || "",
+  // };
 
   onClear() {
     this.taskForm.reset();
@@ -137,7 +148,5 @@ export class TaskFormComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.onClear();
-    this.tasksService.editTask.set(false);
-    this.tasksService.selectedTask.set(null);
   }
 }

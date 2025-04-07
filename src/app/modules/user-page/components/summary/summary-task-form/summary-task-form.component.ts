@@ -68,6 +68,6 @@ export class SummaryTaskFormComponent {
   constructor() {
     setTimeout(() => {
       console.log("Tasks Summary:", this.tasksSummary());
-    }, 5000);
+    }, 1000);
   }
 }

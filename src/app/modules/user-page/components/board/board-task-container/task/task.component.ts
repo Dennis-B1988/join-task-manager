@@ -35,8 +35,11 @@ export class TaskComponent {
   }
 
   editTask(task: Task) {
+    this.contactsService.assignedToTask.set(task.assignedTo);
+    console.log("Assigned to this task: ", task.assignedTo);
     this.tasksService.editTask.set(true);
     this.tasksService.selectedTask.set(task);
+    console.log("Contact in task:", task.assignedTo);
     console.log("Task selected:", this.tasksService.selectedTask());
   }
 }

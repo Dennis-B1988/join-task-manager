@@ -71,7 +71,6 @@ export class EditTaskComponent {
   }
 
   closeForm() {
-    console.log("Task selected:", this.tasksService.selectedTask());
     this.tasksService.editTask.set(false);
     this.tasksService.selectedTask.set(null);
     console.log("Task selected after close:", this.tasksService.selectedTask());

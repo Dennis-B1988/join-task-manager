@@ -3,9 +3,9 @@
   <div class="pr-input-container">
     <input
       type="text"
-      name="subtaskInput"
+      name="subtask"
       placeholder="Add new subtasks"
-      formControlName="subtaskInput"
+      formControlName="subtask"
     />
     <img
       class="input-icon"
@@ -16,7 +16,7 @@
   </div>
   <div class="subtasks-list-container">
     <ul class="subtasks-list">
-      @for (subtask of subTasks(); track subtask.id) {
+      @for (subtask of subTasks(); track subtask) {
         <li class="subtask-text">{{ subtask.subtaskValue }}</li>
       }
     </ul>

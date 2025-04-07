@@ -92,35 +92,31 @@ export class TaskAssignedToComponent {
   //   }
   // }
 
-  assignContactToTask(contact: { displayName: string }) {
-    const form = this.taskForm(); // get the FormGroup from the signal
-    const current = form.get("assignedTo")?.value || [];
-
-    const alreadyAssigned = current.some(
-      (c: { displayName: string }) => c.displayName === contact.displayName,
+  assignContactToTask(contact: any) {
+    const exists = this.assignedToTask().some(
+      (c) => c.displayName === contact.displayName,
     );
-    const updated = alreadyAssigned
-      ? current.filter(
-          (c: { displayName: string }) => c.displayName !== contact.displayName,
-        )
-      : [...current, contact];
 
-    form.get("assignedTo")?.setValue(updated);
+    if (exists) {
+      this.contactsService.removeContactFromTask(contact);
+    } else {
+      this.contactsService.addContactToTask(contact);
+    }
   }
 
-  // removeContactFromTask(contact: any) {
-  //   this.contactsService.removeContactFromTask(contact);
+  removeContactFromTask(contact: any) {
+    this.contactsService.removeContactFromTask(contact);
+  }
+
+  // removeContactFromTask(contact: { displayName: string }) {
+  //   const form = this.taskForm();
+  //   const current = form.get("assignedTo")?.value || [];
+
+  //   const updated = current.filter(
+  //     (c: { displayName: string }) => c.displayName !== contact.displayName,
+  //   );
+  //   form.get("assignedTo")?.setValue(updated);
   // }
-
-  removeContactFromTask(contact: { displayName: string }) {
-    const form = this.taskForm();
-    const current = form.get("assignedTo")?.value || [];
-
-    const updated = current.filter(
-      (c: { displayName: string }) => c.displayName !== contact.displayName,
-    );
-    form.get("assignedTo")?.setValue(updated);
-  }
 
   getContactColor(contact: any) {
     return this.contactsService.generateContactColor(contact);

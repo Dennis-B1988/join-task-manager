@@ -65,7 +65,7 @@ export class AuthService {
 
     setTimeout(() => {
       console.log("User from auth:", this.user());
-    }, 5000);
+    }, 1000);
   }
 
   private async setUser(user: User): Promise<void> {

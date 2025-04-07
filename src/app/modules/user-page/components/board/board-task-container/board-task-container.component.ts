@@ -76,11 +76,11 @@ export class BoardTaskContainerComponent {
       .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
   );
 
-  constructor() {
-    setTimeout(() => {
-      console.log("Filtered Tasks:", this.filteredTasks());
-    }, 5000);
-  }
+  // constructor() {
+  //   setTimeout(() => {
+  //     console.log("Filtered Tasks:", this.filteredTasks());
+  //   }, 5000);
+  // }
 
   toggleAddTaskAndSetStatus(status: string) {
     this.tasksService.taskStatus.set(status);
