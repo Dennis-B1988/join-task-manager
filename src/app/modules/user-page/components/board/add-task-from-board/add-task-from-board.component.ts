@@ -1,4 +1,12 @@
-import { Component, inject, OnDestroy, ViewChild } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { ButtonWithIconComponent } from "../../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../../services/tasks/tasks.service";
 import { TaskFormComponent } from "../../add-task/task-form/task-form.component";
@@ -14,6 +22,8 @@ export class AddTaskFromBoardComponent implements OnDestroy {
   clearButtonHover: boolean = false;
 
   @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent;
+
+  selectedTask = computed(() => this.tasksService.selectedTask());
 
   addTask() {
     if (this.taskFormComponent) {

@@ -69,6 +69,10 @@
       ><img src="assets/img/delete.png" alt="" /> Delete</span
     >
     <div class="bottom-divider" aria-hidden="true"></div>
-    <span class="edit"><img src="assets/img/edit.png" alt="" /> Edit</span>
+    <span
+      class="edit"
+      (click)="toggleAddTaskAndSetStatus(selectedTask()?.status || 'To Do')"
+      ><img src="assets/img/edit.png" alt="" /> Edit</span
+    >
   </div>
 </div>

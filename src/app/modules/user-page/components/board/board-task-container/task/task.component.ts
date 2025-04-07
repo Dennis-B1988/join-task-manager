@@ -37,5 +37,6 @@ export class TaskComponent {
   editTask(task: Task) {
     this.tasksService.editTask.set(true);
     this.tasksService.selectedTask.set(task);
+    console.log("Task selected:", this.tasksService.selectedTask());
   }
 }

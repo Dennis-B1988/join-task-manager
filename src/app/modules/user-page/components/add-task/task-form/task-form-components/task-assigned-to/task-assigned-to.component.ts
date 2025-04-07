@@ -28,12 +28,6 @@ export class TaskAssignedToComponent {
 
   user = computed<CustomUser | null>(() => this.authService.user());
 
-  // assignedToTask = computed(() =>
-  //   this.contactsService
-  //     .assignedToTask()
-  //     .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
-  // );
-
   filteredContacts = computed(() => {
     const searchTerm = this.searchContact().toLowerCase();
     const currentUser = this.user();
@@ -89,13 +83,43 @@ export class TaskAssignedToComponent {
     console.log(this.searchContact());
   }
 
-  assignContactToTask(contact: any) {
-    if (this.assignedToTask().includes(contact)) {
-      this.contactsService.removeContactFromTask(contact);
-      console.log(contact);
-    } else {
-      this.contactsService.addContactToTask(contact);
-    }
+  // assignContactToTask(contact: any) {
+  //   if (this.assignedToTask().includes(contact)) {
+  //     this.contactsService.removeContactFromTask(contact);
+  //     console.log(contact);
+  //   } else {
+  //     this.contactsService.addContactToTask(contact);
+  //   }
+  // }
+
+  assignContactToTask(contact: { displayName: string }) {
+    const form = this.taskForm(); // get the FormGroup from the signal
+    const current = form.get("assignedTo")?.value || [];
+
+    const alreadyAssigned = current.some(
+      (c: { displayName: string }) => c.displayName === contact.displayName,
+    );
+    const updated = alreadyAssigned
+      ? current.filter(
+          (c: { displayName: string }) => c.displayName !== contact.displayName,
+        )
+      : [...current, contact];
+
+    form.get("assignedTo")?.setValue(updated);
+  }
+
+  // removeContactFromTask(contact: any) {
+  //   this.contactsService.removeContactFromTask(contact);
+  // }
+
+  removeContactFromTask(contact: { displayName: string }) {
+    const form = this.taskForm();
+    const current = form.get("assignedTo")?.value || [];
+
+    const updated = current.filter(
+      (c: { displayName: string }) => c.displayName !== contact.displayName,
+    );
+    form.get("assignedTo")?.setValue(updated);
   }
 
   getContactColor(contact: any) {
@@ -104,10 +128,6 @@ export class TaskAssignedToComponent {
 
   getContactInitials(contact: any) {
     return this.contactsService.getInitials(contact);
-  }
-
-  removeContactFromTask(contact: any) {
-    this.contactsService.removeContactFromTask(contact);
   }
 
   @HostListener("document:click", ["$event"])

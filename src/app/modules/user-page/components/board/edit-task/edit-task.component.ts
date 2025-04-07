@@ -82,6 +82,11 @@ export class EditTaskComponent {
     this.closeForm();
   }
 
+  toggleAddTaskAndSetStatus(status: string) {
+    this.tasksService.taskStatus.set(status);
+    this.tasksService.addTaskToBoard.set(true);
+  }
+
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
   }

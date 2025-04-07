@@ -1,11 +1,19 @@
-import { Component, computed, inject } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  runInInjectionContext,
+} from "@angular/core";
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { Task } from "../../../../../core/models/task.model";
+import { Subtask, Task } from "../../../../../core/models/task.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { SubtasksService } from "../../../services/subtasks/subtasks.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
@@ -26,7 +34,7 @@ import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task
   templateUrl: "./task-form.component.html",
   styleUrl: "./task-form.component.scss",
 })
-export class TaskFormComponent {
+export class TaskFormComponent implements OnDestroy {
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
   private subTasksService = inject(SubtasksService);
@@ -43,8 +51,14 @@ export class TaskFormComponent {
   );
 
   subTasks = computed(() => this.subTasksService.subTasks());
+  selectedTask = computed(() => this.tasksService.selectedTask());
 
   constructor() {
+    effect(() => {
+      const task = this.selectedTask();
+      this.tasksService.taskPriority.set(task?.priority || "Medium");
+      if (task) this.taskForm.patchValue(task);
+    });
     setTimeout(() => {
       console.log("Assigned ", this.filterAssignedTo());
     }, 3000);
@@ -55,17 +69,36 @@ export class TaskFormComponent {
       validators: [Validators.required],
     }),
     description: new FormControl<string>("", {}),
-    assignedTo: new FormControl<string>("", {}),
+    assignedTo: new FormControl<{ displayName: string }[]>([]),
     dueDate: new FormControl<string>("", {
+      validators: [Validators.required],
+    }),
+    priority: new FormControl<string>("", {
       validators: [Validators.required],
     }),
     category: new FormControl<string>("", {
       validators: [Validators.required],
     }),
-    subtask: new FormControl<string>("", {}),
+    subtask: new FormControl<{ open: Subtask[]; done: Subtask[] }>({
+      open: [],
+      done: [],
+    }),
+    subtaskInput: new FormControl(""),
+    status: new FormControl<string>("", {}),
   });
 
   formValid = this.taskForm.controls;
+
+  editTask = {
+    title: this.selectedTask()?.title || "",
+    description: this.selectedTask()?.description || "",
+    assignedTo: this.selectedTask()?.assignedTo || [],
+    dueDate: this.selectedTask()?.dueDate || "",
+    priority: this.selectedTask()?.priority || "",
+    category: this.selectedTask()?.category || "",
+    subtask: this.selectedTask()?.subtask || { open: [], done: [] },
+    status: this.selectedTask()?.status || "",
+  };
 
   onClear() {
     this.taskForm.reset();
@@ -100,5 +133,11 @@ export class TaskFormComponent {
     this.tasksService.addTask(newTask);
     console.log(newTask);
     this.onClear();
+  }
+
+  ngOnDestroy(): void {
+    this.onClear();
+    this.tasksService.editTask.set(false);
+    this.tasksService.selectedTask.set(null);
   }
 }

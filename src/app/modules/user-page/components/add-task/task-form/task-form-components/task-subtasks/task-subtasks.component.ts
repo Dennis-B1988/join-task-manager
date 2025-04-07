@@ -1,5 +1,6 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, inject, input, signal } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { Subtask } from "../../../../../../../core/models/task.model";
 import { SubtasksService } from "../../../../../services/subtasks/subtasks.service";
 
 @Component({
@@ -13,6 +14,7 @@ export class TaskSubtasksComponent {
   taskForm = input.required<FormGroup>();
 
   subTasks = this.subTasksService.subTasks;
+  // subTasks = signal<Subtask[]>([]);
 
   addSubtask() {
     const subtaskValue = this.taskForm().get("subtask")?.value;
@@ -27,4 +29,15 @@ export class TaskSubtasksComponent {
 
     console.log(this.subTasks());
   }
+
+  // addSubtask() {
+  //   const form = this.taskForm();
+  //   const subtaskValue = form.get("subtask")?.value;
+  //   const subtaskId = crypto.randomUUID();
+
+  //   if (!subtaskValue) return;
+
+  //   this.subTasksService.addSubtask(subtaskValue, subtaskId);
+  //   form.get("subtask")?.reset();
+  // }
 }
