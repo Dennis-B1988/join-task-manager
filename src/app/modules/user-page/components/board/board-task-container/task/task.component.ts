@@ -17,8 +17,8 @@ import { TasksService } from "../../../../services/tasks/tasks.service";
   styleUrl: "./task.component.scss",
 })
 export class TaskComponent {
-  private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
+  tasksService = inject(TasksService);
   task = input.required<Task>();
 
   mode: ProgressBarMode = "determinate";

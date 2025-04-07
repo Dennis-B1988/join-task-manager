@@ -16,6 +16,7 @@
     [cdkDropListData]="filteredTasks()"
     [cdkDropListConnectedTo]="connectedList"
     (cdkDropListDropped)="drop($event, status())"
+    [class.dragging]="isDragging()"
   >
     @if (filteredTasks().length > 0) {
       @for (task of filteredTasks(); track task.id) {

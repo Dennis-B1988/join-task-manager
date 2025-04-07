@@ -1,4 +1,10 @@
-<div class="task" cdkDrag (click)="editTask(task())">
+<div
+  class="task"
+  cdkDrag
+  (cdkDragStarted)="tasksService.isDragging.set(true)"
+  (cdkDragEnded)="tasksService.isDragging.set(false)"
+  (click)="editTask(task())"
+>
   <span
     class="category"
     [style]="

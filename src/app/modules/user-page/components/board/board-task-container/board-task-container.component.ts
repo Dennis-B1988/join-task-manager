@@ -50,6 +50,7 @@ export class BoardTaskContainerComponent {
   tasks = computed(() => this.tasksService.tasks());
   addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
   searchTearm = computed(() => this.tasksService.searchTaskTerm());
+  isDragging = computed(() => this.tasksService.isDragging());
 
   // filteredTasks = computed(() =>
   //   this.tasks().filter((task) => task.status == this.status()),

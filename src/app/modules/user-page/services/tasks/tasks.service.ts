@@ -28,6 +28,7 @@ export class TasksService {
   editTask = signal<boolean>(false);
   selectedTask = signal<Task | null>(null);
   searchTaskTerm = signal<string>("");
+  isDragging = signal<boolean>(false);
   // searchTaskList = signal<Task[]>([]);
 
   userId = computed(() => this.authService.userId());

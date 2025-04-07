@@ -70,10 +70,14 @@
 
 .task-list {
   @include flex(column, unset, unset);
-  flex: 1; // Take remaining space
-  min-height: 0; // Critical for allowing overflow to work in flex children
-  overflow-y: auto; // Enable vertical scrolling
-  // cursor: pointer;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.task-list.dragging {
+  background-color: #f0f0f0;
+  transition: background-color 0.2s ease;
 }
 
 .no-task {
