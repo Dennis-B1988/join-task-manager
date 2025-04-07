@@ -1,6 +1,12 @@
 <section class="add-task-container">
   <header class="task-header">
-    <h2>Add Task</h2>
+    <h2>
+      @if (!editTask()) {
+        Add Task
+      } @else {
+        Update Task
+      }
+    </h2>
     <img src="assets/img/cancel.png" alt="Close Button" (click)="closeForm()" />
   </header>
   <app-task-form (submit)="addTask()"></app-task-form>
@@ -16,7 +22,7 @@
         (mouseover)="clearButtonHover = true"
         (mouseleave)="clearButtonHover = false"
       >
-        Cancel
+        Clear
         <span ngProjectAs="[icon]"
           ><img
             [src]="
@@ -28,7 +34,11 @@
         /></span>
       </button>
       <button appButton class="create" (click)="addTask()">
-        Create Task
+        @if (!editTask()) {
+          Create Task
+        } @else {
+          Update Task
+        }
         <span ngProjectAs="[icon]"
           ><img src="assets/img/check.png" alt="checkmark"
         /></span>

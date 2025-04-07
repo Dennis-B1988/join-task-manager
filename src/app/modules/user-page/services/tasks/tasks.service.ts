@@ -26,6 +26,7 @@ export class TasksService {
   taskStatus = signal<string>("To Do");
   addTaskToBoard = signal<boolean>(false);
   editTask = signal<boolean>(false);
+  editedTaskId = signal<string | undefined>(undefined);
   selectedTask = signal<Task | null>(null);
   searchTaskTerm = signal<string>("");
   isDragging = signal<boolean>(false);
@@ -75,11 +76,18 @@ export class TasksService {
   }
 
   async updateTask(task: Task) {
-    const userId = this.authService.userId();
-    if (!userId || !task.id) return;
+    try {
+      const userId = this.authService.userId();
+      console.log("Task: ", task);
+      console.log("userId:", userId, "task.id:", task.id);
+      if (!userId || !task.id) return;
 
-    const taskDoc = doc(this.firestore, `users/${userId}/tasks`, task.id);
-    await setDoc(taskDoc, task);
+      const taskDoc = doc(this.firestore, `users/${userId}/tasks`, task.id);
+      await setDoc(taskDoc, task);
+      console.log("Task updated:", task);
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
   }
 
   async deleteTask(taskId: string) {

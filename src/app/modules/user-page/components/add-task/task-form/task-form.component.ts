@@ -54,13 +54,16 @@ export class TaskFormComponent implements OnDestroy {
 
   subTasks = computed(() => this.subTasksService.subTasks());
   selectedTask = computed(() => this.tasksService.selectedTask());
+  // editedTaskId = computed(() => this.tasksService.editedTaskId());
 
   constructor() {
     effect(() => {
       const task = this.selectedTask();
+      this.tasksService.editedTaskId.set(task?.id);
       this.tasksService.taskPriority.set(task?.priority || "Medium");
       if (task) {
         this.taskForm.patchValue({
+          id: task.id,
           title: task.title,
           description: task.description,
           dueDate: task.dueDate,
@@ -78,6 +81,7 @@ export class TaskFormComponent implements OnDestroy {
   }
 
   taskForm = new FormGroup({
+    id: new FormControl<string | null>(null),
     title: new FormControl<string>("", {
       validators: [Validators.required],
     }),
@@ -130,7 +134,7 @@ export class TaskFormComponent implements OnDestroy {
       done: [],
     };
 
-    const newTask: Task = {
+    const task: Task = {
       title: formValue.title || "",
       description: formValue.description || "",
       assignedTo: this.filterAssignedTo() || [],
@@ -141,9 +145,44 @@ export class TaskFormComponent implements OnDestroy {
       status: this.taskStatus(),
     };
 
-    this.tasksService.addTask(newTask);
-    console.log(newTask);
+    if (this.selectedTask()) {
+      this.tasksService.updateTask(task);
+      this.onClear();
+      return;
+    }
+
+    this.tasksService.addTask(task);
+    console.log(task);
     this.onClear();
+  }
+
+  onUpdate() {
+    console.log("Update clicked");
+
+    if (!this.taskForm.valid) {
+      this.taskForm.markAllAsTouched();
+      return;
+    }
+    const formValue = this.taskForm.value;
+    const selected = this.selectedTask();
+
+    console.log("Selected task:", selected);
+
+    const updatedTask: Task = {
+      id: this.tasksService.editedTaskId(),
+      // id: formValue.id!,
+      title: formValue.title || "",
+      description: formValue.description || "",
+      assignedTo: this.filterAssignedTo() || [],
+      dueDate: formValue.dueDate || "",
+      priority: this.tasksService.taskPriority(),
+      category: formValue.category || "",
+      subtask: { open: this.subTasks() || [], done: [] },
+      status: this.taskStatus(),
+    };
+
+    this.tasksService.updateTask(updatedTask);
+    console.log("Updated task:", updatedTask);
   }
 
   ngOnDestroy(): void {
