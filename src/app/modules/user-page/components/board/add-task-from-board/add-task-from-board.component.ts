@@ -35,7 +35,7 @@ export class AddTaskFromBoardComponent implements OnDestroy {
 
   updateTask() {
     if (this.taskFormComponent) {
-      this.taskFormComponent.onSubmit();
+      this.taskFormComponent.onUpdate();
       this.tasksService.addTaskToBoard.set(false);
     }
   }

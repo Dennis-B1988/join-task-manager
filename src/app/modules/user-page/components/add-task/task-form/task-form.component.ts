@@ -170,7 +170,7 @@ export class TaskFormComponent implements OnDestroy {
 
     const updatedTask: Task = {
       id: this.tasksService.editedTaskId(),
-      // id: formValue.id!,
+      // id: selected!.id,
       title: formValue.title || "",
       description: formValue.description || "",
       assignedTo: this.filterAssignedTo() || [],
@@ -181,11 +181,15 @@ export class TaskFormComponent implements OnDestroy {
       status: this.taskStatus(),
     };
 
-    this.tasksService.updateTask(updatedTask);
+    this.tasksService.updateTask(updatedTask).then(() => {
+      // this.tasksService.editTask.set(false);
+      this.tasksService.selectedTask.set(updatedTask);
+      this.taskForm.patchValue(updatedTask);
+    });
     console.log("Updated task:", updatedTask);
   }
 
   ngOnDestroy(): void {
-    this.onClear();
+    this.tasksService.addTaskToBoard.set(false);
   }
 }

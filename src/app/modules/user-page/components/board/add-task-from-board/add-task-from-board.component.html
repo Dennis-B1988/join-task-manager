@@ -33,7 +33,11 @@
             alt=""
         /></span>
       </button>
-      <button appButton class="create" (click)="addTask()">
+      <button
+        appButton
+        class="create"
+        (click)="editTask() ? updateTask() : addTask()"
+      >
         @if (!editTask()) {
           Create Task
         } @else {

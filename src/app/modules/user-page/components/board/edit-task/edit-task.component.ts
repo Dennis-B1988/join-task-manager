@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject, input, OnDestroy } from "@angular/core";
 import { Subtask, Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
@@ -10,7 +10,7 @@ import { TasksService } from "../../../services/tasks/tasks.service";
   templateUrl: "./edit-task.component.html",
   styleUrl: "./edit-task.component.scss",
 })
-export class EditTaskComponent {
+export class EditTaskComponent implements OnDestroy {
   private authService = inject(AuthService);
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
@@ -92,5 +92,9 @@ export class EditTaskComponent {
 
   getContactColor(name: string): string {
     return this.contactsService.generateContactColor(name);
+  }
+
+  ngOnDestroy(): void {
+    this.tasksService.editTask.set(false);
   }
 }
