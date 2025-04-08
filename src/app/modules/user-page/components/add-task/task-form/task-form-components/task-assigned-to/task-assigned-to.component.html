@@ -23,7 +23,7 @@
         @for (contact of filteredContacts(); track contact) {
           <div
             [class]="
-              assignedToTask().includes(contact)
+              isContactAssigned(contact)
                 ? 'assigned-to-item selected'
                 : 'assigned-to-item'
             "
@@ -46,7 +46,7 @@
               }
               <img
                 [src]="
-                  assignedToTask().includes(contact)
+                  isContactAssigned(contact)
                     ? 'assets/img/checkmark-checked-white.png'
                     : 'assets/img/checkmark-assigned-to.png'
                 "

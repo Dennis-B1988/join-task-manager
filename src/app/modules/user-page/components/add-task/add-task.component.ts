@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from "@angular/core";
+import { Component, inject, OnDestroy, ViewChild } from "@angular/core";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
 import { TaskFormComponent } from "./task-form/task-form.component";
@@ -9,7 +9,7 @@ import { TaskFormComponent } from "./task-form/task-form.component";
   templateUrl: "./add-task.component.html",
   styleUrl: "./add-task.component.scss",
 })
-export class AddTaskComponent {
+export class AddTaskComponent implements OnDestroy {
   private tasksService = inject(TasksService);
   clearButtonHover: boolean = false;
 
@@ -17,6 +17,7 @@ export class AddTaskComponent {
 
   addTask() {
     if (this.taskFormComponent) {
+      console.log("Add task clicked");
       this.tasksService.taskStatus.set("To Do");
       this.taskFormComponent.onSubmit();
     }
@@ -26,5 +27,9 @@ export class AddTaskComponent {
     if (this.taskFormComponent) {
       this.taskFormComponent.onClear();
     }
+  }
+
+  ngOnDestroy() {
+    this.taskFormComponent.onClear();
   }
 }

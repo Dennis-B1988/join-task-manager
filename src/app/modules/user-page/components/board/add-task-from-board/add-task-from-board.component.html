@@ -15,24 +15,27 @@
       ><span class="red">*</span>This field is required</span
     >
     <div class="buttons">
-      <button
-        appButton
-        class="clear"
-        (click)="clearTask()"
-        (mouseover)="clearButtonHover = true"
-        (mouseleave)="clearButtonHover = false"
-      >
-        Clear
-        <span ngProjectAs="[icon]"
-          ><img
-            [src]="
-              clearButtonHover
-                ? 'assets/img/cancel-blue.png'
-                : 'assets/img/cancel.png'
-            "
-            alt=""
-        /></span>
-      </button>
+      @if (!editTask()) {
+        <button
+          appButton
+          class="clear"
+          (click)="clearTask()"
+          (mouseover)="clearButtonHover = true"
+          (mouseleave)="clearButtonHover = false"
+        >
+          Clear
+          <span ngProjectAs="[icon]"
+            ><img
+              [src]="
+                clearButtonHover
+                  ? 'assets/img/cancel-blue.png'
+                  : 'assets/img/cancel.png'
+              "
+              alt=""
+          /></span>
+        </button>
+      }
+
       <button
         appButton
         class="create"

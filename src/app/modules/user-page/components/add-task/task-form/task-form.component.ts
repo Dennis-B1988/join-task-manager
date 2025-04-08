@@ -92,9 +92,7 @@ export class TaskFormComponent implements OnDestroy {
     dueDate: new FormControl<string>("", {
       validators: [Validators.required],
     }),
-    priority: new FormControl<string>("", {
-      validators: [Validators.required],
-    }),
+    priority: new FormControl<string>("", {}),
     category: new FormControl<string>("", {
       validators: [Validators.required],
     }),
@@ -116,11 +114,14 @@ export class TaskFormComponent implements OnDestroy {
   }
 
   onSubmit() {
+    console.log("Submit clicked");
     if (!this.taskForm.valid) {
       this.taskForm.markAllAsTouched();
       return;
     }
     const formValue = this.taskForm.value;
+
+    console.log("Form value: ", formValue);
 
     const subtasks = {
       open: this.subTasks() || [],

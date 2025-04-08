@@ -62,6 +62,7 @@ export class TaskAssignedToComponent {
       const fetchedContacts = this.contactsService
         .contacts()
         .filter((contact) => ({
+          // id: contact.id,
           displayName: contact.displayName,
           // color: contact.color,
         }));
@@ -102,6 +103,12 @@ export class TaskAssignedToComponent {
     } else {
       this.contactsService.addContactToTask(contact);
     }
+  }
+
+  isContactAssigned(contact: any): boolean {
+    return this.assignedToTask().some(
+      (c) => c.displayName === contact.displayName,
+    );
   }
 
   removeContactFromTask(contact: any) {
