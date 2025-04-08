@@ -78,7 +78,6 @@ export class TasksService {
   async updateTask(task: Task) {
     try {
       const userId = this.authService.userId();
-      console.log("Task: ", task);
       console.log("userId:", userId, "task.id:", task.id);
       if (!userId || !task.id) return;
 

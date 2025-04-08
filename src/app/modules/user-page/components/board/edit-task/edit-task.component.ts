@@ -2,6 +2,7 @@ import { Component, computed, inject, input, OnDestroy } from "@angular/core";
 import { Subtask, Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
+import { SubtasksService } from "../../../services/subtasks/subtasks.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
 
 @Component({
@@ -13,6 +14,7 @@ import { TasksService } from "../../../services/tasks/tasks.service";
 export class EditTaskComponent implements OnDestroy {
   private authService = inject(AuthService);
   private tasksService = inject(TasksService);
+  private subtasksService = inject(SubtasksService);
   private contactsService = inject(ContactsService);
 
   user = computed(() => this.authService.user());
@@ -68,6 +70,7 @@ export class EditTaskComponent implements OnDestroy {
     subtask.done = !subtask.done;
 
     this.tasksService.updateTask({ ...task });
+    this.subtasksService.loadSubtasks(task);
   }
 
   closeForm() {
@@ -96,5 +99,8 @@ export class EditTaskComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.tasksService.editTask.set(false);
+    this.tasksService.selectedTask.set(null);
+    this.contactsService.assignedToTask.set([]);
+    this.subtasksService.clearSubtasks();
   }
 }

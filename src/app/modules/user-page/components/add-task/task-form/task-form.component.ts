@@ -73,8 +73,8 @@ export class TaskFormComponent implements OnDestroy {
         });
         // const userId = this.authService.userId();
         // if (userId) this.contactsService.loadContacts(userId);
-        this.subTasksService.loadSubtasks(task);
-        console.log("Subtasks: ", this.subTasks());
+        // this.subTasksService.loadSubtasks(task);
+        console.log("Subtasks loaded: ", this.subTasks());
       }
     });
     setTimeout(() => {
@@ -138,12 +138,6 @@ export class TaskFormComponent implements OnDestroy {
       status: this.taskStatus(),
     };
 
-    if (this.selectedTask()) {
-      this.tasksService.updateTask(task);
-      this.onClear();
-      return;
-    }
-
     this.tasksService.addTask(task);
     console.log(task);
     this.onClear();
@@ -170,14 +164,15 @@ export class TaskFormComponent implements OnDestroy {
       dueDate: formValue.dueDate || "",
       priority: this.tasksService.taskPriority(),
       category: formValue.category || "",
-      subtask: { open: this.subTasks() || [], done: [] },
+      subtask: {
+        open: this.subTasks() || [],
+        done: selected?.subtask?.done || [],
+      },
       status: this.taskStatus(),
     };
 
     this.tasksService.updateTask(updatedTask).then(() => {
-      // this.tasksService.editTask.set(false);
       this.tasksService.selectedTask.set(updatedTask);
-      // this.taskForm.patchValue(updatedTask);
     });
     console.log("Updated task:", updatedTask);
   }

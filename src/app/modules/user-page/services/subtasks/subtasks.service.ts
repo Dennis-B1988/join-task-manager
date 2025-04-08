@@ -1,21 +1,10 @@
-import { effect, inject, Injectable, signal } from "@angular/core";
-import {
-  arrayUnion,
-  doc,
-  Firestore,
-  onSnapshot,
-  updateDoc,
-} from "@angular/fire/firestore";
+import { Injectable, signal } from "@angular/core";
 import { Subtask, Task } from "../../../../core/models/task.model";
-import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class SubtasksService {
-  private authService = inject(AuthService);
-  private firestore = inject(Firestore);
-
   subTasks = signal<Subtask[]>([]);
 
   loadSubtasks(task: Task) {
@@ -23,7 +12,7 @@ export class SubtasksService {
 
     const allSubtasks = [
       ...(task.subtask.open || []),
-      ...(task.subtask.done || []),
+      // ...(task.subtask.done || []),
     ];
     this.subTasks.set(allSubtasks);
   }
@@ -33,7 +22,7 @@ export class SubtasksService {
       ...tasks,
       { id, subtaskValue, done: false },
     ]);
-    console.log(this.subTasks());
+    console.log("New subtasks: ", this.subTasks());
   }
 
   removeSubtask(id: string) {

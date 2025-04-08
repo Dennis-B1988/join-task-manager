@@ -39,6 +39,6 @@ export class TaskSubtasksComponent {
 
     this.subTasksService.addSubtask(subtaskValue, subtaskId);
     form.get("subtask")?.reset();
-    console.log(this.subTasks());
+    console.log("Subtasks: ", this.subTasks());
   }
 }

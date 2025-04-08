@@ -18,6 +18,7 @@ import { TasksService } from "../../../../services/tasks/tasks.service";
 })
 export class TaskComponent {
   private contactsService = inject(ContactsService);
+  private subtasksService = inject(SubtasksService);
   tasksService = inject(TasksService);
   task = input.required<Task>();
 
@@ -39,6 +40,7 @@ export class TaskComponent {
     console.log("Assigned to this task: ", task.assignedTo);
     this.tasksService.editTask.set(true);
     this.tasksService.selectedTask.set(task);
+    this.subtasksService.loadSubtasks(task);
     // this.tasksService.editedTaskId.set(task.id);
     console.log("Contact in task:", task.assignedTo);
     console.log("Task selected:", this.tasksService.selectedTask());
