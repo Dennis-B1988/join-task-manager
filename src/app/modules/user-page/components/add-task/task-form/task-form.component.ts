@@ -73,6 +73,8 @@ export class TaskFormComponent implements OnDestroy {
         });
         // const userId = this.authService.userId();
         // if (userId) this.contactsService.loadContacts(userId);
+        this.subTasksService.loadSubtasks(task);
+        console.log("Subtasks: ", this.subTasks());
       }
     });
     setTimeout(() => {
@@ -96,24 +98,15 @@ export class TaskFormComponent implements OnDestroy {
     category: new FormControl<string>("", {
       validators: [Validators.required],
     }),
-    subtask: new FormControl<{ open: Subtask[]; done: Subtask[] }>({
-      open: [],
-      done: [],
-    }),
-    // subtaskInput: new FormControl(""),
+    // subtask: new FormControl<{ open: Subtask[]; done: Subtask[] }>({
+    //   open: [],
+    //   done: [],
+    // }),
+    subtask: new FormControl<string>("", {}),
     status: new FormControl<string>("", {}),
   });
 
   formValid = this.taskForm.controls;
-
-  // editTask = {
-  //   title: this.selectedTask()?.title || "",
-  //   description: this.selectedTask()?.description || "",
-  //   dueDate: this.selectedTask()?.dueDate || "",
-  //   priority: this.selectedTask()?.priority || "",
-  //   category: this.selectedTask()?.category || "",
-  //   status: this.selectedTask()?.status || "",
-  // };
 
   onClear() {
     this.taskForm.reset();
@@ -184,7 +177,7 @@ export class TaskFormComponent implements OnDestroy {
     this.tasksService.updateTask(updatedTask).then(() => {
       // this.tasksService.editTask.set(false);
       this.tasksService.selectedTask.set(updatedTask);
-      this.taskForm.patchValue(updatedTask);
+      // this.taskForm.patchValue(updatedTask);
     });
     console.log("Updated task:", updatedTask);
   }

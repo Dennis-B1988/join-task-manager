@@ -6,7 +6,7 @@ import {
   onSnapshot,
   updateDoc,
 } from "@angular/fire/firestore";
-import { Subtask } from "../../../../core/models/task.model";
+import { Subtask, Task } from "../../../../core/models/task.model";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Injectable({
@@ -18,40 +18,15 @@ export class SubtasksService {
 
   subTasks = signal<Subtask[]>([]);
 
-  // constructor() {
-  //   effect(() => {
-  //     const id = this.authService.userId();
-  //     if (id) {
-  //       this.loadSubtasks();
-  //     }
-  //   });
-  // }
+  loadSubtasks(task: Task) {
+    if (!task?.subtask) return;
 
-  // loadSubtasks() {
-  //   const userId = this.authService.userId();
-  //   if (!userId) return;
-
-  //   const userDoc = doc(this.firestore, "users", userId);
-
-  //   onSnapshot(userDoc, (docSnap) => {
-  //     if (docSnap.exists()) {
-  //       this.subTasks.set(docSnap.data()?.["tasks"]["subtasks"] || []);
-  //     } else {
-  //       this.subTasks.set([]);
-  //     }
-  //   });
-  // }
-
-  // addSubtask(subtask: string) {
-  //   const userId = this.authService.userId();
-  //   if (!userId) return;
-
-  //   const docRef = doc(this.firestore, "users", userId);
-
-  //   this.subTasks.update((tasks) => [...tasks, subtask]);
-
-  //   updateDoc(docRef, { "tasks.subtasks": arrayUnion(subtask) });
-  // }
+    const allSubtasks = [
+      ...(task.subtask.open || []),
+      ...(task.subtask.done || []),
+    ];
+    this.subTasks.set(allSubtasks);
+  }
 
   addSubtask(subtaskValue: string, id: string) {
     this.subTasks.update((tasks) => [
@@ -65,16 +40,6 @@ export class SubtasksService {
     this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
     console.log(this.subTasks());
   }
-
-  // moveSubtaskToDone(id: string) {
-  //   this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
-  //   console.log(this.subTasks());
-  // }
-
-  // moveSubtaskToOpen(id: string) {
-  //   this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
-  //   console.log(this.subTasks());
-  // }
 
   clearSubtasks() {
     this.subTasks.set([]);
