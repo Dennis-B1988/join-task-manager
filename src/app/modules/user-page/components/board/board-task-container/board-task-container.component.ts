@@ -53,7 +53,10 @@ export class BoardTaskContainerComponent {
     const term = this.searchTearm();
 
     return allTasks.filter((task) => {
-      const matchesSearch = !term || task.title.toLowerCase().includes(term);
+      const matchesSearch =
+        !term ||
+        task.title.toLowerCase().includes(term) ||
+        task.description.toLowerCase().includes(term);
       const matchesStatus = task.status === this.status();
       return matchesSearch && matchesStatus;
     });
