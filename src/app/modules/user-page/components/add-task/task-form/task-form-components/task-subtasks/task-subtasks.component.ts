@@ -12,8 +12,8 @@ import { SubtasksService } from "../../../../../services/subtasks/subtasks.servi
 export class TaskSubtasksComponent {
   subTasksService = inject(SubtasksService);
   taskForm = input.required<FormGroup>();
-
   subTasks = this.subTasksService.subTasks;
+  visible: boolean = false;
   // subTasks = signal<Subtask[]>([]);
 
   // addSubtask() {
@@ -39,6 +39,11 @@ export class TaskSubtasksComponent {
 
     this.subTasksService.addSubtask(subtaskValue, subtaskId);
     form.get("subtask")?.reset();
+    console.log("Subtasks: ", this.subTasks());
+  }
+
+  removeSubtask(id: string) {
+    this.subTasksService.removeSubtask(id);
     console.log("Subtasks: ", this.subTasks());
   }
 }

@@ -48,16 +48,23 @@
     <span>Subtasks</span>
     <div class="subtasks">
       @for (subtask of sortedSubtasks(); track subtask.id) {
-        <div class="subtask" (click)="toggleSubtaskStatus(subtask)">
+        <div class="subtask">
+          <div class="subtask-text" (click)="toggleSubtaskStatus(subtask)">
+            <img
+              src="assets/img/{{
+                subtask.done
+                  ? 'checkmark-normal-marked.png'
+                  : 'checkmark-normal-empty.png'
+              }}"
+              alt=""
+            />
+            <span class="subtask-title">{{ subtask.subtaskValue }}</span>
+          </div>
           <img
-            src="assets/img/{{
-              subtask.done
-                ? 'checkmark-normal-marked.png'
-                : 'checkmark-normal-empty.png'
-            }}"
-            alt=""
+            src="assets/img/delete.png"
+            alt="delete subtask"
+            (click)="deleteSubtask(subtask.id!)"
           />
-          <span class="subtask-title">{{ subtask.subtaskValue }}</span>
         </div>
       }
     </div>

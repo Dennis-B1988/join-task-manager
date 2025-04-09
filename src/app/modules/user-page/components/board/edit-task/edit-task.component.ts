@@ -1,4 +1,11 @@
-import { Component, computed, inject, input, OnDestroy } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+} from "@angular/core";
 import { Subtask, Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
@@ -71,6 +78,24 @@ export class EditTaskComponent implements OnDestroy {
 
     this.tasksService.updateTask({ ...task });
     this.subtasksService.loadSubtasks(task);
+  }
+
+  deleteSubtask(id: string) {
+    const currentTask = this.selectedTask();
+    if (!currentTask) return;
+
+    const updatedTask: Task = {
+      ...currentTask,
+      subtask: {
+        open: currentTask.subtask.open.filter((s) => s.id !== id),
+        done: currentTask.subtask.done.filter((s) => s.id !== id),
+      },
+    };
+
+    this.tasksService.updateTask(updatedTask);
+    this.tasksService.selectedTask.set(updatedTask);
+    this.subtasksService.loadSubtasks(updatedTask);
+    console.log(this.subtasksService.subTasks());
   }
 
   closeForm() {
