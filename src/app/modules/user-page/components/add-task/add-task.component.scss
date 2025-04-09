@@ -51,6 +51,7 @@
   &:hover {
     @include border(0.0625rem, solid, #29abe2);
     color: #29abe2;
+    background-color: #fff;
   }
 
   span {
@@ -58,12 +59,5 @@
       width: 1.5rem;
       height: 1.5rem;
     }
-  }
-}
-
-.create {
-  &:hover {
-    @include border(0.0625rem, solid, #29abe2);
-    background-color: #29abe2;
   }
 }

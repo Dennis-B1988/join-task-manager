@@ -19,10 +19,24 @@
   </div>
 
   <div class="buttons">
-    <button appButton class="cancel" (click)="openDeleteModal()">
+    <button
+      appButton
+      class="cancel"
+      (click)="openDeleteModal()"
+      (mouseover)="clearButtonHover = true"
+      (mouseleave)="clearButtonHover = false"
+    >
       {{ contact().cancelButton }}
       <span ngProjectAs="[icon]">
-        <img src="assets/img/cancel.png" alt="Cancel and Close" />
+        <img
+          src="assets/img/cancel.png"
+          alt="Cancel and Close"
+          [src]="
+            clearButtonHover
+              ? 'assets/img/cancel-blue.png'
+              : 'assets/img/cancel.png'
+          "
+        />
       </span>
     </button>
     <button appButton class="save" (click)="onSubmit()">

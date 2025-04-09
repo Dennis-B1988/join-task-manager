@@ -24,8 +24,8 @@ import { ContactFormTexts } from "../contact-form-container.component";
 })
 export class ContactFormComponent {
   private contactsService = inject(ContactsService);
-
   contact = input.required<ContactFormTexts>();
+  clearButtonHover: boolean = false;
 
   showContact = computed(() => this.contactsService.showContact());
 

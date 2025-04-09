@@ -76,4 +76,10 @@
 .cancel {
   @include font(1.25rem, 400, 120%, #2a3647);
   background-color: #fff;
+
+  &:hover {
+    @include border(0.0625rem, solid, #29abe2);
+    color: #29abe2;
+    background-color: #fff;
+  }
 }

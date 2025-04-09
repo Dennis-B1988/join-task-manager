@@ -22,6 +22,11 @@
     @include font(1.3125rem, 700, 1.5rem, #fff);
     width: 80%;
     gap: 1rem;
+
+    &:hover {
+      @include border(0.0625rem, solid, #29abe2);
+      background-color: #29abe2;
+    }
   }
 }
 

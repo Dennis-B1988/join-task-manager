@@ -95,7 +95,6 @@ export class EditTaskComponent implements OnDestroy {
     this.tasksService.updateTask(updatedTask);
     this.tasksService.selectedTask.set(updatedTask);
     this.subtasksService.loadSubtasks(updatedTask);
-    console.log(this.subtasksService.subTasks());
   }
 
   closeForm() {
@@ -110,8 +109,7 @@ export class EditTaskComponent implements OnDestroy {
   }
 
   toggleAddTaskAndSetStatus(status: string) {
-    this.tasksService.taskStatus.set(status);
-    this.tasksService.addTaskToBoard.set(true);
+    this.tasksService.toggleAddTaskAndSetStatus(status);
   }
 
   getContactInitials(name: string): string {

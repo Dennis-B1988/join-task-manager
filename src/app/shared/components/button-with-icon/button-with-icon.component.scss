@@ -9,6 +9,11 @@
   background-color: #2a3647;
   gap: 0.25rem;
   cursor: pointer;
+
+  &:hover {
+    @include border(0.0625rem, solid, #29abe2);
+    background-color: #29abe2;
+  }
 }
 
 :host ::ng-deep .icon span {

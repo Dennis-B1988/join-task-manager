@@ -103,34 +103,22 @@ export class TasksService {
   }
 
   updateLocalTaskStatus(taskId: string, newStatus: string): void {
-    // Create a new array to avoid direct mutation
     const updatedTasks = this.tasks().map((task) => {
       if (task.id === taskId) {
-        // Create a new task object with the updated status
         return { ...task, status: newStatus };
       }
       return task;
     });
 
-    // Update the signal with the new tasks array
     this.tasks.set(updatedTasks);
   }
 
-  // searchTask(search: string) {
-  //   this.searchTaskTerm.set(search);
-
-  //   if (search.length === 0) {
-  //     this.searchTaskList.set([]);
-  //     return;
-  //   }
-
-  //   const filteredTasks = this.tasks().filter((task) => {
-  //     return task.title.toLowerCase().includes(search.toLowerCase());
-  //   });
-
-  //   this.searchTaskList.set(filteredTasks);
-  // }
   searchTask(search: string) {
     this.searchTaskTerm.set(search.toLowerCase());
+  }
+
+  toggleAddTaskAndSetStatus(status: string) {
+    this.taskStatus.set(status);
+    this.addTaskToBoard.set(true);
   }
 }

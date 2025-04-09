@@ -55,7 +55,6 @@ export class BoardComponent implements AfterViewInit {
   }
 
   toggleAddTaskAndSetStatus(status: string) {
-    this.tasksService.taskStatus.set(status);
-    this.tasksService.addTaskToBoard.set(true);
+    this.tasksService.toggleAddTaskAndSetStatus(status);
   }
 }

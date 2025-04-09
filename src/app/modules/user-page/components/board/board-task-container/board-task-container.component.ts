@@ -4,10 +4,9 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
-import { Component, computed, inject, input, signal } from "@angular/core";
+import { Component, computed, inject, input } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { doc, updateDoc } from "firebase/firestore";
-import { Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
@@ -29,15 +28,12 @@ export class BoardTaskContainerComponent {
   finishedSubtasks = 1;
   value = 50;
   bufferValue = 75;
-  // connectedList = ["To Do", "In Progress", "Awaiting Feedback", "Done"];
 
-  // Define these constants to avoid string mismatches
   readonly TODO = "To Do";
   readonly IN_PROGRESS = "In Progress";
   readonly AWAITING_FEEDBACK = "Awaiting Feedback";
   readonly DONE = "Done";
 
-  // Update to use the actual container IDs from your template
   get connectedList() {
     return [
       this.TODO,
@@ -52,9 +48,6 @@ export class BoardTaskContainerComponent {
   searchTearm = computed(() => this.tasksService.searchTaskTerm());
   isDragging = computed(() => this.tasksService.isDragging());
 
-  // filteredTasks = computed(() =>
-  //   this.tasks().filter((task) => task.status == this.status()),
-  // );
   filteredTasks = computed(() => {
     const allTasks = this.tasks();
     const term = this.searchTearm();
@@ -66,27 +59,14 @@ export class BoardTaskContainerComponent {
     });
   });
 
-  // filteredSearchTasks = computed(() =>
-  //   this.searchTask().filter((task) => task.status == this.status()),
-  // );
-
   assignedToTask = computed(() =>
     this.contactsService
       .assignedToTask()
       .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
   );
 
-  // constructor() {
-  //   setTimeout(() => {
-  //     console.log("Filtered Tasks:", this.filteredTasks());
-  //   }, 5000);
-  // }
-
   toggleAddTaskAndSetStatus(status: string) {
-    this.tasksService.taskStatus.set(status);
-    this.tasksService.addTaskToBoard.set(true);
-    console.log(this.addTaskToBoard());
-    console.log(this.tasksService.taskStatus());
+    this.tasksService.toggleAddTaskAndSetStatus(status);
   }
 
   async drop(event: CdkDragDrop<any[]>, newStatus: string) {
