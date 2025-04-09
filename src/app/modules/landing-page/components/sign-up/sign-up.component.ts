@@ -32,6 +32,7 @@ export class SignUpComponent {
 
   // displayName: string = "";
   isLoading: boolean = false;
+  policy: boolean = false;
 
   signupForm = new FormGroup({
     displayName: new FormControl<string>("", {
@@ -57,21 +58,26 @@ export class SignUpComponent {
     ),
   });
 
-  policy: boolean = false;
+  formValid = this.signupForm.controls;
 
   checkPolicy() {
     this.policy = !this.policy;
   }
 
   async onSubmit() {
+    console.log("Submit");
     if (
-      !this.signupForm.get("firstname") ||
-      !this.signupForm.get("lastname") ||
+      // !this.signupForm.valid
+      !this.signupForm.get("displayName") ||
+      // !this.signupForm.get("lastname") ||
       !this.signupForm.get("email") ||
       !this.policy
     ) {
+      this.signupForm.markAllAsTouched();
       return;
     }
+
+    console.log("Past validation");
 
     if (
       this.signupForm.get("passwords")!.get("password")!.value !==
@@ -83,7 +89,7 @@ export class SignUpComponent {
     this.isLoading = true;
     try {
       await this.authService.createUser(
-        this.signupForm.get("displayname")!.value,
+        this.signupForm.get("displayName")!.value,
         this.signupForm.get("email")!.value,
         this.signupForm.get("passwords")!.get("password")!.value,
       );

@@ -11,6 +11,11 @@
         placeholder="Name"
         name="displayName"
         formControlName="displayName"
+        [style]="
+          formValid.displayName.invalid && formValid.displayName.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
       />
       <img class="input-icon" src="assets/img/person.png" alt="display name" />
     </div>
@@ -20,6 +25,11 @@
         placeholder="Email"
         name="email"
         formControlName="email"
+        [style]="
+          formValid.email.invalid && formValid.email.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
       />
       <img class="input-icon" src="assets/img/mail.png" alt="email" />
     </div>
@@ -29,6 +39,11 @@
         placeholder="Password"
         name="password"
         formControlName="password"
+        [style]="
+          formValid.passwords.invalid && formValid.passwords.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
       />
       <img class="input-icon" src="assets/img/lock.png" alt="password" />
     </div>
@@ -38,6 +53,11 @@
         placeholder="Confirm Password"
         name="confirmPassword"
         formControlName="confirmPassword"
+        [style]="
+          formValid.passwords.invalid && formValid.passwords.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
       />
       <img
         class="input-icon"
