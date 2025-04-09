@@ -25,10 +25,15 @@
   @include flex(row, none, center);
   gap: 2.1875rem;
   font-size: 1.25rem;
-}
 
-.to-sign-up button {
-  font-size: 1rem;
+  button {
+    font-size: 1rem;
+
+    &:hover {
+      @include border(0.0625rem, solid, #29abe2);
+      background-color: #29abe2;
+    }
+  }
 }
 
 .bottom {

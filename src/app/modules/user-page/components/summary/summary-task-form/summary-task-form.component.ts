@@ -52,6 +52,8 @@ export class SummaryTaskFormComponent {
       (task) => new Date(task.dueDate) > today && task.priority === "Urgent",
     );
 
+    if (futureTasks.length === 0) return null;
+
     const earliestTask = futureTasks.reduce((earliest, current) => {
       return new Date(earliest.dueDate) < new Date(current.dueDate)
         ? earliest

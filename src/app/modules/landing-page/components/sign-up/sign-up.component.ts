@@ -30,11 +30,11 @@ export class SignUpComponent {
   private authService = inject(AuthService);
   private landingPageService = inject(LandingPageService);
 
-  displayName: string = "";
+  // displayName: string = "";
   isLoading: boolean = false;
 
   signupForm = new FormGroup({
-    displayname: new FormControl<string>("", {
+    displayName: new FormControl<string>("", {
       nonNullable: true,
       validators: [Validators.required],
     }),

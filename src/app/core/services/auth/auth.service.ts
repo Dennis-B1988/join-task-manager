@@ -44,7 +44,7 @@ export class AuthService {
     private auth: Auth,
     private firestore: Firestore,
   ) {
-    const unsubscribe = this.auth.onAuthStateChanged(async (user) => {
+    this.auth.onAuthStateChanged(async (user) => {
       if (user) {
         await this.setUser(user);
 
@@ -55,13 +55,14 @@ export class AuthService {
         console.log("User logged in:", user.displayName);
         console.log("User Mail:", user.email);
       } else {
-        console.log("User logged out");
+        this.router.navigate(["/"]);
         this.user.set(null);
         this.userId.set("");
+        console.log("User logged out");
       }
-
-      this.UnsubscribeService.add(unsubscribe);
     });
+
+    // this.UnsubscribeService.add(unsubscribe);
 
     setTimeout(() => {
       console.log("User from auth:", this.user());
@@ -171,25 +172,6 @@ export class AuthService {
       });
   }
 
-  // guestLogInAnonymously() {
-  //   signInAnonymously(this.auth)
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-
-  //       const userDocRef = doc(this.firestore, "users", user.uid);
-  //       setDoc(userDocRef, {
-  //         displayName: "Guest",
-  //         uid: user.uid,
-  //       });
-
-  //       console.log("User logged in:", user);
-  //       this.setUser(user);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error during guest login:", error);
-  //     });
-  // }
-
   /**
    * Fetches tasks from the user's Firestore subcollection.
    */
@@ -218,5 +200,9 @@ export class AuthService {
         ...doc.data(),
       }));
     });
+  }
+
+  ngOnDestroy() {
+    this.UnsubscribeService.unsubscribeAll();
   }
 }

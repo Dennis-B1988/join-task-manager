@@ -27,8 +27,22 @@
     </div>
   </form>
 
+  <div class="remember-me" (click)="toggleRememberMe()">
+    <img
+      [src]="
+        rememberMe
+          ? 'assets/img/checkmark-normal-marked.png'
+          : 'assets/img/checkmark-normal-empty.png'
+      "
+      alt="remember me"
+    />
+    <span>Remember me</span>
+  </div>
+
   <div class="buttons">
-    <button (click)="onSubmit()" [disabled]="isLoading">Log in</button>
+    <button class="log-in-button" (click)="onSubmit()" [disabled]="isLoading">
+      Log in
+    </button>
     <button class="guest-button" (click)="guestLogin()" [disabled]="isLoading">
       Guest Log in
     </button>

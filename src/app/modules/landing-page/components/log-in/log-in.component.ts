@@ -1,10 +1,24 @@
-import { Component, computed, inject, input } from "@angular/core";
+import {
+  Component,
+  computed,
+  EnvironmentInjector,
+  inject,
+  input,
+  runInInjectionContext,
+} from "@angular/core";
+import {
+  browserLocalPersistence,
+  getAuth,
+  inMemoryPersistence,
+  setPersistence,
+} from "@angular/fire/auth";
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { get, set } from "firebase/database";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
@@ -15,9 +29,11 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 })
 export class LogInComponent {
   private authService = inject(AuthService);
+  private injector = inject(EnvironmentInjector);
 
   userId = input<string>();
   isLoading: boolean = false;
+  rememberMe: boolean = false;
 
   wrongEmail = computed(() => this.authService.wrongEmail());
   wrongPassword = computed(() => this.authService.wrongPassword());
@@ -33,14 +49,12 @@ export class LogInComponent {
     }),
   });
 
-  async onSubmit() {
+  onSubmit() {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
       this.isLoading = true;
       try {
-        await this.authService.logIn(
-          this.loginForm.get("email")!.value,
-          this.loginForm.get("password")!.value,
-        );
+        if (!this.rememberMe) this.dontSaveUser();
+        if (this.rememberMe) this.saveUserLocally();
       } catch (error: any) {
         console.error("Login failed:", error);
       } finally {
@@ -49,6 +63,30 @@ export class LogInComponent {
     } else {
       console.log("Wrong email or password");
     }
+  }
+
+  saveUserLocally() {
+    const auth = getAuth();
+    runInInjectionContext(this.injector, async () => {
+      setPersistence(auth, browserLocalPersistence).then(async () => {
+        await this.authService.logIn(
+          this.loginForm.get("email")!.value,
+          this.loginForm.get("password")!.value,
+        );
+      });
+    });
+  }
+
+  dontSaveUser() {
+    const auth = getAuth();
+    runInInjectionContext(this.injector, async () => {
+      setPersistence(auth, inMemoryPersistence).then(async () => {
+        await this.authService.logIn(
+          this.loginForm.get("email")!.value,
+          this.loginForm.get("password")!.value,
+        );
+      });
+    });
   }
 
   async guestLogin() {
@@ -61,5 +99,9 @@ export class LogInComponent {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  toggleRememberMe() {
+    this.rememberMe = !this.rememberMe;
   }
 }

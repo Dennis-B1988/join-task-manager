@@ -4,7 +4,7 @@
   @include flex(column, center, center);
   @include padding(3rem, 7.1875rem, 3rem, 7.1875rem);
   background-color: #fff;
-  gap: 2rem;
+  gap: 1.5rem;
   border-radius: 1.875rem;
   box-shadow: 0rem 0rem 0.875rem 0.1875rem #0000000a;
 }
@@ -37,11 +37,6 @@
       color: #d1d1d1;
       font-size: 1.25rem;
     }
-
-    // not working
-    :focus {
-      // @include border-ebony-clay;
-    }
   }
 
   .input-error {
@@ -59,6 +54,7 @@
 .remember-me {
   @include flex(row, center, center);
   gap: 0.5rem;
+  cursor: pointer;
 }
 
 .buttons {
@@ -67,7 +63,19 @@
   gap: 2.1875rem;
 }
 
+.log-in-button {
+  &:hover {
+    @include border(0.0625rem, solid, #29abe2);
+    background-color: #29abe2;
+  }
+}
+
 .guest-button {
   background-color: #fff;
   color: #2a3647;
+
+  &:hover {
+    @include border(0.0625rem, solid, #29abe2);
+    color: #29abe2;
+  }
 }
