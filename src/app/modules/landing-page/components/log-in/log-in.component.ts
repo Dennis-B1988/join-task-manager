@@ -34,6 +34,8 @@ export class LogInComponent {
   userId = input<string>();
   isLoading: boolean = false;
   rememberMe: boolean = false;
+  focusPassword: boolean = false;
+  showPassword: boolean = false;
 
   wrongEmail = computed(() => this.authService.wrongEmail());
   wrongPassword = computed(() => this.authService.wrongPassword());
@@ -48,6 +50,16 @@ export class LogInComponent {
       validators: [Validators.required, Validators.minLength(6)],
     }),
   });
+
+  get passwordImage() {
+    if (!this.focusPassword) {
+      return "assets/img/lock.png";
+    } else if (this.focusPassword && this.showPassword) {
+      return "assets/img/visible.png";
+    } else {
+      return "assets/img/visible_off.png";
+    }
+  }
 
   onSubmit() {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
@@ -103,5 +115,13 @@ export class LogInComponent {
 
   toggleRememberMe() {
     this.rememberMe = !this.rememberMe;
+  }
+
+  toggleFocusPassword() {
+    this.focusPassword = !this.focusPassword;
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 }

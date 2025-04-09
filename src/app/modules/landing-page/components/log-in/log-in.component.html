@@ -17,13 +17,21 @@
     </div>
     <div class="input-container">
       <input
-        type="password"
+        id="password"
+        [type]="showPassword ? 'text' : 'password'"
         placeholder="Password"
         name="password"
         formControlName="password"
         [class]="wrongPassword() ? 'input-error' : ''"
+        (focus)="toggleFocusPassword()"
+        (blur)="toggleFocusPassword()"
       />
-      <img class="input-icon" src="assets/img/lock.png" alt="" />
+      <img
+        class="input-icon"
+        [src]="passwordImage"
+        alt=""
+        (mousedown)="togglePassword()"
+      />
     </div>
   </form>
 
