@@ -19,6 +19,7 @@
 
 .subtask-text {
   @include flex(row, space-between, center);
+  @include font(1rem, 400, 120%, #000);
   width: 100%;
 
   img {

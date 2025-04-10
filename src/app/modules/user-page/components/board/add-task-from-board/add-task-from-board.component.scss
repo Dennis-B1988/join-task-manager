@@ -16,7 +16,9 @@
 .add-task-container {
   @include padding(1.25rem, 1.25rem, 1.25rem, 1.25rem);
   width: 80%;
-  height: 80%;
+  max-width: 62.5rem;
+  height: 90%;
+  max-height: 46.875rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 0.75fr 2.5fr 0.75fr;
@@ -73,9 +75,10 @@
   }
 }
 
-// .create {
-//   &:hover {
-//     @include border(0.0625rem, solid, #29abe2);
-//     background-color: #29abe2;
-//   }
-// }
+@media (max-height: 860px) {
+  .add-task-container {
+    width: 1005;
+    height: 100%;
+    transform: scale(0.9);
+  }
+}

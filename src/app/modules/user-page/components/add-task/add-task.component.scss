@@ -9,6 +9,7 @@
 .task-container {
   width: 80%;
   height: 80%;
+  max-height: 46.875rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 0.75fr 2.5fr 0.75fr;

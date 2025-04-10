@@ -8,34 +8,40 @@
     </button>
   </div>
 
-  @for (letter of getGroupedLetters(); track letter) {
-    <div class="contact-group">
-      <div class="group-header">{{ letter }}</div>
-      <div class="group-divider"></div>
+  @if (sortedContacts().length != 0) {
+    @for (letter of getGroupedLetters(); track letter) {
+      <div class="contact-group">
+        <div class="group-header">{{ letter }}</div>
+        <div class="group-divider"></div>
 
-      @for (contact of groupedContacts()[letter]; track contact.id) {
-        <div
-          [class]="
-            contact.displayName === showContact()?.displayName
-              ? 'contact active'
-              : 'contact'
-          "
-          (click)="lookAtContactInformation(contact)"
-        >
-          <span
-            class="initials"
-            [style]="
-              'background-color: ' + getContactColor(contact.displayName)
+        @for (contact of groupedContacts()[letter]; track contact.id) {
+          <div
+            [class]="
+              contact.displayName === showContact()?.displayName
+                ? 'contact active'
+                : 'contact'
             "
+            (click)="lookAtContactInformation(contact)"
           >
-            {{ getContactInitials(contact.displayName) }}
-          </span>
-          <div class="contact-info">
-            <span class="contact-name">{{ contact.displayName }}</span>
-            <span class="contact-email">{{ contact.email }}</span>
+            <span
+              class="initials"
+              [style]="
+                'background-color: ' + getContactColor(contact.displayName)
+              "
+            >
+              {{ getContactInitials(contact.displayName) }}
+            </span>
+            <div class="contact-info">
+              <span class="contact-name">{{ contact.displayName }}</span>
+              <span class="contact-email">{{ contact.email }}</span>
+            </div>
           </div>
-        </div>
-      }
+        }
+      </div>
+    }
+  } @else {
+    <div class="no-contacts">
+      <p>No contacts</p>
     </div>
   }
 </section>
