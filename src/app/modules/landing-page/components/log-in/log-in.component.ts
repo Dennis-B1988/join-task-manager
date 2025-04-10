@@ -52,9 +52,12 @@ export class LogInComponent {
   });
 
   get passwordImage() {
-    if (!this.focusPassword) {
+    if (this.loginForm.get("password")?.value === "") {
       return "assets/img/lock.png";
-    } else if (this.focusPassword && this.showPassword) {
+    } else if (
+      this.loginForm.get("password")?.value !== "" &&
+      this.showPassword
+    ) {
       return "assets/img/visible.png";
     } else {
       return "assets/img/visible_off.png";

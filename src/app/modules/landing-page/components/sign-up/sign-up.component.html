@@ -35,24 +35,11 @@
     </div>
     <div class="input-container" formGroupName="passwords">
       <input
-        type="password"
+        [type]="showPassword ? 'text' : 'password'"
         placeholder="Password"
         name="password"
         formControlName="password"
-        [style]="
-          formValid.passwords.invalid && formValid.passwords.touched
-            ? 'border-color: #ff8190'
-            : ''
-        "
-      />
-      <img class="input-icon" src="assets/img/lock.png" alt="password" />
-    </div>
-    <div class="input-container" formGroupName="passwords">
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        name="confirmPassword"
-        formControlName="confirmPassword"
+        (focus)="toggleFocusPassword()"
         [style]="
           formValid.passwords.invalid && formValid.passwords.touched
             ? 'border-color: #ff8190'
@@ -61,8 +48,29 @@
       />
       <img
         class="input-icon"
-        src="assets/img/lock.png"
+        [src]="passwordImage"
+        alt="password"
+        (click)="togglePassword()"
+      />
+    </div>
+    <div class="input-container" formGroupName="passwords">
+      <input
+        [type]="showConfirmPassword ? 'text' : 'password'"
+        placeholder="Confirm Password"
+        name="confirmPassword"
+        formControlName="confirmPassword"
+        (focus)="toggleFocusConfirmPassword()"
+        [style]="
+          formValid.passwords.invalid && formValid.passwords.touched
+            ? 'border-color: #ff8190'
+            : ''
+        "
+      />
+      <img
+        class="input-icon"
+        [src]="confirmPasswordImage"
         alt="confirm password"
+        (click)="toggleConfirmPassword()"
       />
     </div>
   </form>

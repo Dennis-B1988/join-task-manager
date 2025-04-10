@@ -33,6 +33,10 @@ export class SignUpComponent {
   // displayName: string = "";
   isLoading: boolean = false;
   policy: boolean = false;
+  focusPassword: boolean = false;
+  focusConfirmPassword: boolean = false;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   signupForm = new FormGroup({
     displayName: new FormControl<string>("", {
@@ -59,6 +63,32 @@ export class SignUpComponent {
   });
 
   formValid = this.signupForm.controls;
+
+  get passwordImage() {
+    const passwordValue = this.signupForm
+      .get("passwords")
+      ?.get("password")?.value;
+    if (passwordValue === "") {
+      return "assets/img/lock.png";
+    } else if (passwordValue !== "" && this.showPassword) {
+      return "assets/img/visible.png";
+    } else {
+      return "assets/img/visible_off.png";
+    }
+  }
+
+  get confirmPasswordImage() {
+    const passwordValue = this.signupForm
+      .get("passwords")
+      ?.get("confirmPassword")?.value;
+    if (passwordValue === "") {
+      return "assets/img/lock.png";
+    } else if (passwordValue !== "" && this.showConfirmPassword) {
+      return "assets/img/visible.png";
+    } else {
+      return "assets/img/visible_off.png";
+    }
+  }
 
   checkPolicy() {
     this.policy = !this.policy;
@@ -103,5 +133,21 @@ export class SignUpComponent {
 
   backToLogIn() {
     this.landingPageService.toggleSignUp();
+  }
+
+  toggleFocusPassword() {
+    this.focusPassword = !this.focusPassword;
+  }
+
+  toggleFocusConfirmPassword() {
+    this.focusConfirmPassword = !this.focusConfirmPassword;
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }
