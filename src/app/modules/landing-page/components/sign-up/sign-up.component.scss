@@ -87,3 +87,9 @@
   left: 4rem;
   cursor: pointer;
 }
+
+@media (max-height: 860px) {
+  .sign-up-form {
+    transform: scale(0.8);
+  }
+}

@@ -79,3 +79,9 @@
     color: #29abe2;
   }
 }
+
+@media (max-height: 860px) {
+  .login-form {
+    transform: scale(0.8);
+  }
+}
