@@ -98,12 +98,15 @@ export class SignUpComponent {
     console.log("Submit");
     if (
       // !this.signupForm.valid
-      !this.signupForm.get("displayName") ||
+      this.signupForm.get("displayName")?.invalid ||
       // !this.signupForm.get("lastname") ||
-      !this.signupForm.get("email") ||
+      this.signupForm.get("email")?.invalid ||
+      this.signupForm.get("passwords")?.get("password")?.invalid ||
+      this.signupForm.get("passwords")?.get("confirmPassword")?.invalid ||
       !this.policy
     ) {
       this.signupForm.markAllAsTouched();
+      // this.signupForm.markAsDirty();
       return;
     }
 

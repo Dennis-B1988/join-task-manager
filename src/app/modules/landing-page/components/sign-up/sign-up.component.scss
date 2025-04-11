@@ -28,7 +28,7 @@
 .input-container {
   position: relative;
 
-  > input {
+  input {
     @include border(0.0625rem, solid, #d1d1d1);
     @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
     border-radius: 0.5rem;
