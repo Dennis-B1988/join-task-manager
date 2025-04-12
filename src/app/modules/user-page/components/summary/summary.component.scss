@@ -13,7 +13,7 @@
 
 .summary-container {
   @include flex(row, space-between, center);
-  width: 80%;
+  width: 85%;
 }
 
 .summary-dashboard {
@@ -36,11 +36,11 @@
 }
 
 .subtitle {
-  @include font(1.6875rem, 400, 2.025rem);
+  @include font(1.4rem, 400, 2.025rem);
 }
 
 .greeting {
-  @include font(2.9375rem, 500, 3.525rem);
+  @include font(2.5rem, 500, 3.525rem);
   @include flex(column, none, none);
 
   span {
@@ -48,11 +48,17 @@
   }
 }
 
-// @media (max-width: 1300px) {
-//   .summary {
-//     @include flex(column, center, flex-start);
-//   }
-//   .greeting {
-//     @include flex(row, none, none);
-//   }
-// }
+@media (max-height: 860px) {
+  .summary-dashboard {
+    // transform: scale(0.8);
+    // height: 80%;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+  }
+}
