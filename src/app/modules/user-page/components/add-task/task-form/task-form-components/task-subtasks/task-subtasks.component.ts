@@ -13,22 +13,6 @@ export class TaskSubtasksComponent {
   subTasksService = inject(SubtasksService);
   taskForm = input.required<FormGroup>();
   subTasks = this.subTasksService.subTasks;
-  visible: boolean = false;
-  // subTasks = signal<Subtask[]>([]);
-
-  // addSubtask() {
-  //   const subtaskValue = this.taskForm().get("subtask")?.value;
-  //   const subtaskId = crypto.randomUUID();
-
-  //   console.log("Subtask:", subtaskValue, subtaskId);
-
-  //   if (!subtaskValue) return;
-
-  //   this.subTasksService.addSubtask(subtaskValue, subtaskId);
-  //   this.taskForm().get("subtask")?.reset();
-
-  //   console.log(this.subTasks());
-  // }
 
   addSubtask() {
     const form = this.taskForm();

@@ -15,9 +15,9 @@
 
   span {
     @include flex(row, center, center);
-    @include font(1.25rem, 400, 1.5rem);
+    @include font(1.25rem, 400, 1.5rem, #000);
     @include padding(1rem, 0.625rem, 1rem, 0.625rem);
-    width: 30%;
+    width: 32%;
     border-radius: 0.625rem;
     gap: 0.5rem;
     background-color: #fff;
@@ -26,17 +26,17 @@
   }
 
   .urgent {
-    @include font(1.3125rem, 700, 1.575rem, #fff);
+    @include font(1.25rem, 700, 1.575rem, #fff);
     background-color: #ff3d00;
   }
 
   .medium {
-    @include font(1.3125rem, 700, 1.575rem, #fff);
+    @include font(1.25rem, 700, 1.575rem, #fff);
     background-color: #ffa800;
   }
 
   .low {
-    @include font(1.3125rem, 700, 1.575rem, #fff);
+    @include font(1.25rem, 700, 1.575rem, #fff);
     background-color: #7ae229;
   }
 }

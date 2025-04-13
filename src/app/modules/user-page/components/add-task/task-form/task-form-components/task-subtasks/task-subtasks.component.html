@@ -17,17 +17,12 @@
   <div class="subtasks-list-container">
     <ul class="subtasks-list">
       @for (subtask of subTasks(); track subtask) {
-        <li
-          class="subtask-text"
-          (mouseenter)="visible = true"
-          (mouseleave)="visible = false"
-        >
+        <li class="subtask-text">
           <span>• {{ subtask.subtaskValue }}</span
           ><img
             src="assets/img/delete.png"
             alt="remove subtask"
             (click)="removeSubtask(subtask.id!)"
-            [class]="visible ? 'visible' : 'hidden'"
           />
         </li>
       }
