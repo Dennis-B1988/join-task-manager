@@ -8,17 +8,17 @@ import {
 } from "@angular/core";
 import {
   browserLocalPersistence,
+  browserSessionPersistence,
   getAuth,
-  inMemoryPersistence,
   setPersistence,
-} from "@angular/fire/auth";
+} from "firebase/auth";
+
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { get, set } from "firebase/database";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
@@ -68,8 +68,17 @@ export class LogInComponent {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
       this.isLoading = true;
       try {
-        if (!this.rememberMe) this.dontSaveUser();
-        if (this.rememberMe) this.saveUserLocally();
+        // this.authService.logIn(
+        //   this.loginForm.get("email")!.value,
+        //   this.loginForm.get("password")!.value,
+        // );
+        if (this.rememberMe) {
+          this.saveUserLocally();
+        } else {
+          this.dontSaveUser();
+        }
+        // if (!this.rememberMe) this.dontSaveUser();
+        // if (this.rememberMe) this.saveUserLocally();
       } catch (error: any) {
         console.error("Login failed:", error);
       } finally {
@@ -81,8 +90,8 @@ export class LogInComponent {
   }
 
   saveUserLocally() {
-    const auth = getAuth();
     runInInjectionContext(this.injector, async () => {
+      const auth = getAuth();
       setPersistence(auth, browserLocalPersistence).then(async () => {
         await this.authService.logIn(
           this.loginForm.get("email")!.value,
@@ -93,9 +102,9 @@ export class LogInComponent {
   }
 
   dontSaveUser() {
-    const auth = getAuth();
     runInInjectionContext(this.injector, async () => {
-      setPersistence(auth, inMemoryPersistence).then(async () => {
+      const auth = getAuth();
+      setPersistence(auth, browserSessionPersistence).then(async () => {
         await this.authService.logIn(
           this.loginForm.get("email")!.value,
           this.loginForm.get("password")!.value,

@@ -1,19 +1,17 @@
 import {
-  DestroyRef,
   EnvironmentInjector,
   inject,
   Injectable,
   runInInjectionContext,
   signal,
 } from "@angular/core";
+import { Auth, updateProfile, User } from "@angular/fire/auth";
 import {
-  Auth,
   createUserWithEmailAndPassword,
   signInAnonymously,
   signInWithEmailAndPassword,
-  updateProfile,
-  User,
-} from "@angular/fire/auth";
+} from "@firebase/auth";
+
 import {
   collection,
   doc,
