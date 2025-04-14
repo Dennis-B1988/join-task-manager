@@ -7,10 +7,12 @@
 
 .contacts-container {
   @include flex(column, flex-start, center);
+  @include padding(1.5rem, 0, 1.5rem, 0);
   width: 100%;
   height: 100%;
   background: #ffffff;
   box-shadow: 4px 0px 6px 0px #00000014;
+  overflow-y: auto;
 }
 
 .add-contact {
@@ -50,7 +52,7 @@
   @include flex(row, flex-start, center);
   @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   width: 100%;
-  gap: 2.1875rem;
+  gap: 1.1875rem;
   border-radius: 0.625rem;
   cursor: pointer;
 }
@@ -82,5 +84,5 @@
 }
 
 .contact-email {
-  @include font(1rem, 400, 120%, #007cee);
+  @include font(0.75rem, 400, 120%, #007cee);
 }
