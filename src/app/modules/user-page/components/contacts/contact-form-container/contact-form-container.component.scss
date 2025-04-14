@@ -103,3 +103,11 @@
   border-top-right-radius: 1.875rem;
   border-bottom-right-radius: 1.875rem;
 }
+
+@media (max-width: 1300px) {
+  .form-left-side {
+    h2 {
+      @include font(3rem, 700, 120%, #fff);
+    }
+  }
+}

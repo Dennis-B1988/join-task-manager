@@ -28,7 +28,7 @@ export class ContactFormContainerComponent {
     email: "",
     phone: "+49",
     cancelButton: "Cancel",
-    saveButton: "Create contact",
+    saveButton: "Add contact",
   };
 
   editExistingContact = {
