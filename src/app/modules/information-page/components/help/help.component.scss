@@ -1,0 +1,44 @@
+@import "../../../../shared/styles/mixins";
+
+.legale-notice {
+  @include flex(column, flex-start, flex-start);
+  @include padding(3rem, 2.5rem, 3rem, 2.5rem);
+  gap: 1.5rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.what-is-join {
+  @include flex(column, center, flex-start);
+  gap: 1rem;
+}
+
+.how-to-use-join {
+  @include flex(column, center, flex-start);
+  gap: 1rem;
+}
+
+.help-text-span {
+  @include flex(row, flex-start, flex-start);
+  gap: 2.1875rem;
+}
+
+h1 {
+  @include font(3.8125rem, 700, 120%, #000);
+}
+
+h2 {
+  @include font(1.6875rem, 700, 120%, #000);
+}
+
+h3 {
+  @include font(1.25rem, 700, 120%, #000);
+}
+
+span {
+  @include font(1rem, 400, 120%, #000);
+}
+
+strong {
+  @include font(1rem, 400, 120%, #007cee);
+}
