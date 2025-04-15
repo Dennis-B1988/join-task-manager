@@ -1,0 +1,25 @@
+@import "../../../../shared/styles/mixins";
+
+.legal-notice {
+  @include flex(column, flex-start, flex-start);
+  @include padding(3rem, 2.5rem, 3rem, 2.5rem);
+  gap: 1.5rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+h1 {
+  @include font(3.8125rem, 700, 120%, #000);
+}
+
+h2 {
+  @include font(1.6875rem, 700, 120%, #000);
+}
+
+h3 {
+  @include font(1.25rem, 700, 120%, #000);
+}
+
+ul {
+  list-style-position: inside;
+}
