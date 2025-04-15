@@ -5,8 +5,23 @@ import { Injectable, signal } from "@angular/core";
 })
 export class LandingPageService {
   signUpActive = signal(false);
+  legalNoticeActive = signal(false);
+  privacyPolicyActive = signal(false);
 
   toggleSignUp() {
     this.signUpActive.set(!this.signUpActive());
+  }
+
+  toggleLegalNotice() {
+    this.legalNoticeActive.set(!this.legalNoticeActive());
+  }
+
+  togglePrivacyPolicy() {
+    this.privacyPolicyActive.set(!this.privacyPolicyActive());
+  }
+
+  goBackToLogIn() {
+    this.legalNoticeActive.set(false);
+    this.privacyPolicyActive.set(false);
   }
 }

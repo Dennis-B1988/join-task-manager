@@ -8,6 +8,15 @@
   overflow-y: auto;
 }
 
+.legal-notice-header {
+  @include flex(row, space-between, center);
+  width: 100%;
+}
+
+.privacy-policy-go-back {
+  cursor: pointer;
+}
+
 h1 {
   @include font(3.8125rem, 700, 120%, #000);
 }

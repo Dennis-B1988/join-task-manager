@@ -27,8 +27,19 @@
 
   <div class="bottom">
     <div class="policy">
-      <span>Privacy Policy</span>
-      <span>Legal Notice</span>
+      <span (click)="viewPrivacyPolicy()">Privacy Policy</span>
+      <span (click)="viewLegalNotice()">Legal Notice</span>
     </div>
   </div>
+
+  @if (legalNoticeActive() || privacyPolicyActive()) {
+    <div class="legal-privacy-container">
+      @if (legalNoticeActive()) {
+        <app-legal-notice />
+      }
+      @if (privacyPolicyActive()) {
+        <app-privacy-policy />
+      }
+    </div>
+  }
 </div>
