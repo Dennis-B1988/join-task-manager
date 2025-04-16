@@ -7,18 +7,17 @@ import {
   runInInjectionContext,
 } from "@angular/core";
 import {
-  browserLocalPersistence,
-  browserSessionPersistence,
-  getAuth,
-  setPersistence,
-} from "firebase/auth";
-
-import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import {
+  browserLocalPersistence,
+  browserSessionPersistence,
+  getAuth,
+  setPersistence,
+} from "firebase/auth";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
@@ -68,17 +67,11 @@ export class LogInComponent {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
       this.isLoading = true;
       try {
-        // this.authService.logIn(
-        //   this.loginForm.get("email")!.value,
-        //   this.loginForm.get("password")!.value,
-        // );
         if (this.rememberMe) {
           this.saveUserLocally();
         } else {
           this.dontSaveUser();
         }
-        // if (!this.rememberMe) this.dontSaveUser();
-        // if (this.rememberMe) this.saveUserLocally();
       } catch (error: any) {
         console.error("Login failed:", error);
       } finally {

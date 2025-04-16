@@ -60,8 +60,6 @@ export class AuthService {
       }
     });
 
-    // this.UnsubscribeService.add(unsubscribe);
-
     setTimeout(() => {
       console.log("User from auth:", this.user());
     }, 1000);
@@ -125,9 +123,6 @@ export class AuthService {
       const user = userCredential.user;
 
       await this.setUser(user);
-      // setTimeout(() => {
-      //   this.router.navigate(["/summary"]);
-      // }, 500);
     } catch (error: any) {
       console.error("Login error:", error);
       if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
@@ -147,10 +142,6 @@ export class AuthService {
       const user = credentials.user;
 
       await this.setUser(user);
-      // await this.setUser(user);
-      // setTimeout(() => {
-      //   this.router.navigate(["/summary"]);
-      // }, 500);
     } catch (error) {
       console.error("Login error:", error);
     }

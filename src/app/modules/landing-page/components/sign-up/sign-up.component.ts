@@ -30,7 +30,6 @@ export class SignUpComponent {
   private authService = inject(AuthService);
   private landingPageService = inject(LandingPageService);
 
-  // displayName: string = "";
   isLoading: boolean = false;
   policy: boolean = false;
   focusPassword: boolean = false;
@@ -95,22 +94,16 @@ export class SignUpComponent {
   }
 
   async onSubmit() {
-    console.log("Submit");
     if (
-      // !this.signupForm.valid
       this.signupForm.get("displayName")?.invalid ||
-      // !this.signupForm.get("lastname") ||
       this.signupForm.get("email")?.invalid ||
       this.signupForm.get("passwords")?.get("password")?.invalid ||
       this.signupForm.get("passwords")?.get("confirmPassword")?.invalid ||
       !this.policy
     ) {
       this.signupForm.markAllAsTouched();
-      // this.signupForm.markAsDirty();
       return;
     }
-
-    console.log("Past validation");
 
     if (
       this.signupForm.get("passwords")!.get("password")!.value !==
