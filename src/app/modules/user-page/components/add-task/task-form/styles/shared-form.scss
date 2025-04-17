@@ -56,33 +56,7 @@ p {
   input[type="date"] {
     cursor: pointer;
   }
-
-  // input[type="date"]::-webkit-calendar-picker-indicator {
-  //   cursor: pointer;
-  // }
-
-  // input[type="date"]::-moz-calendar-picker-indicator {
-  //   cursor: pointer;
-  // }
-  // .subtask {
-  //   input {
-  //     padding-right: 3rem;
-  //   }
-  // }
 }
-
-// .input-container {
-//   width: 100%;
-//   position: relative;
-
-//   .input-icon {
-//     position: absolute;
-//     top: 50%;
-//     right: 1.25rem;
-//     transform: translateY(-50%);
-//     cursor: pointer;
-//   }
-// }
 
 .assigned-to,
 .category {

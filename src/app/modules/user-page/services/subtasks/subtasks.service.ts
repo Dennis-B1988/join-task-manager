@@ -10,10 +10,7 @@ export class SubtasksService {
   loadSubtasks(task: Task) {
     if (!task?.subtask) return;
 
-    const allSubtasks = [
-      ...(task.subtask.open || []),
-      // ...(task.subtask.done || []),
-    ];
+    const allSubtasks = [...(task.subtask.open || [])];
     this.subTasks.set(allSubtasks);
   }
 

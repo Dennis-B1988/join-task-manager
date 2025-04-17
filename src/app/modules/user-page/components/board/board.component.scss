@@ -23,7 +23,7 @@
   width: 100%;
   height: 13.1875rem;
   margin: 0 auto;
-  flex-shrink: 0; // Prevent header from shrinking
+  flex-shrink: 0;
 
   button {
     @include padding(0.5rem, 1rem, 0.5rem, 1rem);
@@ -34,9 +34,9 @@
   @include flex(row, space-between, unset);
   @include padding(0, 4rem, 0, 4rem);
   width: 100%;
-  margin: 0 auto 1rem auto; // Add bottom margin
-  flex: 1; // Take remaining space
-  min-height: 0; // Critical for flexbox children overflow
+  margin: 0 auto 1rem auto;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
   gap: 1.5rem;
 }
@@ -54,7 +54,7 @@
 .search-container {
   display: flex;
   position: relative;
-  width: 60%; // placeholder
+  width: 60%;
 }
 
 .find-task {
@@ -63,7 +63,6 @@
   @include font(1.25rem, 400, 120%);
   border-radius: 0.625rem;
   width: 100%;
-  // height: 100%;
   flex: 1;
 
   input {

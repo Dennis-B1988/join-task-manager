@@ -25,9 +25,9 @@ export class BoardTaskContainerComponent {
   private contactsService = inject(ContactsService);
   status = input.required<string>();
   title = input.required<string>();
-  finishedSubtasks = 1;
-  value = 50;
-  bufferValue = 75;
+  // finishedSubtasks = 1;
+  // value = 50;
+  // bufferValue = 75;
 
   readonly TODO = "To Do";
   readonly IN_PROGRESS = "In Progress";

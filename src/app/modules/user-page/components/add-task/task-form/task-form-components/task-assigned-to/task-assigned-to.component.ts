@@ -62,9 +62,7 @@ export class TaskAssignedToComponent {
       const fetchedContacts = this.contactsService
         .contacts()
         .filter((contact) => ({
-          // id: contact.id,
           displayName: contact.displayName,
-          // color: contact.color,
         }));
 
       this.contacts.set(fetchedContacts);
@@ -83,15 +81,6 @@ export class TaskAssignedToComponent {
     this.searchContact.set(searchValue.length >= 3 ? searchValue : "");
     console.log(this.searchContact());
   }
-
-  // assignContactToTask(contact: any) {
-  //   if (this.assignedToTask().includes(contact)) {
-  //     this.contactsService.removeContactFromTask(contact);
-  //     console.log(contact);
-  //   } else {
-  //     this.contactsService.addContactToTask(contact);
-  //   }
-  // }
 
   assignContactToTask(contact: any) {
     const exists = this.assignedToTask().some(
@@ -114,16 +103,6 @@ export class TaskAssignedToComponent {
   removeContactFromTask(contact: any) {
     this.contactsService.removeContactFromTask(contact);
   }
-
-  // removeContactFromTask(contact: { displayName: string }) {
-  //   const form = this.taskForm();
-  //   const current = form.get("assignedTo")?.value || [];
-
-  //   const updated = current.filter(
-  //     (c: { displayName: string }) => c.displayName !== contact.displayName,
-  //   );
-  //   form.get("assignedTo")?.setValue(updated);
-  // }
 
   getContactColor(contact: any) {
     return this.contactsService.generateContactColor(contact);

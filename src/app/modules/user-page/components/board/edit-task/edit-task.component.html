@@ -9,7 +9,6 @@
     >
     <img src="assets/img/cancel.png" alt="" (click)="closeForm()" />
   </div>
-  <!-- <article class="task-details"> -->
   <h2 class="title">{{ selectedTask()?.title }}</h2>
   <p class="description">{{ selectedTask()?.description }}</p>
   <div class="task-type-text">
@@ -69,7 +68,6 @@
       }
     </div>
   </div>
-  <!-- </article> -->
 
   <div class="bottom">
     <span class="delete" (click)="deleteTask(selectedTask()!)"

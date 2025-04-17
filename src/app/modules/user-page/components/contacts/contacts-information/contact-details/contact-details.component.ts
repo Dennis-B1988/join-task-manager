@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
 import { filter } from "rxjs";
 import { ContactsService } from "../../../../services/contacts/contacts.service";

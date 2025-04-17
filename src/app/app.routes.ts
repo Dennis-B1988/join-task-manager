@@ -3,17 +3,6 @@ import { LandingPageComponent } from "./modules/landing-page/landing-page.compon
 import { UserPageComponent } from "./modules/user-page/user-page.component";
 
 export const routes: Routes = [
-  // {
-  //   path: "",
-  //   component: UserPageComponent,
-  //   loadChildren: () =>
-  //     import("./modules/user-page/user-page.routes").then((m) => m.routes),
-  // },
-  // {
-  //   path: "",
-  //   redirectTo: "landing-page",
-  //   pathMatch: "full",
-  // },
   {
     path: "",
     component: LandingPageComponent,

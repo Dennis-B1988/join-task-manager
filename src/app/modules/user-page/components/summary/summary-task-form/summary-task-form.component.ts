@@ -1,7 +1,6 @@
 import { DatePipe } from "@angular/common";
-import { Component, computed, inject, signal } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { set } from "firebase/database";
 import { TasksService } from "../../../services/tasks/tasks.service";
 
 @Component({

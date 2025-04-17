@@ -1,11 +1,8 @@
 <div class="user" (click)="toggleUserMenu()">
-  <!-- <a (click)="signOut()"> -->
   <span>{{ userName() }}</span>
-  <!-- </a> -->
 
   @if (menuOpen) {
     <nav class="menu">
-      <!-- <li [routerLink]="['/help']" (click)="toggleUserMenu()">Help</li> -->
       <span [routerLink]="['/legal-notice']" (click)="toggleUserMenu()">
         Legal Notice
       </span>

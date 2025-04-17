@@ -1,20 +1,11 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  OnDestroy,
-  OnInit,
-  runInInjectionContext,
-} from "@angular/core";
+import { Component, computed, effect, inject, OnDestroy } from "@angular/core";
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { Subtask, Task } from "../../../../../core/models/task.model";
-import { AuthService } from "../../../../../core/services/auth/auth.service";
+import { Task } from "../../../../../core/models/task.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { SubtasksService } from "../../../services/subtasks/subtasks.service";
 import { TasksService } from "../../../services/tasks/tasks.service";
@@ -36,7 +27,6 @@ import { TaskSubtasksComponent } from "./task-form-components/task-subtasks/task
   styleUrl: "./task-form.component.scss",
 })
 export class TaskFormComponent implements OnDestroy {
-  private authService = inject(AuthService);
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
   private subTasksService = inject(SubtasksService);
@@ -54,7 +44,6 @@ export class TaskFormComponent implements OnDestroy {
 
   subTasks = computed(() => this.subTasksService.subTasks());
   selectedTask = computed(() => this.tasksService.selectedTask());
-  // editedTaskId = computed(() => this.tasksService.editedTaskId());
 
   constructor() {
     effect(() => {
@@ -71,9 +60,6 @@ export class TaskFormComponent implements OnDestroy {
           category: task.category,
           status: task.status,
         });
-        // const userId = this.authService.userId();
-        // if (userId) this.contactsService.loadContacts(userId);
-        // this.subTasksService.loadSubtasks(task);
         console.log("Subtasks loaded: ", this.subTasks());
       }
     });
@@ -96,10 +82,6 @@ export class TaskFormComponent implements OnDestroy {
     category: new FormControl<string>("", {
       validators: [Validators.required],
     }),
-    // subtask: new FormControl<{ open: Subtask[]; done: Subtask[] }>({
-    //   open: [],
-    //   done: [],
-    // }),
     subtask: new FormControl<string>("", {}),
     status: new FormControl<string>("", {}),
   });
@@ -158,7 +140,6 @@ export class TaskFormComponent implements OnDestroy {
 
     const updatedTask: Task = {
       id: this.tasksService.editedTaskId(),
-      // id: selected!.id,
       title: formValue.title || "",
       description: formValue.description || "",
       assignedTo: this.filterAssignedTo() || [],

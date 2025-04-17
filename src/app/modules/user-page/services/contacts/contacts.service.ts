@@ -62,7 +62,6 @@ export class ContactsService {
             return {
               id: doc.id,
               ...(doc.data() as Contact),
-              // color: this.generateContactColor(doc.data()["displayName"]),
             };
           })
           .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName));
@@ -119,11 +118,6 @@ export class ContactsService {
     console.log("Contact deleted:", contactId);
   }
 
-  // addContactToTask(contact: any) {
-  //   this.assignedToTask.set([...this.assignedToTask(), contact]);
-  //   console.log(this.assignedToTask());
-  // }
-
   addContactToTask(contact: any) {
     const current = this.assignedToTask();
     const exists = current.some((c) => c.displayName === contact.displayName);
@@ -134,11 +128,6 @@ export class ContactsService {
 
     console.log("Assigned:", this.assignedToTask());
   }
-
-  // removeContactFromTask(contact: any) {
-  //   this.assignedToTask.set(this.assignedToTask().filter((c) => c !== contact));
-  //   console.log(this.assignedToTask());
-  // }
 
   removeContactFromTask(contact: any) {
     const updated = this.assignedToTask().filter(

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { Contact } from "../../../../../core/models/contact.model";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 
@@ -30,12 +30,6 @@ export class ContactsContainerComponent {
     }
     return groups;
   });
-
-  // contact: any = {
-  //   displayName: "Risette Twinings",
-  //   phone: "123-456-7890",
-  //   email: "sB4wY@example.com",
-  // };
 
   getGroupedLetters(): string[] {
     return Object.keys(this.groupedContacts());

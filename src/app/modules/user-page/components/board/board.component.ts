@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { AfterViewInit, Component, computed, inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";

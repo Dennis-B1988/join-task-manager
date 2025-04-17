@@ -1,6 +1,5 @@
-import { Component, inject, input, signal } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { Subtask } from "../../../../../../../core/models/task.model";
 import { SubtasksService } from "../../../../../services/subtasks/subtasks.service";
 
 @Component({

@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  OnDestroy,
-} from "@angular/core";
+import { Component, computed, inject, OnDestroy } from "@angular/core";
 import { Subtask, Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";

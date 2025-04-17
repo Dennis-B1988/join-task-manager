@@ -1,10 +1,8 @@
 import {
   Component,
   computed,
-  effect,
   inject,
   OnDestroy,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { ButtonWithIconComponent } from "../../../../../shared/components/button-with-icon/button-with-icon.component";

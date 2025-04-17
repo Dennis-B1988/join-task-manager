@@ -6,7 +6,6 @@
 }
 
 .assigned-to-item {
-  // @include flex(row, space-between, center);
   @include padding(0.4375rem, 1rem, 0.4375rem, 1rem);
   width: 100%;
 
