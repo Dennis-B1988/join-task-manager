@@ -24,7 +24,7 @@
   gap: 1.25rem;
 }
 
-.input-container {
+.input {
   position: relative;
 
   > input {
@@ -37,10 +37,6 @@
       color: #d1d1d1;
       font-size: 1.25rem;
     }
-  }
-
-  .input-error {
-    background-color: #e74848b0;
   }
 
   > .input-icon {
@@ -78,6 +74,10 @@
     @include border(0.0625rem, solid, #29abe2);
     color: #29abe2;
   }
+}
+
+.red {
+  @include font(0.6rem, 400, 120%, #ff0000);
 }
 
 @media (max-height: 860px) {

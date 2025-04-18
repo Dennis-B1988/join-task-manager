@@ -40,7 +40,7 @@ export class LandingPageComponent {
   );
 
   viewSignUp() {
-    this.landingPageService.toggleSignUp();
+    this.landingPageService.signUpActive.set(true);
   }
 
   viewLegalNotice() {

@@ -4,6 +4,7 @@ import {
   EnvironmentInjector,
   inject,
   input,
+  OnDestroy,
   runInInjectionContext,
 } from "@angular/core";
 import {
@@ -26,7 +27,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
   templateUrl: "./log-in.component.html",
   styleUrl: "./log-in.component.scss",
 })
-export class LogInComponent {
+export class LogInComponent implements OnDestroy {
   private authService = inject(AuthService);
   private injector = inject(EnvironmentInjector);
 
@@ -128,5 +129,9 @@ export class LogInComponent {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  ngOnDestroy() {
+    this.authService.resetErrorMessages();
   }
 }

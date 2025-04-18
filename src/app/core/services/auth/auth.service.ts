@@ -44,7 +44,10 @@ export class AuthService {
   userId = signal<string>("");
 
   wrongEmail = signal<boolean>(false);
+  emailUnavailable = signal<boolean>(false);
   wrongPassword = signal<boolean>(false);
+  weakPassword = signal<boolean>(false);
+  passwordsDontMatch = signal<boolean>(false);
 
   upgradeMenu = signal<boolean>(false);
 
@@ -96,6 +99,14 @@ export class AuthService {
     });
   }
 
+  resetErrorMessages() {
+    this.wrongEmail.set(false);
+    this.emailUnavailable.set(false);
+    this.wrongPassword.set(false);
+    this.weakPassword.set(false);
+    this.passwordsDontMatch.set(false);
+  }
+
   async createUser(
     displayName: string,
     email: string,
@@ -126,6 +137,12 @@ export class AuthService {
       });
     } catch (error: any) {
       console.error("Error creating user:", error);
+      // this.emailUnavailableError(error);
+      if (error.code === "auth/email-already-in-use")
+        this.emailUnavailable.set(true);
+      if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
+      if (error.code === "auth/missing-password") this.wrongPassword.set(true);
+      if (error.code === "auth/weak-password") this.wrongPassword.set(true);
     }
   }
 
@@ -180,8 +197,7 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<void> {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const user = this.auth.currentUser;
 
     if (user && user.isAnonymous) {
       const credential = EmailAuthProvider.credential(email, password);
@@ -195,8 +211,19 @@ export class AuthService {
         await this.setUser(result.user);
 
         console.log("Upgraded anonymous user with display name:", displayName);
+
+        this.upgradeMenu.set(false);
+        this.emailUnavailable.set(false);
       } catch (error) {
         console.error("Error upgrading anonymous user:", error);
+        if (
+          error instanceof Error &&
+          "code" in error &&
+          error.code === "auth/email-already-in-use"
+        ) {
+          this.emailUnavailable.set(true);
+          console.log("Email already exists");
+        }
       }
     } else {
       console.warn("No anonymous user to upgrade.");
@@ -291,6 +318,39 @@ export class AuthService {
     const day = futureDate.getDate().toString().padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+  }
+
+  private emailUnavailableError(error: any): void {
+    if (
+      error instanceof Error &&
+      "code" in error &&
+      error.code === "auth/email-already-in-use"
+    ) {
+      this.emailUnavailable.set(true);
+      console.log("Email already exists");
+    }
+  }
+
+  private wrongEmailError(error: any): void {
+    if (
+      error instanceof Error &&
+      "code" in error &&
+      error.code === "auth/invalid-email"
+    ) {
+      this.wrongEmail.set(true);
+      console.log("Wrong email");
+    }
+  }
+
+  private wrongPasswordError(error: any): void {
+    if (
+      error instanceof Error &&
+      "code" in error &&
+      error.code === "auth/invalid-credential"
+    ) {
+      this.wrongPassword.set(true);
+      console.log("Wrong password");
+    }
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, OnDestroy } from "@angular/core";
 import {
   AbstractControl,
   FormControl,
@@ -26,7 +26,7 @@ function passwordMatchValidator(
   templateUrl: "./sign-up.component.html",
   styleUrl: "./sign-up.component.scss",
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnDestroy {
   private authService = inject(AuthService);
   private landingPageService = inject(LandingPageService);
 
@@ -38,6 +38,9 @@ export class SignUpComponent {
   showConfirmPassword: boolean = false;
 
   upgradeMenu = computed(() => this.authService.upgradeMenu());
+
+  emailUnavailable = computed(() => this.authService.emailUnavailable());
+  weakPassword = computed(() => this.authService.weakPassword());
 
   signupForm = new FormGroup({
     displayName: new FormControl<string>("", {
@@ -125,7 +128,7 @@ export class SignUpComponent {
       console.error("Error creating user:", error);
     } finally {
       this.isLoading = false;
-      this.landingPageService.toggleSignUp();
+      this.landingPageService.signUpActive.set(false);
     }
   }
 
@@ -148,23 +151,15 @@ export class SignUpComponent {
       return console.log("Passwords do not match");
     }
 
-    this.isLoading = true;
-    try {
-      this.authService.upgradeAnonymousUser(
-        this.signupForm.get("displayName")!.value,
-        this.signupForm.get("email")!.value,
-        this.signupForm.get("passwords")!.get("password")!.value,
-      );
-    } catch (error) {
-      console.error("Error creating user:", error);
-    } finally {
-      this.isLoading = false;
-      this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
-    }
+    this.authService.upgradeAnonymousUser(
+      this.signupForm.get("displayName")!.value,
+      this.signupForm.get("email")!.value,
+      this.signupForm.get("passwords")!.get("password")!.value,
+    );
   }
 
   backToLogIn() {
-    this.landingPageService.toggleSignUp();
+    this.landingPageService.signUpActive.set(false);
     this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
   }
 
@@ -182,5 +177,9 @@ export class SignUpComponent {
 
   toggleConfirmPassword() {
     this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  ngOnDestroy() {
+    this.authService.resetErrorMessages();
   }
 }

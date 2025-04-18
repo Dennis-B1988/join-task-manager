@@ -26,6 +26,10 @@
 }
 
 .input-container {
+  // @include flex(column, unset, unset);
+}
+
+.input {
   position: relative;
 
   input {
@@ -91,6 +95,10 @@
     transition: all 0.1s ease-in-out;
     transform: scale(1.3);
   }
+}
+
+.red {
+  @include font(0.6rem, 400, 120%, #ff0000);
 }
 
 @media (max-height: 860px) {

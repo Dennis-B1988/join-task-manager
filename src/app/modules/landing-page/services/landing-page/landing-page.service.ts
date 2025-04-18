@@ -8,10 +8,6 @@ export class LandingPageService {
   legalNoticeActive = signal(false);
   privacyPolicyActive = signal(false);
 
-  toggleSignUp() {
-    this.signUpActive.set(!this.signUpActive());
-  }
-
   toggleLegalNotice() {
     this.legalNoticeActive.set(!this.legalNoticeActive());
   }
