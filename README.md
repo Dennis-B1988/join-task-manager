@@ -56,7 +56,7 @@ npm install
 
 ## 🔑 Firebase Setup
 
-- Rename src/environment/firebase.template.ts to
+- Rename `src/environment/firebase.template.ts` to
   `src/environment/firebase.prod.ts`
 
 - Replace the firebaseConfig with your credentials:
