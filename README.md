@@ -60,6 +60,8 @@ src/ ├── evironment/ │ ├── firebase.template.ts
 
 src/ ├── evironment/ │ ├── firebase.prod.ts
 
+src/ ├── app/ │ ├── services/ # Firebase, Tasks, Auth, Contacts │ ├── components/ # Summary, Board, Task Card, Edit Task, etc. │ ├── pages/ # SummaryPage, BoardPage, ContactsPage │ ├── models/ # Interfaces for Task, Contact, Subtask │ └── app.module.ts ├── assets/ # Icons, Images, Styling Assets └── environments/ # Firebase config
+
 - Rename environment/firebase.template.ts to environment/firebase.prod.ts
 
 - Replace the firebaseConfig with your credentials:
