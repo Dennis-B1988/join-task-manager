@@ -109,8 +109,8 @@ export class LogInComponent {
   async guestLogin() {
     this.isLoading = true;
     try {
-      await this.authService.guestLogIn();
-      // this.authService.guestLogInAnonymously();
+      // await this.authService.guestLogIn();
+      this.authService.signInAsGuest();
     } catch (error) {
       console.error("Guest login failed:", error);
     } finally {

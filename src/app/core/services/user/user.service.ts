@@ -25,7 +25,7 @@ export class UserService {
   async deleteGuestDocument() {
     const userRef = collection(this.firestore, "users");
 
-    const userQuery = query(userRef, where("displayName", "==", "Anon")); // Change to Guest later
+    const userQuery = query(userRef, where("displayName", "==", "Guest"));
     runInInjectionContext(this.injector, async () => {
       const querySnapshot = await getDocs(userQuery);
 
@@ -33,8 +33,6 @@ export class UserService {
         await deleteDoc(doc(this.firestore, "users", document.id));
         console.log("Document deleted:", document.id);
       });
-
-      console.log("Guest document deleted.");
     });
   }
 }

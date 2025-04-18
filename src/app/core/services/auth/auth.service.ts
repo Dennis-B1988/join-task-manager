@@ -13,6 +13,7 @@ import {
 } from "@firebase/auth";
 
 import {
+  addDoc,
   collection,
   doc,
   Firestore,
@@ -147,6 +148,31 @@ export class AuthService {
     }
   }
 
+  async signInAsGuest(): Promise<void> {
+    try {
+      const userCredential = await signInAnonymously(this.auth);
+      const user = userCredential.user;
+
+      // Optional: update profile to have displayName
+      await updateProfile(user, { displayName: "Guest" });
+
+      // Create user doc in Firestore
+      const userDocRef = doc(this.firestore, "users", user.uid);
+      await setDoc(userDocRef, {
+        displayName: "Guest",
+        isGuest: true,
+      });
+
+      // Create dummy data
+      await this.createDummyContacts(user.uid);
+      await this.createDummyTasks(user.uid);
+
+      console.log("Guest user signed in and data initialized.");
+    } catch (error) {
+      console.error("Error signing in anonymously:", error);
+    }
+  }
+
   signOut() {
     this.user.set(null);
     this.userId.set("");
@@ -189,6 +215,49 @@ export class AuthService {
         ...doc.data(),
       }));
     });
+  }
+
+  async createDummyContacts(userId: string): Promise<void> {
+    const contacts = [
+      { displayName: "Alice Smith", email: "alice@example.com" },
+      { displayName: "Bob Johnson", email: "bob@example.com" },
+    ];
+
+    const contactsRef = collection(this.firestore, `users/${userId}/contacts`);
+    for (const contact of contacts) {
+      await addDoc(contactsRef, contact);
+    }
+  }
+
+  async createDummyTasks(userId: string): Promise<void> {
+    const tasks = [
+      {
+        title: "Welcome Task",
+        description: "Edit or delete this task to get started.",
+        dueDate: this.formatDateToYYYYMMDD(new Date()),
+        priority: "Medium",
+        category: "Technical Task",
+        status: "To Do",
+        assignedTo: [{ displayName: "Alice Smith" }],
+        subtask: {
+          open: [{ done: false, id: "1", subtaskValue: "Try editing" }],
+          done: [],
+        },
+      },
+    ];
+
+    const tasksRef = collection(this.firestore, `users/${userId}/tasks`);
+    for (const task of tasks) {
+      await addDoc(tasksRef, task);
+    }
+  }
+
+  private formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
   }
 
   ngOnDestroy() {
