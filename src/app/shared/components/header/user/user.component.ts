@@ -41,6 +41,10 @@ export class UserComponent {
     this.menuOpen = !this.menuOpen;
   }
 
+  toggleUpgradeMenu() {
+    this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
+  }
+
   signOut() {
     this.authService.signOut();
     this.userService.deleteGuestDocument();

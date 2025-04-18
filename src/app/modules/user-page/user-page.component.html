@@ -10,4 +10,10 @@
   <main>
     <router-outlet />
   </main>
+
+  @if (upgradeMenu()) {
+    <div class="upgrade-menu">
+      <app-sign-up></app-sign-up>
+    </div>
+  }
 </div>

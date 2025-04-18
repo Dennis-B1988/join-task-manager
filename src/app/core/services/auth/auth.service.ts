@@ -5,9 +5,16 @@ import {
   runInInjectionContext,
   signal,
 } from "@angular/core";
-import { Auth, updateProfile, User } from "@angular/fire/auth";
+import {
+  Auth,
+  getAuth,
+  linkWithCredential,
+  updateProfile,
+  User,
+} from "@angular/fire/auth";
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   signInAnonymously,
   signInWithEmailAndPassword,
 } from "@firebase/auth";
@@ -38,6 +45,8 @@ export class AuthService {
 
   wrongEmail = signal<boolean>(false);
   wrongPassword = signal<boolean>(false);
+
+  upgradeMenu = signal<boolean>(false);
 
   constructor(
     private auth: Auth,
@@ -154,6 +163,8 @@ export class AuthService {
         isGuest: true,
       });
 
+      await this.setUser(user);
+
       // Create dummy data
       await this.createDummyContacts(user.uid);
       await this.createDummyTasks(user.uid);
@@ -161,6 +172,34 @@ export class AuthService {
       console.log("Guest user signed in and data initialized.");
     } catch (error) {
       console.error("Error signing in anonymously:", error);
+    }
+  }
+
+  async upgradeAnonymousUser(
+    displayName: string,
+    email: string,
+    password: string,
+  ): Promise<void> {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user && user.isAnonymous) {
+      const credential = EmailAuthProvider.credential(email, password);
+      try {
+        const result = await linkWithCredential(user, credential);
+
+        await updateProfile(result.user, {
+          displayName: displayName,
+        });
+
+        await this.setUser(result.user);
+
+        console.log("Upgraded anonymous user with display name:", displayName);
+      } catch (error) {
+        console.error("Error upgrading anonymous user:", error);
+      }
+    } else {
+      console.warn("No anonymous user to upgrade.");
     }
   }
 

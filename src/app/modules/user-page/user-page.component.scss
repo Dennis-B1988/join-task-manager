@@ -35,3 +35,14 @@ main {
   grid-area: main;
   overflow: hidden;
 }
+
+.upgrade-menu {
+  @include flex(column, center, center);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.2);
+}

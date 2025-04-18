@@ -9,6 +9,9 @@
       <span [routerLink]="['/privacy-policy']" (click)="toggleUserMenu()">
         Privacy Policy
       </span>
+      @if (userName() === "G") {
+        <span (click)="toggleUpgradeMenu()">Upgrade</span>
+      }
       <span (click)="signOut()">Log out</span>
     </nav>
   }

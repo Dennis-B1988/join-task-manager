@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import {
   AbstractControl,
   FormControl,
@@ -36,6 +36,8 @@ export class SignUpComponent {
   focusConfirmPassword: boolean = false;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+
+  upgradeMenu = computed(() => this.authService.upgradeMenu());
 
   signupForm = new FormGroup({
     displayName: new FormControl<string>("", {
@@ -127,8 +129,43 @@ export class SignUpComponent {
     }
   }
 
+  async upgradeToFullUser() {
+    if (
+      this.signupForm.get("displayName")?.invalid ||
+      this.signupForm.get("email")?.invalid ||
+      this.signupForm.get("passwords")?.get("password")?.invalid ||
+      this.signupForm.get("passwords")?.get("confirmPassword")?.invalid ||
+      !this.policy
+    ) {
+      this.signupForm.markAllAsTouched();
+      return;
+    }
+
+    if (
+      this.signupForm.get("passwords")!.get("password")!.value !==
+      this.signupForm.get("passwords")!.get("confirmPassword")!.value
+    ) {
+      return console.log("Passwords do not match");
+    }
+
+    this.isLoading = true;
+    try {
+      this.authService.upgradeAnonymousUser(
+        this.signupForm.get("displayName")!.value,
+        this.signupForm.get("email")!.value,
+        this.signupForm.get("passwords")!.get("password")!.value,
+      );
+    } catch (error) {
+      console.error("Error creating user:", error);
+    } finally {
+      this.isLoading = false;
+      this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
+    }
+  }
+
   backToLogIn() {
     this.landingPageService.toggleSignUp();
+    this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
   }
 
   toggleFocusPassword() {
