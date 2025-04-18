@@ -1,4 +1,4 @@
-# 🧩 Join – Task Manager Dashboard
+# 🧩 Join – Task Manager
 
 **Join** is a modern task management dashboard that lets you create, organize, and manage tasks visually. Inspired by Kanban-style productivity tools, Join offers a clean UI and smart features like urgency indicators and contact assignments.
 
@@ -21,7 +21,6 @@
   - Subtasks (with completion tracking)
   - Contact assignments
 - Assign tasks to one or more contacts
-- Tasks are automatically placed into the correct board column based on status
 
 ### 🗂️ Board View
 
@@ -56,6 +55,10 @@ npm install
 ```
 
 ## 🔑 Firebase Setup
+
+src/ ├── evironment/ │ ├── firebase.template.ts
+
+src/ ├── evironment/ │ ├── firebase.prod.ts
 
 - Rename environment/firebase.template.ts to environment/firebase.prod.ts
 
