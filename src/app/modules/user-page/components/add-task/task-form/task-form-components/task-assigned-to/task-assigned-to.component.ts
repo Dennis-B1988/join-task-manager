@@ -69,6 +69,7 @@ export class TaskAssignedToComponent {
     });
     setTimeout(() => {
       console.log("Contacts to task:", this.contacts);
+      console.log(this.filteredContacts());
     }, 2000);
   }
 

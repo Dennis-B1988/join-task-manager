@@ -107,6 +107,14 @@ export class AuthService {
         displayName: displayName,
         email: email,
       });
+      const contactsRef = collection(
+        this.firestore,
+        `users/${user.uid}/contacts`,
+      );
+      await addDoc(contactsRef, {
+        displayName: user.displayName ?? "Guest",
+        email: user.email ?? "",
+      });
     } catch (error: any) {
       console.error("Error creating user:", error);
     }
@@ -133,30 +141,13 @@ export class AuthService {
     }
   }
 
-  async guestLogIn(): Promise<void> {
-    try {
-      const credentials = await signInWithEmailAndPassword(
-        this.auth,
-        "guest@join.com",
-        "qwer1234",
-      );
-      const user = credentials.user;
-
-      await this.setUser(user);
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  }
-
   async signInAsGuest(): Promise<void> {
     try {
       const userCredential = await signInAnonymously(this.auth);
       const user = userCredential.user;
 
-      // Optional: update profile to have displayName
       await updateProfile(user, { displayName: "Guest" });
 
-      // Create user doc in Firestore
       const userDocRef = doc(this.firestore, "users", user.uid);
       await setDoc(userDocRef, {
         displayName: "Guest",
@@ -235,12 +226,12 @@ export class AuthService {
         title: "Welcome Task",
         description: "Edit or delete this task to get started.",
         dueDate: this.formatDateToYYYYMMDD(new Date()),
-        priority: "Medium",
+        priority: "Urgent",
         category: "Technical Task",
         status: "To Do",
         assignedTo: [{ displayName: "Alice Smith" }],
         subtask: {
-          open: [{ done: false, id: "1", subtaskValue: "Try editing" }],
+          open: [{ done: false, id: "1", subtaskValue: "Dummy subtask" }],
           done: [],
         },
       },
@@ -253,9 +244,12 @@ export class AuthService {
   }
 
   private formatDateToYYYYMMDD(date: Date): string {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
+    const futureDate = new Date(date);
+    futureDate.setDate(futureDate.getDate() + 5);
+
+    const year = futureDate.getFullYear();
+    const month = (futureDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = futureDate.getDate().toString().padStart(2, "0");
 
     return `${year}-${month}-${day}`;
   }

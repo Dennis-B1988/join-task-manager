@@ -1,5 +1,7 @@
 import { Component, computed, inject } from "@angular/core";
 import { Contact } from "../../../../../core/models/contact.model";
+import { CustomUser } from "../../../../../core/models/user.model";
+import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 
 @Component({
@@ -9,13 +11,17 @@ import { ContactsService } from "../../../services/contacts/contacts.service";
   styleUrl: "./contacts-container.component.scss",
 })
 export class ContactsContainerComponent {
+  private authService = inject(AuthService);
   private contactsService = inject(ContactsService);
+
+  user = computed<CustomUser | null>(() => this.authService.user());
 
   showContact = computed(() => this.contactsService.showContact());
 
   sortedContacts = computed(() =>
     this.contactsService
       .contacts()
+      .filter((contact) => contact.email !== this.user()?.email)
       .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
   );
 
