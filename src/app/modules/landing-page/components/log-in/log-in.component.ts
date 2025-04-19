@@ -13,7 +13,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import {
   browserLocalPersistence,
   browserSessionPersistence,
@@ -24,7 +23,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-log-in",
-  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
+  imports: [ReactiveFormsModule],
   templateUrl: "./log-in.component.html",
   styleUrl: "./log-in.component.scss",
 })
@@ -37,9 +36,6 @@ export class LogInComponent implements OnDestroy {
   rememberMe: boolean = false;
   focusPassword: boolean = false;
   showPassword: boolean = false;
-
-  // wrongEmail: boolean = false;
-  // wrongPassword: boolean = false;
 
   wrongEmail = computed(() => this.authService.wrongEmail());
   wrongPassword = computed(() => this.authService.wrongPassword());
@@ -106,12 +102,8 @@ export class LogInComponent implements OnDestroy {
     });
   }
 
-  async guestLogin() {
-    try {
-      this.authService.signInAsGuest();
-    } catch (error) {
-      console.error("Guest login failed:", error);
-    }
+  guestLogin() {
+    this.authService.signInAsGuest();
   }
 
   toggleRememberMe() {

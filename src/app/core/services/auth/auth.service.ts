@@ -7,7 +7,6 @@ import {
 } from "@angular/core";
 import {
   Auth,
-  getAuth,
   linkWithCredential,
   updateProfile,
   User,
@@ -42,8 +41,6 @@ export class AuthService {
 
   user = signal<CustomUser | null>(null);
   userId = signal<string>("");
-
-  isLoading = signal<boolean>(false);
 
   wrongEmail = signal<boolean>(false);
   emailUnavailable = signal<boolean>(false);
