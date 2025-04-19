@@ -78,6 +78,7 @@
 
 .red {
   @include font(0.6rem, 400, 120%, #ff0000);
+  padding-left: 0.5rem;
 }
 
 @media (max-height: 860px) {

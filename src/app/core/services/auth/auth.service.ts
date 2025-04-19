@@ -43,6 +43,8 @@ export class AuthService {
   user = signal<CustomUser | null>(null);
   userId = signal<string>("");
 
+  isLoading = signal<boolean>(false);
+
   wrongEmail = signal<boolean>(false);
   emailUnavailable = signal<boolean>(false);
   wrongPassword = signal<boolean>(false);

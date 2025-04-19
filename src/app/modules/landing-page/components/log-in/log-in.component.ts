@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import {
   browserLocalPersistence,
   browserSessionPersistence,
@@ -23,7 +24,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-log-in",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
   templateUrl: "./log-in.component.html",
   styleUrl: "./log-in.component.scss",
 })
@@ -32,10 +33,13 @@ export class LogInComponent implements OnDestroy {
   private injector = inject(EnvironmentInjector);
 
   userId = input<string>();
-  isLoading: boolean = false;
+  disableButton: boolean = false;
   rememberMe: boolean = false;
   focusPassword: boolean = false;
   showPassword: boolean = false;
+
+  // wrongEmail: boolean = false;
+  // wrongPassword: boolean = false;
 
   wrongEmail = computed(() => this.authService.wrongEmail());
   wrongPassword = computed(() => this.authService.wrongPassword());
@@ -66,7 +70,6 @@ export class LogInComponent implements OnDestroy {
 
   onSubmit() {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
-      this.isLoading = true;
       try {
         if (this.rememberMe) {
           this.saveUserLocally();
@@ -75,11 +78,7 @@ export class LogInComponent implements OnDestroy {
         }
       } catch (error: any) {
         console.error("Login failed:", error);
-      } finally {
-        this.isLoading = false;
       }
-    } else {
-      console.log("Wrong email or password");
     }
   }
 
@@ -108,14 +107,10 @@ export class LogInComponent implements OnDestroy {
   }
 
   async guestLogin() {
-    this.isLoading = true;
     try {
-      // await this.authService.guestLogIn();
       this.authService.signInAsGuest();
     } catch (error) {
       console.error("Guest login failed:", error);
-    } finally {
-      this.isLoading = false;
     }
   }
 
