@@ -57,4 +57,18 @@
       <app-add-task-from-board></app-add-task-from-board>
     </div>
   }
+
+  @if (showDeleteTask()) {
+    <div class="delete-task">
+      <h4>Are you sure you want to delete this contact?</h4>
+      <div class="buttons">
+        <button appButton class="cancel" (click)="closeDeleteModal()">
+          Cancel
+        </button>
+        <button appButton class="delete" (click)="deleteTask(selectedTask()!)">
+          Delete
+        </button>
+      </div>
+    </div>
+  }
 </main>

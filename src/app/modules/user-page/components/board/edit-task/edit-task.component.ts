@@ -91,6 +91,10 @@ export class EditTaskComponent implements OnDestroy {
     this.tasksService.selectedTask.set(null);
   }
 
+  openDeleteModal() {
+    this.tasksService.showDeleteTask.set(true);
+  }
+
   deleteTask(task: Task) {
     this.tasksService.deleteTask(task.id!);
     this.closeForm();

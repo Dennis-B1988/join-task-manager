@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, computed, inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { Task } from "../../../../core/models/task.model";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
 import { AddTaskFromBoardComponent } from "./add-task-from-board/add-task-from-board.component";
@@ -30,6 +31,8 @@ export class BoardComponent implements AfterViewInit {
 
   addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
   editTask = computed(() => this.tasksService.editTask());
+  showDeleteTask = computed(() => this.tasksService.showDeleteTask());
+  selectedTask = computed(() => this.tasksService.selectedTask());
 
   ngAfterViewInit() {
     this.route.fragment.subscribe((fragment) => {
@@ -49,5 +52,20 @@ export class BoardComponent implements AfterViewInit {
 
   toggleAddTaskAndSetStatus(status: string) {
     this.tasksService.toggleAddTaskAndSetStatus(status);
+  }
+
+  closeDeleteModal() {
+    this.tasksService.showDeleteTask.set(false);
+  }
+
+  closeForm() {
+    this.tasksService.editTask.set(false);
+    this.tasksService.showDeleteTask.set(false);
+    this.tasksService.selectedTask.set(null);
+  }
+
+  deleteTask(task: Task) {
+    this.tasksService.deleteTask(task.id!);
+    this.closeForm();
   }
 }
