@@ -72,12 +72,19 @@ export class ContactFormComponent {
     if (this.contactsService.addContact()) {
       this.contactsService.createContact(contact);
       this.contactsService.addContact.set(false);
+      this.contactsService.contactCreatedOrUpdated.set("Created");
     } else if (this.contactsService.editContact()) {
       this.contactsService.updateContact(contact);
       this.contactsService.showContact.set(contact);
       this.contactsService.editContact.set(false);
+      this.contactsService.contactCreatedOrUpdated.set("Updated");
     }
     this.contactForm.reset();
+    console.log(this.contactsService.contactCreatedOrUpdated());
+    setTimeout(() => {
+      this.contactsService.contactCreatedOrUpdated.set("");
+      console.log(this.contactsService.contactCreatedOrUpdated());
+    }, 800);
   }
 
   closeForm() {

@@ -19,4 +19,8 @@ export class ContactsComponent {
 
   addContact = computed(() => this.contactsService.addContact());
   editContact = computed(() => this.contactsService.editContact());
+
+  contactCreatedOrUpdated = computed(() =>
+    this.contactsService.contactCreatedOrUpdated(),
+  );
 }

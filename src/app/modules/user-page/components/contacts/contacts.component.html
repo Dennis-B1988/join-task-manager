@@ -6,4 +6,10 @@
   @if (addContact() || editContact()) {
     <app-contact-form-container></app-contact-form-container>
   }
+
+  @if (contactCreatedOrUpdated() === "Created") {
+    <div class="contact-create-update">Contact successfully created</div>
+  } @else if (contactCreatedOrUpdated() === "Updated") {
+    <div class="contact-create-update">Contact successfully updated</div>
+  }
 </section>

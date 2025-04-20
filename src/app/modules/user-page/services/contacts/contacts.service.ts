@@ -34,6 +34,7 @@ export class ContactsService {
   addContact = signal<boolean>(false);
   editContact = signal<boolean>(false);
   showDeleteContact = signal<boolean>(false);
+  contactCreatedOrUpdated = signal<string>("");
 
   constructor() {
     effect(() => {
