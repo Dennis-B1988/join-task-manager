@@ -110,13 +110,6 @@ export class SignUpComponent implements OnDestroy {
       return;
     }
 
-    if (
-      this.signupForm.get("passwords")!.get("password")!.value !==
-      this.signupForm.get("passwords")!.get("confirmPassword")!.value
-    ) {
-      return console.log("Passwords do not match");
-    }
-
     this.isLoading = true;
     try {
       await this.authService.createUser(
@@ -142,13 +135,6 @@ export class SignUpComponent implements OnDestroy {
     ) {
       this.signupForm.markAllAsTouched();
       return;
-    }
-
-    if (
-      this.signupForm.get("passwords")!.get("password")!.value !==
-      this.signupForm.get("passwords")!.get("confirmPassword")!.value
-    ) {
-      return console.log("Passwords do not match");
     }
 
     this.authService.upgradeAnonymousUser(

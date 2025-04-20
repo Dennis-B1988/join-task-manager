@@ -13,7 +13,6 @@ export class UnsubscribeService implements OnDestroy {
   unsubscribeAll() {
     this.subscriptions.forEach((unsub) => unsub());
     this.subscriptions = [];
-    console.log("All subscriptions unsubscribed");
   }
 
   ngOnDestroy() {

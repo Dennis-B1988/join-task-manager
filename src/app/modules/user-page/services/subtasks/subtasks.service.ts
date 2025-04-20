@@ -19,12 +19,10 @@ export class SubtasksService {
       ...tasks,
       { id, subtaskValue, done: false },
     ]);
-    console.log("New subtasks: ", this.subTasks());
   }
 
   removeSubtask(id: string) {
     this.subTasks.update((tasks) => tasks.filter((task) => task.id !== id));
-    console.log(this.subTasks());
   }
 
   clearSubtasks() {

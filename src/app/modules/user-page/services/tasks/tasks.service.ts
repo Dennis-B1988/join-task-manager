@@ -57,7 +57,6 @@ export class TasksService {
         });
 
         this.tasks.set(tasksData);
-        console.log("Tasks loaded:", this.tasks());
       });
 
       this.UnsubscribeService.add(UnsubscribeService);
@@ -71,18 +70,15 @@ export class TasksService {
     const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
 
     await addDoc(tasksCollection, task);
-    console.log("Task added:", task);
   }
 
   async updateTask(task: Task) {
     try {
       const userId = this.authService.userId();
-      console.log("userId:", userId, "task.id:", task.id);
       if (!userId || !task.id) return;
 
       const taskDoc = doc(this.firestore, `users/${userId}/tasks`, task.id);
       await setDoc(taskDoc, task);
-      console.log("Task updated:", task);
     } catch (error) {
       console.error("Error updating task:", error);
     }
@@ -98,7 +94,6 @@ export class TasksService {
 
   setTaskPriority(priority: string) {
     this.taskPriority.set(priority);
-    console.log("Priority:", this.taskPriority());
   }
 
   updateLocalTaskStatus(taskId: string, newStatus: string): void {

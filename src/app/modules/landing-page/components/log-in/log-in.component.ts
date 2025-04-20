@@ -6,6 +6,7 @@ import {
   input,
   OnDestroy,
   runInInjectionContext,
+  signal,
 } from "@angular/core";
 import {
   FormControl,
@@ -31,11 +32,11 @@ export class LogInComponent implements OnDestroy {
   private authService = inject(AuthService);
   private injector = inject(EnvironmentInjector);
 
-  userId = input<string>();
-  disableButton: boolean = false;
   rememberMe: boolean = false;
   focusPassword: boolean = false;
   showPassword: boolean = false;
+
+  isLoading: boolean = false;
 
   wrongEmail = computed(() => this.authService.wrongEmail());
   wrongPassword = computed(() => this.authService.wrongPassword());
@@ -66,6 +67,9 @@ export class LogInComponent implements OnDestroy {
 
   onSubmit() {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
+      if (this.isLoading) return;
+      this.isLoading = true;
+
       try {
         if (this.rememberMe) {
           this.saveUserLocally();
@@ -74,6 +78,8 @@ export class LogInComponent implements OnDestroy {
         }
       } catch (error: any) {
         console.error("Login failed:", error);
+      } finally {
+        this.isLoading = false;
       }
     }
   }
@@ -102,8 +108,17 @@ export class LogInComponent implements OnDestroy {
     });
   }
 
-  guestLogin() {
-    this.authService.signInAsGuest();
+  async guestLogin() {
+    if (this.isLoading) return;
+    this.isLoading = true;
+
+    try {
+      await this.authService.signInAsGuest();
+    } catch (error) {
+      console.error("Guest login failed:", error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   toggleRememberMe() {

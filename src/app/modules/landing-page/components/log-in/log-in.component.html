@@ -55,18 +55,10 @@
   </div>
 
   <div class="buttons">
-    <button
-      class="log-in-button"
-      (click)="onSubmit()"
-      [disabled]="disableButton"
-    >
+    <button class="log-in-button" (click)="onSubmit()" [disabled]="isLoading">
       Log in
     </button>
-    <button
-      class="guest-button"
-      (click)="guestLogin()"
-      [disabled]="disableButton"
-    >
+    <button class="guest-button" (click)="guestLogin()" [disabled]="isLoading">
       Guest Log in
     </button>
   </div>

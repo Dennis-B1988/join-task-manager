@@ -43,10 +43,6 @@ export class EditTaskComponent implements OnDestroy {
     ].sort((a, b) => Number(a.done) - Number(b.done));
   });
 
-  constructor() {
-    console.log(this.selectedTask());
-  }
-
   get selectedPriority() {
     if (this.selectedTask()?.priority === "Urgent") return "urgent";
     if (this.selectedTask()?.priority === "Medium") return "medium";
@@ -93,7 +89,6 @@ export class EditTaskComponent implements OnDestroy {
   closeForm() {
     this.tasksService.editTask.set(false);
     this.tasksService.selectedTask.set(null);
-    console.log("Task selected after close:", this.tasksService.selectedTask());
   }
 
   deleteTask(task: Task) {

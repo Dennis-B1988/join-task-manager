@@ -17,7 +17,6 @@ export class AddTaskComponent implements OnDestroy {
 
   addTask() {
     if (this.taskFormComponent) {
-      console.log("Add task clicked");
       this.tasksService.taskStatus.set("To Do");
       this.taskFormComponent.onSubmit();
     }

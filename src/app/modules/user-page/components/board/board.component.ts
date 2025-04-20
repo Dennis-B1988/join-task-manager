@@ -45,7 +45,6 @@ export class BoardComponent implements AfterViewInit {
   searchTask(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value.trim();
     this.tasksService.searchTask(searchValue);
-    console.log(this.tasksService.searchTaskTerm());
   }
 
   toggleAddTaskAndSetStatus(status: string) {

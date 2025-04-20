@@ -55,6 +55,5 @@ export class ContactsContainerComponent {
 
   lookAtContactInformation(contact: any) {
     this.contactsService.showContact.set(contact);
-    console.log("Active contact:", this.contactsService.showContact());
   }
 }

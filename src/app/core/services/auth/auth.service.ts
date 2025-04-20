@@ -12,13 +12,6 @@ import {
   User,
 } from "@angular/fire/auth";
 import {
-  createUserWithEmailAndPassword,
-  EmailAuthProvider,
-  signInAnonymously,
-  signInWithEmailAndPassword,
-} from "@firebase/auth";
-
-import {
   addDoc,
   collection,
   doc,
@@ -28,6 +21,12 @@ import {
   setDoc,
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
+import {
+  createUserWithEmailAndPassword,
+  EmailAuthProvider,
+  signInAnonymously,
+  signInWithEmailAndPassword,
+} from "@firebase/auth";
 import { dummyTasks } from "../../models/dummy_guest_data.model";
 import { CustomUser } from "../../models/user.model";
 import { UnsubscribeService } from "../unsubscribe/unsubscribe.service";
@@ -63,20 +62,12 @@ export class AuthService {
         if (this.router.url === "/") {
           this.router.navigate(["/summary"]);
         }
-
-        console.log("User logged in:", user.displayName);
-        console.log("User Mail:", user.email);
       } else {
         this.router.navigate(["/"]);
         this.user.set(null);
         this.userId.set("");
-        console.log("User logged out");
       }
     });
-
-    setTimeout(() => {
-      console.log("User from auth:", this.user());
-    }, 1000);
   }
 
   private async setUser(user: User): Promise<void> {
@@ -95,8 +86,6 @@ export class AuthService {
       const customUser = new CustomUser(user, { ...userData, tasks, contacts });
       this.user.set(customUser);
       this.userId.set(user.uid);
-
-      console.log("User set:", this.user());
     });
   }
 
@@ -138,7 +127,6 @@ export class AuthService {
       });
     } catch (error: any) {
       console.error("Error creating user:", error);
-      // this.emailUnavailableError(error);
       if (error.code === "auth/email-already-in-use")
         this.emailUnavailable.set(true);
       if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
@@ -183,11 +171,8 @@ export class AuthService {
 
       await this.setUser(user);
 
-      // Create dummy data
       await this.createDummyContacts(user.uid);
       await this.createDummyTasks(user.uid);
-
-      console.log("Guest user signed in and data initialized.");
     } catch (error) {
       console.error("Error signing in anonymously:", error);
     }
@@ -211,8 +196,6 @@ export class AuthService {
 
         await this.setUser(result.user);
 
-        console.log("Upgraded anonymous user with display name:", displayName);
-
         this.upgradeMenu.set(false);
         this.emailUnavailable.set(false);
       } catch (error) {
@@ -223,7 +206,6 @@ export class AuthService {
           error.code === "auth/email-already-in-use"
         ) {
           this.emailUnavailable.set(true);
-          console.log("Email already exists");
         }
       }
     } else {
@@ -245,9 +227,6 @@ export class AuthService {
       });
   }
 
-  /**
-   * Fetches tasks from the user's Firestore subcollection.
-   */
   private async fetchTasks(userId: string): Promise<any[]> {
     const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
 
@@ -257,9 +236,6 @@ export class AuthService {
     });
   }
 
-  /**
-   * Fetches contacts from the user's Firestore subcollection.
-   */
   private async fetchContacts(userId: string): Promise<any[]> {
     const contactsCollection = collection(
       this.firestore,
@@ -294,17 +270,6 @@ export class AuthService {
     for (const task of this.dummyTasks) {
       await addDoc(tasksRef, task);
     }
-  }
-
-  private formatDateToYYYYMMDD(date: Date): string {
-    const futureDate = new Date(date);
-    futureDate.setDate(futureDate.getDate() + 5);
-
-    const year = futureDate.getFullYear();
-    const month = (futureDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = futureDate.getDate().toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
   }
 
   ngOnDestroy() {

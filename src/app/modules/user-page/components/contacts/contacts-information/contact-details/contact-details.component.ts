@@ -21,8 +21,6 @@ export class ContactDetailsComponent {
     .subscribe((event: NavigationStart) => {
       if (!event.url.startsWith("/contacts")) {
         this.contactsService.showContact.set(null);
-
-        console.log("Active contact reset:", this.showContact());
       }
     });
 

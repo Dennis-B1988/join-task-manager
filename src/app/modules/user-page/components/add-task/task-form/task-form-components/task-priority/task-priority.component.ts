@@ -13,7 +13,5 @@ export class TaskPriorityComponent {
 
   setPriority(prio: string) {
     this.tasksService.setTaskPriority(prio);
-
-    console.log("Priority:", this.tasksService.taskPriority);
   }
 }

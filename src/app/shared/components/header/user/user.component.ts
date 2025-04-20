@@ -1,4 +1,4 @@
-import { Component, computed, Host, HostListener, inject } from "@angular/core";
+import { Component, computed, HostListener, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
@@ -33,10 +33,6 @@ export class UserComponent {
         : displayName?.charAt(0).toUpperCase();
   });
 
-  constructor() {
-    console.log("Initial User:", this.authService.user());
-  }
-
   toggleUserMenu() {
     this.menuOpen = !this.menuOpen;
   }
@@ -45,12 +41,11 @@ export class UserComponent {
     this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
   }
 
-  signOut() {
+  async signOut() {
+    await this.userService.deleteGuestUserAndData();
     this.authService.signOut();
-    this.userService.deleteGuestDocument();
     this.UnsubscribeService.unsubscribeAll();
     this.toggleUserMenu();
-    console.log(this.authService.userId());
   }
 
   @HostListener("document:click", ["$event"])

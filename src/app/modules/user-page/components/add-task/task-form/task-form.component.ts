@@ -60,12 +60,8 @@ export class TaskFormComponent implements OnDestroy {
           category: task.category,
           status: task.status,
         });
-        console.log("Subtasks loaded: ", this.subTasks());
       }
     });
-    setTimeout(() => {
-      console.log("Assigned ", this.filterAssignedTo());
-    }, 1000);
   }
 
   taskForm = new FormGroup({
@@ -96,14 +92,11 @@ export class TaskFormComponent implements OnDestroy {
   }
 
   onSubmit() {
-    console.log("Submit clicked");
     if (!this.taskForm.valid) {
       this.taskForm.markAllAsTouched();
       return;
     }
     const formValue = this.taskForm.value;
-
-    console.log("Form value: ", formValue);
 
     const subtasks = {
       open: this.subTasks() || [],
@@ -122,21 +115,16 @@ export class TaskFormComponent implements OnDestroy {
     };
 
     this.tasksService.addTask(task);
-    console.log(task);
     this.onClear();
   }
 
   onUpdate() {
-    console.log("Update clicked");
-
     if (!this.taskForm.valid) {
       this.taskForm.markAllAsTouched();
       return;
     }
     const formValue = this.taskForm.value;
     const selected = this.selectedTask();
-
-    console.log("Selected task:", selected);
 
     const updatedTask: Task = {
       id: this.tasksService.editedTaskId(),
@@ -156,7 +144,6 @@ export class TaskFormComponent implements OnDestroy {
     this.tasksService.updateTask(updatedTask).then(() => {
       this.tasksService.selectedTask.set(updatedTask);
     });
-    console.log("Updated task:", updatedTask);
   }
 
   ngOnDestroy(): void {

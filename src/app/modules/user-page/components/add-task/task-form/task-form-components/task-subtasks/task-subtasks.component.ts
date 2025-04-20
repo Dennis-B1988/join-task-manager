@@ -22,11 +22,9 @@ export class TaskSubtasksComponent {
 
     this.subTasksService.addSubtask(subtaskValue, subtaskId);
     form.get("subtask")?.reset();
-    console.log("Subtasks: ", this.subTasks());
   }
 
   removeSubtask(id: string) {
     this.subTasksService.removeSubtask(id);
-    console.log("Subtasks: ", this.subTasks());
   }
 }

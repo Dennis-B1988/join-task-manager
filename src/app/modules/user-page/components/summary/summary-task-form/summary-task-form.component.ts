@@ -59,16 +59,9 @@ export class SummaryTaskFormComponent {
         : current;
     });
 
-    console.log("Earliest task:", earliestTask);
     return new Date(earliestTask.dueDate);
   });
 
   toDoHover: boolean = false;
   doneHover: boolean = false;
-
-  constructor() {
-    setTimeout(() => {
-      console.log("Tasks Summary:", this.tasksSummary());
-    }, 1000);
-  }
 }

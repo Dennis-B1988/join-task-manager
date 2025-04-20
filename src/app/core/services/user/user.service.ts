@@ -22,17 +22,37 @@ export class UserService {
 
   constructor(private firestore: Firestore) {}
 
-  async deleteGuestDocument() {
-    const userRef = collection(this.firestore, "users");
+  /**
+   * Deletes the guest user and all associated data (tasks and contacts)
+   * from Firestore. This is used when the user signs out.
+   */
+  async deleteGuestUserAndData() {
+    await runInInjectionContext(this.injector, async () => {
+      const usersRef = collection(this.firestore, "users");
+      const guestQuery = query(usersRef, where("displayName", "==", "Guest"));
 
-    const userQuery = query(userRef, where("displayName", "==", "Guest"));
-    runInInjectionContext(this.injector, async () => {
-      const querySnapshot = await getDocs(userQuery);
+      const guestSnapshots = await getDocs(guestQuery);
 
-      querySnapshot.forEach(async (document) => {
-        await deleteDoc(doc(this.firestore, "users", document.id));
-        console.log("Document deleted:", document.id);
-      });
+      for (const userDoc of guestSnapshots.docs) {
+        const userId = userDoc.id;
+        const tasksSnapshot = await runInInjectionContext(this.injector, () =>
+          getDocs(collection(this.firestore, `users/${userId}/tasks`)),
+        );
+
+        const taskDeletes = tasksSnapshot.docs.map((doc) => deleteDoc(doc.ref));
+        const contactsSnapshot = await runInInjectionContext(
+          this.injector,
+          () => getDocs(collection(this.firestore, `users/${userId}/contacts`)),
+        );
+
+        const contactDeletes = contactsSnapshot.docs.map((doc) =>
+          deleteDoc(doc.ref),
+        );
+
+        await Promise.all([...taskDeletes, ...contactDeletes]);
+
+        await deleteDoc(doc(this.firestore, "users", userId));
+      }
     });
   }
 }

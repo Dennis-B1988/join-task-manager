@@ -67,10 +67,6 @@ export class TaskAssignedToComponent {
 
       this.contacts.set(fetchedContacts);
     });
-    setTimeout(() => {
-      console.log("Contacts to task:", this.contacts);
-      console.log(this.filteredContacts());
-    }, 2000);
   }
 
   toggleAssignedTo() {
@@ -80,7 +76,6 @@ export class TaskAssignedToComponent {
   searchContacts(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value.trim();
     this.searchContact.set(searchValue.length >= 3 ? searchValue : "");
-    console.log(this.searchContact());
   }
 
   assignContactToTask(contact: any) {

@@ -15,7 +15,6 @@ export class TaskCategoryComponent {
 
   toggleCategory() {
     this.categoryOpen = !this.categoryOpen;
-    console.log(this.categoryOpen);
   }
 
   setCategory(category: string) {

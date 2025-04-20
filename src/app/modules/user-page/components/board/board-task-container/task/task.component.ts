@@ -1,10 +1,9 @@
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { Component, computed, inject, input, OnInit } from "@angular/core";
+import { Component, computed, inject, input } from "@angular/core";
 import {
   MatProgressBar,
   ProgressBarMode,
 } from "@angular/material/progress-bar";
-import { Contact } from "../../../../../../core/models/contact.model";
 import { Task } from "../../../../../../core/models/task.model";
 import { ContactsService } from "../../../../services/contacts/contacts.service";
 import { SubtasksService } from "../../../../services/subtasks/subtasks.service";
@@ -53,11 +52,8 @@ export class TaskComponent {
 
   editTask(task: Task) {
     this.contactsService.assignedToTask.set(task.assignedTo);
-    console.log("Assigned to this task: ", task.assignedTo);
     this.tasksService.editTask.set(true);
     this.tasksService.selectedTask.set(task);
     this.subtasksService.loadSubtasks(task);
-    console.log("Contact in task:", task.assignedTo);
-    console.log("Task selected:", this.tasksService.selectedTask());
   }
 }

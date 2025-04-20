@@ -93,7 +93,6 @@ export class BoardTaskContainerComponent {
           `users/${userId}/tasks/${taskToMove.id}`,
         );
         await updateDoc(taskRef, { status: newStatus });
-        console.log("Task status updated:", taskToMove.id, newStatus);
 
         this.tasksService.updateLocalTaskStatus(taskToMove.id, newStatus);
 
