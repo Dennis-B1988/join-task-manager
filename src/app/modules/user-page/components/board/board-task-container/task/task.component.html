@@ -2,8 +2,8 @@
   class="task"
   cdkDrag
   (cdkDragStarted)="tasksService.isDragging.set(true)"
-  (cdkDragEnded)="tasksService.isDragging.set(false)"
-  (click)="editTask(task())"
+  (cdkDragEnded)="onDragEnded()"
+  (click)="onTaskClick(task())"
 >
   <span
     class="category"

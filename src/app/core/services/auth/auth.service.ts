@@ -28,6 +28,7 @@ import {
   setDoc,
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
+import { dummyTasks } from "../../models/dummy_guest_data.model";
 import { CustomUser } from "../../models/user.model";
 import { UnsubscribeService } from "../unsubscribe/unsubscribe.service";
 
@@ -38,6 +39,7 @@ export class AuthService {
   private router: Router = inject(Router);
   private UnsubscribeService = inject(UnsubscribeService);
   private injector = inject(EnvironmentInjector);
+  private dummyTasks = dummyTasks;
 
   user = signal<CustomUser | null>(null);
   userId = signal<string>("");
@@ -277,6 +279,8 @@ export class AuthService {
     const contacts = [
       { displayName: "Alice Smith", email: "alice@example.com" },
       { displayName: "Bob Johnson", email: "bob@example.com" },
+      { displayName: "Charlie Brown", email: "charlie@example.com" },
+      { displayName: "David Davis", email: "david@example.com" },
     ];
 
     const contactsRef = collection(this.firestore, `users/${userId}/contacts`);
@@ -286,24 +290,8 @@ export class AuthService {
   }
 
   async createDummyTasks(userId: string): Promise<void> {
-    const tasks = [
-      {
-        title: "Welcome Task",
-        description: "Edit or delete this task to get started.",
-        dueDate: this.formatDateToYYYYMMDD(new Date()),
-        priority: "Urgent",
-        category: "Technical Task",
-        status: "To Do",
-        assignedTo: [{ displayName: "Alice Smith" }],
-        subtask: {
-          open: [{ done: false, id: "1", subtaskValue: "Dummy subtask" }],
-          done: [],
-        },
-      },
-    ];
-
     const tasksRef = collection(this.firestore, `users/${userId}/tasks`);
-    for (const task of tasks) {
+    for (const task of this.dummyTasks) {
       await addDoc(tasksRef, task);
     }
   }
@@ -317,39 +305,6 @@ export class AuthService {
     const day = futureDate.getDate().toString().padStart(2, "0");
 
     return `${year}-${month}-${day}`;
-  }
-
-  private emailUnavailableError(error: any): void {
-    if (
-      error instanceof Error &&
-      "code" in error &&
-      error.code === "auth/email-already-in-use"
-    ) {
-      this.emailUnavailable.set(true);
-      console.log("Email already exists");
-    }
-  }
-
-  private wrongEmailError(error: any): void {
-    if (
-      error instanceof Error &&
-      "code" in error &&
-      error.code === "auth/invalid-email"
-    ) {
-      this.wrongEmail.set(true);
-      console.log("Wrong email");
-    }
-  }
-
-  private wrongPasswordError(error: any): void {
-    if (
-      error instanceof Error &&
-      "code" in error &&
-      error.code === "auth/invalid-credential"
-    ) {
-      this.wrongPassword.set(true);
-      console.log("Wrong password");
-    }
   }
 
   ngOnDestroy() {

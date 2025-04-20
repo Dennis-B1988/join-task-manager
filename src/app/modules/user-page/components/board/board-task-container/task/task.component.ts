@@ -35,13 +35,28 @@ export class TaskComponent {
     return this.contactsService.getInitials(name);
   }
 
+  onTaskClick(task: any): void {
+    // Delay check slightly to make sure drag end has been processed
+    setTimeout(() => {
+      if (!this.tasksService.isDragging()) {
+        this.editTask(task);
+      }
+    });
+  }
+
+  onDragEnded(): void {
+    // Slight delay ensures click isn't triggered too soon after drag ends
+    setTimeout(() => {
+      this.tasksService.isDragging.set(false);
+    }, 100);
+  }
+
   editTask(task: Task) {
     this.contactsService.assignedToTask.set(task.assignedTo);
     console.log("Assigned to this task: ", task.assignedTo);
     this.tasksService.editTask.set(true);
     this.tasksService.selectedTask.set(task);
     this.subtasksService.loadSubtasks(task);
-    // this.tasksService.editedTaskId.set(task.id);
     console.log("Contact in task:", task.assignedTo);
     console.log("Task selected:", this.tasksService.selectedTask());
   }
