@@ -19,7 +19,7 @@
 }
 
 .form {
-  @include flex(column, none, none);
+  @include flex(column, unset, unset);
   width: 26.375rem;
   gap: 1.25rem;
 }
@@ -81,8 +81,23 @@
   padding-left: 0.5rem;
 }
 
-@media (max-height: 860px) {
+@media (max-height: 53.75rem) or (max-width: 80rem) {
   .login-form {
     transform: scale(0.8);
+  }
+}
+
+@media (max-width: 80rem) {
+  .login-form {
+    @include padding(2rem, 2rem, 2rem, 2rem);
+  }
+
+  .buttons {
+    @include flex(column, center, center);
+    gap: 1.3125rem;
+
+    button {
+      width: 50%;
+    }
   }
 }

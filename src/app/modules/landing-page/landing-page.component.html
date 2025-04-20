@@ -15,6 +15,13 @@
     <app-sign-up />
   }
 
+  <div class="to-sign-up-mobile">
+    @if (!signUpActive()) {
+      <span>Not a Join user?</span>
+      <button (click)="viewSignUp()">Sign up</button>
+    }
+  </div>
+
   <div class="bottom">
     <div class="policy">
       <span (click)="viewPrivacyPolicy()">Privacy Policy</span>

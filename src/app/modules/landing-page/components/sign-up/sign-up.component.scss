@@ -25,10 +25,6 @@
   gap: 1rem;
 }
 
-.input-container {
-  // @include flex(column, unset, unset);
-}
-
 .input {
   position: relative;
 
@@ -102,8 +98,23 @@
   padding-left: 0.5rem;
 }
 
-@media (max-height: 860px) {
+@media (max-height: 53.75rem) or (max-width: 80rem) {
   .sign-up-form {
     transform: scale(0.8);
+  }
+}
+
+@media (max-width: 80rem) {
+  .sign-up-form {
+    @include padding(2rem, 2rem, 2rem, 2rem);
+  }
+
+  .buttons {
+    @include flex(column, center, center);
+    gap: 1.3125rem;
+
+    button {
+      width: 50%;
+    }
   }
 }
