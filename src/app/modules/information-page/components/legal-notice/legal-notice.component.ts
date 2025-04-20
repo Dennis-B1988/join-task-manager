@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { LandingPageService } from "../../../landing-page/services/landing-page/landing-page.service";
 
 @Component({
@@ -9,6 +9,10 @@ import { LandingPageService } from "../../../landing-page/services/landing-page/
 })
 export class LegalNoticeComponent {
   private landingPageService = inject(LandingPageService);
+
+  legalNoticeActive = computed(() =>
+    this.landingPageService.legalNoticeActive(),
+  );
 
   goBack() {
     this.landingPageService.goBackToLogIn();

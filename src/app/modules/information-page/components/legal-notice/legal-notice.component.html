@@ -1,13 +1,15 @@
 <section class="legal-notice">
   <div class="legal-notice-header">
     <h1>Legal Notice</h1>
-    <div class="legal-notice-go-back">
-      <img
-        (click)="goBack()"
-        src="../assets/img/arrow-blue.png"
-        alt="go back to log in"
-      />
-    </div>
+    @if (legalNoticeActive()) {
+      <div class="legal-notice-go-back">
+        <img
+          (click)="goBack()"
+          src="../assets/img/arrow-blue.png"
+          alt="go back to log in"
+        />
+      </div>
+    }
   </div>
 
   <ul>

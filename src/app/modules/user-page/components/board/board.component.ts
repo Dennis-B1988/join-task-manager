@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, computed, inject } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Task } from "../../../../core/models/task.model";
+import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
 import { AddTaskFromBoardComponent } from "./add-task-from-board/add-task-from-board.component";
@@ -21,6 +22,7 @@ import { EditTaskComponent } from "./edit-task/edit-task.component";
 export class BoardComponent implements AfterViewInit {
   private tasksService = inject(TasksService);
   private route = inject(ActivatedRoute);
+  private unsubscribeService = inject(UnsubscribeService);
 
   readonly TODO = "To Do";
   readonly IN_PROGRESS = "In Progress";
@@ -35,7 +37,7 @@ export class BoardComponent implements AfterViewInit {
   selectedTask = computed(() => this.tasksService.selectedTask());
 
   ngAfterViewInit() {
-    this.route.fragment.subscribe((fragment) => {
+    const subscription = this.route.fragment.subscribe((fragment) => {
       if (fragment) {
         const element = document.getElementById(fragment);
         if (element) {
@@ -43,6 +45,8 @@ export class BoardComponent implements AfterViewInit {
         }
       }
     });
+
+    this.unsubscribeService.add(() => subscription.unsubscribe());
   }
 
   searchTask(event: Event) {
