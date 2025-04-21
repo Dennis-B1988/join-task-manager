@@ -1,8 +1,8 @@
 import { Component, computed, HostListener, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { AuthService } from "../../../../core/services/auth/auth.service";
-import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
-import { UserService } from "../../../../core/services/user/user.service";
+import { AuthService } from "../../../core/services/auth/auth.service";
+import { UnsubscribeService } from "../../../core/services/unsubscribe/unsubscribe.service";
+import { UserService } from "../../../core/services/user/user.service";
 
 @Component({
   selector: "app-user",

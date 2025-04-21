@@ -19,3 +19,9 @@
     height: 1.25rem;
   }
 }
+
+@media (max-width: 79.9375rem) {
+  .header {
+    display: none;
+  }
+}
