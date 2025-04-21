@@ -81,13 +81,13 @@
   padding-left: 0.5rem;
 }
 
-@media (max-height: 53.75rem) or (max-width: 80rem) {
-  .login-form {
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  :host {
     transform: scale(0.8);
   }
 }
 
-@media (max-width: 80rem) {
+@media (max-width: 79.9375rem) {
   .login-form {
     @include padding(2rem, 2rem, 2rem, 2rem);
   }

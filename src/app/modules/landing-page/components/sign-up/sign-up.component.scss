@@ -11,7 +11,7 @@
 }
 
 .headline {
-  @include flex(column, none, center);
+  @include flex(column, unset, center);
   gap: 1rem;
 
   h1 {
@@ -20,7 +20,7 @@
 }
 
 .form {
-  @include flex(column, none, none);
+  @include flex(column, unset, unset);
   width: 26.375rem;
   gap: 1rem;
 }
@@ -67,7 +67,7 @@
 }
 
 .policy-checkbox {
-  @include flex(row, none, center);
+  @include flex(row, unset, center);
 
   > img {
     cursor: pointer;
@@ -98,13 +98,13 @@
   padding-left: 0.5rem;
 }
 
-@media (max-height: 53.75rem) or (max-width: 80rem) {
-  .sign-up-form {
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  :host {
     transform: scale(0.8);
   }
 }
 
-@media (max-width: 80rem) {
+@media (max-width: 79.9375rem) {
   .sign-up-form {
     @include padding(2rem, 2rem, 2rem, 2rem);
   }
