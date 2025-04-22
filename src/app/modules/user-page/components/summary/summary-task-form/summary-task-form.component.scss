@@ -1,8 +1,9 @@
 @import "../../../../../shared/styles/mixins";
 
 .summary-display-container {
-  @include flex(column, space-between, space-between);
-  width: 35rem;
+  @include flex(column, space-between, center);
+  width: 100%;
+  max-width: 35rem;
   height: 35rem;
 }
 
@@ -80,7 +81,7 @@
 }
 
 .task-type {
-  @include font(1.25rem, 400, 1.5rem);
+  @include font(1.25rem, 400, 120%);
 }
 
 .urgent-amount-container {
@@ -103,11 +104,33 @@
 }
 
 .task-deadline-date {
-  @include font(1.3125rem, 700, 1.575rem);
+  @include font(1.3125rem, 700, 120%);
 }
 
-@media (max-height: 860px) {
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
   .summary-display-container {
-    height: 32rem;
+    height: 30rem;
+  }
+}
+
+@media (max-width: 38.9375rem) {
+  .task-amount {
+    @include font(2.9375rem, 600, 4.8rem);
+  }
+
+  .task-type {
+    @include font(0.875rem, 400, 1.5rem);
+  }
+
+  .urgent {
+    gap: 1.25rem;
+  }
+
+  .task-deadline-date {
+    @include font(1rem, 700, 120%);
+
+    span {
+      @include font(0.875rem, 400, 120%);
+    }
   }
 }

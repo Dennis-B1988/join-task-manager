@@ -1,4 +1,4 @@
-import { Component, HostListener } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
@@ -37,7 +37,7 @@ export class SidebarComponent {
   }
 
   private updateImagePaths() {
-    this.isMobile = window.innerWidth < 1280;
+    this.isMobile = window.innerWidth < 1280 || window.innerHeight < 860;
 
     const base = this.isMobile ? "assets/img/mobile" : "assets/img";
     this.summaryPath = `${base}/summary.png`;

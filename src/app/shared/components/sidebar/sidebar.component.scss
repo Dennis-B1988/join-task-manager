@@ -42,9 +42,10 @@ nav {
   }
 }
 
-@media (max-width: 79.9375rem) {
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
   .sidebar {
     width: 100%;
+    max-width: 90rem;
     height: 5rem;
   }
 

@@ -5,6 +5,7 @@
         <h1 class="title">Join 360</h1>
         <span class="blue-line"></span>
         <p class="subtitle">Key Metrics at a Glance</p>
+        <span class="blue-line-mobile"></span>
       </header>
 
       <app-summary-task-form></app-summary-task-form>
@@ -14,4 +15,12 @@
       {{ greeting }} <span>{{ userName() }}</span>
     </p>
   </div>
+
+  @if (isMobile) {
+    <div class="mobile-greeting">
+      <p aria-live="polite">
+        {{ greeting }} <span>{{ userName() }}</span>
+      </p>
+    </div>
+  }
 </main>

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, OnInit } from "@angular/core";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { SummaryTaskFormComponent } from "./summary-task-form/summary-task-form.component";
 
@@ -8,8 +8,9 @@ import { SummaryTaskFormComponent } from "./summary-task-form/summary-task-form.
   templateUrl: "./summary.component.html",
   styleUrl: "./summary.component.scss",
 })
-export class SummaryComponent {
-  authService = inject(AuthService);
+export class SummaryComponent implements OnInit {
+  private authService = inject(AuthService);
+  isMobile: boolean = false;
 
   userName = computed(() => this.authService.user()?.displayName.split(" ")[0]);
 
@@ -25,4 +26,18 @@ export class SummaryComponent {
   );
 
   greeting = this.greetings[this.timeOfDay];
+
+  ngOnInit() {
+    this.updateGreetings();
+  }
+
+  private updateGreetings() {
+    if (window.innerWidth < 1280) {
+      this.isMobile = true;
+
+      setTimeout(() => {
+        this.isMobile = false;
+      }, 1200);
+    }
+  }
 }
