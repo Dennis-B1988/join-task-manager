@@ -16,6 +16,7 @@ import { ContactsInformationComponent } from "./contacts-information/contacts-in
 })
 export class ContactsComponent {
   private contactsService = inject(ContactsService);
+  windowWidth = computed(() => window.innerWidth);
 
   addContact = computed(() => this.contactsService.addContact());
   editContact = computed(() => this.contactsService.editContact());

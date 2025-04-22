@@ -29,6 +29,7 @@
   text-wrap: nowrap;
 
   span {
+    @include flex(row, flex-start, center);
     @include padding(0.5rem, 1rem, 0.5rem, 1rem);
     list-style: none;
     cursor: pointer;
@@ -37,6 +38,11 @@
 
     &:hover {
       color: #fff;
+    }
+
+    &.active {
+      border-radius: 0.625rem;
+      background-color: #091931;
     }
   }
 }

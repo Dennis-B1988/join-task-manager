@@ -3,10 +3,18 @@
 
   @if (menuOpen) {
     <nav class="menu">
-      <span [routerLink]="['/legal-notice']" (click)="toggleUserMenu()">
+      <span
+        [routerLink]="['/legal-notice']"
+        routerLinkActive="active"
+        (click)="toggleUserMenu()"
+      >
         Legal Notice
       </span>
-      <span [routerLink]="['/privacy-policy']" (click)="toggleUserMenu()">
+      <span
+        [routerLink]="['/privacy-policy']"
+        routerLinkActive="active"
+        (click)="toggleUserMenu()"
+      >
         Privacy Policy
       </span>
       @if (userName() === "G") {

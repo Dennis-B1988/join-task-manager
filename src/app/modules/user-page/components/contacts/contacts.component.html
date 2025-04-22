@@ -1,7 +1,9 @@
 <section class="contacts-page">
   <app-contacts-container></app-contacts-container>
 
-  <app-contacts-information></app-contacts-information>
+  <div class="information">
+    <app-contacts-information></app-contacts-information>
+  </div>
 
   @if (addContact() || editContact()) {
     <app-contact-form-container></app-contact-form-container>

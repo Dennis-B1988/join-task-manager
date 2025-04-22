@@ -2,7 +2,7 @@
 
 :host {
   @include flex(column, center, center);
-  width: 65%;
+  width: 100%;
   height: 100%;
 }
 
@@ -30,4 +30,34 @@
   width: 0.1875rem;
   height: 3.6875rem;
   background-color: #29abe2;
+}
+
+.blue-line-mobile {
+  display: none;
+}
+
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .title {
+    @include flex(column, flex-start, flex-start);
+    gap: 1rem;
+
+    h1 {
+      @include font(2.9375rem, 700, 120%, #000);
+    }
+
+    p {
+      @include font(1.25rem, 400, 120%, #2a3647);
+    }
+  }
+
+  .blue-line {
+    display: none;
+  }
+
+  .blue-line-mobile {
+    display: block;
+    width: 5.625rem;
+    height: 0.1875rem;
+    background-color: #29abe2;
+  }
 }
