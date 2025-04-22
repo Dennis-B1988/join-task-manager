@@ -25,6 +25,11 @@
   }
 }
 
+footer {
+  @include flex(row, center, flex-end);
+  width: 100%;
+}
+
 .task-footer {
   @include flex(row, space-between, flex-end);
   width: 100%;
@@ -54,5 +59,41 @@
       width: 1.5rem;
       height: 1.5rem;
     }
+  }
+}
+
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .task-main {
+    @include flex(column, flex-start, center);
+    padding-top: 1rem;
+    overflow-y: auto;
+  }
+
+  .task-header {
+    @include flex(row, center, center);
+    width: 100%;
+
+    h2 {
+      width: 90%;
+      max-width: 45rem;
+    }
+  }
+
+  .task-container {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  footer {
+    padding-bottom: 1rem;
+  }
+
+  .task-footer {
+    @include flex(row, flex-end, center);
+    width: 90%;
+  }
+
+  .required-text {
+    display: none;
   }
 }

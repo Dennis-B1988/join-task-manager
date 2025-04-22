@@ -9,14 +9,14 @@
 }
 
 .task-form-left-side {
-  @include flex(column, none, flex-start);
+  @include flex(column, unset, flex-start);
   width: 45%;
   height: 100%;
   gap: 2rem;
 }
 
 .task-form-right-side {
-  @include flex(column, none, flex-start);
+  @include flex(column, unset, flex-start);
   width: 45%;
   height: 100%;
   gap: 1rem;
@@ -25,4 +25,21 @@
 .task-form-middle-line {
   @include border(0.0625rem, solid, #d1d1d1);
   height: 100%;
+}
+
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .task-form {
+    @include flex(column, center, center);
+    gap: 1rem;
+  }
+
+  .task-form-middle-line {
+    display: none;
+  }
+
+  .task-form-left-side,
+  .task-form-right-side {
+    width: 90%;
+    max-width: 45rem;
+  }
 }

@@ -13,7 +13,7 @@
 
 .subtasks-list-container {
   width: 100%;
-  height: 65px;
+  max-height: 4.0625rem;
   overflow-y: auto;
 }
 
@@ -25,5 +25,15 @@
 
   img {
     cursor: pointer;
+  }
+}
+
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .subtasks-list-container {
+    max-height: 10rem;
+  }
+
+  .subtask-text {
+    @include padding(0.5rem, 0.5rem, 0.5rem, 0);
   }
 }
