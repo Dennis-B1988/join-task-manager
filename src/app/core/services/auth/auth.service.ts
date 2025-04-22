@@ -18,7 +18,10 @@ import {
   Firestore,
   getDoc,
   getDocs,
+  query,
   setDoc,
+  updateDoc,
+  where,
 } from "@angular/fire/firestore";
 import { Router } from "@angular/router";
 import {
@@ -168,6 +171,15 @@ export class AuthService {
         displayName: "Guest",
         isGuest: true,
       });
+      const contactsRef = collection(
+        this.firestore,
+        `users/${user.uid}/contacts`,
+      );
+      await addDoc(contactsRef, {
+        displayName: "Guest",
+        email: "",
+        isSelf: true,
+      });
 
       await this.setUser(user);
 
@@ -194,6 +206,17 @@ export class AuthService {
           displayName: displayName,
         });
 
+        const userDocRef = doc(this.firestore, "users", user.uid);
+        await setDoc(userDocRef, {
+          displayName: "Guest",
+          isGuest: true,
+        });
+
+        runInInjectionContext(this.injector, async () => {
+          await this.upgradeUserData(result.user, displayName, email);
+          await this.upgradeContact(result.user, displayName, email);
+        });
+
         await this.setUser(result.user);
 
         this.upgradeMenu.set(false);
@@ -213,18 +236,33 @@ export class AuthService {
     }
   }
 
-  signOut() {
-    this.user.set(null);
-    this.userId.set("");
+  private async upgradeUserData(
+    user: User,
+    displayName: string,
+    email: string,
+  ) {
+    const userDocRef = doc(this.firestore, "users", user.uid);
+    await updateDoc(userDocRef, {
+      displayName: displayName,
+      email: email,
+      isGuest: false,
+    });
+  }
 
-    this.auth
-      .signOut()
-      .then(() => {
-        this.router.navigate(["/"]);
-      })
-      .catch((error) => {
-        console.error("Error during sign out:", error);
+  private async upgradeContact(user: User, displayName: string, email: string) {
+    const contactsRef = collection(
+      this.firestore,
+      `users/${user.uid}/contacts`,
+    );
+    const guestQuery = query(contactsRef, where("isSelf", "==", true));
+
+    const snapshot = await getDocs(guestQuery);
+    snapshot.forEach(async (docSnap) => {
+      await updateDoc(docSnap.ref, {
+        displayName: displayName,
+        email: email,
       });
+    });
   }
 
   private async fetchTasks(userId: string): Promise<any[]> {
@@ -251,7 +289,7 @@ export class AuthService {
     });
   }
 
-  async createDummyContacts(userId: string): Promise<void> {
+  private async createDummyContacts(userId: string): Promise<void> {
     const contacts = [
       {
         displayName: "Alice Smith",
@@ -281,11 +319,25 @@ export class AuthService {
     }
   }
 
-  async createDummyTasks(userId: string): Promise<void> {
+  private async createDummyTasks(userId: string): Promise<void> {
     const tasksRef = collection(this.firestore, `users/${userId}/tasks`);
     for (const task of this.dummyTasks) {
       await addDoc(tasksRef, task);
     }
+  }
+
+  signOut() {
+    this.user.set(null);
+    this.userId.set("");
+
+    this.auth
+      .signOut()
+      .then(() => {
+        this.router.navigate(["/"]);
+      })
+      .catch((error) => {
+        console.error("Error during sign out:", error);
+      });
   }
 
   ngOnDestroy() {
