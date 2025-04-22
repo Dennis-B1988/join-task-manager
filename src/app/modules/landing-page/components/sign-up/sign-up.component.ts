@@ -146,7 +146,11 @@ export class SignUpComponent implements OnDestroy {
 
   backToLogIn() {
     this.landingPageService.signUpActive.set(false);
-    this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
+    this.authService.upgradeMenu.set(false);
+  }
+
+  showPolicy() {
+    this.landingPageService.privacyPolicyActive.set(true);
   }
 
   toggleFocusPassword() {

@@ -37,8 +37,8 @@ export class UserComponent {
     this.menuOpen = !this.menuOpen;
   }
 
-  toggleUpgradeMenu() {
-    this.authService.upgradeMenu.set(!this.authService.upgradeMenu());
+  showUpgradeMenu() {
+    this.authService.upgradeMenu.set(true);
   }
 
   async signOut() {

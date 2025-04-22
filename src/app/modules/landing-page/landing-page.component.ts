@@ -5,6 +5,7 @@ import {
   ElementRef,
   inject,
   input,
+  OnDestroy,
   OnInit,
   signal,
   ViewChild,
@@ -28,7 +29,7 @@ import { LandingPageService } from "./services/landing-page/landing-page.service
   templateUrl: "./landing-page.component.html",
   styleUrl: "./landing-page.component.scss",
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnDestroy {
   private landingPageService = inject(LandingPageService);
 
   signUpActive = computed(() => this.landingPageService.signUpActive());
@@ -49,5 +50,11 @@ export class LandingPageComponent {
 
   viewPrivacyPolicy() {
     this.landingPageService.togglePrivacyPolicy();
+  }
+
+  ngOnDestroy() {
+    this.landingPageService.signUpActive.set(false);
+    this.landingPageService.legalNoticeActive.set(false);
+    this.landingPageService.privacyPolicyActive.set(false);
   }
 }

@@ -16,4 +16,10 @@
       <app-sign-up></app-sign-up>
     </div>
   }
+
+  @if (privacyPolicyActive()) {
+    <div class="legal-privacy-container">
+      <app-privacy-policy />
+    </div>
+  }
 </div>
