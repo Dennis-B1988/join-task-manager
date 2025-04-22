@@ -7,6 +7,11 @@
   position: relative;
   width: 100%;
   background-color: #fff;
+
+  img {
+    display: none;
+    width: 2rem;
+  }
 }
 
 .help-and-logout {
@@ -22,6 +27,12 @@
 
 @media (max-width: 79.9375rem) {
   .header {
-    display: none;
+    img {
+      display: block;
+    }
+
+    span {
+      display: none;
+    }
   }
 }
