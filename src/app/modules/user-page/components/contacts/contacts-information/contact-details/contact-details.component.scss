@@ -99,6 +99,10 @@ h3 {
   }
 }
 
+.contact-option-menu {
+  display: none;
+}
+
 @media (max-height: 53.75rem) or (max-width: 79.9375rem) {
   .initials {
     @include font(1.6875rem, 500, 1.2rem, #fff);
@@ -112,5 +116,21 @@ h3 {
 
   h3 {
     @include font(1.25rem, 400, 120%, #000);
+  }
+
+  .contact-option-menu {
+    display: flex;
+    padding: 0.75rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #2a3647;
+    border-radius: 50%;
+    cursor: pointer;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }

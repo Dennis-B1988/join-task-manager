@@ -87,8 +87,8 @@
   @include font(0.75rem, 400, 120%, #007cee);
 }
 
-// @media (max-height: 53.75rem) or (max-width: 79.9375rem) {
-//   :host {
-//     width: 100%;
-//   }
-// }
+@media (max-width: 62.5rem) {
+  :host {
+    width: 100%;
+  }
+}

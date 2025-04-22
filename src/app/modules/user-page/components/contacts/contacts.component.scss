@@ -29,8 +29,8 @@
   border-radius: 1.25rem;
 }
 
-@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+@media (max-width: 62.5rem) {
   .information {
-    // display: none;
+    display: none;
   }
 }
