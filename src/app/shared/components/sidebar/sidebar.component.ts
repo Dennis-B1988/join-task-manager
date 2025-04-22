@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
@@ -8,19 +8,52 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   styleUrl: "./sidebar.component.scss",
 })
 export class SidebarComponent {
-  summaryPath: string = "assets/img/summary.png";
-  summaryPathActive: string = "assets/img/summary-hover.png";
-  summaryCurrentPath: string = this.summaryPath;
+  private resizeListener = () => this.updateImagePaths();
+  private isMobile: boolean = false;
 
-  addTasksPath: string = "assets/img/add-task.png";
-  addTasksPathActive: string = "assets/img/add-task-hover.png";
-  addTasksCurrentPath: string = this.addTasksPath;
+  summaryPath!: string;
+  summaryPathActive!: string;
+  summaryCurrentPath!: string;
 
-  boardPath: string = "assets/img/board.png";
-  boardPathActive: string = "assets/img/board-hover.png";
-  boardCurrentPath: string = this.boardPath;
+  addTasksPath!: string;
+  addTasksPathActive!: string;
+  addTasksCurrentPath!: string;
 
-  contactsPath: string = "assets/img/contacts.png";
-  contactsPathActive: string = "assets/img/contacts-hover.png";
-  contactsCurrentPath: string = this.contactsPath;
+  boardPath!: string;
+  boardPathActive!: string;
+  boardCurrentPath!: string;
+
+  contactsPath!: string;
+  contactsPathActive!: string;
+  contactsCurrentPath!: string;
+
+  ngOnInit() {
+    this.updateImagePaths();
+    window.addEventListener("resize", this.resizeListener);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener("resize", this.resizeListener);
+  }
+
+  private updateImagePaths() {
+    this.isMobile = window.innerWidth < 1280;
+
+    const base = this.isMobile ? "assets/img/mobile" : "assets/img";
+    this.summaryPath = `${base}/summary.png`;
+    this.summaryPathActive = `${base}/summary-hover.png`;
+    this.summaryCurrentPath = this.summaryPath;
+
+    this.addTasksPath = `${base}/add-task.png`;
+    this.addTasksPathActive = `${base}/add-task-hover.png`;
+    this.addTasksCurrentPath = this.addTasksPath;
+
+    this.boardPath = `${base}/board.png`;
+    this.boardPathActive = `${base}/board-hover.png`;
+    this.boardCurrentPath = this.boardPath;
+
+    this.contactsPath = `${base}/contacts.png`;
+    this.contactsPathActive = `${base}/contacts-hover.png`;
+    this.contactsCurrentPath = this.contactsPath;
+  }
 }
