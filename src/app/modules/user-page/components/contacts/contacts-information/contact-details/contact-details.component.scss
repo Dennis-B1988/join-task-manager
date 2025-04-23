@@ -104,6 +104,18 @@ h3 {
 }
 
 @media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .contact-header {
+    gap: 1.25rem;
+
+    h2 {
+      @include font(2.25rem, 500, 120%, #000);
+    }
+  }
+
+  .contact-data {
+    gap: 0.625rem;
+  }
+
   .initials {
     @include font(1.6875rem, 500, 1.2rem, #fff);
     width: 5rem;

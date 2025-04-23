@@ -45,6 +45,10 @@
 }
 
 @media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .contact-information {
+    width: 90%;
+  }
+
   .contact-header {
     @include flex(column, flex-start, flex-start);
     gap: 1rem;

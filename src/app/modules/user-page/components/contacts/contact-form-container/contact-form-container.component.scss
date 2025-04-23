@@ -81,6 +81,7 @@
 
 .image {
   @include flex(column, center, center);
+  @include border(0.1875rem, solid, #fff);
   width: 7.5rem;
   height: 7.5rem;
   border-radius: 50%;
