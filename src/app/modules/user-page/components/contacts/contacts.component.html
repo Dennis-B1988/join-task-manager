@@ -5,6 +5,12 @@
     <app-contacts-information></app-contacts-information>
   </div>
 
+  @if (showContact() !== null) {
+    <div class="information-mobile">
+      <app-contacts-information></app-contacts-information>
+    </div>
+  }
+
   @if (addContact() || editContact()) {
     <app-contact-form-container></app-contact-form-container>
   }

@@ -37,7 +37,7 @@ export class SidebarComponent {
   }
 
   private updateImagePaths() {
-    this.isMobile = window.innerWidth < 1280 || window.innerHeight < 860;
+    this.isMobile = window.innerWidth < 1280;
 
     const base = this.isMobile ? "assets/img/mobile" : "assets/img";
     this.summaryPath = `${base}/summary.png`;

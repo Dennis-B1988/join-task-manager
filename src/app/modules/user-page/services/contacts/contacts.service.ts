@@ -33,8 +33,8 @@ export class ContactsService {
   showContact = signal<Contact | null>(null);
   addContact = signal<boolean>(false);
   editContact = signal<boolean>(false);
-  showDeleteContact = signal<boolean>(false);
   contactCreatedOrUpdated = signal<string>("");
+  // showDeleteContact = signal<boolean>(false);
 
   constructor() {
     effect(() => {

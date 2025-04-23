@@ -14,7 +14,7 @@
           <img src="assets/img/edit.png" alt="" />
           <span>Edit</span>
         </div>
-        <div class="delete" (click)="openDeleteModal()">
+        <div class="delete" (click)="deleteContact()">
           <img src="assets/img/delete.png" alt="" />
           <span>Delete</span>
         </div>
@@ -36,7 +36,7 @@
     </div>
   </article>
 
-  @if (showDeleteContact()) {
+  <!-- @if (showDeleteContact()) {
     <div class="delete-contact">
       <h4>Are you sure you want to delete this contact?</h4>
       <div class="buttons">
@@ -48,9 +48,22 @@
         </button>
       </div>
     </div>
-  }
+  } -->
 </div>
 
-<div class="contact-option-menu">
+<div class="contact-edit-delete-menu" (click)="toggleMenu()">
   <img src="assets/img/menu.png" alt="Edit or Delete Menu" />
 </div>
+
+@if (menuOpen) {
+  <div class="edit-delete-mobile">
+    <div class="edit-mobile" (click)="editExistingContact()">
+      <img src="assets/img/edit.png" alt="" />
+      <span>Edit</span>
+    </div>
+    <div class="delete-mobile" (click)="deleteContact()">
+      <img src="assets/img/delete.png" alt="" />
+      <span>Delete</span>
+    </div>
+  </div>
+}

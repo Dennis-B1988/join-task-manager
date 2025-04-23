@@ -79,7 +79,7 @@ h3 {
   transform: translate(-50%, -50%);
   gap: 0.8125rem;
   background-color: #2a3647;
-  z-index: 100;
+  z-index: 500;
   box-shadow: 0px 0px 4px 0px #0000001a;
 }
 
@@ -99,7 +99,7 @@ h3 {
   }
 }
 
-.contact-option-menu {
+.contact-edit-delete-menu {
   display: none;
 }
 
@@ -118,7 +118,7 @@ h3 {
     @include font(1.25rem, 400, 120%, #000);
   }
 
-  .contact-option-menu {
+  .contact-edit-delete-menu {
     display: flex;
     padding: 0.75rem;
     position: absolute;
@@ -131,6 +131,35 @@ h3 {
     img {
       width: 2rem;
       height: 2rem;
+    }
+  }
+
+  .edit-delete-mobile {
+    @include flex(column, center, center);
+    @include padding(0.625rem, 0.625rem, 0.625rem, 0.625rem);
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    background-color: #fff;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    border-bottom-left-radius: 1.25rem;
+  }
+
+  .edit-mobile,
+  .delete-mobile {
+    @include flex(row, flex-start, center);
+    @include padding(0.5rem, 0.5rem, 0.5rem, 0.5rem);
+    gap: 0.5rem;
+    width: 6rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #cdcdcd;
+      border-radius: 5px;
+      transition: all 0.1s ease-in-out;
+      transform: scale(1.05);
     }
   }
 }

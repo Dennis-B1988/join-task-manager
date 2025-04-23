@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, Host, HostListener, inject } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
 import { filter } from "rxjs";
 import { ContactsService } from "../../../../services/contacts/contacts.service";
@@ -13,8 +13,10 @@ export class ContactDetailsComponent {
   private contactsService = inject(ContactsService);
   private router = inject(Router);
 
+  menuOpen: boolean = false;
+
   showContact = computed(() => this.contactsService.showContact());
-  showDeleteContact = computed(() => this.contactsService.showDeleteContact());
+  // showDeleteContact = computed(() => this.contactsService.showDeleteContact());
 
   private subscribe = this.router.events
     .pipe(filter((event) => event instanceof NavigationStart))
@@ -26,19 +28,26 @@ export class ContactDetailsComponent {
 
   ngOnDestroy() {
     this.subscribe.unsubscribe();
+    this.contactsService.showContact.set(null);
+    // this.contactsService.showDeleteContact.set(false);
+    this.menuOpen = false;
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 
   editExistingContact() {
     this.contactsService.editContact.set(true);
   }
 
-  openDeleteModal() {
-    this.contactsService.showDeleteContact.set(true);
-  }
+  // openDeleteModal() {
+  //   this.contactsService.showDeleteContact.set(true);
+  // }
 
-  closeDeleteModal() {
-    this.contactsService.showDeleteContact.set(false);
-  }
+  // closeDeleteModal() {
+  //   this.contactsService.showDeleteContact.set(false);
+  // }
 
   deleteContact() {
     this.contactsService.deleteContact(this.showContact()?.id!);
@@ -51,5 +60,15 @@ export class ContactDetailsComponent {
 
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
+  }
+
+  @HostListener("document:click", ["$event"])
+  closeMenu(event: Event) {
+    if (this.menuOpen) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest(".contact-edit-delete-menu")) {
+        this.menuOpen = false;
+      }
+    }
   }
 }

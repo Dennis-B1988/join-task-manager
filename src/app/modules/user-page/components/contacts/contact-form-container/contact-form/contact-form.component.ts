@@ -1,4 +1,11 @@
-import { Component, computed, effect, inject, input } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+} from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -15,12 +22,16 @@ import { ContactFormTexts } from "../contact-form-container.component";
   templateUrl: "./contact-form.component.html",
   styleUrl: "./contact-form.component.scss",
 })
-export class ContactFormComponent {
+export class ContactFormComponent implements OnDestroy {
   private contactsService = inject(ContactsService);
   contact = input.required<ContactFormTexts>();
   clearButtonHover: boolean = false;
+  hasInitialized: boolean = false;
 
   showContact = computed(() => this.contactsService.showContact());
+  contactCreatedOrUpdated = computed(() =>
+    this.contactsService.contactCreatedOrUpdated(),
+  );
 
   contactForm = new FormGroup({
     name: new FormControl<string>("", {
@@ -36,21 +47,25 @@ export class ContactFormComponent {
 
   constructor() {
     effect(() => {
-      if (this.contactsService.addContact()) {
-        this.contactForm.patchValue({
+      if (this.contactsService.addContact() && !this.hasInitialized) {
+        this.contactForm.reset({
+          name: "",
+          email: "",
           phone: "+49",
         });
+        this.hasInitialized = true;
       }
 
-      if (!this.contactsService.showContact()) return;
+      if (!this.contactsService.addContact()) {
+        this.hasInitialized = false;
+      }
 
-      const currentContact = this.showContact();
-
-      if (this.contactsService.editContact()) {
+      if (this.contactsService.editContact() && this.showContact()) {
+        const contact = this.showContact();
         this.contactForm.patchValue({
-          name: currentContact?.displayName,
-          email: currentContact?.email,
-          phone: currentContact?.phone,
+          name: contact?.displayName ?? "",
+          email: contact?.email ?? "",
+          phone: contact?.phone ?? "",
         });
       }
     });
@@ -80,10 +95,9 @@ export class ContactFormComponent {
       this.contactsService.contactCreatedOrUpdated.set("Updated");
     }
     this.contactForm.reset();
-    console.log(this.contactsService.contactCreatedOrUpdated());
+
     setTimeout(() => {
       this.contactsService.contactCreatedOrUpdated.set("");
-      console.log(this.contactsService.contactCreatedOrUpdated());
     }, 800);
   }
 
@@ -92,11 +106,26 @@ export class ContactFormComponent {
     this.contactsService.editContact.set(false);
   }
 
-  openDeleteModal() {
-    this.contactsService.showDeleteContact.set(true);
+  cancelDeleteContact() {
+    if (!this.showContact()) return;
+
+    if (this.contactsService.editContact()) {
+      this.contactsService.deleteContact(this.showContact()?.id!);
+      this.contactsService.editContact.set(false);
+      this.contactsService.showContact.set(null);
+    } else if (this.contactsService.addContact()) {
+      this.contactForm.reset({
+        name: "",
+        email: "",
+        phone: "+49",
+      });
+    }
   }
 
-  closeDeleteModal() {
-    this.contactsService.showDeleteContact.set(false);
+  ngOnDestroy(): void {
+    this.hasInitialized = false;
+    this.contactsService.addContact.set(false);
+    this.contactsService.editContact.set(false);
+    this.contactsService.showContact.set(null);
   }
 }

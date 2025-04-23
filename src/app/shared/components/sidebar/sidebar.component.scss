@@ -5,6 +5,7 @@
   width: 14.5rem;
   height: 100dvh;
   background-color: #2a3647;
+  overflow-y: auto;
 }
 
 .logo {
@@ -42,7 +43,7 @@ nav {
   }
 }
 
-@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+@media (max-width: 79.9375rem) {
   .sidebar {
     width: 100%;
     max-width: 90rem;
