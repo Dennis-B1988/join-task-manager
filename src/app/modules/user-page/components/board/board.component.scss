@@ -128,3 +128,23 @@
     }
   }
 }
+
+@media (max-width: 79.9375rem) {
+  .board-main {
+    @include padding(0, 1.5rem, 0, 1.5rem);
+  }
+}
+
+@media (max-width: 62.5rem) {
+  .board-main {
+    @include flex(column, center, flex-start);
+    @include padding(0, 4rem, 0, 4rem);
+    width: 100%;
+    height: 100%;
+    margin: 0 auto 1rem auto;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    gap: 1.5rem;
+  }
+}

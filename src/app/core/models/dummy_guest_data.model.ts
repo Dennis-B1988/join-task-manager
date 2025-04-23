@@ -1,8 +1,8 @@
 export const dummyTasks = [
   {
-    title: "Implementierung der Benutzerauthentifizierung",
+    title: "Implementing user authentication",
     description:
-      "Entwicklung und Integration eines sicheren Authentifizierungssystems für Benutzer.",
+      "Development and integration of a secure authentication system for users.",
     dueDate: "2025-05-24",
     priority: "Urgent",
     category: "User Story",
@@ -16,26 +16,26 @@ export const dummyTasks = [
         {
           done: false,
           id: "1",
-          subtaskValue: "Entwurf des Authentifizierungssystems",
+          subtaskValue: "Design of the authentication system",
         },
         {
           done: false,
           id: "2",
-          subtaskValue: "Integration in die Benutzeroberfläche",
+          subtaskValue: "Integration into the user interface",
         },
         {
           done: false,
           id: "3",
-          subtaskValue: "Tests und Fehlerbehebung",
+          subtaskValue: "Tests and troubleshooting",
         },
       ],
       done: [],
     },
   },
   {
-    title: "Optimierung der Datenbankabfragen",
+    title: "Optimization of database queries",
     description:
-      "Analyse und Optimierung der Datenbankabfragen, um die Leistung der Anwendung zu verbessern.",
+      "Analysis and optimization of database queries to improve application performance.",
     dueDate: "2025-06-20",
     priority: "Medium",
     category: "Technical Task",
@@ -49,17 +49,17 @@ export const dummyTasks = [
         {
           done: false,
           id: "1",
-          subtaskValue: "Datenbankanalyse",
+          subtaskValue: "Database analysis",
         },
         {
           done: false,
           id: "2",
-          subtaskValue: "Optimierung der SQL-Abfragen",
+          subtaskValue: "Optimization of SQL queries",
         },
         {
           done: false,
           id: "3",
-          subtaskValue: "Überprüfung der Ergebnisse",
+          subtaskValue: "Review of the results",
         },
       ],
       done: [],

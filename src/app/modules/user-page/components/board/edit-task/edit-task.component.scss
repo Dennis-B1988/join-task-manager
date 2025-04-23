@@ -19,6 +19,8 @@
 
   h2 {
     @include font(3.8125rem, 700, 120%, #000);
+    width: 100%;
+    word-wrap: break-word;
   }
 
   p {
