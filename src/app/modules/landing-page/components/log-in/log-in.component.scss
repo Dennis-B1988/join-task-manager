@@ -1,3 +1,4 @@
+@use "@angular/material" as mat;
 @import "../../../../shared/styles/mixins";
 
 .login-form {
@@ -21,6 +22,7 @@
 .form {
   @include flex(column, unset, unset);
   width: 26.375rem;
+  height: 9.375rem;
   gap: 1.25rem;
 }
 
@@ -79,6 +81,17 @@
 .red {
   @include font(0.6rem, 400, 120%, #ff0000);
   padding-left: 0.5rem;
+}
+
+.spinner-container {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: rgb(0, 0, 0),
+    )
+  );
+  @include flex(row, center, center);
+  width: 26.375rem;
+  height: 9.375rem;
 }
 
 @media (max-height: 53.75rem) or (max-width: 79.9375rem) {

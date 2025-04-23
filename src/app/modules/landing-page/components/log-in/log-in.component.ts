@@ -14,6 +14,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import {
   browserLocalPersistence,
   browserSessionPersistence,
@@ -24,7 +25,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: "app-log-in",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
   templateUrl: "./log-in.component.html",
   styleUrl: "./log-in.component.scss",
 })
@@ -40,6 +41,8 @@ export class LogInComponent implements OnDestroy {
 
   wrongEmail = computed(() => this.authService.wrongEmail());
   wrongPassword = computed(() => this.authService.wrongPassword());
+
+  loadingUser = computed(() => this.authService.loadingUser());
 
   loginForm = new FormGroup({
     email: new FormControl<string>("", {

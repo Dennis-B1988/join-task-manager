@@ -4,55 +4,73 @@
     <img src="assets/img/blue-line.png" alt="blue underline" />
   </div>
 
-  <form class="form" (ngSubmit)="onSubmit()">
-    <div class="input-container">
-      <div class="input">
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          formControlName="email"
-        />
-        <img class="input-icon" src="assets/img/mail.png" alt="" />
-      </div>
-      @if (wrongEmail()) {
-        <span class="red">Wrong email</span>
-      }
+  @if (loadingUser()) {
+    <div class="spinner-container">
+      <mat-spinner diameter="48"></mat-spinner>
     </div>
-    <div class="input-container">
-      <div class="input">
-        <input
-          id="password"
-          [type]="showPassword ? 'text' : 'password'"
-          placeholder="Password"
-          name="password"
-          formControlName="password"
-          (focus)="toggleFocusPassword()"
-        />
-        <img
-          class="input-icon"
-          [src]="passwordImage"
-          alt=""
-          (mousedown)="togglePassword()"
-        />
+  } @else {
+    <form class="form" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+        <div class="input">
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            formControlName="email"
+          />
+          <img class="input-icon" src="assets/img/mail.png" alt="" />
+        </div>
+        @if (wrongEmail()) {
+          <span class="red">Wrong email</span>
+        }
       </div>
-      @if (wrongPassword()) {
-        <span class="red">Wrong password</span>
-      }
-    </div>
-  </form>
+      <div class="input-container">
+        <div class="input">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            name="password"
+            formControlName="password"
+            (focus)="toggleFocusPassword()"
+          />
+          <img
+            class="input-icon"
+            [src]="passwordImage"
+            alt=""
+            (mousedown)="togglePassword()"
+          />
+        </div>
+        @if (wrongPassword()) {
+          <span class="red">Wrong password</span>
+        }
+      </div>
 
-  <div class="remember-me" (click)="toggleRememberMe()">
-    <img
-      [src]="
-        rememberMe
-          ? 'assets/img/checkmark-normal-marked.png'
-          : 'assets/img/checkmark-normal-empty.png'
-      "
-      alt="remember me"
-    />
-    <span>Remember me</span>
-  </div>
+      <div class="remember-me" (click)="toggleRememberMe()">
+        <img
+          [src]="
+            rememberMe
+              ? 'assets/img/checkmark-normal-marked.png'
+              : 'assets/img/checkmark-normal-empty.png'
+          "
+          alt="remember me"
+        />
+        <span>Remember me</span>
+      </div>
+    </form>
+
+    <!-- <div class="remember-me" (click)="toggleRememberMe()">
+      <img
+        [src]="
+          rememberMe
+            ? 'assets/img/checkmark-normal-marked.png'
+            : 'assets/img/checkmark-normal-empty.png'
+        "
+        alt="remember me"
+      />
+      <span>Remember me</span>
+    </div> -->
+  }
 
   <div class="buttons">
     <button class="log-in-button" (click)="onSubmit()" [disabled]="isLoading">

@@ -54,12 +54,15 @@ export class AuthService {
 
   upgradeMenu = signal<boolean>(false);
 
+  loadingUser = signal<boolean>(false);
+
   constructor(
     private auth: Auth,
     private firestore: Firestore,
   ) {
     this.auth.onAuthStateChanged((user) => {
       if (!user) {
+        this.loadingUser.set(false);
         this.router.navigate(["/"]);
         this.user.set(null);
         this.userId.set("");
@@ -151,6 +154,7 @@ export class AuthService {
   async logIn(email: string, password: string): Promise<void> {
     this.wrongEmail.set(false);
     this.wrongPassword.set(false);
+    this.loadingUser.set(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         this.auth,
@@ -166,10 +170,13 @@ export class AuthService {
       if (error.code === "auth/missing-password") this.wrongPassword.set(true);
       if (error.code === "auth/invalid-credential")
         this.wrongPassword.set(true);
+    } finally {
+      this.loadingUser.set(false);
     }
   }
 
   async signInAsGuest(): Promise<void> {
+    this.loadingUser.set(true);
     try {
       const userCredential = await signInAnonymously(this.auth);
       const user = userCredential.user;
@@ -197,6 +204,8 @@ export class AuthService {
       await this.createDummyTasks(user.uid);
     } catch (error) {
       console.error("Error signing in anonymously:", error);
+    } finally {
+      this.loadingUser.set(false);
     }
   }
 
