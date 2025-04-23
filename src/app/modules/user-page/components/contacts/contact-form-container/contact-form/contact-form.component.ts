@@ -102,8 +102,6 @@ export class ContactFormComponent implements OnDestroy {
   }
 
   cancelDeleteContact() {
-    if (!this.showContact()) return;
-
     if (this.contactsService.editContact()) {
       this.contactsService.deleteContact(this.showContact()?.id!);
       this.contactsService.editContact.set(false);

@@ -50,7 +50,7 @@
   gap: 1.5rem;
 }
 
-.cancel {
+.clear {
   @include font(1.25rem, 400, 120%, #2a3647);
   background-color: #fff;
 
@@ -62,7 +62,7 @@
 }
 
 @media (max-width: 1300px) {
-  .cancel {
+  .clear {
     font-size: 1rem;
   }
 
@@ -85,7 +85,7 @@
     @include flex(row, center, center);
   }
 
-  .cancel {
+  .clear {
     display: none;
   }
 }

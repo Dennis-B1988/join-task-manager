@@ -6,7 +6,7 @@ export interface ContactFormTexts {
   name: string;
   email: string;
   phone: string;
-  cancelButton: string;
+  clearButton: string;
   saveButton: string;
 }
 
@@ -27,7 +27,7 @@ export class ContactFormContainerComponent {
     name: "",
     email: "",
     phone: "+49",
-    cancelButton: "Cancel",
+    clearButton: "Clear",
     saveButton: "Add contact",
   };
 
@@ -35,7 +35,7 @@ export class ContactFormContainerComponent {
     name: this.showContact()?.displayName || "",
     email: this.showContact()?.email || "",
     phone: this.showContact()?.phone || "",
-    cancelButton: "Delete",
+    clearButton: "Delete",
     saveButton: "Save",
   };
 

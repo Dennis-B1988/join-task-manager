@@ -17,16 +17,16 @@
   <div class="buttons">
     <button
       appButton
-      class="cancel"
+      class="clear"
       (click)="cancelDeleteContact()"
       (mouseover)="clearButtonHover = true"
       (mouseleave)="clearButtonHover = false"
     >
-      {{ contact().cancelButton }}
+      {{ contact().clearButton }}
       <span ngProjectAs="[icon]">
         <img
           src="assets/img/cancel.png"
-          alt="Cancel and Close"
+          alt="Clear Form"
           [src]="
             clearButtonHover
               ? 'assets/img/cancel-blue.png'
