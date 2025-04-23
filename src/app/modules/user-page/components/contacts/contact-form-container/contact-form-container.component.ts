@@ -39,6 +39,11 @@ export class ContactFormContainerComponent {
     saveButton: "Save",
   };
 
+  closeForm() {
+    this.contactsService.addContact.set(false);
+    this.contactsService.editContact.set(false);
+  }
+
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
   }

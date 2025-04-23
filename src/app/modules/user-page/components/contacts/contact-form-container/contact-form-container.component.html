@@ -4,8 +4,19 @@
       <article class="title">
         <img src="assets/img/logo-white.png" alt="Logo" />
         <h2>{{ addContact() ? "Add" : "Edit" }} Contact</h2>
+        @if (addContact()) {
+          <p>Tasks are better with a team!</p>
+        }
         <div class="blue-line" aria-hidden="true"></div>
       </article>
+
+      <div class="close-mobile">
+        <img
+          src="assets/img/mobile/cancel.png"
+          alt="Close Form on Mobile"
+          (click)="closeForm()"
+        />
+      </div>
     </div>
 
     <div class="form-middle">
@@ -31,6 +42,14 @@
       } @else if (editContact()) {
         <app-contact-form [contact]="editExistingContact"></app-contact-form>
       }
+
+      <div class="close">
+        <img
+          src="assets/img/cancel.png"
+          alt="Close Form"
+          (click)="closeForm()"
+        />
+      </div>
     </div>
   </div>
 </section>

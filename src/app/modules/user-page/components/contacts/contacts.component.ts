@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, OnDestroy } from "@angular/core";
 import { ContactsService } from "../../services/contacts/contacts.service";
 import { ContactFormContainerComponent } from "./contact-form-container/contact-form-container.component";
 import { ContactsContainerComponent } from "./contacts-container/contacts-container.component";
@@ -14,7 +14,7 @@ import { ContactsInformationComponent } from "./contacts-information/contacts-in
   templateUrl: "./contacts.component.html",
   styleUrl: "./contacts.component.scss",
 })
-export class ContactsComponent {
+export class ContactsComponent implements OnDestroy {
   private contactsService = inject(ContactsService);
   windowWidth = computed(() => window.innerWidth);
 
@@ -25,4 +25,10 @@ export class ContactsComponent {
   contactCreatedOrUpdated = computed(() =>
     this.contactsService.contactCreatedOrUpdated(),
   );
+
+  ngOnDestroy(): void {
+    this.contactsService.addContact.set(false);
+    this.contactsService.editContact.set(false);
+    this.contactsService.showContact.set(null);
+  }
 }

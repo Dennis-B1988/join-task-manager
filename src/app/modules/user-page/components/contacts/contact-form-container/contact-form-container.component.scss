@@ -1,5 +1,9 @@
 @import "../../../../../shared/styles/mixins";
 
+:host {
+  height: 100%;
+}
+
 .contact-form-container {
   @include flex(column, center, center);
   position: absolute;
@@ -8,6 +12,8 @@
   bottom: 0;
   right: 0;
   z-index: 50;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .contact-form-container::before {
@@ -29,7 +35,9 @@
 .form {
   @include flex(row, space-between, center);
   width: 95%;
-  height: 592px;
+  height: 37rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 1.875rem;
 }
 
 .form-left-side {
@@ -46,6 +54,10 @@
 
   h2 {
     @include font(3.8125rem, 700, 120%, #fff);
+  }
+
+  p {
+    @include font(1.25rem, 400, 120%, #fff);
   }
 }
 
@@ -93,10 +105,96 @@
   border-bottom-right-radius: 1.875rem;
 }
 
+.close {
+  @include flex(row, flex-end, center);
+
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  z-index: 1000;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+}
+
+.close-mobile {
+  display: none;
+}
+
 @media (max-width: 1300px) {
   .form-left-side {
     h2 {
       @include font(3rem, 700, 120%, #fff);
+    }
+  }
+}
+
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .form {
+    @include flex(column, unset, unset);
+    width: 95%;
+    height: 90%;
+    position: relative;
+    overflow-y: scroll;
+  }
+
+  .form-left-side {
+    @include flex(column, center, flex-start);
+    @include padding(4.125rem, 1.5rem, 4.125rem, 1.5rem);
+    border-top-left-radius: 1.875rem;
+    border-top-right-radius: 1.875rem;
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+    height: 45%;
+    min-height: 21.375rem;
+
+    img {
+      display: none;
+    }
+  }
+
+  .form-right-side {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1.875rem;
+    border-bottom-right-radius: 1.875rem;
+    height: 55%;
+    min-height: 418px;
+  }
+
+  .form-middle {
+    @include padding(0, 0, 0, 0);
+    height: unset;
+    background-color: unset;
+    position: absolute;
+    top: clamp(21.375rem, 45%, 9999px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .title {
+    height: 21.375rem;
+  }
+
+  .close {
+    display: none;
+  }
+
+  .close-mobile {
+    @include flex(row, flex-end, center);
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+
+    img {
+      display: block;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
     }
   }
 }

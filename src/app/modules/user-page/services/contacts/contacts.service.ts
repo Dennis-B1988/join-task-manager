@@ -31,7 +31,7 @@ export class ContactsService {
   contacts = signal<Contact[]>([]);
   assignedToTask = signal<any[]>([]);
   showContact = signal<Contact | null>(null);
-  addContact = signal<boolean>(false);
+  addContact = signal<boolean>(true);
   editContact = signal<boolean>(false);
   contactCreatedOrUpdated = signal<string>("");
   // showDeleteContact = signal<boolean>(false);

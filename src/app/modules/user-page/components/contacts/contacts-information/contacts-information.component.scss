@@ -16,7 +16,6 @@
 .contact-header {
   @include flex(row, space-between, center);
   gap: 1.875rem;
-  width: 100%;
 
   h1 {
     @include font(3.8125rem, 700, 120%, #000);
@@ -29,7 +28,6 @@
 
 .title {
   @include flex(row, space-between, center);
-  width: 100%;
 }
 
 .close-contact-information {
@@ -50,6 +48,7 @@
   .contact-header {
     @include flex(column, flex-start, flex-start);
     gap: 1rem;
+    width: 100%;
 
     h1 {
       @include font(2.9375rem, 700, 120%, #000);
@@ -58,6 +57,10 @@
     p {
       @include font(1.25rem, 400, 120%, #2a3647);
     }
+  }
+
+  .title {
+    width: 100%;
   }
 
   .blue-line {
