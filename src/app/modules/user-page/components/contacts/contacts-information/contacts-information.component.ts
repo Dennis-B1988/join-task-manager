@@ -12,4 +12,8 @@ export class ContactsInformationComponent {
   private contactsService = inject(ContactsService);
 
   showContact = computed(() => this.contactsService.showContact());
+
+  closeContact() {
+    this.contactsService.showContact.set(null);
+  }
 }

@@ -22,7 +22,7 @@ header {
   grid-area: header;
   box-shadow: 0px 0.25rem 0.25rem 0px #0000001a;
   position: relative;
-  z-index: 10;
+  z-index: 999;
 }
 
 aside {
