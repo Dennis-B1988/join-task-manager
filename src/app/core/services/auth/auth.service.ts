@@ -58,33 +58,43 @@ export class AuthService {
     private auth: Auth,
     private firestore: Firestore,
   ) {
-    this.auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        await this.setUser(user);
-
-        if (this.router.url === "/") {
-          this.router.navigate(["/summary"]);
-        }
-      } else {
+    this.auth.onAuthStateChanged((user) => {
+      if (!user) {
         this.router.navigate(["/"]);
         this.user.set(null);
         this.userId.set("");
+        return;
       }
+
+      this.setUser(user).then(() => {
+        if (this.router.url === "/") {
+          this.router.navigate(["/summary"]);
+        }
+      });
     });
   }
 
   private async setUser(user: User): Promise<void> {
     await user.reload();
 
-    const userDocRef = doc(this.firestore, "users", user.uid);
-
     runInInjectionContext(this.injector, async () => {
-      const userDocSnap = await getDoc(userDocRef);
+      const [userDocSnap, tasksSnapshot, contactsSnapshot] = await Promise.all([
+        getDoc(doc(this.firestore, "users", user.uid)),
+        getDocs(collection(this.firestore, `users/${user.uid}/tasks`)),
+        getDocs(collection(this.firestore, `users/${user.uid}/contacts`)),
+      ]);
 
       const userData = userDocSnap.exists() ? userDocSnap.data() : {};
 
-      const tasks = await this.fetchTasks(user.uid);
-      const contacts = await this.fetchContacts(user.uid);
+      const tasks = tasksSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      const contacts = contactsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
       const customUser = new CustomUser(user, { ...userData, tasks, contacts });
       this.user.set(customUser);
@@ -265,29 +275,29 @@ export class AuthService {
     });
   }
 
-  private async fetchTasks(userId: string): Promise<any[]> {
-    const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
+  // private async fetchTasks(userId: string): Promise<any[]> {
+  //   const tasksCollection = collection(this.firestore, `users/${userId}/tasks`);
 
-    return runInInjectionContext(this.injector, async () => {
-      const tasksSnapshot = await getDocs(tasksCollection);
-      return tasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    });
-  }
+  //   return runInInjectionContext(this.injector, async () => {
+  //     const tasksSnapshot = await getDocs(tasksCollection);
+  //     return tasksSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  //   });
+  // }
 
-  private async fetchContacts(userId: string): Promise<any[]> {
-    const contactsCollection = collection(
-      this.firestore,
-      `users/${userId}/contacts`,
-    );
-    return runInInjectionContext(this.injector, async () => {
-      const contactsSnapshot = await getDocs(contactsCollection);
+  // private async fetchContacts(userId: string): Promise<any[]> {
+  //   const contactsCollection = collection(
+  //     this.firestore,
+  //     `users/${userId}/contacts`,
+  //   );
+  //   return runInInjectionContext(this.injector, async () => {
+  //     const contactsSnapshot = await getDocs(contactsCollection);
 
-      return contactsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-    });
-  }
+  //     return contactsSnapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //   });
+  // }
 
   private async createDummyContacts(userId: string): Promise<void> {
     const contacts = [

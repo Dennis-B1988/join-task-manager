@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { UserDataResolver } from "../../core/user-data-resolver.class";
 import { SummaryComponent } from "./components/summary/summary.component";
 
 export const routes: Routes = [
@@ -8,6 +9,7 @@ export const routes: Routes = [
       {
         path: "summary",
         component: SummaryComponent,
+        resolve: { user: UserDataResolver },
       },
       {
         path: "add-tasks",
