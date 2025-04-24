@@ -9,12 +9,12 @@
   margin-bottom: 0.5rem;
   background-color: white;
   border-radius: 1.5rem;
-  flex-shrink: 0; // Prevent task cards from shrinking
+  flex-shrink: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 
   &:last-child {
-    margin-bottom: 0.25rem; // Less margin on last item
+    margin-bottom: 0.25rem;
   }
 }
 
@@ -47,7 +47,6 @@
 .progress-bar {
   background-color: #f4f4f4;
   width: 60%;
-  // height: 0.5rem;
   border-radius: 0.5rem;
 }
 
@@ -72,6 +71,8 @@
 
 @media (max-width: 62.5rem) {
   .task {
-    width: 252px;
+    width: 15.75rem;
+    scroll-snap-align: start;
+    flex-shrink: 0;
   }
 }

@@ -58,9 +58,9 @@ export class BoardComponent implements AfterViewInit {
     this.tasksService.toggleAddTaskAndSetStatus(status);
   }
 
-  closeDeleteModal() {
-    this.tasksService.showDeleteTask.set(false);
-  }
+  // closeDeleteModal() {
+  //   this.tasksService.showDeleteTask.set(false);
+  // }
 
   closeForm() {
     this.tasksService.editTask.set(false);

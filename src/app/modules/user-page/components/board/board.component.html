@@ -1,6 +1,17 @@
 <main class="board">
   <header class="board-header">
-    <h1>Board</h1>
+    <div class="header-mobile">
+      <h1>Board</h1>
+      <button
+        class="add-task-mobile"
+        appButton
+        (click)="toggleAddTaskAndSetStatus('To Do')"
+      >
+        <span ngProjectAs="[icon]"
+          ><img src="assets/img/add.png" alt="Add Task"
+        /></span>
+      </button>
+    </div>
     <div class="search-and-create">
       <div class="search-container">
         <input
@@ -11,13 +22,17 @@
         />
         <div class="search-image" aria-hidden="true">
           <span class="line"></span>
-          <img src="assets/img/search.png" alt="Search Button" />
+          <img src="assets/img/search.png" alt="Search" />
         </div>
       </div>
-      <button appButton (click)="toggleAddTaskAndSetStatus('To Do')">
+      <button
+        class="add-task"
+        appButton
+        (click)="toggleAddTaskAndSetStatus('To Do')"
+      >
         Add task
         <span ngProjectAs="[icon]"
-          ><img src="assets/img/add.png" alt="checkmark"
+          ><img src="assets/img/add.png" alt="Add Task"
         /></span>
       </button>
     </div>
@@ -58,7 +73,7 @@
     </div>
   }
 
-  @if (showDeleteTask()) {
+  <!-- @if (showDeleteTask()) {
     <div class="delete-task">
       <h4>Are you sure you want to delete this contact?</h4>
       <div class="buttons">
@@ -70,5 +85,5 @@
         </button>
       </div>
     </div>
-  }
+  } -->
 </main>

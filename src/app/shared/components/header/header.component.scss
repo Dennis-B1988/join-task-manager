@@ -27,6 +27,7 @@
 
 @media (max-width: 79.9375rem) {
   .header {
+    @include padding(1.25rem, 1.5rem, 1.25rem, 1.5rem);
     img {
       display: block;
     }

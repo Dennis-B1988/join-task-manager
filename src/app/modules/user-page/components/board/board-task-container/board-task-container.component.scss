@@ -2,7 +2,6 @@
 
 :host {
   @include flex(column, unset, unset);
-  height: 100%;
   width: 252px;
   min-height: 0;
   overflow: hidden;
@@ -59,32 +58,38 @@
 
 @media (max-width: 62.5rem) {
   :host {
-    @include flex(column, unset, unset);
-    height: 100%;
     width: 100%;
-    min-height: 0;
-    overflow: hidden;
+    min-height: min-content;
+    flex-shrink: 0;
   }
 
   .task-container {
     width: 100%;
+    height: auto;
+    flex-shrink: 0;
   }
 
   .task-header {
     width: 100%;
+    padding: 0 1rem;
+    flex-shrink: 0;
   }
 
   .task-list {
-    @include flex(row, flex-start, unset);
+    display: flex;
+    flex-direction: row;
     gap: 1rem;
-    flex: 1;
-    // min-height: 0;
-    min-width: 0;
-    overflow-y: hidden;
+    padding: 1rem;
     overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+    scroll-snap-type: x mandatory;
   }
 
   .no-task {
     width: 100%;
+    min-width: 250px;
   }
 }
