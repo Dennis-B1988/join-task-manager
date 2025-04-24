@@ -61,9 +61,29 @@
   }
 }
 
-@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+@media (max-width: 79.9375rem) {
   .summary-main {
     @include flex(column, flex-start, center);
+  }
+
+  .headline {
+    @include flex(column, center, flex-start);
+    gap: 0.5rem;
+  }
+}
+
+@media (max-height: 53.75rem) {
+  .summary-main {
+    @include flex(column, center, center);
+  }
+
+  .headline {
+    display: none;
+  }
+}
+
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
+  .summary-main {
     @include padding(1rem, 0, 1rem, 0);
     overflow-y: auto;
   }
@@ -75,11 +95,6 @@
 
   .summary-dashboard {
     gap: 1.875rem;
-  }
-
-  .headline {
-    @include flex(column, center, flex-start);
-    gap: 0.5rem;
   }
 
   .title {
