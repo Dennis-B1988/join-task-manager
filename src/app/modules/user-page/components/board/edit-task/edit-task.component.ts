@@ -1,4 +1,10 @@
-import { Component, computed, inject, OnDestroy } from "@angular/core";
+import {
+  Component,
+  computed,
+  HostListener,
+  inject,
+  OnDestroy,
+} from "@angular/core";
 import { Subtask, Task } from "../../../../../core/models/task.model";
 import { AuthService } from "../../../../../core/services/auth/auth.service";
 import { ContactsService } from "../../../services/contacts/contacts.service";
@@ -20,6 +26,8 @@ export class EditTaskComponent implements OnDestroy {
   user = computed(() => this.authService.user());
 
   selectedTask = computed(() => this.tasksService.selectedTask());
+  addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
+  editTask = computed(() => this.tasksService.editTask());
 
   sortedAssignedTo = computed(() => {
     const currentUser = this.user();
@@ -91,10 +99,6 @@ export class EditTaskComponent implements OnDestroy {
     this.tasksService.selectedTask.set(null);
   }
 
-  // openDeleteModal() {
-  //   this.tasksService.showDeleteTask.set(true);
-  // }
-
   deleteTask(task: Task) {
     this.tasksService.deleteTask(task.id!);
   }
@@ -116,5 +120,15 @@ export class EditTaskComponent implements OnDestroy {
     this.tasksService.selectedTask.set(null);
     this.contactsService.assignedToTask.set([]);
     this.subtasksService.clearSubtasks();
+  }
+
+  @HostListener("document:click", ["$event"])
+  closeMenu(event: Event) {
+    if (this.editTask() && !this.addTaskToBoard()) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest(".edit-task")) {
+        this.tasksService.editTask.set(false);
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  HostListener,
   inject,
   OnDestroy,
   ViewChild,
@@ -23,6 +24,7 @@ export class AddTaskFromBoardComponent implements OnDestroy {
 
   selectedTask = computed(() => this.tasksService.selectedTask());
   editTask = computed(() => this.tasksService.editTask());
+  addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
 
   addTask() {
     if (this.taskFormComponent) {
@@ -50,5 +52,15 @@ export class AddTaskFromBoardComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.tasksService.addTaskToBoard.set(false);
+  }
+
+  @HostListener("document:click", ["$event"])
+  closeMenu(event: Event) {
+    if (this.addTaskToBoard()) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest(".add-task-container")) {
+        this.tasksService.addTaskToBoard.set(false);
+      }
+    }
   }
 }

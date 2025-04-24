@@ -75,10 +75,21 @@
   }
 }
 
-@media (max-height: 860px) {
+@media (max-height: 53.75rem) or (max-width: 79.9375rem) {
   .add-task-container {
-    width: 1005;
+    width: 90%;
     height: 100%;
     transform: scale(0.9);
+    overflow-y: auto;
+    gap: 3rem;
+  }
+
+  .required-text {
+    display: none;
+  }
+
+  .buttons {
+    @include flex(row, center, center);
+    width: 100%;
   }
 }

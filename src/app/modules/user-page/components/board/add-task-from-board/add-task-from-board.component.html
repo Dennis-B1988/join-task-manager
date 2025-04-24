@@ -7,7 +7,11 @@
         Update Task
       }
     </h2>
-    <img src="assets/img/cancel.png" alt="Close Button" (click)="closeForm()" />
+    <img
+      src="assets/img/cancel.png"
+      alt="Close Button"
+      (click)="closeForm(); $event.stopPropagation()"
+    />
   </header>
   <app-task-form (submit)="addTask()"></app-task-form>
   <footer class="task-footer">
