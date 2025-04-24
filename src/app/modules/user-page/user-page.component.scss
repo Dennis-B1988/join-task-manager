@@ -38,11 +38,9 @@ aside {
 
 main {
   grid-area: main;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
   height: 100%;
   min-height: 0;
+  overflow: hidden;
 }
 
 .upgrade-menu {
@@ -93,11 +91,5 @@ main {
     position: fixed;
     bottom: 0;
     z-index: 10;
-  }
-
-  main {
-    overflow: hidden;
-    height: 100%;
-    min-height: 0;
   }
 }

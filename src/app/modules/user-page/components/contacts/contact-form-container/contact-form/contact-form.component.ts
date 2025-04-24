@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   effect,
+  HostListener,
   inject,
   input,
   OnDestroy,
@@ -29,6 +30,8 @@ export class ContactFormComponent implements OnDestroy {
   hasInitialized: boolean = false;
 
   showContact = computed(() => this.contactsService.showContact());
+  addContact = computed(() => this.contactsService.addContact());
+  editContact = computed(() => this.contactsService.editContact());
   contactCreatedOrUpdated = computed(() =>
     this.contactsService.contactCreatedOrUpdated(),
   );
@@ -120,5 +123,16 @@ export class ContactFormComponent implements OnDestroy {
     this.contactsService.addContact.set(false);
     this.contactsService.editContact.set(false);
     this.contactsService.showContact.set(null);
+  }
+
+  @HostListener("document:click", ["$event"])
+  closeMenu(event: Event) {
+    if (this.editContact() || this.addContact()) {
+      const targetElement = event.target as HTMLElement;
+      if (!targetElement.closest(".form-content")) {
+        this.contactsService.addContact.set(false);
+        this.contactsService.editContact.set(false);
+      }
+    }
   }
 }
