@@ -10,6 +10,7 @@
   @include flex(column, flex-start, flex-start);
   @include padding(3rem, 2.5rem, 3rem, 2.5rem);
   width: 32.8125rem;
+  max-width: 90%;
   max-height: 95%;
   overflow-y: auto;
   border-radius: 1.875rem;
@@ -103,7 +104,7 @@
 }
 
 .subtasks {
-  @include flex(column, center, flex-start);
+  @include flex(column, flex-start, flex-start);
   max-height: 9.375rem;
   overflow: auto;
 }

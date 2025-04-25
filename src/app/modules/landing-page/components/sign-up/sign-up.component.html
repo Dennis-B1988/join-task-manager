@@ -4,98 +4,104 @@
     <img src="assets/img/blue-line.png" alt="blue underline" />
   </div>
 
-  <form class="form" name="signupForm" (ngSubmit)="onSubmit()">
-    <div class="input-container">
-      <div class="input">
-        <input
-          type="text"
-          placeholder="Name"
-          name="displayName"
-          formControlName="displayName"
-          [style]="
-            formValid.displayName.invalid && formValid.displayName.touched
-              ? 'border-color: var(--color-pink)'
-              : ''
-          "
-        />
-        <img
-          class="input-icon"
-          src="assets/img/person.png"
-          alt="display name"
-        />
-      </div>
+  @if (loadingUser()) {
+    <div class="spinner-container">
+      <mat-spinner diameter="48"></mat-spinner>
     </div>
-    <div class="input-container">
-      <div class="input">
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          formControlName="email"
-          [style]="
-            formValid.email.invalid && formValid.email.touched
-              ? 'border-color: var(--color-pink)'
-              : ''
-          "
-        />
-        <img class="input-icon" src="assets/img/mail.png" alt="email" />
+  } @else {
+    <form class="form" name="signupForm" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+        <div class="input">
+          <input
+            type="text"
+            placeholder="Name"
+            name="displayName"
+            formControlName="displayName"
+            [style]="
+              formValid.displayName.invalid && formValid.displayName.touched
+                ? 'border-color: var(--color-pink)'
+                : ''
+            "
+          />
+          <img
+            class="input-icon"
+            src="assets/img/person.png"
+            alt="display name"
+          />
+        </div>
       </div>
-      @if (emailUnavailable()) {
-        <span class="red">This email is already in use</span>
-      }
-    </div>
-    <div class="input-container">
-      <div class="input" formGroupName="passwords">
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          placeholder="Password"
-          name="password"
-          formControlName="password"
-          (focus)="toggleFocusPassword()"
-          [style]="
-            formValid.passwords.get('password')?.invalid &&
-            formValid.passwords.get('password')?.touched
-              ? 'border-color: var(--color-pink)'
-              : ''
-          "
-        />
-        <img
-          class="input-icon"
-          [src]="passwordImage"
-          alt="password"
-          (click)="togglePassword()"
-        />
+      <div class="input-container">
+        <div class="input">
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            formControlName="email"
+            [style]="
+              formValid.email.invalid && formValid.email.touched
+                ? 'border-color: var(--color-pink)'
+                : ''
+            "
+          />
+          <img class="input-icon" src="assets/img/mail.png" alt="email" />
+        </div>
+        @if (emailUnavailable()) {
+          <span class="red">This email is already in use</span>
+        }
       </div>
-      @if (
-        formValid.passwords.get("password")?.invalid &&
-        formValid.passwords.get("password")?.touched
-      ) {
-        <span class="red">Password must contain at least 6 characters</span>
-      }
-    </div>
-    <div class="input-container">
-      <div class="input" formGroupName="passwords">
-        <input
-          [type]="showConfirmPassword ? 'text' : 'password'"
-          placeholder="Confirm Password"
-          name="confirmPassword"
-          formControlName="confirmPassword"
-          (focus)="toggleFocusConfirmPassword()"
-          [style]="
-            formValid.passwords.invalid && formValid.passwords.touched
-              ? 'border-color: var(--color-pink)'
-              : ''
-          "
-        />
-        <img
-          class="input-icon"
-          [src]="confirmPasswordImage"
-          alt="confirm password"
-          (click)="toggleConfirmPassword()"
-        />
+      <div class="input-container">
+        <div class="input" formGroupName="passwords">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            name="password"
+            formControlName="password"
+            (focus)="toggleFocusPassword()"
+            [style]="
+              formValid.passwords.get('password')?.invalid &&
+              formValid.passwords.get('password')?.touched
+                ? 'border-color: var(--color-pink)'
+                : ''
+            "
+          />
+          <img
+            class="input-icon"
+            [src]="passwordImage"
+            alt="password"
+            (click)="togglePassword()"
+          />
+        </div>
+        @if (
+          formValid.passwords.get("password")?.invalid &&
+          formValid.passwords.get("password")?.touched
+        ) {
+          <span class="red">Password must contain at least 6 characters</span>
+        }
       </div>
-    </div>
-  </form>
+      <div class="input-container">
+        <div class="input" formGroupName="passwords">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+            (focus)="toggleFocusConfirmPassword()"
+            [style]="
+              formValid.passwords.invalid && formValid.passwords.touched
+                ? 'border-color: var(--color-pink)'
+                : ''
+            "
+          />
+          <img
+            class="input-icon"
+            [src]="confirmPasswordImage"
+            alt="confirm password"
+            (click)="toggleConfirmPassword()"
+          />
+        </div>
+      </div>
+    </form>
+  }
 
   <div class="policy-checkbox">
     @if (policy) {
@@ -117,7 +123,11 @@
   <div class="buttons">
     <button
       (click)="upgradeMenu() ? upgradeToFullUser() : onSubmit()"
-      [disabled]="isLoading"
+      [style]="{
+        cursor: !policy ? 'not-allowed' : '',
+        'background-color': !policy ? 'var(--color-blue-ebony)' : '',
+      }"
+      [disabled]="isLoading || !policy"
     >
       Sign up
     </button>

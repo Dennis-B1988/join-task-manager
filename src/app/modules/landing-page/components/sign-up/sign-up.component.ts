@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LandingPageService } from "../../services/landing-page/landing-page.service";
 
@@ -32,7 +33,7 @@ function passwordMatchValidator(
 
 @Component({
   selector: "app-sign-up",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
   templateUrl: "./sign-up.component.html",
   styleUrl: "./sign-up.component.scss",
 })
@@ -51,6 +52,8 @@ export class SignUpComponent implements OnDestroy {
 
   emailUnavailable = computed(() => this.authService.emailUnavailable());
   weakPassword = computed(() => this.authService.weakPassword());
+
+  loadingUser = computed(() => this.authService.loadingUser());
 
   signupForm = new FormGroup({
     displayName: new FormControl<string>("", {

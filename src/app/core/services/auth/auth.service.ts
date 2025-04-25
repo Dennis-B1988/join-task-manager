@@ -140,6 +140,8 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<void> {
+    this.loadingUser.set(true);
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         this.auth,
@@ -170,6 +172,8 @@ export class AuthService {
       if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
       if (error.code === "auth/missing-password") this.wrongPassword.set(true);
       if (error.code === "auth/weak-password") this.wrongPassword.set(true);
+    } finally {
+      this.loadingUser.set(false);
     }
   }
 
