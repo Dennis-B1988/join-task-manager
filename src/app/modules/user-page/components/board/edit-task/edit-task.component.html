@@ -3,7 +3,9 @@
     <span
       class="category-text"
       [style.backgroundColor]="
-        selectedTask()?.category === 'User Story' ? '#0038FF' : '#1FD7C1'
+        selectedTask()?.category === 'User Story'
+          ? 'var(--color-blue-300)'
+          : 'var(--color-green-lime)'
       "
       >{{ selectedTask()?.category }}</span
     >
@@ -23,7 +25,7 @@
     </p>
   </div>
   <div class="assigned-to-container">
-    <span>Assigned to:</span>
+    <span class="assigned-to-title">Assigned to:</span>
     <div class="assigned-contacts">
       @for (assigned of sortedAssignedTo(); track $index) {
         <div class="assigned">
@@ -44,7 +46,7 @@
     </div>
   </div>
   <div class="subtasks-container">
-    <span>Subtasks</span>
+    <span class="subtasks-title">Subtasks</span>
     <div class="subtasks">
       @for (subtask of sortedSubtasks(); track subtask.id) {
         <div class="subtask">

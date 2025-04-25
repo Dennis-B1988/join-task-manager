@@ -25,14 +25,14 @@
   position: relative;
 
   input {
-    @include font(1.25rem, 400, 120%, #000);
+    @include font(1.25rem, 400, 120%, var(--color-black));
     @include padding(0.8125rem, 3rem, 0.8125rem, 1.3125rem);
-    @include border(0.0625rem, solid, #d1d1d1);
+    @include border(0.0625rem, solid, var(--color-gray-500));
     width: 100%;
     border-radius: 0.625rem;
 
     &::placeholder {
-      color: #d1d1d1;
+      color: var(--color-gray-500);
     }
   }
 
@@ -51,13 +51,13 @@
 }
 
 .clear {
-  @include font(1.25rem, 400, 120%, #2a3647);
-  background-color: #fff;
+  @include font(1.25rem, 400, 120%, var(--color-blue-ebony));
+  background-color: var(--color-white);
 
   &:hover {
-    @include border(0.0625rem, solid, #29abe2);
-    color: #29abe2;
-    background-color: #fff;
+    @include border(0.0625rem, solid, var(--color-blue-100));
+    color: var(--color-blue-100);
+    background-color: var(--color-white);
   }
 }
 

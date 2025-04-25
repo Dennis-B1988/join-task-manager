@@ -1,5 +1,5 @@
 p {
-  @include font(0.75rem, 400, 0.9rem, #ff8190);
+  @include font(0.75rem, 400, 0.9rem, var(--color-pink));
 
   &.visible {
     visibility: visible;
@@ -38,14 +38,14 @@ p {
   input,
   textarea {
     @include font(1.25rem, 400, 1.5rem);
-    @include border(0.0625rem, solid, #d1d1d1);
+    @include border(0.0625rem, solid, var(--color-gray-500));
     @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
     width: 100%;
     border-radius: 0.625rem;
-    background-color: #fff;
+    background-color: var(--color-white);
 
     &::placeholder {
-      color: #d1d1d1;
+      color: var(--color-gray-500);
     }
 
     &:focus {
@@ -81,8 +81,8 @@ p {
   width: 100%;
   max-height: 12.5rem;
   overflow-y: auto;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 0.625rem;
   z-index: 5;
-  box-shadow: 0px 0px 14px 3px #0000000a;
+  box-shadow: 0px 0px 14px 3px var(--color-black) 0000a;
 }

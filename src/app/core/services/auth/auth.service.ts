@@ -170,6 +170,11 @@ export class AuthService {
       if (error.code === "auth/missing-password") this.wrongPassword.set(true);
       if (error.code === "auth/invalid-credential")
         this.wrongPassword.set(true);
+
+      setTimeout(() => {
+        this.wrongEmail.set(false);
+        this.wrongPassword.set(false);
+      }, 2000);
     } finally {
       this.loadingUser.set(false);
     }

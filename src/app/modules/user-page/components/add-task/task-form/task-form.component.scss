@@ -23,7 +23,7 @@
 }
 
 .task-form-middle-line {
-  @include border(0.0625rem, solid, #d1d1d1);
+  @include border(0.0625rem, solid, var(--color-gray-500));
   height: 100%;
 }
 

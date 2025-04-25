@@ -23,7 +23,9 @@
       <div
         class="image"
         [style.background-color]="
-          addContact() ? '#d2d2d2' : getContactColor(showContact()!.displayName)
+          addContact()
+            ? 'var(--color-gray-500)'
+            : getContactColor(showContact()!.displayName)
         "
       >
         @if (addContact()) {

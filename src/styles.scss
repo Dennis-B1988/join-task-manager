@@ -7,11 +7,34 @@
   padding: 0;
 }
 
+:root {
+  --color-black: #000;
+  --color-white: #fff;
+  --color-blue-ebony: #2a3647;
+  --color-blue-black: #091931;
+  --color-gray-100: #f6f7f8;
+  --color-gray-500: #d1d1d1;
+  --color-blue-400: #42526e;
+  --color-gray-700: #a8a8a8;
+  --color-gray-600: #cdcdcd;
+  --color-red: #ff0000;
+  --color-blue-100: #29abe2;
+  --color-blue-200: #007cee;
+  --color-blue-300: #0038ff;
+  --color-green-lime: #1fd7c1;
+  --color-pink: #ff8190;
+  --color-orange-dark: #ff3d00;
+  --color-orange: #ffa800;
+  --color-green: #7ae229;
+  --color-gray-200: #f5f5f5;
+  --color-gray-300: #f0f0f0;
+  --color-gray-400: #e7e7e7;
+}
+
 html {
+  @include flex(row, center, unset);
   font-family: "Inter", sans-serif;
-  display: flex;
-  justify-content: center;
-  background-color: #f6f7f8;
+  background-color: var(--color-gray-100);
 }
 
 body {
@@ -19,19 +42,19 @@ body {
   max-width: 90rem;
   min-height: 100dvh;
   height: 100vh;
-  color: #2a3647;
+  color: var(--color-blue-ebony);
 }
 
 button {
   @include flex(row, center, center);
-  @include border(0.0625rem, solid, #2a3647);
-  @include font(1.3125rem, 700, 1.575rem, #fff);
+  @include border(0.0625rem, solid, var(--color-blue-ebony));
+  @include font(1.3125rem, 700, 1.575rem, var(--color-white));
   @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   border-radius: 0.625rem;
-  background-color: #2a3647;
+  background-color: var(--color-blue-ebony);
   cursor: pointer;
 }
 
 .red {
-  color: red;
+  color: var(--color-red);
 }

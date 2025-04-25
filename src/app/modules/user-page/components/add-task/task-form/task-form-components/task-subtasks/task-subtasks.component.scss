@@ -19,7 +19,7 @@
 
 .subtask-text {
   @include flex(row, space-between, center);
-  @include font(1rem, 400, 120%, #000);
+  @include font(1rem, 400, 120%, var(--color-black));
   @include padding(0, 0.5rem, 0, 0);
   width: 100%;
 

@@ -45,13 +45,13 @@ footer {
 }
 
 .clear {
-  @include font(1.25rem, 400, 1.5rem, #2a3647);
-  background-color: #fff;
+  @include font(1.25rem, 400, 1.5rem, var(--color-blue-ebony));
+  background-color: var(--color-white);
 
   &:hover {
-    @include border(0.0625rem, solid, #29abe2);
-    color: #29abe2;
-    background-color: #fff;
+    @include border(0.0625rem, solid, var(--color-blue-100));
+    color: var(--color-blue-100);
+    background-color: var(--color-white);
   }
 
   span {

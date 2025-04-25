@@ -18,11 +18,11 @@
   gap: 1.875rem;
 
   h1 {
-    @include font(3.8125rem, 700, 120%, #000);
+    @include font(3.8125rem, 700, 120%, var(--color-black));
   }
 
   p {
-    @include font(1.6875rem, 400, 120%, #2a3647);
+    @include font(1.6875rem, 400, 120%, var(--color-blue-ebony));
   }
 }
 
@@ -37,7 +37,7 @@
 .blue-line {
   width: 0.1875rem;
   height: 3.6875rem;
-  background-color: #29abe2;
+  background-color: var(--color-blue-100);
 }
 
 .blue-line-mobile {
@@ -55,11 +55,11 @@
     width: 100%;
 
     h1 {
-      @include font(2.9375rem, 700, 120%, #000);
+      @include font(2.9375rem, 700, 120%, var(--color-black));
     }
 
     p {
-      @include font(1.25rem, 400, 120%, #2a3647);
+      @include font(1.25rem, 400, 120%, var(--color-blue-ebony));
     }
   }
 
@@ -75,7 +75,7 @@
     display: block;
     width: 5.625rem;
     height: 0.1875rem;
-    background-color: #29abe2;
+    background-color: var(--color-blue-100);
   }
 }
 

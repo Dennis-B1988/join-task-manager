@@ -6,7 +6,7 @@
   @include padding(1.25rem, 2.5rem, 1.25rem, 2.5rem);
   position: relative;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--color-white);
 
   img {
     display: none;

@@ -13,7 +13,7 @@
   height: 100%;
   min-height: 0;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: var(--color-gray-200);
   border-radius: 8px;
 }
 
@@ -36,17 +36,17 @@
 }
 
 .task-list.dragging {
-  background-color: #f0f0f0;
+  background-color: var(--color-gray-300);
   transition: background-color 0.2s ease;
 }
 
 .no-task {
   @include flex(row, center, center);
-  @include font(1rem, 400, 120%, #a8a8a8);
-  @include border(0.0625rem, dotted, #a8a8a8);
+  @include font(1rem, 400, 120%, var(--color-gray-700));
+  @include border(0.0625rem, dotted, var(--color-gray-700));
   border-radius: 0.625rem;
-  box-shadow: 0px 0px 4px 0px #00000029;
-  background-color: #e7e7e7;
+  box-shadow: 0px 0px 4px 0px var(--color-black) 00029;
+  background-color: var(--color-gray-400);
   height: 3rem;
 }
 

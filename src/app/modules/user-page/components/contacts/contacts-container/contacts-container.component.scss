@@ -10,8 +10,8 @@
   @include padding(1.5rem, 0, 1.5rem, 0);
   width: 100%;
   height: 100%;
-  background: #ffffff;
-  box-shadow: 4px 0px 6px 0px #00000014;
+  background: var(--color-white) fff;
+  box-shadow: 4px 0px 6px 0px var(--color-black) 00014;
   overflow-y: auto;
 }
 
@@ -21,13 +21,13 @@
   height: 6.3125rem;
 
   button {
-    @include font(1.3125rem, 700, 1.5rem, #fff);
+    @include font(1.3125rem, 700, 1.5rem, var(--color-white));
     width: 80%;
     gap: 1rem;
 
     &:hover {
-      @include border(0.0625rem, solid, #29abe2);
-      background-color: #29abe2;
+      @include border(0.0625rem, solid, var(--color-blue-100));
+      background-color: var(--color-blue-100);
     }
   }
 }
@@ -37,13 +37,13 @@
 }
 
 .group-header {
-  @include font(1.25rem, 400, 120%, #000);
+  @include font(1.25rem, 400, 120%, var(--color-black));
   @include padding(1.0625rem, 2.25rem, 1.0625rem, 2.25rem);
   width: 100%;
 }
 
 .group-divider {
-  @include border(0.0625rem, solid, #d1d1d1);
+  @include border(0.0625rem, solid, var(--color-gray-500));
   width: 100%;
   margin-bottom: 0.3125rem;
 }
@@ -58,17 +58,17 @@
 }
 
 .active {
-  background-color: #2a3647;
+  background-color: var(--color-blue-ebony);
 
   .contact-name {
-    color: #fff;
+    color: var(--color-white);
   }
 }
 
 .initials {
   @include flex(row, center, center);
-  @include font(0.75rem, 400, 120%, #fff);
-  @include border(0.125rem, solid, #fff);
+  @include font(0.75rem, 400, 120%, var(--color-white));
+  @include border(0.125rem, solid, var(--color-white));
   border-radius: 50%;
   width: 2.625rem;
   height: 2.625rem;
@@ -80,11 +80,11 @@
 }
 
 .contact-name {
-  @include font(1.25rem, 400, 120%, #000);
+  @include font(1.25rem, 400, 120%, var(--color-black));
 }
 
 .contact-email {
-  @include font(0.75rem, 400, 120%, #007cee);
+  @include font(0.75rem, 400, 120%, var(--color-blue-200));
 }
 
 @media (max-width: 62.5rem) {

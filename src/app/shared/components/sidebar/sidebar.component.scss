@@ -4,7 +4,7 @@
   @include flex(column, space-between, unset);
   width: 14.5rem;
   height: 100dvh;
-  background-color: #2a3647;
+  background-color: var(--color-blue-ebony);
   overflow-y: auto;
 }
 
@@ -30,7 +30,7 @@ nav {
 .policy {
   @include flex(column, center, center);
   @include padding(4rem, 0, 4rem, 0);
-  @include font(0.75rem, 400, 1.2rem, #a8a8a8);
+  @include font(0.75rem, 400, 1.2rem, var(--color-gray-700));
   gap: 0.25rem;
 
   span {

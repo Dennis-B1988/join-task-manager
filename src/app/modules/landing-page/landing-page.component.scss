@@ -33,8 +33,8 @@
     font-size: 1rem;
 
     &:hover {
-      @include border(0.0625rem, solid, #29abe2);
-      background-color: #29abe2;
+      @include border(0.0625rem, solid, var(--color-blue-100));
+      background-color: var(--color-blue-100);
     }
   }
 }
@@ -52,13 +52,13 @@
 .policy {
   display: flex;
   gap: 2.1875rem;
-  color: #a8a8a8;
+  color: var(--color-gray-700);
   margin-top: 1rem;
   cursor: pointer;
 }
 
 .form {
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .legal-privacy-container {
@@ -67,7 +67,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f6f7f8;
+  background-color: var(--color-gray-100);
 }
 
 @media (max-height: 53.75rem) {
