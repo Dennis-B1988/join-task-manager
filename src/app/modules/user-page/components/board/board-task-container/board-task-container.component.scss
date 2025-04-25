@@ -2,7 +2,7 @@
 
 :host {
   @include flex(column, unset, unset);
-  width: 252px;
+  width: 15.75rem;
   min-height: 0;
   overflow: hidden;
 }
@@ -14,7 +14,7 @@
   min-height: 0;
   overflow: hidden;
   background-color: var(--color-gray-200);
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .task-header {
@@ -50,7 +50,7 @@
   height: 3rem;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 81.25rem) {
   .no-task {
     font-size: 0.9rem;
   }
@@ -83,13 +83,13 @@
     overflow-x: auto;
     overflow-y: hidden;
     width: 100%;
-    min-height: 150px;
+    min-height: 9.375rem;
     box-sizing: border-box;
     scroll-snap-type: x mandatory;
   }
 
   .no-task {
     width: 100%;
-    min-width: 250px;
+    min-width: 15.625rem;
   }
 }

@@ -125,7 +125,7 @@
   display: none;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 81.25rem) {
   .form-left-side {
     h2 {
       @include font(3rem, 700, 120%, var(--color-white));
@@ -163,7 +163,7 @@
     border-bottom-left-radius: 1.875rem;
     border-bottom-right-radius: 1.875rem;
     height: 55%;
-    min-height: 418px;
+    min-height: 26.125rem;
   }
 
   .form-middle {

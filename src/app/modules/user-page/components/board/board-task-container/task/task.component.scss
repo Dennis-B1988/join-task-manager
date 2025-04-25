@@ -5,6 +5,7 @@
   @include border(0.0625rem, solid, var(--color-gray-500));
   padding: 1rem;
   width: 100%;
+  max-height: 18.75rem;
   gap: 1.5rem;
   margin-bottom: 0.5rem;
   background-color: white;
@@ -32,9 +33,9 @@
 .description {
   @include font(1rem, 400, 1.2rem, var(--color-gray-700));
   width: 100%;
-  max-height: 200px;
+  max-height: 12.5rem;
   overflow-wrap: break-word;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .subtask {
@@ -65,7 +66,7 @@
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
-    margin-left: -10px;
+    margin-left: -0.625rem;
   }
 }
 

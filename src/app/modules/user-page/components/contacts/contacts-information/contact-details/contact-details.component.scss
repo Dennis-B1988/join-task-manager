@@ -71,7 +71,7 @@ h3 {
 .delete-contact {
   @include flex(column, center, center);
   @include font(1.25rem, 700, 120%, var(--color-white));
-  @include padding(1.875rem, 60px, 1.875rem, 60px);
+  @include padding(1.875rem, 3.75rem, 1.875rem, 3.75rem);
   border-radius: 1.875rem;
   position: absolute;
   top: 50%;
@@ -169,7 +169,7 @@ h3 {
 
     &:hover {
       background-color: var(--color-gray-700);
-      border-radius: 5px;
+      border-radius: 0.3125rem;
       transition: all 0.1s ease-in-out;
       transform: scale(1.05);
     }

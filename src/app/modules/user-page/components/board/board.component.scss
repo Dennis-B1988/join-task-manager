@@ -68,7 +68,7 @@
   flex: 1;
 
   input {
-    padding-right: 35px;
+    padding-right: 2.1875rem;
   }
 
   &::placeholder {
@@ -85,7 +85,7 @@
 
   .line {
     @include border(0.0625rem, solid, var(--color-gray-500));
-    height: 31px;
+    height: 1.9375rem;
   }
 }
 
