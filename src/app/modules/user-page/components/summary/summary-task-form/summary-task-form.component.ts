@@ -51,9 +51,11 @@ export class SummaryTaskFormComponent {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const futureTasks = tasks.filter(
-      (task) => new Date(task.dueDate) > today && task.priority === "Urgent",
-    );
+    const futureTasks = tasks.filter((task) => {
+      const dueDate = new Date(task.dueDate);
+      dueDate.setHours(0, 0, 0, 0);
+      return dueDate > today && task.priority === "Urgent";
+    });
 
     if (futureTasks.length === 0) return null;
 
