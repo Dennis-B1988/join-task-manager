@@ -65,46 +65,58 @@ export class BoardTaskContainerComponent {
       .sort((a: any, b: any) => a.displayName.localeCompare(b.displayName)),
   );
 
-  toggleAddTaskAndSetStatus(status: string) {
+  /**
+   * Toggles the "add task to board" flag and sets the status of the task to be added
+   * to the specified status. This is used by the board-task-container component to
+   * show the task form component when a user clicks on the "Add task to [status]" button.
+   * @param status The new status of the task to be added.
+   */
+  toggleAddTaskAndSetStatus(status: string): void {
     this.tasksService.toggleAddTaskAndSetStatus(status);
   }
 
-  async drop(event: CdkDragDrop<any[]>, newStatus: string) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
+  /**
+   * Handles the drop event when a task is dragged and dropped into a different status.
+   * This function will update the task status in the Firestore database and update the
+   * local state of the tasks.
+   * @param event The drag and drop event.
+   * @param newTaskStatus The new status of the task.
+   */
+  async drop(event: CdkDragDrop<any[]>, newTaskStatus: string): Promise<void> {
+    const { previousContainer, container, previousIndex, currentIndex } = event;
+
+    if (previousContainer === container) {
+      moveItemInArray(container.data, previousIndex, currentIndex);
+      return;
+    }
+
+    const userId = this.authService.userId();
+    if (!userId) {
+      return;
+    }
+
+    const taskToMove = previousContainer.data[previousIndex];
+
+    if (!taskToMove || !taskToMove.id) {
+      return;
+    }
+
+    const taskRef = doc(
+      this.firestore,
+      `users/${userId}/tasks/${taskToMove.id}`,
+    );
+
+    try {
+      await updateDoc(taskRef, { status: newTaskStatus });
+      this.tasksService.updateLocalTaskStatus(taskToMove.id, newTaskStatus);
+      transferArrayItem(
+        previousContainer.data,
+        container.data,
+        previousIndex,
+        currentIndex,
       );
-    } else {
-      const userId = this.authService.userId();
-      if (!userId) return;
-
-      const taskToMove = event.previousContainer.data[event.previousIndex];
-
-      if (!taskToMove || !taskToMove.id) {
-        console.error("No valid task or task ID found.");
-        return;
-      }
-
-      try {
-        const taskRef = doc(
-          this.firestore,
-          `users/${userId}/tasks/${taskToMove.id}`,
-        );
-        await updateDoc(taskRef, { status: newStatus });
-
-        this.tasksService.updateLocalTaskStatus(taskToMove.id, newStatus);
-
-        transferArrayItem(
-          event.previousContainer.data,
-          event.container.data,
-          event.previousIndex,
-          event.currentIndex,
-        );
-      } catch (error) {
-        console.error("Error updating task status:", error);
-      }
+    } catch (error) {
+      console.error("Error updating task status:", error);
     }
   }
 }

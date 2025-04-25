@@ -36,7 +36,17 @@ export class BoardComponent implements AfterViewInit {
   showDeleteTask = computed(() => this.tasksService.showDeleteTask());
   selectedTask = computed(() => this.tasksService.selectedTask());
 
-  ngAfterViewInit() {
+  /**
+   * Handles the routing fragment parameter and scrolls to the element with
+   * the corresponding ID if it exists. This is used to scroll to the task
+   * being edited when the user navigates to the edit URL.
+   *
+   * @remarks
+   * This is done in ngAfterViewInit instead of ngOnInit because the
+   * element being scrolled to may not be rendered yet when ngOnInit is
+   * called.
+   */
+  ngAfterViewInit(): void {
     const subscription = this.route.fragment.subscribe((fragment) => {
       if (fragment) {
         const element = document.getElementById(fragment);
@@ -49,26 +59,42 @@ export class BoardComponent implements AfterViewInit {
     this.unsubscribeService.add(() => subscription.unsubscribe());
   }
 
-  searchTask(event: Event) {
+  /**
+   * Updates the search term for tasks and updates the local state.
+   *
+   * @param event - The input event from the search field.
+   *               The search value is extracted from the event target and trimmed.
+   */
+  searchTask(event: Event): void {
     const searchValue = (event.target as HTMLInputElement).value.trim();
     this.tasksService.searchTask(searchValue);
   }
 
-  toggleAddTaskAndSetStatus(status: string) {
+  /**
+   * Toggles the "add task to board" flag and sets the status of the task to be added
+   * to the specified status. This is used by the board component to show the task
+   * form component when a user clicks on the "Add task to [status]" button.
+   * @param status The new status of the task to be added.
+   */
+  toggleAddTaskAndSetStatus(status: string): void {
     this.tasksService.toggleAddTaskAndSetStatus(status);
   }
 
-  // closeDeleteModal() {
-  //   this.tasksService.showDeleteTask.set(false);
-  // }
-
-  closeForm() {
+  /**
+   * Closes the task form and resets the selected task and edit task status.
+   */
+  closeForm(): void {
     this.tasksService.editTask.set(false);
     this.tasksService.showDeleteTask.set(false);
     this.tasksService.selectedTask.set(null);
   }
 
-  deleteTask(task: Task) {
+  /**
+   * Deletes a task and closes the task form.
+   *
+   * @param task - The task object containing the ID of the task to be deleted.
+   */
+  deleteTask(task: Task): void {
     this.tasksService.deleteTask(task.id!);
     this.closeForm();
   }

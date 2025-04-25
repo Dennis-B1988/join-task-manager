@@ -45,25 +45,6 @@ export class TaskFormComponent implements OnDestroy {
   subTasks = computed(() => this.subTasksService.subTasks());
   selectedTask = computed(() => this.tasksService.selectedTask());
 
-  constructor() {
-    effect(() => {
-      const task = this.selectedTask();
-      this.tasksService.editedTaskId.set(task?.id);
-      this.tasksService.taskPriority.set(task?.priority || "Medium");
-      if (task) {
-        this.taskForm.patchValue({
-          id: task.id,
-          title: task.title,
-          description: task.description,
-          dueDate: task.dueDate,
-          priority: task.priority || "Medium",
-          category: task.category,
-          status: task.status,
-        });
-      }
-    });
-  }
-
   taskForm = new FormGroup({
     id: new FormControl<string | null>(null),
     title: new FormControl<string>("", {
@@ -84,14 +65,55 @@ export class TaskFormComponent implements OnDestroy {
 
   formValid = this.taskForm.controls;
 
-  onClear() {
+  /**
+   * Initializes the TaskFormComponent by setting up an effect to synchronize
+   * the form data with the selected task. When a task is selected, the form
+   * fields are populated with the task's details such as id, title, description,
+   * due date, priority, category, and status. The component also updates the
+   * task priority and edited task ID in the TasksService.
+   */
+  constructor() {
+    effect(() => {
+      const task = this.selectedTask();
+      this.tasksService.editedTaskId.set(task?.id);
+      this.tasksService.taskPriority.set(task?.priority || "Medium");
+      if (task) {
+        this.taskForm.patchValue({
+          id: task.id,
+          title: task.title,
+          description: task.description,
+          dueDate: task.dueDate,
+          priority: task.priority || "Medium",
+          category: task.category,
+          status: task.status,
+        });
+      }
+    });
+  }
+
+  /**
+   * Resets the task form to its default state, clearing all values from the form fields.
+   * This method is used when the user clicks the "Cancel" button or when the
+   * component is destroyed to prevent stale data from being persisted.
+   */
+  onClear(): void {
     this.taskForm.reset();
     this.contactsService.assignedToTask.set([]);
     this.tasksService.setTaskPriority("Medium");
     this.subTasksService.clearSubtasks();
   }
 
-  onSubmit() {
+  /**
+   * Handles the form submission for creating a new task.
+   *
+   * This method first validates the form, marking all fields as touched if
+   * invalid. If the form is valid, it constructs a new task object using
+   * the form values, including details such as title, description, assigned
+   * contacts, due date, priority, category, and subtasks. The new task is
+   * then added to the task list via the `TasksService`. Finally, the form
+   * is cleared to reset the inputs.
+   */
+  onSubmit(): void {
     if (!this.taskForm.valid) {
       this.taskForm.markAllAsTouched();
       return;
@@ -118,7 +140,16 @@ export class TaskFormComponent implements OnDestroy {
     this.onClear();
   }
 
-  onUpdate() {
+  /**
+   * Updates the selected task with the current form values.
+   *
+   * Validates the form before proceeding. If the form is invalid, marks all fields
+   * as touched and exits the function. Constructs an updated task object with the
+   * form values, including the current subtasks and status. Sends the updated task
+   * to the `TasksService` for updating in the database. Once updated, sets the
+   * `selectedTask` to the newly updated task.
+   */
+  onUpdate(): void {
     if (!this.taskForm.valid) {
       this.taskForm.markAllAsTouched();
       return;
@@ -146,6 +177,11 @@ export class TaskFormComponent implements OnDestroy {
     });
   }
 
+  /**
+   * Resets the "addTaskToBoard" observable to false when the component is destroyed.
+   * This is used to prevent the task form from being shown after the component
+   * is destroyed, such as when the user navigates away from the page.
+   */
   ngOnDestroy(): void {
     this.tasksService.addTaskToBoard.set(false);
   }

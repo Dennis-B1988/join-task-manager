@@ -13,7 +13,10 @@ export class ContactsInformationComponent {
 
   showContact = computed(() => this.contactsService.showContact());
 
-  closeContact() {
+  /**
+   * Closes the contact information panel by setting the `showContact` signal to null.
+   */
+  closeContact(): void {
     this.contactsService.showContact.set(null);
   }
 }

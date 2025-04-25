@@ -43,7 +43,9 @@
       <button
         appButton
         class="create"
-        (click)="editTask() ? updateTask() : addTask()"
+        (click)="
+          editTask() ? updateTask() : addTask(); $event.stopPropagation()
+        "
       >
         @if (!editTask()) {
           Create Task

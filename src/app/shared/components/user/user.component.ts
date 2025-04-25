@@ -33,23 +33,47 @@ export class UserComponent {
         : displayName?.charAt(0).toUpperCase();
   });
 
-  toggleUserMenu() {
+  /**
+   * Toggles the user menu open or closed.
+   */
+  toggleUserMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
 
-  showUpgradeMenu() {
+  /**
+   * Sets the upgradeMenu observable to true, which will show the upgrade
+   * menu. This is used when the user clicks on the upgrade button in the
+   * user menu.
+   */
+  showUpgradeMenu(): void {
     this.authService.upgradeMenu.set(true);
   }
 
-  async signOut() {
+  /**
+   * Signs out the user and deletes their guest user data.
+   *
+   * This method will delete the user's document and all associated tasks and
+   * contacts. It will then call the `signOut` method of the AuthService to
+   * sign out the user and unsubscribe all subscriptions using the
+   * UnsubscribeService. Finally, it will toggle the user menu to be closed.
+   *
+   * @returns A Promise that resolves when the sign-out is complete.
+   */
+  async signOut(): Promise<void> {
     await this.userService.deleteGuestUserAndData();
     this.authService.signOut();
     this.UnsubscribeService.unsubscribeAll();
     this.toggleUserMenu();
   }
 
+  /**
+   * Closes the user menu if it is open and the target element is outside the
+   * user menu.
+   *
+   * @param event The event object from the `document:click` host listener.
+   */
   @HostListener("document:click", ["$event"])
-  closeUserMenu(event: Event) {
+  closeUserMenu(event: Event): void {
     if (this.menuOpen) {
       const targetElement = event.target as HTMLElement;
       if (!targetElement.closest(".user")) {

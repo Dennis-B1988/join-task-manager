@@ -9,10 +9,20 @@ import {
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { LandingPageService } from "../../services/landing-page/landing-page.service";
 
+/**
+ * Validator function to check if two password fields match.
+ *
+ * @param controlPassword name of the password field
+ * @param controlConfirmPassword name of the confirm password field
+ * @returns a validator function that takes an AbstractControl as an argument
+ * @description if the values of the two fields do not match, the validator
+ * returns an object with a key "passwordMismatch" and value true, otherwise
+ * it returns null
+ */
 function passwordMatchValidator(
   controlPassword: string,
   controlConfirmPassword: string,
-) {
+): any {
   return (control: AbstractControl) => {
     const pass = control.get(controlPassword)?.value;
     const confirmPass = control.get(controlConfirmPassword)?.value;
@@ -68,7 +78,13 @@ export class SignUpComponent implements OnDestroy {
 
   formValid = this.signupForm.controls;
 
-  get passwordImage() {
+  /**
+   * Returns the image for the password input based on whether the
+   * password is empty, visible, or hidden.
+   *
+   * @returns The image for the password input.
+   */
+  get passwordImage(): string {
     const passwordValue = this.signupForm
       .get("passwords")
       ?.get("password")?.value;
@@ -81,7 +97,13 @@ export class SignUpComponent implements OnDestroy {
     }
   }
 
-  get confirmPasswordImage() {
+  /**
+   * Returns the image for the confirm password input based on whether the
+   * confirm password is empty, visible, or hidden.
+   *
+   * @returns The image for the confirm password input.
+   */
+  get confirmPasswordImage(): string {
     const passwordValue = this.signupForm
       .get("passwords")
       ?.get("confirmPassword")?.value;
@@ -94,11 +116,26 @@ export class SignUpComponent implements OnDestroy {
     }
   }
 
-  checkPolicy() {
+  /**
+   * Toggles the acceptance state of the privacy policy.
+   *
+   * @remarks
+   * This function is called when the user interacts with the policy checkbox.
+   * It inverts the current state of the `policy` boolean, indicating whether
+   * the user has accepted the privacy policy.
+   */
+  checkPolicy(): void {
     this.policy = !this.policy;
   }
 
-  async onSubmit() {
+  /**
+   * Submits the sign-up form and creates a new user with the provided
+   * display name, email, and password. If the form is invalid, marks all
+   * form controls as touched and does nothing else. If the form is valid,
+   * sets the loading state to true, creates the user, and then sets the
+   * loading state to false and sets the sign-up active state to false.
+   */
+  async onSubmit(): Promise<void> {
     if (
       this.signupForm.get("displayName")?.invalid ||
       this.signupForm.get("email")?.invalid ||
@@ -125,7 +162,19 @@ export class SignUpComponent implements OnDestroy {
     }
   }
 
-  async upgradeToFullUser() {
+  /**
+   * Upgrades an anonymous user to a full user by linking their
+   * anonymous account to an email/password account.
+   *
+   * @remarks
+   * This function is called when the user clicks on the "Upgrade"
+   * button in the user menu. It checks if the form is valid and if the
+   * user has accepted the policy. If the form is invalid or the policy has
+   * not been accepted, it marks the form as touched and returns. Otherwise,
+   * it calls the AuthService's upgradeAnonymousUser method to perform the
+   * upgrade.
+   */
+  upgradeToFullUser(): void {
     if (
       this.signupForm.get("displayName")?.invalid ||
       this.signupForm.get("email")?.invalid ||
@@ -144,32 +193,60 @@ export class SignUpComponent implements OnDestroy {
     );
   }
 
-  backToLogIn() {
+  /**
+   * Hides the sign-up form and the upgrade menu by setting the sign-up active signal
+   * and the upgrade menu signal to false.
+   */
+  backToLogIn(): void {
     this.landingPageService.signUpActive.set(false);
     this.authService.upgradeMenu.set(false);
   }
 
-  showPolicy() {
+  /**
+   * Shows the privacy policy component by setting the privacy policy active signal to true.
+   */
+  showPolicy(): void {
     this.landingPageService.privacyPolicyActive.set(true);
   }
 
-  toggleFocusPassword() {
+  /**
+   * Toggles the focus state of the password input field.
+   * When the field is focused, the eye icon is shown. When the field is not focused, the lock icon is shown.
+   */
+  toggleFocusPassword(): void {
     this.focusPassword = !this.focusPassword;
   }
 
-  toggleFocusConfirmPassword() {
+  /**
+   * Toggles the focus state of the confirm password input field.
+   * When the field is focused, the eye icon is shown. When the field is not focused, the lock icon is shown.
+   */
+  toggleFocusConfirmPassword(): void {
     this.focusConfirmPassword = !this.focusConfirmPassword;
   }
 
-  togglePassword() {
+  /**
+   * Toggles the visibility of the password input field.
+   * When the field is visible, the password is shown as text.
+   * When the field is hidden, the password is masked.
+   */
+  togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
-  toggleConfirmPassword() {
+  /**
+   * Toggles the visibility of the confirm password input field.
+   * When the field is visible, the password is shown as text.
+   * When the field is hidden, the password is masked.
+   */
+  toggleConfirmPassword(): void {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  ngOnDestroy() {
+  /**
+   * Resets the error messages in the auth service when the component is destroyed.
+   */
+  ngOnDestroy(): void {
     this.authService.resetErrorMessages();
   }
 }

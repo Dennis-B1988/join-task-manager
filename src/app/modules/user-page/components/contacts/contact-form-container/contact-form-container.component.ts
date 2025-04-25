@@ -39,15 +39,35 @@ export class ContactFormContainerComponent {
     saveButton: "Save",
   };
 
-  closeForm() {
+  /**
+   * Closes the contact form and resets the "addContact" and "editContact"
+   * observables to false.
+   */
+  closeForm(): void {
     this.contactsService.addContact.set(false);
     this.contactsService.editContact.set(false);
   }
 
+  /**
+   * Returns the initials of the given contact. The returned string is the
+   * first letter of the contact's display name, or the first two letters
+   * if the display name is only two characters long.
+   *
+   * @param name - The full name of the contact for which to generate initials.
+   * @returns A string containing the initials of the contact.
+   */
   getContactInitials(name: string): string {
     return this.contactsService.getInitials(name);
   }
 
+  /**
+   * Returns the color associated with the given contact. The color is
+   * generated from the contact's display name and is used to style the
+   * contact's initials in the assigned to dropdown.
+   *
+   * @param name the contact for which to generate the color
+   * @returns a string containing the contact's color in HSL format
+   */
   getContactColor(name: string): string {
     return this.contactsService.generateContactColor(name);
   }

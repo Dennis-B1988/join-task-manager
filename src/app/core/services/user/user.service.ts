@@ -23,10 +23,15 @@ export class UserService {
   constructor(private firestore: Firestore) {}
 
   /**
-   * Deletes the guest user and all associated data (tasks and contacts)
-   * from Firestore. This is used when the user signs out.
+   * Deletes a guest user and all of their associated data from Firestore.
+   *
+   * This is a utility function used by the AuthService to delete a guest user.
+   * When called, this function will delete all tasks and contacts associated with
+   * the guest user and then delete the user document itself.
+   *
+   * @returns A Promise that resolves when the deletion is complete.
    */
-  async deleteGuestUserAndData() {
+  async deleteGuestUserAndData(): Promise<void> {
     await runInInjectionContext(this.injector, async () => {
       const usersRef = collection(this.firestore, "users");
       const guestQuery = query(usersRef, where("displayName", "==", "Guest"));

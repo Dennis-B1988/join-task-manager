@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
@@ -7,7 +7,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   templateUrl: "./sidebar.component.html",
   styleUrl: "./sidebar.component.scss",
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy {
   private resizeListener = () => this.updateImagePaths();
   private isMobile: boolean = false;
 
@@ -27,16 +27,30 @@ export class SidebarComponent {
   contactsPathActive!: string;
   contactsCurrentPath!: string;
 
-  ngOnInit() {
+  /**
+   * Initializes the component by updating the image paths based on the window
+   * size, and sets up an event listener to update the image paths when the
+   * window is resized.
+   */
+  ngOnInit(): void {
     this.updateImagePaths();
     window.addEventListener("resize", this.resizeListener);
   }
 
-  ngOnDestroy() {
+  /**
+   * Removes the event listener from the window for resizing, to prevent
+   * memory leaks.
+   */
+  ngOnDestroy(): void {
     window.removeEventListener("resize", this.resizeListener);
   }
 
-  private updateImagePaths() {
+  /**
+   * Updates the image paths for the sidebar based on the current window size.
+   * Sets the paths for summary, add tasks, board, and contacts images, using
+   * mobile-specific images if the window width is less than 1280 pixels.
+   */
+  private updateImagePaths(): void {
     this.isMobile = window.innerWidth < 1280;
 
     const base = this.isMobile ? "assets/img/mobile" : "assets/img";

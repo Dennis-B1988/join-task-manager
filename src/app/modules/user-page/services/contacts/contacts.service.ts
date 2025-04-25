@@ -56,7 +56,7 @@ export class ContactsService {
    *
    * @param userId - The ID of the user whose contact list to load.
    */
-  loadContacts(userId: string): void {
+  private loadContacts(userId: string): void {
     const contactsCollection = collection(
       this.firestore,
       `users/${userId}/contacts`,

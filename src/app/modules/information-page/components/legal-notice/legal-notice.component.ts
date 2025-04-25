@@ -14,7 +14,12 @@ export class LegalNoticeComponent {
     this.landingPageService.legalNoticeActive(),
   );
 
-  goBack() {
+  /**
+   * Resets the active states for legal notice and privacy policy to false.
+   * This is used to hide the legal notice and privacy policy components when
+   * the user goes back to the log in screen.
+   */
+  goBack(): void {
     this.landingPageService.goBackToLogIn();
   }
 }

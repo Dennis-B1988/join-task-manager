@@ -48,6 +48,19 @@ export class ContactFormComponent implements OnDestroy {
     }),
   });
 
+  /**
+   * Initializes the contact form component.
+   *
+   * If the component is in add mode and has not been initialized before, resets
+   * the form with default values. If the component is in edit mode and the
+   * contact is provided, patches the form with the contact's values.
+   *
+   * The initialization is done once and only when the component is in add mode
+   * and has not been initialized before, or when the component is in edit mode
+   * and the contact is provided. If the component is in add mode and has been
+   * initialized before, the form is not reset. If the component is in edit mode
+   * and the contact is not provided, the form is not patched.
+   */
   constructor() {
     effect(() => {
       if (this.contactsService.addContact() && !this.hasInitialized) {
@@ -74,7 +87,15 @@ export class ContactFormComponent implements OnDestroy {
     });
   }
 
-  onSubmit() {
+  /**
+   * Submits the contact form and creates or updates a contact based on whether
+   * the contact form is in add or edit mode. If the form is not valid, marks all
+   * form controls as touched. If the form is valid, creates or updates a contact
+   * using the provided form values and resets the form. If the contact was
+   * created or updated successfully, sets the contact created or updated flag
+   * to "Created" or "Updated", respectively, and resets the flag after 800ms.
+   */
+  onSubmit(): void {
     if (!this.contactForm.valid) {
       this.contactForm.markAllAsTouched();
       return;
@@ -104,7 +125,15 @@ export class ContactFormComponent implements OnDestroy {
     }, 800);
   }
 
-  cancelDeleteContact() {
+  /**
+   * Cancels the delete contact operation or resets the contact form if add contact mode is enabled.
+   *
+   * If the edit contact mode is enabled, this method deletes the currently selected contact and
+   * resets the edit contact mode to false. If the add contact mode is enabled, this method resets
+   * the contact form to its initial state with the name, email, and phone fields cleared and the
+   * phone field set to "+49".
+   */
+  cancelDeleteContact(): void {
     if (this.contactsService.editContact()) {
       this.contactsService.deleteContact(this.showContact()?.id!);
       this.contactsService.editContact.set(false);
@@ -118,6 +147,14 @@ export class ContactFormComponent implements OnDestroy {
     }
   }
 
+  /**
+   * Cleans up the component by resetting the initialization state and contact-related observables.
+   *
+   * This method is called when the component is destroyed. It ensures that the `hasInitialized`
+   * flag is set to false and resets the `addContact`, `editContact`, and `showContact` observables
+   * in the `ContactsService` to prevent any residual states that might affect future interactions
+   * with the contact form.
+   */
   ngOnDestroy(): void {
     this.hasInitialized = false;
     this.contactsService.addContact.set(false);
@@ -125,8 +162,12 @@ export class ContactFormComponent implements OnDestroy {
     this.contactsService.showContact.set(null);
   }
 
+  /**
+   * Closes the edit or add contact form when the user clicks outside of the form
+   * @param event The event object of the click event
+   */
   @HostListener("document:click", ["$event"])
-  closeMenu(event: Event) {
+  closeMenu(event: Event): void {
     if (this.editContact() || this.addContact()) {
       const targetElement = event.target as HTMLElement;
       if (!targetElement.closest(".form-content")) {

@@ -26,36 +26,70 @@ export class AddTaskFromBoardComponent implements OnDestroy {
   editTask = computed(() => this.tasksService.editTask());
   addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
 
-  addTask() {
+  /**
+   * Adds a new task to the task list by submitting the task form.
+   *
+   * When adding a new task, the task form is submitted by calling the onSubmit()
+   * method of the task form component. After the form is submitted, the "addTaskToBoard"
+   * signal is set to false to close the task form.
+   */
+  addTask(): void {
     if (this.taskFormComponent) {
       this.taskFormComponent.onSubmit();
       this.tasksService.addTaskToBoard.set(false);
     }
   }
 
-  updateTask() {
+  /**
+   * Updates an existing task in the local state and database.
+   *
+   * When the user updates a task, this function is called to update the task
+   * information in the local state and in the database. It also closes the
+   * task form by setting the "addTaskToBoard" signal to false.
+   */
+  updateTask(): void {
     if (this.taskFormComponent) {
       this.taskFormComponent.onUpdate();
       this.tasksService.addTaskToBoard.set(false);
     }
   }
 
-  clearTask() {
+  /**
+   * Clears the task form by invoking the onClear method of the TaskFormComponent.
+   * This is typically used to reset the form to its default state, removing any
+   * input values, and is useful when the user decides to cancel task creation or
+   * update.
+   */
+  clearTask(): void {
     if (this.taskFormComponent) {
       this.taskFormComponent.onClear();
     }
   }
 
-  closeForm() {
+  /**
+   * Closes the task form and resets the "addTaskToBoard" observable to false.
+   */
+  closeForm(): void {
     this.tasksService.addTaskToBoard.set(false);
   }
 
-  ngOnDestroy() {
+  /**
+   * Resets the "addTaskToBoard" observable to false when the component is destroyed.
+   * This ensures that the task form is not shown after the component is destroyed,
+   * preventing unintended behavior when navigating away from the board.
+   */
+
+  ngOnDestroy(): void {
     this.tasksService.addTaskToBoard.set(false);
   }
 
+  /**
+   * Closes the add task menu when a click is detected outside the add-task-container.
+   *
+   * @param event - The click event that is triggered on the document.
+   */
   @HostListener("document:click", ["$event"])
-  closeMenu(event: Event) {
+  closeMenu(event: Event): void {
     if (this.addTaskToBoard()) {
       const targetElement = event.target as HTMLElement;
       if (!targetElement.closest(".add-task-container")) {

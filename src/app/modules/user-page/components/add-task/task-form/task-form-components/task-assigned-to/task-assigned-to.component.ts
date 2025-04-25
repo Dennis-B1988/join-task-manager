@@ -57,6 +57,16 @@ export class TaskAssignedToComponent {
     });
   });
 
+  /**
+   * Sets the `contacts` signal to an array of contact objects containing only the `displayName` property.
+   *
+   * This is done by filtering the `contacts` observable of the `ContactsService` and mapping the results to
+   * a new array of objects with only the `displayName` property.
+   *
+   * The `contacts` signal is used to populate the dropdown list of assigned contacts.
+   *
+   * This method is called when the component is initialized.
+   */
   constructor() {
     effect(() => {
       const fetchedContacts = this.contactsService
@@ -69,16 +79,35 @@ export class TaskAssignedToComponent {
     });
   }
 
-  toggleAssignedTo() {
+  /**
+   * Toggles the visibility of the assigned contacts dropdown.
+   *
+   * This function switches the `assignedToOpen` state between
+   * true and false, controlling whether the dropdown is open or closed.
+   */
+  toggleAssignedTo(): void {
     this.assignedToOpen = !this.assignedToOpen;
   }
 
-  searchContacts(event: Event) {
+  /**
+   * Updates the search term for filtering contacts based on user input.
+   *
+   * @param event - The input event from the search field.
+   * If the input value has a length of 3 or more characters, it is set as the search term.
+   * Otherwise, the search term is cleared.
+   */
+  searchContacts(event: Event): void {
     const searchValue = (event.target as HTMLInputElement).value.trim();
     this.searchContact.set(searchValue.length >= 3 ? searchValue : "");
   }
 
-  assignContactToTask(contact: any) {
+  /**
+   * Assigns a contact to the task if it doesn't already exist.
+   *
+   * @param contact - The contact to be assigned, identified by its displayName.
+   * This updates the assignedToTask list by appending the specified contact if it's not already present.
+   */
+  assignContactToTask(contact: any): void {
     const exists = this.assignedToTask().some(
       (c) => c.displayName === contact.displayName,
     );
@@ -90,26 +119,60 @@ export class TaskAssignedToComponent {
     }
   }
 
+  /**
+   * Checks if a contact is assigned to the task.
+   *
+   * @param contact - The contact to be checked, identified by its displayName.
+   * @returns true if the contact is assigned to the task, false otherwise.
+   */
   isContactAssigned(contact: any): boolean {
     return this.assignedToTask().some(
       (c) => c.displayName === contact.displayName,
     );
   }
 
-  removeContactFromTask(contact: any) {
+  /**
+   * Removes a contact from the task's assigned list.
+   *
+   * @param contact - The contact to be removed, identified by its displayName.
+   * This updates the assignedToTask list by filtering out the specified contact.
+   */
+  removeContactFromTask(contact: any): void {
     this.contactsService.removeContactFromTask(contact);
   }
 
-  getContactColor(contact: any) {
+  /**
+   * Returns the color associated with the given contact. The color is
+   * generated from the contact's display name and is used to style the
+   * contact's initials in the assigned to dropdown.
+   *
+   * @param contact the contact for which to generate the color
+   * @returns a string containing the contact's color in HSL format
+   */
+  getContactColor(contact: any): string {
     return this.contactsService.generateContactColor(contact);
   }
 
-  getContactInitials(contact: any) {
+  /**
+   * Returns the initials of the given contact. The returned string is the
+   * first letter of the contact's display name, or the first two letters
+   * if the display name is only two characters long.
+   *
+   * @param contact the contact for which to generate the initials
+   * @returns a string containing the initials of the contact
+   */
+  getContactInitials(contact: any): string {
     return this.contactsService.getInitials(contact);
   }
 
+  /**
+   * Closes the assigned to dropdown when a click is registered outside of the
+   * dropdown or the input field.
+   *
+   * @param event the event that triggered the check
+   */
   @HostListener("document:click", ["$event"])
-  closeDropdownOnClickOutside(event: Event) {
+  closeDropdownOnClickOutside(event: Event): void {
     const assignedToInputElement = document.getElementById("assignedTo");
     const assignedToDropdownElement = document.querySelector(".dropdown");
 

@@ -16,8 +16,17 @@ export class UserDataResolver implements Resolve<CustomUser> {
   private unsubscribeService = inject(UnsubscribeService);
   private injector = inject(EnvironmentInjector);
 
-  constructor() {}
-
+  /**
+   * Resolves the route when the user data is ready.
+   *
+   * This resolver uses the `@angular/core` `effect` function to
+   * create an effect that watches the `user` signal emitted by the
+   * `AuthService`. When the user is ready, the promise is resolved
+   * with the user data. The effect is automatically unsubscribed
+   * when the route is destroyed.
+   *
+   * @returns A promise that resolves with the user data when ready.
+   */
   resolve(): Promise<CustomUser> {
     return new Promise((resolve) => {
       runInInjectionContext(this.injector, () => {

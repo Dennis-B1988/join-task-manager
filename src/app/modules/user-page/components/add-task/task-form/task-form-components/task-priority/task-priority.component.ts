@@ -11,7 +11,13 @@ export class TaskPriorityComponent {
   tasksService = inject(TasksService);
   priority = computed(() => this.tasksService.taskPriority());
 
-  setPriority(prio: string) {
+  /**
+   * Updates the priority of a task in the local state.
+   * This function is used by the task form component to update the task priority
+   * when the user selects a different priority option from the dropdown.
+   * @param priority The new priority of the task.
+   */
+  setPriority(prio: string): void {
     this.tasksService.setTaskPriority(prio);
   }
 }

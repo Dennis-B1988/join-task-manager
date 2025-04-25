@@ -40,6 +40,10 @@ export class SummaryTaskFormComponent {
         .length,
   );
 
+  /**
+   * Computed property that returns the due date of the task
+   * with the shortest due date among all urgent tasks that are due in the future.
+   */
   taskWithShortestDueDate = computed(() => {
     const tasks = this.tasksService.tasks();
     if (tasks.length === 0) return null;

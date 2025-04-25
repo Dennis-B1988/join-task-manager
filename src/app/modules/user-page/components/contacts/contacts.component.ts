@@ -26,6 +26,12 @@ export class ContactsComponent implements OnDestroy {
     this.contactsService.contactCreatedOrUpdated(),
   );
 
+  /**
+   * Clean up component state when component is destroyed.
+   *
+   * When the component is destroyed, reset the state of the contact service
+   * to prevent accidental contact creation or editing.
+   */
   ngOnDestroy(): void {
     this.contactsService.addContact.set(false);
     this.contactsService.editContact.set(false);

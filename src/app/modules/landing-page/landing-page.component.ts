@@ -1,17 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  ElementRef,
-  inject,
-  input,
-  OnDestroy,
-  OnInit,
-  signal,
-  ViewChild,
-} from "@angular/core";
-import { RouterLink } from "@angular/router";
-import { getAuth } from "firebase/auth";
+import { Component, computed, inject, OnDestroy } from "@angular/core";
 import { LegalNoticeComponent } from "../information-page/components/legal-notice/legal-notice.component";
 import { PrivacyPolicyComponent } from "../information-page/components/privacy-policy/privacy-policy.component";
 import { LogInComponent } from "./components/log-in/log-in.component";
@@ -40,19 +27,38 @@ export class LandingPageComponent implements OnDestroy {
     this.landingPageService.privacyPolicyActive(),
   );
 
-  viewSignUp() {
+  /**
+   * Toggles the sign-up active state. If the sign-up is active, the sign-up
+   * component is displayed. If the sign-up is not active, the sign-up component
+   * is hidden.
+   */
+  viewSignUp(): void {
     this.landingPageService.signUpActive.set(true);
   }
 
-  viewLegalNotice() {
+  /**
+   * Toggles the legal notice active state. If the legal notice is active,
+   * the legal notice component is displayed. If the legal notice is not active,
+   * the legal notice component is hidden.
+   */
+  viewLegalNotice(): void {
     this.landingPageService.toggleLegalNotice();
   }
 
-  viewPrivacyPolicy() {
+  /**
+   * Toggles the privacy policy active state. If the privacy policy is active, the
+   * privacy policy component is shown. If the privacy policy is not active, the
+   * privacy policy component is not shown.
+   */
+  viewPrivacyPolicy(): void {
     this.landingPageService.togglePrivacyPolicy();
   }
 
-  ngOnDestroy() {
+  /**
+   * Cleans up the component by resetting the active states for sign-up, legal notice,
+   * and privacy policy to false when the component is destroyed.
+   */
+  ngOnDestroy(): void {
     this.landingPageService.signUpActive.set(false);
     this.landingPageService.legalNoticeActive.set(false);
     this.landingPageService.privacyPolicyActive.set(false);

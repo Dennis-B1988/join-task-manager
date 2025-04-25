@@ -3,10 +3,8 @@ import {
   computed,
   EnvironmentInjector,
   inject,
-  input,
   OnDestroy,
   runInInjectionContext,
-  signal,
 } from "@angular/core";
 import {
   FormControl,
@@ -55,7 +53,13 @@ export class LogInComponent implements OnDestroy {
     }),
   });
 
-  get passwordImage() {
+  /**
+   * Returns the image for the password input based on whether the password is
+   * empty, visible, or hidden.
+   *
+   * @returns The image for the password input.
+   */
+  get passwordImage(): string {
     if (this.loginForm.get("password")?.value === "") {
       return "assets/img/lock.png";
     } else if (
@@ -68,7 +72,12 @@ export class LogInComponent implements OnDestroy {
     }
   }
 
-  onSubmit() {
+  /**
+   * Submits the login form and logs in to the account with the email and
+   * password provided. If `rememberMe` is true, the user will be remembered
+   * and logged in automatically on subsequent visits.
+   */
+  onSubmit(): void {
     if (this.loginForm.get("email") && this.loginForm.get("password")) {
       if (this.isLoading) return;
       this.isLoading = true;
@@ -87,7 +96,12 @@ export class LogInComponent implements OnDestroy {
     }
   }
 
-  saveUserLocally() {
+  /**
+   * Sets the auth persistence to browserLocalPersistence and logs in to the
+   * account with the provided email and password. This is used when the user
+   * wants to save their login information to the browser.
+   */
+  private saveUserLocally(): void {
     runInInjectionContext(this.injector, async () => {
       const auth = getAuth();
       setPersistence(auth, browserLocalPersistence).then(async () => {
@@ -99,7 +113,12 @@ export class LogInComponent implements OnDestroy {
     });
   }
 
-  dontSaveUser() {
+  /**
+   * Sets the auth persistence to browserSessionPersistence and logs in to the
+   * account with the provided email and password. This is used when the user
+   * does not want to save their login information to the browser.
+   */
+  private dontSaveUser(): void {
     runInInjectionContext(this.injector, async () => {
       const auth = getAuth();
       setPersistence(auth, browserSessionPersistence).then(async () => {
@@ -111,7 +130,13 @@ export class LogInComponent implements OnDestroy {
     });
   }
 
-  async guestLogin() {
+  /**
+   * Logs in as a guest user. This will create a new user document with the name
+   * "Guest" and create dummy contacts and tasks for the user.
+   *
+   * @returns A promise that resolves when the sign-in is complete.
+   */
+  async guestLogin(): Promise<void> {
     if (this.isLoading) return;
     this.isLoading = true;
 
@@ -124,19 +149,46 @@ export class LogInComponent implements OnDestroy {
     }
   }
 
-  toggleRememberMe() {
+  /**
+   * Toggles the remember me checkbox. When the checkbox is checked, the user
+   * will be logged in with browserLocalPersistence, which will save their login
+   * information to the browser. When the checkbox is unchecked, the user will be
+   * logged in with browserSessionPersistence, which will not save their login
+   * information to the browser.
+   */
+  toggleRememberMe(): void {
     this.rememberMe = !this.rememberMe;
   }
 
-  toggleFocusPassword() {
+  /**
+   * Toggles the focus password variable. This variable is used to determine
+   * which image to show for the password input. When the password input is
+   * focused, the eye icon is shown. When the password input is not focused, the
+   * lock icon is shown.
+   */
+  toggleFocusPassword(): void {
     this.focusPassword = !this.focusPassword;
   }
 
-  togglePassword() {
+  /**
+   * Toggles the show password variable. This variable is used to determine
+   * which type of input to show for the password input. When the variable is
+   * true, the password input is a text input and the password is visible.
+   * When the variable is false, the password input is a password input and
+   * the password is hidden.
+   */
+  togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
-  ngOnDestroy() {
+  /**
+   * Resets error messages when the component is destroyed.
+   *
+   * This method calls the resetErrorMessages function of the AuthService
+   * to clear any error messages that may have been set during the component's
+   * lifecycle.
+   */
+  ngOnDestroy(): void {
     this.authService.resetErrorMessages();
   }
 }
