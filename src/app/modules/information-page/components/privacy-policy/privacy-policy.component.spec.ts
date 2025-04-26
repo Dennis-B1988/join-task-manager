@@ -36,5 +36,11 @@ describe("PrivacyPolicyComponent", () => {
       fixture.detectChanges();
       expect(component.privacyPolicyActive()).toBe(true);
     });
+
+    it("reflects service.goBackToLogIn ", () => {
+      component.goBack();
+      expect(mockService.privacyPolicyActive()).toBe(false);
+      expect(mockService.legalNoticeActive()).toBe(false);
+    });
   });
 });

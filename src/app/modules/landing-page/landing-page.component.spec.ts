@@ -3,23 +3,24 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { Auth } from "@angular/fire/auth";
 import { Firestore } from "@angular/fire/firestore";
 import { MockComponent, MockProvider } from "ng-mocks";
+
 import { LogInComponent } from "./components/log-in/log-in.component";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { LandingPageComponent } from "./landing-page.component";
 import { LandingPageService } from "./services/landing-page/landing-page.service";
 
-describe("LandingPageComponent (standalone)", () => {
+describe("LandingPageComponent", () => {
   let fixture: ComponentFixture<LandingPageComponent>;
   let component: LandingPageComponent;
   let mockService: LandingPageService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [LandingPageComponent],
       declarations: [
         MockComponent(LogInComponent),
         MockComponent(SignUpComponent),
       ],
-      imports: [LandingPageComponent],
       providers: [
         MockProvider(LandingPageService, {
           signUpActive: signal(false),
@@ -39,56 +40,58 @@ describe("LandingPageComponent (standalone)", () => {
     fixture.detectChanges();
   });
 
-  it("should create the component", () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
   describe("computed signals", () => {
-    it("reflects service.signUpActive", () => {
-      // initially false
+    it("should reflect signUpActive", () => {
       expect(component.signUpActive()).toBe(false);
 
-      // flip the service signal
       mockService.signUpActive.set(true);
       fixture.detectChanges();
+
       expect(component.signUpActive()).toBe(true);
     });
 
-    it("reflects service.legalNoticeActive", () => {
+    it("should reflect legalNoticeActive", () => {
       expect(component.legalNoticeActive()).toBe(false);
+
       mockService.legalNoticeActive.set(true);
       fixture.detectChanges();
+
       expect(component.legalNoticeActive()).toBe(true);
     });
 
-    it("reflects service.privacyPolicyActive", () => {
+    it("should reflect privacyPolicyActive", () => {
       expect(component.privacyPolicyActive()).toBe(false);
+
       mockService.privacyPolicyActive.set(true);
       fixture.detectChanges();
+
       expect(component.privacyPolicyActive()).toBe(true);
     });
   });
 
   describe("viewX methods", () => {
-    it("viewSignUp() sets signUpActive to true", () => {
+    it("should activate signUp on viewSignUp()", () => {
       component.viewSignUp();
       expect(mockService.signUpActive()).toBe(true);
     });
 
-    it("viewLegalNotice() calls toggleLegalNotice()", () => {
+    it("should toggle legal notice on viewLegalNotice()", () => {
       component.viewLegalNotice();
       expect(mockService.toggleLegalNotice).toHaveBeenCalled();
     });
 
-    it("viewPrivacyPolicy() calls togglePrivacyPolicy()", () => {
+    it("should toggle privacy policy on viewPrivacyPolicy()", () => {
       component.viewPrivacyPolicy();
       expect(mockService.togglePrivacyPolicy).toHaveBeenCalled();
     });
   });
 
-  describe("ngOnDestroy", () => {
-    it("resets all signals to false", () => {
-      // set all true first
+  describe("on destroy", () => {
+    it("should reset all signals", () => {
       mockService.signUpActive.set(true);
       mockService.legalNoticeActive.set(true);
       mockService.privacyPolicyActive.set(true);
@@ -98,6 +101,47 @@ describe("LandingPageComponent (standalone)", () => {
       expect(mockService.signUpActive()).toBe(false);
       expect(mockService.legalNoticeActive()).toBe(false);
       expect(mockService.privacyPolicyActive()).toBe(false);
+    });
+  });
+
+  describe("DOM", () => {
+    it("should render LogInComponent", () => {
+      const logInElement = fixture.nativeElement.querySelector("app-log-in");
+      expect(logInElement).not.toBeNull();
+    });
+
+    it("should show SignUpComponent when signUpActive is true", () => {
+      expect(fixture.nativeElement.querySelector("app-sign-up")).toBeNull();
+
+      mockService.signUpActive.set(true);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector("app-sign-up")).not.toBeNull();
+    });
+
+    describe("button clicks", () => {
+      it("should call viewSignUp() on sign up button click", () => {
+        const button = fixture.nativeElement.querySelector("#sign-up-btn");
+        button.click();
+        fixture.detectChanges();
+        expect(mockService.signUpActive()).toBe(true);
+      });
+
+      it("should call togglePrivacyPolicy() on privacy policy button click", () => {
+        const button = fixture.nativeElement.querySelector(
+          "#privacy-policy-btn",
+        );
+        button.click();
+        fixture.detectChanges();
+        expect(mockService.togglePrivacyPolicy).toHaveBeenCalled();
+      });
+
+      it("should call toggleLegalNotice() on legal notice button click", () => {
+        const button = fixture.nativeElement.querySelector("#legal-notice-btn");
+        button.click();
+        fixture.detectChanges();
+        expect(mockService.toggleLegalNotice).toHaveBeenCalled();
+      });
     });
   });
 });

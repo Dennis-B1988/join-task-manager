@@ -18,14 +18,18 @@
   <div class="to-sign-up-mobile">
     @if (!signUpActive()) {
       <span>Not a Join user?</span>
-      <button (click)="viewSignUp()">Sign up</button>
+      <button id="sign-up-btn" (click)="viewSignUp()">Sign up</button>
     }
   </div>
 
   <div class="bottom">
     <div class="policy">
-      <span (click)="viewPrivacyPolicy()">Privacy Policy</span>
-      <span (click)="viewLegalNotice()">Legal Notice</span>
+      <span id="privacy-policy-btn" (click)="viewPrivacyPolicy()"
+        >Privacy Policy</span
+      >
+      <span id="legal-notice-btn" (click)="viewLegalNotice()"
+        >Legal Notice</span
+      >
     </div>
   </div>
 
