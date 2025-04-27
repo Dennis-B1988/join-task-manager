@@ -14,8 +14,9 @@ describe("LegalNoticeComponent", () => {
     await TestBed.configureTestingModule({
       imports: [LegalNoticeComponent],
       providers: [
-        MockProvider(LegalNoticeComponent, {
+        MockProvider(LandingPageService, {
           legalNoticeActive: signal(false),
+          goBackToLogIn: jasmine.createSpy(),
         }),
       ],
     }).compileComponents();
@@ -36,6 +37,19 @@ describe("LegalNoticeComponent", () => {
       mockService.legalNoticeActive.set(true);
       fixture.detectChanges();
       expect(component.legalNoticeActive()).toBe(true);
+    });
+  });
+
+  describe("button clicks", () => {
+    it("should call goBack() on legal notice image button click", () => {
+      mockService.legalNoticeActive.set(true);
+      fixture.detectChanges();
+      const imageButton = fixture.nativeElement.querySelector(
+        "#legal-notice-go-back-btn",
+      );
+      imageButton.click();
+      fixture.detectChanges();
+      expect(mockService.goBackToLogIn).toHaveBeenCalled();
     });
   });
 });

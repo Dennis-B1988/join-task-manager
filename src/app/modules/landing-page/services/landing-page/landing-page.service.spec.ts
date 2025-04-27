@@ -31,7 +31,9 @@ describe("LandingPageService", () => {
       service.privacyPolicyActive.set(true);
       expect(service.privacyPolicyActive()).toBe(true);
     });
+  });
 
+  describe("service methods", () => {
     it("toggleLegalNotice", () => {
       expect(service.legalNoticeActive()).toBe(false);
       service.toggleLegalNotice();

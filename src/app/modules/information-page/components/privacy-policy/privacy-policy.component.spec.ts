@@ -13,8 +13,9 @@ describe("PrivacyPolicyComponent", () => {
     await TestBed.configureTestingModule({
       imports: [PrivacyPolicyComponent],
       providers: [
-        MockProvider(PrivacyPolicyComponent, {
+        MockProvider(LandingPageService, {
           privacyPolicyActive: signal(false),
+          goBackToLogIn: jasmine.createSpy(),
         }),
       ],
     }).compileComponents();
@@ -36,11 +37,19 @@ describe("PrivacyPolicyComponent", () => {
       fixture.detectChanges();
       expect(component.privacyPolicyActive()).toBe(true);
     });
+  });
 
-    it("reflects service.goBackToLogIn ", () => {
-      component.goBack();
-      expect(mockService.privacyPolicyActive()).toBe(false);
-      expect(mockService.legalNoticeActive()).toBe(false);
+  describe("button clicks", () => {
+    it("should call goBack() on privacy policy image button click", () => {
+      mockService.privacyPolicyActive.set(true);
+      fixture.detectChanges();
+      const imageButton = fixture.nativeElement.querySelector(
+        "#privacy-policy-go-back-btn",
+      );
+      imageButton.click();
+      fixture.detectChanges();
+      expect(mockService.goBackToLogIn).toHaveBeenCalled();
+      mockService.privacyPolicyActive.set(false);
     });
   });
 });
