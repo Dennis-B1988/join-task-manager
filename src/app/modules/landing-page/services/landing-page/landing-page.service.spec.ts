@@ -47,8 +47,9 @@ describe("LandingPageService", () => {
     });
 
     it("goBackToLogIn", () => {
-      expect(service.legalNoticeActive()).toBe(false);
-      expect(service.privacyPolicyActive()).toBe(false);
+      service.legalNoticeActive.set(true);
+      service.privacyPolicyActive.set(true);
+
       service.goBackToLogIn();
       expect(service.legalNoticeActive()).toBe(false);
       expect(service.privacyPolicyActive()).toBe(false);
