@@ -120,4 +120,18 @@ describe("LogInComponent", () => {
       expect(component.loginForm.get("email")?.value).toBe("test@example.com");
     });
   });
+
+  describe("should call login methods", () => {
+    it("should call onSubmit", () => {
+      const spy = spyOn(component, "onSubmit").and.callThrough();
+      component.onSubmit();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it("should call guestLogin", () => {
+      const spy = spyOn(component, "guestLogin").and.callThrough();
+      component.guestLogin();
+      expect(spy).toHaveBeenCalled();
+    });
+  });
 });
