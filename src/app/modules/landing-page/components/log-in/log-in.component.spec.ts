@@ -133,5 +133,24 @@ describe("LogInComponent", () => {
       component.guestLogin();
       expect(spy).toHaveBeenCalled();
     });
+
+    it("should not call logIn when loading", () => {
+      component.isLoading = true;
+
+      component.loginForm.setValue({
+        email: "test@example.com",
+        password: "123456",
+      });
+
+      const logInSpy = spyOn(mockService, "logIn");
+
+      component.onSubmit();
+      expect(logInSpy).not.toHaveBeenCalled();
+
+      component.guestLogin();
+      expect(logInSpy).not.toHaveBeenCalled();
+
+      component.isLoading = false;
+    });
   });
 });
