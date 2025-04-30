@@ -12,6 +12,7 @@ import { TaskFormComponent } from "./task-form/task-form.component";
 export class AddTaskComponent implements OnDestroy {
   private tasksService = inject(TasksService);
   clearButtonHover: boolean = false;
+  addTaskSuccess: boolean = false;
 
   @ViewChild(TaskFormComponent) taskFormComponent!: TaskFormComponent;
 
@@ -23,6 +24,11 @@ export class AddTaskComponent implements OnDestroy {
     if (this.taskFormComponent) {
       this.tasksService.taskStatus.set("To Do");
       this.taskFormComponent.onSubmit();
+      this.addTaskSuccess = true;
+
+      setTimeout(() => {
+        this.addTaskSuccess = false;
+      }, 3000);
     }
   }
 

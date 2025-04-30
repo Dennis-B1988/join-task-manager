@@ -62,6 +62,35 @@ footer {
   }
 }
 
+.task-create {
+  @include flex(row, center, center);
+  @include font(1.25rem, 400, 120%, var(--color-white));
+  width: 20.375rem;
+  height: 4.625rem;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+  transform: translate(-50%, 200%);
+  transition:
+    transform 2s ease,
+    opacity 2s ease;
+  background-color: var(--color-blue-ebony);
+  box-shadow: 0px 0px 4px 0px var(--color-black) 0001a;
+  border-radius: 1.25rem;
+  opacity: 0;
+}
+
+.show {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.hide {
+  transform: translate(-50%, 200%);
+  opacity: 0;
+}
+
 @media (max-height: 53.75rem) or (max-width: 79.9375rem) {
   .task-main {
     @include flex(column, flex-start, center);
