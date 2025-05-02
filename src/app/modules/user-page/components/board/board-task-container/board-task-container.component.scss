@@ -1,14 +1,14 @@
-@import "../../../../../shared/styles/mixins";
+@use "../../../../../shared/styles/mixins";
 
 :host {
-  @include flex(column, unset, unset);
+  @include mixins.flex(column, unset, unset);
   width: 15.75rem;
   min-height: 0;
   overflow: hidden;
 }
 
 .task-container {
-  @include flex(column, unset, unset);
+  @include mixins.flex(column, unset, unset);
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -18,7 +18,7 @@
 }
 
 .task-header {
-  @include flex(row, space-between, center);
+  @include mixins.flex(row, space-between, center);
   font-weight: bold;
   margin-bottom: 0.5rem;
   flex-shrink: 0;
@@ -29,7 +29,7 @@
 }
 
 .task-list {
-  @include flex(column, unset, unset);
+  @include mixins.flex(column, unset, unset);
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -41,9 +41,9 @@
 }
 
 .no-task {
-  @include flex(row, center, center);
-  @include font(1rem, 400, 120%, var(--color-gray-700));
-  @include border(0.0625rem, dotted, var(--color-gray-700));
+  @include mixins.flex(row, center, center);
+  @include mixins.font(1rem, 400, 120%, var(--color-gray-700));
+  @include mixins.border(0.0625rem, dotted, var(--color-gray-700));
   border-radius: 0.625rem;
   box-shadow: 0px 0px 4px 0px var(--color-black) 00029;
   background-color: var(--color-gray-400);

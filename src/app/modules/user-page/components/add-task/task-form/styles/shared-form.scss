@@ -1,5 +1,7 @@
+@use "../../../../../../shared/styles/mixins";
+
 p {
-  @include font(0.75rem, 400, 0.9rem, var(--color-pink));
+  @include mixins.font(0.75rem, 400, 0.9rem, var(--color-pink));
 
   &.visible {
     visibility: visible;
@@ -24,7 +26,7 @@ p {
 }
 
 .task-input-textarea {
-  @include flex(column, center, flex-start);
+  @include mixins.flex(column, center, flex-start);
   width: 100%;
   gap: 0.5rem;
 
@@ -37,9 +39,9 @@ p {
 
   input,
   textarea {
-    @include font(1.25rem, 400, 1.5rem);
-    @include border(0.0625rem, solid, var(--color-gray-500));
-    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
+    @include mixins.font(1.25rem, 400, 1.5rem);
+    @include mixins.border(0.0625rem, solid, var(--color-gray-500));
+    @include mixins.padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
     width: 100%;
     border-radius: 0.625rem;
     background-color: var(--color-white);
@@ -74,8 +76,8 @@ p {
 }
 
 .dropdown {
-  @include flex(column, flex-start, flex-start);
-  @include padding(0.75rem, 0, 0, 0);
+  @include mixins.flex(column, flex-start, flex-start);
+  @include mixins.padding(0.75rem, 0, 0, 0);
   position: absolute;
   top: 2.8125rem;
   width: 100%;

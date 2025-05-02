@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, input } from "@angular/core";
 import { ContactsService } from "../../../services/contacts/contacts.service";
 import { ContactDetailsComponent } from "./contact-details/contact-details.component";
 

@@ -1,4 +1,4 @@
-@import "../../../../shared/styles/mixins";
+@use "../../../../shared/styles/mixins";
 
 .contacts-page {
   display: flex;
@@ -15,8 +15,8 @@
 }
 
 .contact-create-update {
-  @include flex(row, center, center);
-  @include font(1.25rem, 400, 120%, var(--color-white));
+  @include mixins.flex(row, center, center);
+  @include mixins.font(1.25rem, 400, 120%, var(--color-white));
   width: 20.375rem;
   height: 4.625rem;
   position: absolute;

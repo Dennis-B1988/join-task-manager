@@ -1,9 +1,9 @@
+@use "../../../../shared/styles/mixins";
 @use "@angular/material" as mat;
-@import "../../../../shared/styles/mixins";
 
 .sign-up-form {
-  @include flex(column, center, center);
-  @include padding(3rem, 7.1875rem, 3rem, 7.1875rem);
+  @include mixins.flex(column, center, center);
+  @include mixins.padding(3rem, 7.1875rem, 3rem, 7.1875rem);
   background-color: var(--color-white);
   gap: 2rem;
   border-radius: 1.875rem;
@@ -12,16 +12,16 @@
 }
 
 .headline {
-  @include flex(column, unset, center);
+  @include mixins.flex(column, unset, center);
   gap: 1rem;
 
   h1 {
-    @include font(3.75rem, 700, 4.5625rem);
+    @include mixins.font(3.75rem, 700, 4.5625rem);
   }
 }
 
 .form {
-  @include flex(column, unset, unset);
+  @include mixins.flex(column, unset, unset);
   width: 26.375rem;
   height: 13.5rem;
   gap: 1rem;
@@ -31,8 +31,8 @@
   position: relative;
 
   input {
-    @include border(0.0625rem, solid, var(--color-gray-500));
-    @include padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
+    @include mixins.border(0.0625rem, solid, var(--color-gray-500));
+    @include mixins.padding(0.75rem, 1.3125rem, 0.75rem, 1.3125rem);
     border-radius: 0.5rem;
     width: 100%;
 
@@ -51,25 +51,25 @@
 }
 
 .remember-me {
-  @include flex(row, center, center);
+  @include mixins.flex(row, center, center);
   gap: 0.625rem;
 }
 
 .buttons {
-  @include flex(row, center, center);
+  @include mixins.flex(row, center, center);
   width: 100%;
   gap: 2.1875rem;
 
   button {
     &:hover {
-      @include border(0.0625rem, solid, var(--color-blue-100));
+      @include mixins.border(0.0625rem, solid, var(--color-blue-100));
       background-color: var(--color-blue-100);
     }
   }
 }
 
 .policy-checkbox {
-  @include flex(row, unset, center);
+  @include mixins.flex(row, unset, center);
 
   > img {
     cursor: pointer;
@@ -96,7 +96,7 @@
 }
 
 .red {
-  @include font(0.6rem, 400, 120%, var(--color-red));
+  @include mixins.font(0.6rem, 400, 120%, var(--color-red));
   padding-left: 0.5rem;
 }
 
@@ -106,7 +106,7 @@
       active-indicator-color: rgb(0, 0, 0),
     )
   );
-  @include flex(row, center, center);
+  @include mixins.flex(row, center, center);
   width: 26.375rem;
   height: 13.5rem;
 }
@@ -119,11 +119,11 @@
 
 @media (max-width: 79.9375rem) {
   .sign-up-form {
-    @include padding(2rem, 2rem, 2rem, 2rem);
+    @include mixins.padding(2rem, 2rem, 2rem, 2rem);
   }
 
   .buttons {
-    @include flex(column, center, center);
+    @include mixins.flex(column, center, center);
     gap: 1.3125rem;
 
     button {

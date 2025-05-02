@@ -3,6 +3,7 @@ import {
   computed,
   HostListener,
   inject,
+  input,
   OnDestroy,
 } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";

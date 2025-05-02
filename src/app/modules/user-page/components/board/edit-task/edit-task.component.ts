@@ -123,12 +123,13 @@ export class EditTaskComponent implements OnDestroy {
   }
 
   /**
-   * Deletes a task from the task list.
+   * Deletes a task and closes the task form.
    *
    * @param task - The task object containing the ID of the task to be deleted.
    */
   deleteTask(task: Task): void {
     this.tasksService.deleteTask(task.id!);
+    this.closeForm();
   }
 
   /**

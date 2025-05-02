@@ -1,6 +1,11 @@
-import { AfterViewInit, Component, computed, inject } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Task } from "../../../../core/models/task.model";
 import { UnsubscribeService } from "../../../../core/services/unsubscribe/unsubscribe.service";
 import { ButtonWithIconComponent } from "../../../../shared/components/button-with-icon/button-with-icon.component";
 import { TasksService } from "../../services/tasks/tasks.service";
@@ -19,7 +24,7 @@ import { EditTaskComponent } from "./edit-task/edit-task.component";
   templateUrl: "./board.component.html",
   styleUrl: "./board.component.scss",
 })
-export class BoardComponent implements AfterViewInit {
+export class BoardComponent implements AfterViewInit, OnDestroy {
   private tasksService = inject(TasksService);
   private route = inject(ActivatedRoute);
   private unsubscribeService = inject(UnsubscribeService);
@@ -33,7 +38,6 @@ export class BoardComponent implements AfterViewInit {
 
   addTaskToBoard = computed(() => this.tasksService.addTaskToBoard());
   editTask = computed(() => this.tasksService.editTask());
-  showDeleteTask = computed(() => this.tasksService.showDeleteTask());
   selectedTask = computed(() => this.tasksService.selectedTask());
 
   /**
@@ -81,21 +85,11 @@ export class BoardComponent implements AfterViewInit {
   }
 
   /**
-   * Closes the task form and resets the selected task and edit task status.
+   * Cleans up the component by resetting the edit task and selected task states to
+   * null. This is called when the component is destroyed.
    */
-  closeForm(): void {
+  ngOnDestroy(): void {
     this.tasksService.editTask.set(false);
-    this.tasksService.showDeleteTask.set(false);
     this.tasksService.selectedTask.set(null);
-  }
-
-  /**
-   * Deletes a task and closes the task form.
-   *
-   * @param task - The task object containing the ID of the task to be deleted.
-   */
-  deleteTask(task: Task): void {
-    this.tasksService.deleteTask(task.id!);
-    this.closeForm();
   }
 }

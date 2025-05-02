@@ -1,16 +1,16 @@
-@import "../../../../../../shared/styles/mixins";
+@use "../../../../../../shared/styles/mixins";
 
 .contact-header {
-  @include flex(row, flex-start, center);
+  @include mixins.flex(row, flex-start, center);
   gap: 3.375rem;
 
   h2 {
-    @include font(2.9375rem, 500, 120%, var(--color-black));
+    @include mixins.font(2.9375rem, 500, 120%, var(--color-black));
   }
 }
 
 .contact-data {
-  @include flex(column, flex-start, flex-start);
+  @include mixins.flex(column, flex-start, flex-start);
   width: 100%;
   height: 100%;
   gap: 1.3125rem;
@@ -18,9 +18,9 @@
 }
 
 .initials {
-  @include flex(row, center, center);
-  @include font(2.9375rem, 500, 1.2rem, var(--color-white));
-  @include border(0.1875rem, solid, var(--color-white));
+  @include mixins.flex(row, center, center);
+  @include mixins.font(2.9375rem, 500, 1.2rem, var(--color-white));
+  @include mixins.border(0.1875rem, solid, var(--color-white));
   border-radius: 50%;
   width: 7.5rem;
   height: 7.5rem;
@@ -29,32 +29,32 @@
 }
 
 .edit-delete {
-  @include flex(row, flex-start, center);
+  @include mixins.flex(row, flex-start, center);
   gap: 1.875rem;
 
   div {
-    @include flex(row, flex-start, center);
-    @include font(1rem, 400, 120%, var(--color-blue-ebony));
+    @include mixins.flex(row, flex-start, center);
+    @include mixins.font(1rem, 400, 120%, var(--color-blue-ebony));
     gap: 0.8125rem;
     cursor: pointer;
   }
 }
 
 h3 {
-  @include font(1.25rem, 400, 120%, var(--color-black));
-  @include padding(1.875rem, 0, 1.875rem, 0);
+  @include mixins.font(1.25rem, 400, 120%, var(--color-black));
+  @include mixins.padding(1.875rem, 0, 1.875rem, 0);
 }
 
 .contact-info {
-  @include flex(column, flex-start, flex-start);
+  @include mixins.flex(column, flex-start, flex-start);
   gap: 1.375rem;
 
   h4 {
-    @include font(1rem, 700, 120%, var(--color-black));
+    @include mixins.font(1rem, 700, 120%, var(--color-black));
   }
 
   p {
-    @include font(1rem, 400, 120%, var(--color-black));
+    @include mixins.font(1rem, 400, 120%, var(--color-black));
   }
 
   .email-address {
@@ -64,14 +64,14 @@ h3 {
 
 .email,
 .phone {
-  @include flex(column, flex-start, flex-start);
+  @include mixins.flex(column, flex-start, flex-start);
   gap: 0.9375rem;
 }
 
 .delete-contact {
-  @include flex(column, center, center);
-  @include font(1.25rem, 700, 120%, var(--color-white));
-  @include padding(1.875rem, 3.75rem, 1.875rem, 3.75rem);
+  @include mixins.flex(column, center, center);
+  @include mixins.font(1.25rem, 700, 120%, var(--color-white));
+  @include mixins.padding(1.875rem, 3.75rem, 1.875rem, 3.75rem);
   border-radius: 1.875rem;
   position: absolute;
   top: 50%;
@@ -84,7 +84,7 @@ h3 {
 }
 
 .buttons {
-  @include flex(row, center, center);
+  @include mixins.flex(row, center, center);
   width: 100%;
   gap: 1.875rem;
 
@@ -108,7 +108,7 @@ h3 {
     gap: 1.25rem;
 
     h2 {
-      @include font(2.25rem, 500, 120%, var(--color-black));
+      @include mixins.font(2.25rem, 500, 120%, var(--color-black));
     }
   }
 
@@ -117,7 +117,7 @@ h3 {
   }
 
   .initials {
-    @include font(1.6875rem, 500, 1.2rem, var(--color-white));
+    @include mixins.font(1.6875rem, 500, 1.2rem, var(--color-white));
     width: 5rem;
     height: 5rem;
   }
@@ -127,7 +127,7 @@ h3 {
   }
 
   h3 {
-    @include font(1.25rem, 400, 120%, var(--color-black));
+    @include mixins.font(1.25rem, 400, 120%, var(--color-black));
   }
 
   .contact-edit-delete-menu {
@@ -147,8 +147,8 @@ h3 {
   }
 
   .edit-delete-mobile {
-    @include flex(column, center, center);
-    @include padding(0.625rem, 0.625rem, 0.625rem, 0.625rem);
+    @include mixins.flex(column, center, center);
+    @include mixins.padding(0.625rem, 0.625rem, 0.625rem, 0.625rem);
     position: absolute;
     bottom: 3rem;
     right: 3rem;
@@ -161,8 +161,8 @@ h3 {
 
   .edit-mobile,
   .delete-mobile {
-    @include flex(row, flex-start, center);
-    @include padding(0.5rem, 0.5rem, 0.5rem, 0.5rem);
+    @include mixins.flex(row, flex-start, center);
+    @include mixins.padding(0.5rem, 0.5rem, 0.5rem, 0.5rem);
     gap: 0.5rem;
     width: 6rem;
     cursor: pointer;

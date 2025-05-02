@@ -1,5 +1,5 @@
+@use "./app/shared/styles/mixins";
 @import "assets/font/inter.css";
-@import "./app/shared/styles/mixins";
 
 * {
   box-sizing: border-box;
@@ -32,7 +32,7 @@
 }
 
 html {
-  @include flex(row, center, unset);
+  @include mixins.flex(row, center, unset);
   font-family: "Inter", sans-serif;
   background-color: var(--color-gray-100);
 }
@@ -46,10 +46,10 @@ body {
 }
 
 button {
-  @include flex(row, center, center);
-  @include border(0.0625rem, solid, var(--color-blue-ebony));
-  @include font(1.3125rem, 700, 1.575rem, var(--color-white));
-  @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
+  @include mixins.flex(row, center, center);
+  @include mixins.border(0.0625rem, solid, var(--color-blue-ebony));
+  @include mixins.font(1.3125rem, 700, 1.575rem, var(--color-white));
+  @include mixins.padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
   border-radius: 0.625rem;
   background-color: var(--color-blue-ebony);
   cursor: pointer;

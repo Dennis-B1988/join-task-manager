@@ -1,4 +1,4 @@
-@import "../../shared/styles/mixins";
+@use "../../shared/styles/mixins";
 
 :host {
   width: 100%;
@@ -6,14 +6,14 @@
 }
 
 .container {
-  @include flex(column, space-between, center);
+  @include mixins.flex(column, space-between, center);
   height: 100%;
   width: 100%;
 }
 
 .top {
-  @include flex(row, space-between, center);
-  @include padding(0, 3.125rem, 0, 3.125rem);
+  @include mixins.flex(row, space-between, center);
+  @include mixins.padding(0, 3.125rem, 0, 3.125rem);
   width: 100%;
   height: 12.5rem;
 }
@@ -25,7 +25,7 @@
 
 .to-sign-up,
 .to-sign-up-mobile {
-  @include flex(row, none, center);
+  @include mixins.flex(row, none, center);
   gap: 2.1875rem;
   font-size: 1.25rem;
 
@@ -33,7 +33,7 @@
     font-size: 1rem;
 
     &:hover {
-      @include border(0.0625rem, solid, var(--color-blue-100));
+      @include mixins.border(0.0625rem, solid, var(--color-blue-100));
       background-color: var(--color-blue-100);
     }
   }
@@ -44,7 +44,7 @@
 }
 
 .bottom {
-  @include flex(row, center, flex-start);
+  @include mixins.flex(row, center, flex-start);
   width: 100%;
   height: 4.0625rem;
 }
@@ -99,7 +99,7 @@
   }
 
   .top {
-    @include padding(0, 1rem, 0, 1rem);
+    @include mixins.padding(0, 1rem, 0, 1rem);
     height: 8rem;
   }
 

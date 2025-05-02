@@ -1,7 +1,7 @@
-@import "../../../shared/styles/mixins";
+@use "../../../shared/styles/mixins";
 
 .sidebar {
-  @include flex(column, space-between, unset);
+  @include mixins.flex(column, space-between, unset);
   width: 14.5rem;
   height: 100dvh;
   background-color: var(--color-blue-ebony);
@@ -9,8 +9,8 @@
 }
 
 .logo {
-  @include flex(row, center, center);
-  @include padding(4rem, 0, 4rem, 0);
+  @include mixins.flex(row, center, center);
+  @include mixins.padding(4rem, 0, 4rem, 0);
 
   img {
     width: 6.25rem;
@@ -19,7 +19,7 @@
 }
 
 nav {
-  @include flex(column, center, unset);
+  @include mixins.flex(column, center, unset);
   gap: 0.9375rem;
 
   img {
@@ -28,9 +28,9 @@ nav {
 }
 
 .policy {
-  @include flex(column, center, center);
-  @include padding(4rem, 0, 4rem, 0);
-  @include font(0.75rem, 400, 1.2rem, var(--color-gray-700));
+  @include mixins.flex(column, center, center);
+  @include mixins.padding(4rem, 0, 4rem, 0);
+  @include mixins.font(0.75rem, 400, 1.2rem, var(--color-gray-700));
   gap: 0.25rem;
 
   span {
@@ -60,7 +60,7 @@ nav {
   }
 
   nav {
-    @include flex(row, space-between, center);
-    @include padding(0.125rem, 1rem, 0.125rem, 1rem);
+    @include mixins.flex(row, space-between, center);
+    @include mixins.padding(0.125rem, 1rem, 0.125rem, 1rem);
   }
 }

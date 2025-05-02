@@ -1,9 +1,9 @@
-@import "../../../shared/styles/mixins";
+@use "../../../shared/styles/mixins";
 
 .header {
-  @include font(1.5rem, 400, 120%, var(--color-black));
-  @include flex(row, space-between, center);
-  @include padding(1.25rem, 2.5rem, 1.25rem, 2.5rem);
+  @include mixins.font(1.5rem, 400, 120%, var(--color-black));
+  @include mixins.flex(row, space-between, center);
+  @include mixins.padding(1.25rem, 2.5rem, 1.25rem, 2.5rem);
   position: relative;
   width: 100%;
   background-color: var(--color-white);
@@ -15,7 +15,7 @@
 }
 
 .help-and-logout {
-  @include flex(row, none, center);
+  @include mixins.flex(row, none, center);
   gap: 1rem;
 
   img {
@@ -27,7 +27,7 @@
 
 @media (max-width: 79.9375rem) {
   .header {
-    @include padding(1.25rem, 1.5rem, 1.25rem, 1.5rem);
+    @include mixins.padding(1.25rem, 1.5rem, 1.25rem, 1.5rem);
     img {
       display: block;
     }

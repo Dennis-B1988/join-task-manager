@@ -1,15 +1,15 @@
-@import "../../../../shared/styles/mixins";
+@use "../../../../shared/styles/mixins";
 
 .privacy-policy {
-  @include flex(column, flex-start, flex-start);
-  @include padding(3rem, 2.5rem, 3rem, 2.5rem);
+  @include mixins.flex(column, flex-start, flex-start);
+  @include mixins.padding(3rem, 2.5rem, 3rem, 2.5rem);
   gap: 1.5rem;
   height: 100%;
   overflow-y: auto;
 }
 
 .privacy-policy-header {
-  @include flex(row, space-between, center);
+  @include mixins.flex(row, space-between, center);
   width: 100%;
 }
 
@@ -23,15 +23,15 @@
 }
 
 h1 {
-  @include font(3.8125rem, 700, 120%, var(--color-black));
+  @include mixins.font(3.8125rem, 700, 120%, var(--color-black));
 }
 
 h2 {
-  @include font(1.6875rem, 700, 120%, var(--color-black));
+  @include mixins.font(1.6875rem, 700, 120%, var(--color-black));
 }
 
 h3 {
-  @include font(1.25rem, 700, 120%, var(--color-black));
+  @include mixins.font(1.25rem, 700, 120%, var(--color-black));
 }
 
 ul {

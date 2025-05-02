@@ -1,4 +1,4 @@
-@import "../../../../../shared/styles/mixins";
+@use "../../../../../shared/styles/mixins";
 
 :host {
   position: absolute;
@@ -14,7 +14,7 @@
 }
 
 .add-task-container {
-  @include padding(1.25rem, 1.25rem, 1.25rem, 1.25rem);
+  @include mixins.padding(1.25rem, 1.25rem, 1.25rem, 1.25rem);
   width: 80%;
   max-width: 62.5rem;
   height: 90%;
@@ -28,12 +28,12 @@
 }
 
 .task-header {
-  @include flex(row, space-between, center);
+  @include mixins.flex(row, space-between, center);
   width: 100%;
   height: 100%;
 
   h2 {
-    @include font(3.8125rem, 700, 4.575rem);
+    @include mixins.font(3.8125rem, 700, 4.575rem);
   }
 
   img {
@@ -44,25 +44,25 @@
 }
 
 .task-footer {
-  @include flex(row, space-between, flex-end);
+  @include mixins.flex(row, space-between, flex-end);
   width: 100%;
 }
 
 .required-text {
-  @include flex(row, unset, unset);
+  @include mixins.flex(row, unset, unset);
 }
 
 .buttons {
-  @include flex(row, space-between, center);
+  @include mixins.flex(row, space-between, center);
   gap: 1rem;
 }
 
 .clear {
-  @include font(1.25rem, 400, 1.5rem, var(--color-blue-ebony));
+  @include mixins.font(1.25rem, 400, 1.5rem, var(--color-blue-ebony));
   background-color: var(--color-white);
 
   &:hover {
-    @include border(0.0625rem, solid, var(--color-blue-100));
+    @include mixins.border(0.0625rem, solid, var(--color-blue-100));
     color: var(--color-blue-100);
     background-color: var(--color-white);
   }
@@ -89,7 +89,7 @@
   }
 
   .buttons {
-    @include flex(row, center, center);
+    @include mixins.flex(row, center, center);
     width: 100%;
   }
 }

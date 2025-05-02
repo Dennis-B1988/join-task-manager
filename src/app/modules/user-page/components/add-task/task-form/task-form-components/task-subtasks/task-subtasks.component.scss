@@ -1,5 +1,5 @@
-@import "../../../../../../../shared/styles/mixins";
-@import "../../styles/shared-form";
+@use "../../../../../../../shared/styles/mixins";
+@use "../../styles/shared-form";
 
 :host {
   width: 100%;
@@ -18,9 +18,9 @@
 }
 
 .subtask-text {
-  @include flex(row, space-between, center);
-  @include font(1rem, 400, 120%, var(--color-black));
-  @include padding(0, 0.5rem, 0, 0);
+  @include mixins.flex(row, space-between, center);
+  @include mixins.font(1rem, 400, 120%, var(--color-black));
+  @include mixins.padding(0, 0.5rem, 0, 0);
   width: 100%;
 
   img {
@@ -34,6 +34,6 @@
   }
 
   .subtask-text {
-    @include padding(0.5rem, 0.5rem, 0.5rem, 0);
+    @include mixins.padding(0.5rem, 0.5rem, 0.5rem, 0);
   }
 }

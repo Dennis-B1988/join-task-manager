@@ -1,11 +1,11 @@
-@import "../../../../../shared/styles/mixins";
+@use "../../../../../shared/styles/mixins";
 
 :host {
   height: 100%;
 }
 
 .contact-form-container {
-  @include flex(column, center, center);
+  @include mixins.flex(column, center, center);
   position: absolute;
   top: 0;
   left: 0;
@@ -33,7 +33,7 @@
 }
 
 .form {
-  @include flex(row, space-between, center);
+  @include mixins.flex(row, space-between, center);
   width: 95%;
   height: 37rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -41,7 +41,7 @@
 }
 
 .form-left-side {
-  @include flex(row, center, center);
+  @include mixins.flex(row, center, center);
   width: 100%;
   height: 100%;
   background-color: var(--color-blue-ebony);
@@ -53,16 +53,16 @@
   }
 
   h2 {
-    @include font(3.8125rem, 700, 120%, var(--color-white));
+    @include mixins.font(3.8125rem, 700, 120%, var(--color-white));
   }
 
   p {
-    @include font(1.25rem, 400, 120%, var(--color-white));
+    @include mixins.font(1.25rem, 400, 120%, var(--color-white));
   }
 }
 
 .title {
-  @include flex(column, center, flex-start);
+  @include mixins.flex(column, center, flex-start);
   gap: 1rem;
 }
 
@@ -73,15 +73,15 @@
 }
 
 .form-middle {
-  @include flex(column, center, center);
-  @include padding(0, 4rem, 0, 4rem);
+  @include mixins.flex(column, center, center);
+  @include mixins.padding(0, 4rem, 0, 4rem);
   height: 100%;
   background-color: var(--color-white);
 }
 
 .image {
-  @include flex(column, center, center);
-  @include border(0.1875rem, solid, var(--color-white));
+  @include mixins.flex(column, center, center);
+  @include mixins.border(0.1875rem, solid, var(--color-white));
   width: 7.5rem;
   height: 7.5rem;
   border-radius: 50%;
@@ -93,12 +93,12 @@
 }
 
 .initials {
-  @include flex(row, center, center);
-  @include font(2.9375rem, 500, 1.2rem, var(--color-white));
+  @include mixins.flex(row, center, center);
+  @include mixins.font(2.9375rem, 500, 1.2rem, var(--color-white));
 }
 
 .form-right-side {
-  @include flex(column, center, center);
+  @include mixins.flex(column, center, center);
   width: 100%;
   height: 100%;
   background-color: var(--color-white);
@@ -107,7 +107,7 @@
 }
 
 .close {
-  @include flex(row, flex-end, center);
+  @include mixins.flex(row, flex-end, center);
 
   position: absolute;
   top: 3rem;
@@ -128,14 +128,14 @@
 @media (max-width: 81.25rem) {
   .form-left-side {
     h2 {
-      @include font(3rem, 700, 120%, var(--color-white));
+      @include mixins.font(3rem, 700, 120%, var(--color-white));
     }
   }
 }
 
 @media (max-height: 43.75rem) or (max-width: 79.9375rem) {
   .form {
-    @include flex(column, unset, unset);
+    @include mixins.flex(column, unset, unset);
     width: 95%;
     height: 90%;
     position: relative;
@@ -143,8 +143,8 @@
   }
 
   .form-left-side {
-    @include flex(column, center, flex-start);
-    @include padding(4.125rem, 1.5rem, 4.125rem, 1.5rem);
+    @include mixins.flex(column, center, flex-start);
+    @include mixins.padding(4.125rem, 1.5rem, 4.125rem, 1.5rem);
     border-top-left-radius: 1.875rem;
     border-top-right-radius: 1.875rem;
     border-bottom-left-radius: unset;
@@ -167,7 +167,7 @@
   }
 
   .form-middle {
-    @include padding(0, 0, 0, 0);
+    @include mixins.padding(0, 0, 0, 0);
     height: unset;
     background-color: unset;
     position: absolute;
@@ -185,7 +185,7 @@
   }
 
   .close-mobile {
-    @include flex(row, flex-end, center);
+    @include mixins.flex(row, flex-end, center);
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;

@@ -1,22 +1,22 @@
-@import "../../../../../../../shared/styles/mixins";
+@use "../../../../../../../shared/styles/mixins";
 
 :host {
   width: 100%;
 }
 
 .priority {
-  @include flex(column, center, flex-start);
+  @include mixins.flex(column, center, flex-start);
   gap: 0.5rem;
 }
 
 .priority-select {
-  @include flex(row, space-between, center);
+  @include mixins.flex(row, space-between, center);
   width: 100%;
 
   span {
-    @include flex(row, center, center);
-    @include font(1.25rem, 400, 1.5rem, var(--color-black));
-    @include padding(1rem, 0.625rem, 1rem, 0.625rem);
+    @include mixins.flex(row, center, center);
+    @include mixins.font(1.25rem, 400, 1.5rem, var(--color-black));
+    @include mixins.padding(1rem, 0.625rem, 1rem, 0.625rem);
     width: 32%;
     border-radius: 0.625rem;
     gap: 0.5rem;
@@ -26,17 +26,17 @@
   }
 
   .urgent {
-    @include font(1.25rem, 700, 1.575rem, var(--color-white));
+    @include mixins.font(1.25rem, 700, 1.575rem, var(--color-white));
     background-color: var(--color-orange-dark);
   }
 
   .medium {
-    @include font(1.25rem, 700, 1.575rem, var(--color-white));
+    @include mixins.font(1.25rem, 700, 1.575rem, var(--color-white));
     background-color: var(--color-orange);
   }
 
   .low {
-    @include font(1.25rem, 700, 1.575rem, var(--color-white));
+    @include mixins.font(1.25rem, 700, 1.575rem, var(--color-white));
     background-color: var(--color-green);
   }
 }

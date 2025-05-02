@@ -1,17 +1,17 @@
-@import "../../../shared/styles/mixins";
+@use "../../../shared/styles/mixins";
 
 :host {
-  @include flex(row, center, center);
-  @include padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
-  @include border(0.0625rem, solid, var(--color-blue-ebony));
-  @include font(1.3125rem, 700, 1.575rem, var(--color-white));
+  @include mixins.flex(row, center, center);
+  @include mixins.padding(0.9375rem, 1.5rem, 0.9375rem, 1.5rem);
+  @include mixins.border(0.0625rem, solid, var(--color-blue-ebony));
+  @include mixins.font(1.3125rem, 700, 1.575rem, var(--color-white));
   border-radius: 0.625rem;
   background-color: var(--color-blue-ebony);
   gap: 0.25rem;
   cursor: pointer;
 
   &:hover {
-    @include border(0.0625rem, solid, var(--color-blue-100));
+    @include mixins.border(0.0625rem, solid, var(--color-blue-100));
     background-color: var(--color-blue-100);
   }
 }
