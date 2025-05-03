@@ -23,13 +23,13 @@ export class UserService {
   constructor(private firestore: Firestore) {}
 
   /**
-   * Deletes a guest user and all of their associated data from Firestore.
+   * Deletes the guest user and all associated data from Firestore.
    *
-   * This is a utility function used by the AuthService to delete a guest user.
-   * When called, this function will delete all tasks and contacts associated with
-   * the guest user and then delete the user document itself.
-   *
-   * @returns A Promise that resolves when the deletion is complete.
+   * This method should only be called when the user is signing out. It will
+   * delete all documents in the `users` collection with the display name of
+   * "Guest" and all associated tasks and contacts. This will prevent the guest
+   * user from being able to log back in and access their data.
+   * @returns A promise that resolves when the deletion is complete.
    */
   async deleteGuestUserAndData(): Promise<void> {
     await runInInjectionContext(this.injector, async () => {
@@ -39,25 +39,34 @@ export class UserService {
       const guestSnapshots = await getDocs(guestQuery);
 
       for (const userDoc of guestSnapshots.docs) {
-        const userId = userDoc.id;
-        const tasksSnapshot = await runInInjectionContext(this.injector, () =>
-          getDocs(collection(this.firestore, `users/${userId}/tasks`)),
-        );
-
-        const taskDeletes = tasksSnapshot.docs.map((doc) => deleteDoc(doc.ref));
-        const contactsSnapshot = await runInInjectionContext(
-          this.injector,
-          () => getDocs(collection(this.firestore, `users/${userId}/contacts`)),
-        );
-
-        const contactDeletes = contactsSnapshot.docs.map((doc) =>
-          deleteDoc(doc.ref),
-        );
-
-        await Promise.all([...taskDeletes, ...contactDeletes]);
-
-        await deleteDoc(doc(this.firestore, "users", userId));
+        this.userDocs(userDoc);
       }
     });
+  }
+
+  /**
+   * Deletes all tasks and contacts associated with a user document.
+   *
+   * @param userDoc - The user document to delete associated tasks and contacts from.
+   * @returns A promise that resolves when all tasks and contacts are deleted.
+   */
+  async userDocs(userDoc: any) {
+    const userId = userDoc.id;
+    const tasksSnapshot = await runInInjectionContext(this.injector, () =>
+      getDocs(collection(this.firestore, `users/${userId}/tasks`)),
+    );
+
+    const taskDeletes = tasksSnapshot.docs.map((doc) => deleteDoc(doc.ref));
+    const contactsSnapshot = await runInInjectionContext(this.injector, () =>
+      getDocs(collection(this.firestore, `users/${userId}/contacts`)),
+    );
+
+    const contactDeletes = contactsSnapshot.docs.map((doc) =>
+      deleteDoc(doc.ref),
+    );
+
+    await Promise.all([...taskDeletes, ...contactDeletes]);
+
+    await deleteDoc(doc(this.firestore, "users", userId));
   }
 }

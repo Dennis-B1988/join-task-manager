@@ -132,11 +132,17 @@ export class SignUpComponent implements OnDestroy {
   }
 
   /**
-   * Submits the sign-up form and creates a new user with the provided
-   * display name, email, and password. If the form is invalid, marks all
-   * form controls as touched and does nothing else. If the form is valid,
-   * sets the loading state to true, creates the user, and then sets the
-   * loading state to false and sets the sign-up active state to false.
+   * Handles the submission of the sign-up form.
+   *
+   * @remarks
+   * This asynchronous function checks the validity of the sign-up form fields
+   * including display name, email, password, and confirm password. It also ensures
+   * that the user has accepted the privacy policy. If any field is invalid or the
+   * policy is not accepted, the form is marked as touched and the function exits.
+   * Otherwise, it sets the loading state to true, attempts to create a new user
+   * using the provided form values, and logs any errors that occur. Once the
+   * creation attempt is complete, it resets the loading state. If the email is
+   * not unavailable, it deactivates the sign-up page.
    */
   async onSubmit(): Promise<void> {
     if (
@@ -161,7 +167,9 @@ export class SignUpComponent implements OnDestroy {
       console.error("Error creating user:", error);
     } finally {
       this.isLoading = false;
-      this.landingPageService.signUpActive.set(false);
+      if (!this.authService.emailUnavailable()) {
+        this.landingPageService.signUpActive.set(false);
+      }
     }
   }
 

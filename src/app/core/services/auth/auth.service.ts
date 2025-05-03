@@ -167,14 +167,24 @@ export class AuthService {
       });
     } catch (error: any) {
       console.error("Error creating user:", error);
-      if (error.code === "auth/email-already-in-use")
-        this.emailUnavailable.set(true);
-      if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
-      if (error.code === "auth/missing-password") this.wrongPassword.set(true);
-      if (error.code === "auth/weak-password") this.wrongPassword.set(true);
+      this.errorCodes(error);
     } finally {
       this.loadingUser.set(false);
     }
+  }
+
+  /**
+   * Sets the appropriate error message state variables to true based on the
+   * error code from the Firebase authentication error.
+   *
+   * @param error - The error from the Firebase authentication error.
+   */
+  private errorCodes(error: any): void {
+    if (error.code === "auth/email-already-in-use")
+      this.emailUnavailable.set(true);
+    if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
+    if (error.code === "auth/missing-password") this.wrongPassword.set(true);
+    if (error.code === "auth/weak-password") this.wrongPassword.set(true);
   }
 
   /**
