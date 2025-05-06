@@ -13,6 +13,7 @@ export class SummaryComponent implements OnInit {
   isMobile: boolean = false;
 
   userName = computed(() => this.authService.user()?.displayName.split(" ")[0]);
+  firstGreetingMobile = computed(() => this.authService.firstGreetingMobile());
 
   greetings: string[] = [
     "Good Day,",
@@ -38,13 +39,12 @@ export class SummaryComponent implements OnInit {
   }
 
   /**
-   * Updates the mobile greeting state based on the window's width.
-   * If the window is narrower than 1280px, the mobile greeting is shown.
-   * After a 1.2 second delay, the mobile greeting is hidden again.
+   * Updates the greeting state of the component based on the window width.
    *
-   * This is done to show a mobile-specific greeting only when the user is on a
-   * mobile device. The timeout is necessary because the window's width is
-   * not immediately available when the component is initialized.
+   * If the window width is less than 1280, it sets the `isMobile` state to true
+   * and sets a timeout to set the `isMobile` state to false after 1.2 seconds.
+   * This is used to animate the greeting on the summary page. The timeout is
+   * cleared when the component is destroyed.
    */
   private updateGreetings(): void {
     if (window.innerWidth < 1280) {
@@ -52,6 +52,7 @@ export class SummaryComponent implements OnInit {
 
       setTimeout(() => {
         this.isMobile = false;
+        this.authService.firstGreetingMobile.set(false);
       }, 1200);
     }
   }

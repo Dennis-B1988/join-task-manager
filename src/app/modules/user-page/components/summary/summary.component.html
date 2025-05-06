@@ -16,7 +16,7 @@
     </p>
   </div>
 
-  @if (isMobile) {
+  @if (isMobile && firstGreetingMobile()) {
     <div class="mobile-greeting">
       <p aria-live="polite">
         {{ greeting }} <span>{{ userName() }}</span>

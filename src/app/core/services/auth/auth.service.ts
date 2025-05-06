@@ -57,6 +57,8 @@ export class AuthService {
 
   loadingUser = signal<boolean>(false);
 
+  firstGreetingMobile = signal<boolean>(true);
+
   /**
    * Constructs a new instance of the AuthService.
    *
