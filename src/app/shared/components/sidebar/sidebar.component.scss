@@ -39,7 +39,7 @@ nav {
   gap: 0.25rem;
 
   .policy-btn {
-    @include mixins.font(0.75rem, 400, 1.2rem, var(--color-gray-700));
+    @include mixins.font(0.75rem, 400, 1.2rem, var(--color-gray-500));
     padding: 0.5rem;
     cursor: pointer;
   }
