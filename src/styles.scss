@@ -1,5 +1,5 @@
-@use "./app/shared/styles/mixins";
-@import "assets/font/inter.css";
+@use './app/shared/styles/mixins';
+@import 'assets/font/inter.css';
 
 * {
   box-sizing: border-box;
@@ -15,10 +15,10 @@
   --color-gray-100: #f6f7f8;
   --color-gray-500: #d1d1d1;
   --color-blue-400: #42526e;
-  --color-gray-700: #a8a8a8;
+  --color-gray-700: #585858;
   --color-gray-600: #cdcdcd;
   --color-red: #ff0000;
-  --color-blue-100: #29abe2;
+  --color-blue-100: #05a1e4;
   --color-blue-200: #007cee;
   --color-blue-300: #0038ff;
   --color-green-lime: #1fd7c1;
@@ -33,7 +33,7 @@
 
 html {
   @include mixins.flex(row, center, unset);
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--color-gray-100);
 }
 

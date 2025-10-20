@@ -17,8 +17,9 @@
             type="email"
             placeholder="Email"
             name="email"
-            formControlName="email"
-          />
+            title="email"
+            aria-label="email input"
+            formControlName="email" />
           <img class="input-icon" src="assets/img/mail.png" alt="" />
         </div>
         @if (wrongEmail()) {
@@ -32,15 +33,11 @@
             [type]="showPassword ? 'text' : 'password'"
             placeholder="Password"
             name="password"
+            title="password"
+            aria-label="password input"
             formControlName="password"
-            (focus)="toggleFocusPassword()"
-          />
-          <img
-            class="input-icon"
-            [src]="passwordImage"
-            alt=""
-            (mousedown)="togglePassword()"
-          />
+            (focus)="toggleFocusPassword()" />
+          <img class="input-icon" [src]="passwordImage" alt="" (mousedown)="togglePassword()" />
         </div>
         @if (wrongPassword()) {
           <span class="red">Wrong password</span>
@@ -49,24 +46,15 @@
 
       <div class="remember-me" (click)="toggleRememberMe()">
         <img
-          [src]="
-            rememberMe
-              ? 'assets/img/checkmark-normal-marked.png'
-              : 'assets/img/checkmark-normal-empty.png'
-          "
-          alt="remember me"
-        />
+          [src]="rememberMe ? 'assets/img/checkmark-normal-marked.png' : 'assets/img/checkmark-normal-empty.png'"
+          [alt]="rememberMe ? 'remember me checked' : 'remember me unchecked'" />
         <span>Remember me</span>
       </div>
     </form>
   }
 
   <div class="buttons">
-    <button class="log-in-button" (click)="onSubmit()" [disabled]="isLoading">
-      Log in
-    </button>
-    <button class="guest-button" (click)="guestLogin()" [disabled]="isLoading">
-      Guest Log in
-    </button>
+    <button class="log-in-button" (click)="onSubmit()" [disabled]="isLoading">Log in</button>
+    <button class="guest-button" (click)="guestLogin()" [disabled]="isLoading">Guest Log in</button>
   </div>
 </div>

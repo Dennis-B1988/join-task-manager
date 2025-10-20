@@ -1,5 +1,5 @@
-@use "../../../../shared/styles/mixins";
-@use "@angular/material" as mat;
+@use '../../../../shared/styles/mixins';
+@use '@angular/material' as mat;
 
 .sign-up-form {
   @include mixins.flex(column, center, center);
