@@ -1,29 +1,15 @@
 <div class="subtasks task-input-textarea" [formGroup]="taskForm()">
   <span>Subtasks</span>
   <div class="pr-input-container">
-    <input
-      type="text"
-      name="subtask"
-      placeholder="Add new subtasks"
-      formControlName="subtask"
-    />
-    <img
-      class="input-icon"
-      src="assets/img/subtasks_add.png"
-      alt="Add subtask"
-      (click)="addSubtask()"
-    />
+    <input type="text" name="subtask" aria-label="subtask" placeholder="Add new subtasks" formControlName="subtask" />
+    <img class="input-icon" src="assets/img/subtasks_add.png" alt="Add subtask" (click)="addSubtask()" />
   </div>
   <div class="subtasks-list-container">
     <ul class="subtasks-list">
       @for (subtask of subTasks(); track subtask) {
         <li class="subtask-text">
           <span>• {{ subtask.subtaskValue }}</span
-          ><img
-            src="assets/img/delete.png"
-            alt="remove subtask"
-            (click)="removeSubtask(subtask.id!)"
-          />
+          ><img src="assets/img/delete.png" alt="remove subtask" (click)="removeSubtask(subtask.id!)" />
         </li>
       }
     </ul>

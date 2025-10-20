@@ -1,40 +1,16 @@
-<form
-  class="task-form"
-  name="taskForm"
-  (onSubmit)="onSubmit()"
-  [formGroup]="taskForm"
-  aria-label="Create a new task"
->
-  <section
-    class="task-form-left-side"
-    role="group"
-    aria-labelledby="left-section-heading"
-  >
+<form class="task-form" name="taskForm" (onSubmit)="onSubmit()" [formGroup]="taskForm" aria-label="Create a new task">
+  <section class="task-form-left-side" role="group" aria-hidden="true">
     <div class="title task-input-textarea">
-      <label for="title-input"
-        >Title<span class="red" aria-hidden="true">*</span></label
-      >
+      <label for="title-input">Title<span class="red" aria-hidden="true">*</span></label>
       <input
         id="title-input"
         type="text"
         name="title"
+        aria-label="title"
         placeholder="Enter a title"
         formControlName="title"
-        [style]="
-          formValid.title.invalid && formValid.title.touched
-            ? 'border-color: var(--color-pink)'
-            : ''
-        "
-      />
-      <p
-        [class]="
-          formValid.title.invalid && formValid.title.touched
-            ? 'visible'
-            : 'hidden'
-        "
-      >
-        Please enter a title
-      </p>
+        [style]="formValid.title.invalid && formValid.title.touched ? 'border-color: var(--color-pink)' : ''" />
+      <p [class]="formValid.title.invalid && formValid.title.touched ? 'visible' : 'hidden'">Please enter a title</p>
     </div>
     <div class="description task-input-textarea">
       <label for="description">Description</label>
@@ -42,9 +18,9 @@
         id="description"
         type="text"
         name="description"
+        aria-label="description"
         placeholder="Enter a description"
-        formControlName="description"
-      ></textarea>
+        formControlName="description"></textarea>
     </div>
 
     <app-task-assigned-to [taskForm]="taskForm"></app-task-assigned-to>
@@ -52,37 +28,19 @@
 
   <div class="task-form-middle-line" aria-hidden="true"></div>
 
-  <section
-    class="task-form-right-side"
-    role="group"
-    aria-labelledby="right-section-heading"
-  >
+  <section class="task-form-right-side" role="group" aria-hidden="true">
     <div class="due-date task-input-textarea">
-      <label for="dueDate"
-        >Due date<span class="red" aria-hidden="true">*</span></label
-      >
+      <label for="dueDate">Due date<span class="red" aria-hidden="true">*</span></label>
       <input
         id="dueDate"
         type="date"
         name="dueDate"
+        aria-label="due date"
         placeholder="dd/mm/yyyy"
         [min]="today"
         formControlName="dueDate"
-        [style]="
-          formValid.dueDate.invalid && formValid.dueDate.touched
-            ? 'border-color: var(--color-pink)'
-            : ''
-        "
-      />
-      <p
-        [class]="
-          formValid.dueDate.invalid && formValid.dueDate.touched
-            ? 'visible'
-            : 'hidden'
-        "
-      >
-        Please enter a date
-      </p>
+        [style]="formValid.dueDate.invalid && formValid.dueDate.touched ? 'border-color: var(--color-pink)' : ''" />
+      <p [class]="formValid.dueDate.invalid && formValid.dueDate.touched ? 'visible' : 'hidden'">Please enter a date</p>
     </div>
 
     <app-task-priority></app-task-priority>

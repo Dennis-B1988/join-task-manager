@@ -4,43 +4,27 @@
     <input
       name="assignedTo"
       id="assignedTo"
+      aria-label="assigned to"
       placeholder="Select contacts to assign"
       formControlName="assignedTo"
       (click)="toggleAssignedTo()"
-      (input)="searchContacts($event)"
-    />
+      (input)="searchContacts($event)" />
     <img
       class="input-icon"
-      [src]="
-        assignedToOpen
-          ? 'assets/img/arrow_dropdown_up.png'
-          : 'assets/img/arrow_dropdown_down.png'
-      "
-      alt="Assign users"
-    />
+      [src]="assignedToOpen ? 'assets/img/arrow_dropdown_up.png' : 'assets/img/arrow_dropdown_down.png'"
+      alt="Assign users" />
     @if (assignedToOpen) {
       <div class="dropdown">
         @for (contact of filteredContacts(); track contact) {
           <div
-            [class]="
-              isContactAssigned(contact)
-                ? 'assigned-to-item selected'
-                : 'assigned-to-item'
-            "
-            (click)="assignContactToTask(contact)"
-          >
+            [class]="isContactAssigned(contact) ? 'assigned-to-item selected' : 'assigned-to-item'"
+            (click)="assignContactToTask(contact)">
             <div class="contact-item">
-              <span
-                class="contact-initials"
-                [style]="
-                  'background-color: ' + getContactColor(contact.displayName)
-                "
-                >{{ getContactInitials(contact.displayName) }}</span
-              >
+              <span class="contact-initials" [style]="'background-color: ' + getContactColor(contact.displayName)">{{
+                getContactInitials(contact.displayName)
+              }}</span>
               @if (contact.displayName === user()?.displayName) {
-                <span class="contact-name"
-                  >{{ contact.displayName }} (You)
-                </span>
+                <span class="contact-name">{{ contact.displayName }} (You) </span>
               } @else {
                 <span class="contact-name">{{ contact.displayName }} </span>
               }
@@ -50,8 +34,7 @@
                     ? 'assets/img/checkmark-checked-white.png'
                     : 'assets/img/checkmark-assigned-to.png'
                 "
-                alt=""
-              />
+                alt="" />
             </div>
           </div>
         }
@@ -63,8 +46,7 @@
     @for (contact of assignedToTask(); track contact) {
       <span
         (click)="removeContactFromTask(contact)"
-        [style]="'background-color: ' + getContactColor(contact.displayName)"
-      >
+        [style]="'background-color: ' + getContactColor(contact.displayName)">
         {{ getContactInitials(contact.displayName) }}
       </span>
     }

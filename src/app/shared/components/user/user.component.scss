@@ -14,7 +14,7 @@
 
 .menu {
   @include mixins.flex(column, center, center);
-  @include mixins.font(1rem, 400, 1.5rem, var(--color-gray-700));
+  @include mixins.font(1rem, 400, 1.5rem, var(--color-gray-600));
   padding: 0.625rem;
   gap: 0.5rem;
   border-top-left-radius: 1.25rem;
