@@ -2,63 +2,33 @@
   <header class="board-header">
     <div class="header-mobile">
       <h1>Board</h1>
-      <button
-        class="add-task-mobile"
-        appButton
-        (click)="toggleAddTaskAndSetStatus('To Do')"
-      >
-        <span ngProjectAs="[icon]"
-          ><img src="assets/img/add.png" alt="Add Task"
-        /></span>
+      <button class="add-task-mobile button" appButton (click)="toggleAddTaskAndSetStatus('To Do')">
+        <span ngProjectAs="[icon]"><img src="assets/img/add.png" alt="Add Task" /></span>
       </button>
     </div>
     <div class="search-and-create">
       <div class="search-container">
-        <input
-          type="text"
-          class="find-task"
-          placeholder="Find Task"
-          (input)="searchTask($event)"
-        />
+        <input type="text" class="find-task" placeholder="Find Task" (input)="searchTask($event)" />
         <div class="search-image" aria-hidden="true">
           <span class="line"></span>
           <img src="assets/img/search.png" alt="Search" />
         </div>
       </div>
-      <button
-        class="add-task"
-        appButton
-        (click)="toggleAddTaskAndSetStatus('To Do')"
-      >
+      <button class="add-task button" appButton (click)="toggleAddTaskAndSetStatus('To Do')">
         Add task
-        <span ngProjectAs="[icon]"
-          ><img src="assets/img/add.png" alt="Add Task"
-        /></span>
+        <span ngProjectAs="[icon]"><img src="assets/img/add.png" alt="Add Task" /></span>
       </button>
     </div>
   </header>
 
   <section class="board-main">
-    <app-board-task-container
-      id="todo"
-      [status]="TODO"
-      [title]="TODO"
-    ></app-board-task-container>
-    <app-board-task-container
-      id="in-progress"
-      [status]="IN_PROGRESS"
-      [title]="IN_PROGRESS"
-    ></app-board-task-container>
+    <app-board-task-container id="todo" [status]="TODO" [title]="TODO"></app-board-task-container>
+    <app-board-task-container id="in-progress" [status]="IN_PROGRESS" [title]="IN_PROGRESS"></app-board-task-container>
     <app-board-task-container
       id="awaiting-feedback"
       [status]="AWAITING_FEEDBACK"
-      [title]="AWAITING_FEEDBACK"
-    ></app-board-task-container>
-    <app-board-task-container
-      id="done"
-      [status]="DONE"
-      [title]="DONE"
-    ></app-board-task-container>
+      [title]="AWAITING_FEEDBACK"></app-board-task-container>
+    <app-board-task-container id="done" [status]="DONE" [title]="DONE"></app-board-task-container>
   </section>
 
   @if (editTask()) {

@@ -1,4 +1,4 @@
-@use "../../../shared/styles/mixins";
+@use '../../../shared/styles/mixins';
 
 .sidebar {
   @include mixins.flex(column, space-between, unset);
@@ -18,6 +18,11 @@
   }
 }
 
+button {
+  background-color: var(--color-blue-ebony);
+  border: none;
+}
+
 nav {
   @include mixins.flex(column, center, unset);
   gap: 0.9375rem;
@@ -30,15 +35,16 @@ nav {
 .policy {
   @include mixins.flex(column, center, center);
   @include mixins.padding(4rem, 0, 4rem, 0);
-  @include mixins.font(0.75rem, 400, 1.2rem, var(--color-gray-700));
+
   gap: 0.25rem;
 
-  span {
+  .policy-btn {
+    @include mixins.font(0.75rem, 400, 1.2rem, var(--color-gray-700));
     padding: 0.5rem;
     cursor: pointer;
   }
 
-  span:hover {
+  .policy-btn:hover {
     text-decoration: underline;
   }
 }

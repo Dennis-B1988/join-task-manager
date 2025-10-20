@@ -3,56 +3,38 @@
     <img src="assets/img/logo-white.png" alt="logo" />
   </div>
   <nav>
-    <span
-      [routerLink]="['summary']"
-      routerLinkActive="active"
-      #summary="routerLinkActive"
-      ><img
+    <button [routerLink]="['summary']" routerLinkActive="active" #summary="routerLinkActive">
+      <img
         [src]="summary.isActive ? summaryPathActive : summaryCurrentPath"
         (mouseover)="summaryCurrentPath = summaryPathActive"
         (mouseleave)="summaryCurrentPath = summaryPath"
-        alt="go to summary"
-    /></span>
-    <span
-      [routerLink]="['add-tasks']"
-      routerLinkActive="active"
-      #tasks="routerLinkActive"
-    >
+        alt="go to summary" />
+    </button>
+    <button [routerLink]="['add-tasks']" routerLinkActive="active" #tasks="routerLinkActive">
       <img
         [src]="tasks.isActive ? addTasksPathActive : addTasksCurrentPath"
         (mouseover)="addTasksCurrentPath = addTasksPathActive"
         (mouseleave)="addTasksCurrentPath = addTasksPath"
-        alt="go to add tasks"
-      />
-    </span>
-    <span
-      [routerLink]="['board']"
-      routerLinkActive="active"
-      #board="routerLinkActive"
-    >
+        alt="go to add tasks" />
+    </button>
+    <button [routerLink]="['board']" routerLinkActive="active" #board="routerLinkActive">
       <img
         [src]="board.isActive ? boardPathActive : boardCurrentPath"
         (mouseover)="boardCurrentPath = boardPathActive"
         (mouseleave)="boardCurrentPath = boardPath"
-        alt="go to board"
-      />
-    </span>
-    <span
-      [routerLink]="['contacts']"
-      routerLinkActive="active"
-      #contacts="routerLinkActive"
-    >
+        alt="go to board" />
+    </button>
+    <button [routerLink]="['contacts']" routerLinkActive="active" #contacts="routerLinkActive">
       <img
         [src]="contacts.isActive ? contactsPathActive : contactsCurrentPath"
         (mouseover)="contactsCurrentPath = contactsPathActive"
         (mouseleave)="contactsCurrentPath = contactsPath"
-        alt="go to contacts"
-      />
-    </span>
+        alt="go to contacts" />
+    </button>
   </nav>
 
   <div class="policy">
-    <span [routerLink]="['privacy-policy']">Privacy Policy</span>
-    <span [routerLink]="['legal-notice']">Legal notice</span>
+    <button class="policy-btn" [routerLink]="['privacy-policy']">Privacy Policy</button>
+    <button class="policy-btn" [routerLink]="['legal-notice']">Legal notice</button>
   </div>
 </div>

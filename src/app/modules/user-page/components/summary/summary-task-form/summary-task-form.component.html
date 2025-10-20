@@ -1,56 +1,35 @@
 <section class="summary-display-container" aria-label="Task Summary Dashboard">
   <div class="top container">
-    <article
+    <button
       class="to-do-done summary-display hover"
-      aria-labelledby="todo-heading"
       (mouseenter)="toDoHover = true"
       (mouseleave)="toDoHover = false"
       [routerLink]="['/board']"
-      fragment="todo"
-    >
-      <img
-        [src]="
-          toDoHover ? 'assets/img/to-do-hover.png' : 'assets/img/to-do.png'
-        "
-        alt="Tasks in to do"
-      />
+      fragment="todo">
+      <img [src]="toDoHover ? 'assets/img/to-do-hover.png' : 'assets/img/to-do.png'" alt="Tasks in to do" />
       <div>
         <output class="task-amount">{{ toDoAmount() }}</output>
         <span class="task-type">To-do</span>
       </div>
-    </article>
-    <article
+    </button>
+    <button
       class="to-do-done summary-display hover"
-      aria-labelledby="done-heading"
       (mouseenter)="doneHover = true"
       (mouseleave)="doneHover = false"
       [routerLink]="['/board']"
-      fragment="done"
-    >
-      <img
-        [src]="doneHover ? 'assets/img/done-hover.png' : 'assets/img/done.png'"
-        alt="Tasks in done"
-      />
+      fragment="done">
+      <img [src]="doneHover ? 'assets/img/done-hover.png' : 'assets/img/done.png'" alt="Tasks in done" />
       <div>
         <output class="task-amount">{{ doneAmount() }}</output>
         <span class="task-type">Done</span>
       </div>
-    </article>
+    </button>
   </div>
 
   <div class="middle">
-    <article
-      class="urgent summary-display hover"
-      aria-labelledby="urgent-heading"
-      [routerLink]="['/board']"
-      fragment="urgent"
-    >
+    <button class="urgent summary-display hover" [routerLink]="['/board']" fragment="urgent">
       <div class="urgent-amount-container">
-        <img
-          src="assets/img/urgent.png"
-          alt="Urgent Tasks Icon"
-          aria-hidden="true"
-        />
+        <img src="assets/img/urgent.png" alt="Urgent Tasks Icon" aria-hidden="true" />
         <div class="urgent-amount-text">
           <output class="task-amount">{{ urgentAmount() }}</output>
           <span class="task-type">Urgent</span>
@@ -60,42 +39,31 @@
       <div class="task-deadline-container">
         @if (taskWithShortestDueDate() && urgentAmount()) {
           <time class="task-deadline-date" aria-live="polite">
-            {{ taskWithShortestDueDate() | date: "dd/MM/yyyy" }}
+            {{ taskWithShortestDueDate() | date: 'dd/MM/yyyy' }}
           </time>
           <span>Upcoming Deadline</span>
         } @else {
           <span>No Upcoming Deadlines</span>
         }
       </div>
-    </article>
+    </button>
   </div>
 
   <div class="bottom container">
-    <article
-      class="board-progress-feedback summary-display hover"
-      aria-labelledby="total-tasks-heading"
-      [routerLink]="['/board']"
-    >
+    <button class="board-progress-feedback summary-display hover" [routerLink]="['/board']" fragment="tasks-in-board">
       <output class="task-amount">{{ totalTasks() }}</output>
       <span class="task-type">Tasks in Board</span>
-    </article>
-    <article
-      class="board-progress-feedback summary-display hover"
-      aria-labelledby="progress-tasks-heading"
-      [routerLink]="['/board']"
-      fragment="in-progress"
-    >
+    </button>
+    <button class="board-progress-feedback summary-display hover" [routerLink]="['/board']" fragment="in-progress">
       <output class="task-amount">{{ inProgressAmount() }}</output>
       <span class="task-type">Tasks in Progress</span>
-    </article>
-    <article
+    </button>
+    <button
       class="board-progress-feedback summary-display hover"
-      aria-labelledby="feedback-tasks-heading"
       [routerLink]="['/board']"
-      fragment="awaiting-feedback"
-    >
+      fragment="awaiting-feedback">
       <output class="task-amount">{{ awaitingFeedbackAmount() }}</output>
       <span class="task-type">Awaiting Feedback</span>
-    </article>
+    </button>
   </div>
 </section>

@@ -1,6 +1,6 @@
 <section class="contacts-container">
   <div class="add-contact">
-    <button appButton (click)="addContact()">
+    <button class="button" appButton (click)="addContact()">
       Add new contact
       <span ngProjectAs="[icon]">
         <img src="assets/img/person_add.png" alt="Add new contact" />
@@ -16,19 +16,9 @@
 
         @for (contact of groupedContacts()[letter]; track contact.id) {
           <div
-            [class]="
-              contact.displayName === showContact()?.displayName
-                ? 'contact active'
-                : 'contact'
-            "
-            (click)="lookAtContactInformation(contact)"
-          >
-            <span
-              class="initials"
-              [style]="
-                'background-color: ' + getContactColor(contact.displayName)
-              "
-            >
+            [class]="contact.displayName === showContact()?.displayName ? 'contact active' : 'contact'"
+            (click)="lookAtContactInformation(contact)">
+            <span class="initials" [style]="'background-color: ' + getContactColor(contact.displayName)">
               {{ getContactInitials(contact.displayName) }}
             </span>
             <div class="contact-info">

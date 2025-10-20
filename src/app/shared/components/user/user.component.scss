@@ -1,4 +1,4 @@
-@use "../../../shared/styles/mixins";
+@use '../../../shared/styles/mixins';
 
 .user {
   @include mixins.flex(row, center, center);

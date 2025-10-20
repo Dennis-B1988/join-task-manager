@@ -1,9 +1,4 @@
-<form
-  class="form-content"
-  name="contactForm"
-  (ngSubmit)="onSubmit()"
-  [formGroup]="contactForm"
->
+<form class="form-content" name="contactForm" (ngSubmit)="onSubmit()" [formGroup]="contactForm">
   <div class="form-inputs">
     <div class="inputs">
       <input type="text" placeholder="Name" formControlName="name" />
@@ -22,25 +17,19 @@
   <div class="buttons">
     <button
       appButton
-      class="clear"
+      class="clear button"
       (click)="cancelDeleteContact()"
       (mouseover)="clearButtonHover = true"
-      (mouseleave)="clearButtonHover = false"
-    >
+      (mouseleave)="clearButtonHover = false">
       {{ contact().clearButton }}
       <span ngProjectAs="[icon]">
         <img
           src="assets/img/cancel.png"
           alt="Clear Form"
-          [src]="
-            clearButtonHover
-              ? 'assets/img/cancel-blue.png'
-              : 'assets/img/cancel.png'
-          "
-        />
+          [src]="clearButtonHover ? 'assets/img/cancel-blue.png' : 'assets/img/cancel.png'" />
       </span>
     </button>
-    <button appButton class="save" (click)="onSubmit()">
+    <button appButton class="save button" (click)="onSubmit()">
       {{ contact().saveButton }}
       <span ngProjectAs="[icon]">
         <img src="assets/img/check.png" alt="Submit and Close" />

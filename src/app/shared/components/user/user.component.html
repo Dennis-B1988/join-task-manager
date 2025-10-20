@@ -1,23 +1,13 @@
 <div class="user" (click)="toggleUserMenu()">
-  <span>{{ userName() }}</span>
+  <h2>{{ userName() }}</h2>
 
   @if (menuOpen) {
     <nav class="menu">
-      <span
-        [routerLink]="['/legal-notice']"
-        routerLinkActive="active"
-        (click)="toggleUserMenu()"
-      >
-        Legal Notice
-      </span>
-      <span
-        [routerLink]="['/privacy-policy']"
-        routerLinkActive="active"
-        (click)="toggleUserMenu()"
-      >
+      <span [routerLink]="['/legal-notice']" routerLinkActive="active" (click)="toggleUserMenu()"> Legal Notice </span>
+      <span [routerLink]="['/privacy-policy']" routerLinkActive="active" (click)="toggleUserMenu()">
         Privacy Policy
       </span>
-      @if (userName() === "G") {
+      @if (userName() === 'G') {
         <span (click)="showUpgradeMenu()">Upgrade</span>
       }
       <span (click)="signOut()">Log out</span>

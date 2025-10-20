@@ -4,7 +4,7 @@
     <div class="to-sign-up">
       @if (!signUpActive()) {
         <span>Not a Join user?</span>
-        <button (click)="viewSignUp()">Sign up</button>
+        <button class="button" (click)="viewSignUp()">Sign up</button>
       }
     </div>
   </div>
@@ -18,7 +18,7 @@
   <div class="to-sign-up-mobile">
     @if (!signUpActive()) {
       <span>Not a Join user?</span>
-      <button id="sign-up-btn" (click)="viewSignUp()">Sign up</button>
+      <button class="button" id="sign-up-btn" (click)="viewSignUp()">Sign up</button>
     }
   </div>
 

@@ -45,7 +45,7 @@ body {
   color: var(--color-blue-ebony);
 }
 
-button {
+.button {
   @include mixins.flex(row, center, center);
   @include mixins.border(0.0625rem, solid, var(--color-blue-ebony));
   @include mixins.font(1.3125rem, 700, 1.575rem, var(--color-white));

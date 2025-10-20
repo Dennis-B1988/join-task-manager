@@ -1,4 +1,10 @@
-@use "../../../../../shared/styles/mixins";
+@use '../../../../../shared/styles/mixins';
+
+button {
+  @include mixins.font(0, 0, 0, var(--color-black));
+  border: none;
+  padding: 0;
+}
 
 .summary-display-container {
   @include mixins.flex(column, space-between, center);
@@ -100,6 +106,7 @@
 
 .task-deadline-container {
   @include mixins.flex(column, center, flex-start);
+  @include mixins.font(1rem, 400, 120%, var(--color-black));
   gap: 0.8125rem;
 }
 

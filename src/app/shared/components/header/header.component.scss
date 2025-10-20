@@ -1,4 +1,4 @@
-@use "../../../shared/styles/mixins";
+@use '../../../shared/styles/mixins';
 
 .header {
   @include mixins.font(1.5rem, 400, 120%, var(--color-black));
@@ -7,6 +7,10 @@
   position: relative;
   width: 100%;
   background-color: var(--color-white);
+
+  h1 {
+    @include mixins.font(1.5rem, 400, 120%, var(--color-black));
+  }
 
   img {
     display: none;
