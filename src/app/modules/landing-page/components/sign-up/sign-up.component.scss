@@ -5,7 +5,7 @@
   @include mixins.flex(column, center, center);
   @include mixins.padding(3rem, 7.1875rem, 3rem, 7.1875rem);
   background-color: var(--color-white);
-  gap: 2rem;
+  gap: 2.5rem;
   border-radius: 1.875rem;
   box-shadow: 0rem 0rem 0.875rem 0.1875rem var(--color-black) 0000a;
   position: relative;

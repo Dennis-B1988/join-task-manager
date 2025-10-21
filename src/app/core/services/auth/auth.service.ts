@@ -1,16 +1,5 @@
-import {
-  EnvironmentInjector,
-  inject,
-  Injectable,
-  runInInjectionContext,
-  signal,
-} from "@angular/core";
-import {
-  Auth,
-  linkWithCredential,
-  updateProfile,
-  User,
-} from "@angular/fire/auth";
+import { EnvironmentInjector, inject, Injectable, runInInjectionContext, signal } from '@angular/core';
+import { Auth, linkWithCredential, updateProfile, User } from '@angular/fire/auth';
 import {
   addDoc,
   collection,
@@ -22,20 +11,20 @@ import {
   setDoc,
   updateDoc,
   where,
-} from "@angular/fire/firestore";
-import { Router } from "@angular/router";
+} from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import {
   createUserWithEmailAndPassword,
   EmailAuthProvider,
   signInAnonymously,
   signInWithEmailAndPassword,
-} from "@firebase/auth";
-import { dummyContacts, dummyTasks } from "../../models/dummy_guest_data.model";
-import { CustomUser } from "../../models/user.model";
-import { UnsubscribeService } from "../unsubscribe/unsubscribe.service";
+} from '@firebase/auth';
+import { dummyContacts, dummyTasks } from '../../models/dummy_guest_data.model';
+import { CustomUser } from '../../models/user.model';
+import { UnsubscribeService } from '../unsubscribe/unsubscribe.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   private router: Router = inject(Router);
@@ -45,7 +34,7 @@ export class AuthService {
   private dummyContacts = dummyContacts;
 
   user = signal<CustomUser | null>(null);
-  userId = signal<string>("");
+  userId = signal<string>('');
 
   wrongEmail = signal<boolean>(false);
   emailUnavailable = signal<boolean>(false);
@@ -73,20 +62,20 @@ export class AuthService {
    */
   constructor(
     private auth: Auth,
-    private firestore: Firestore,
+    private firestore: Firestore
   ) {
     this.auth.onAuthStateChanged((user) => {
       if (!user) {
         this.loadingUser.set(false);
-        this.router.navigate(["/"]);
+        this.router.navigate(['/']);
         this.user.set(null);
-        this.userId.set("");
+        this.userId.set('');
         return;
       }
 
       this.setUser(user).then(() => {
-        if (this.router.url === "/") {
-          this.router.navigate(["/summary"]);
+        if (this.router.url === '/') {
+          this.router.navigate(['/summary']);
         }
       });
     });
@@ -104,7 +93,7 @@ export class AuthService {
 
     runInInjectionContext(this.injector, async () => {
       const [userDocSnap, tasksSnapshot, contactsSnapshot] = await Promise.all([
-        getDoc(doc(this.firestore, "users", user.uid)),
+        getDoc(doc(this.firestore, 'users', user.uid)),
         getDocs(collection(this.firestore, `users/${user.uid}/tasks`)),
         getDocs(collection(this.firestore, `users/${user.uid}/contacts`)),
       ]);
@@ -137,56 +126,31 @@ export class AuthService {
    * @param password - The password of the user.
    * @returns A Promise that resolves when the user is created.
    */
-  async createUser(
-    displayName: string,
-    email: string,
-    password: string,
-  ): Promise<void> {
+  async createUser(displayName: string, email: string, password: string): Promise<void> {
     this.loadingUser.set(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        this.auth,
-        email,
-        password,
-      );
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const user = userCredential.user;
 
       await updateProfile(user, { displayName });
 
-      const userDocRef = doc(this.firestore, "users", user.uid);
+      const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, {
         displayName: displayName,
         email: email,
       });
-      const contactsRef = collection(
-        this.firestore,
-        `users/${user.uid}/contacts`,
-      );
+      const contactsRef = collection(this.firestore, `users/${user.uid}/contacts`);
       await addDoc(contactsRef, {
-        displayName: user.displayName ?? "Guest",
-        email: user.email ?? "",
+        displayName: user.displayName ?? 'Guest',
+        email: user.email ?? '',
       });
     } catch (error: any) {
-      console.error("Error creating user:", error);
-      this.errorCodes(error);
+      console.error('Error creating user:', error);
+      this.handleError(error);
     } finally {
       this.loadingUser.set(false);
     }
-  }
-
-  /**
-   * Sets the appropriate error message state variables to true based on the
-   * error code from the Firebase authentication error.
-   *
-   * @param error - The error from the Firebase authentication error.
-   */
-  private errorCodes(error: any): void {
-    if (error.code === "auth/email-already-in-use")
-      this.emailUnavailable.set(true);
-    if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
-    if (error.code === "auth/missing-password") this.wrongPassword.set(true);
-    if (error.code === "auth/weak-password") this.wrongPassword.set(true);
   }
 
   /**
@@ -201,53 +165,13 @@ export class AuthService {
     this.loadingUser.set(true);
 
     try {
-      const { user } = await signInWithEmailAndPassword(
-        this.auth,
-        email,
-        password,
-      );
+      const { user } = await signInWithEmailAndPassword(this.auth, email, password);
       await this.setUser(user);
     } catch (error: any) {
       this.handleError(error);
     } finally {
       this.loadingUser.set(false);
     }
-  }
-
-  /**
-   * Resets all error messages in the AuthService to false.
-   * This is called after every log-in or sign-up attempt to clear any
-   * previously set error messages.
-   */
-  resetErrorMessages(): void {
-    this.wrongEmail.set(false);
-    this.emailUnavailable.set(false);
-    this.wrongPassword.set(false);
-    this.weakPassword.set(false);
-    this.passwordsDontMatch.set(false);
-  }
-
-  /**
-   * Handles an error that occurred while logging in a user.
-   *
-   * @param error - The error that occurred while logging in the user.
-   * @returns Nothing.
-   *
-   * This method logs the error to the console, sets the proper error message
-   * state variables to true, and then sets all error messages to false after
-   * 2 seconds to clear the error message.
-   */
-  private handleError(error: any): void {
-    console.error("Login error:", error);
-    if (error.code === "auth/invalid-email") this.wrongEmail.set(true);
-    if (
-      error.code === "auth/missing-password" ||
-      error.code === "auth/invalid-credential"
-    ) {
-      this.wrongPassword.set(true);
-    }
-
-    setTimeout(this.resetErrorMessages.bind(this), 2000);
   }
 
   /**
@@ -263,18 +187,15 @@ export class AuthService {
       const userCredential = await signInAnonymously(this.auth);
       const user = userCredential.user;
 
-      await updateProfile(user, { displayName: "Guest" });
+      await updateProfile(user, { displayName: 'Guest' });
 
-      const userDocRef = doc(this.firestore, "users", user.uid);
-      await setDoc(userDocRef, { displayName: "Guest", isGuest: true });
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userDocRef, { displayName: 'Guest', isGuest: true });
 
-      const contactsCollectionRef = collection(
-        this.firestore,
-        `users/${user.uid}/contacts`,
-      );
+      const contactsCollectionRef = collection(this.firestore, `users/${user.uid}/contacts`);
       await addDoc(contactsCollectionRef, {
-        displayName: "Guest",
-        email: "",
+        displayName: 'Guest',
+        email: '',
         isSelf: true,
       });
 
@@ -296,28 +217,17 @@ export class AuthService {
    * @param password - The password to use for the new account.
    * @returns A Promise that resolves when the upgrade is complete.
    */
-  async upgradeAnonymousUser(
-    displayName: string,
-    email: string,
-    password: string,
-  ): Promise<void> {
+  async upgradeAnonymousUser(displayName: string, email: string, password: string): Promise<void> {
     const currentUser = this.auth.currentUser;
 
     if (currentUser && currentUser.isAnonymous) {
       const emailCredential = EmailAuthProvider.credential(email, password);
       try {
-        const linkedUser = await linkWithCredential(
-          currentUser,
-          emailCredential,
-        );
+        const linkedUser = await linkWithCredential(currentUser, emailCredential);
 
         await updateProfile(linkedUser.user, { displayName });
 
-        const userDocumentRef = doc(
-          this.firestore,
-          "users",
-          linkedUser.user.uid,
-        );
+        const userDocumentRef = doc(this.firestore, 'users', linkedUser.user.uid);
         await setDoc(userDocumentRef, {
           displayName,
           isGuest: false,
@@ -332,12 +242,12 @@ export class AuthService {
         this.upgradeMenu.set(false);
         this.emailUnavailable.set(false);
       } catch (error: any) {
-        if (error?.code === "auth/email-already-in-use") {
+        if (error?.code === 'auth/email-already-in-use') {
           this.emailUnavailable.set(true);
         }
       }
     } else {
-      console.warn("No anonymous user to upgrade.");
+      console.warn('No anonymous user to upgrade.');
     }
   }
 
@@ -350,12 +260,8 @@ export class AuthService {
    * @param displayName The new display name of the user
    * @param email The new email address of the user
    */
-  private async upgradeUserData(
-    user: User,
-    displayName: string,
-    email: string,
-  ): Promise<void> {
-    const userDocRef = doc(this.firestore, "users", user.uid);
+  private async upgradeUserData(user: User, displayName: string, email: string): Promise<void> {
+    const userDocRef = doc(this.firestore, 'users', user.uid);
     await updateDoc(userDocRef, {
       displayName: displayName,
       email: email,
@@ -376,16 +282,9 @@ export class AuthService {
    * @param email - The new email to set for the user's contact.
    * @returns A Promise that resolves when the contact information update is complete.
    */
-  private async upgradeContact(
-    user: User,
-    displayName: string,
-    email: string,
-  ): Promise<void> {
-    const contactsRef = collection(
-      this.firestore,
-      `users/${user.uid}/contacts`,
-    );
-    const guestQuery = query(contactsRef, where("isSelf", "==", true));
+  private async upgradeContact(user: User, displayName: string, email: string): Promise<void> {
+    const contactsRef = collection(this.firestore, `users/${user.uid}/contacts`);
+    const guestQuery = query(contactsRef, where('isSelf', '==', true));
 
     const snapshot = await getDocs(guestQuery);
     snapshot.forEach(async (docSnap) => {
@@ -433,16 +332,70 @@ export class AuthService {
    */
   signOut(): void {
     this.user.set(null);
-    this.userId.set("");
+    this.userId.set('');
 
     this.auth
       .signOut()
       .then(() => {
-        this.router.navigate(["/"]);
+        this.router.navigate(['/']);
       })
       .catch((error) => {
-        console.error("Error during sign out:", error);
+        console.error('Error during sign out:', error);
       });
+  }
+
+  /**
+   * Sets the appropriate error message state variables to true based on the
+   * error code from the Firebase authentication error.
+   *
+   * @param error - The error from the Firebase authentication error.
+   */
+  private errorCodes(error: any): void {
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        this.emailUnavailable.set(true);
+        break;
+      case 'auth/invalid-email':
+        this.wrongEmail.set(true);
+        break;
+      case 'auth/missing-password':
+        this.wrongPassword.set(true);
+        break;
+      case 'auth/weak-password':
+        this.wrongPassword.set(true);
+        break;
+      case 'auth/invalid-credential':
+        this.wrongPassword.set(true);
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Handles errors that occur during authentication.
+   *
+   * @param error - The error to handle.
+   */
+  private handleError(error: any): void {
+    console.error('Login error:', error);
+
+    this.errorCodes(error);
+
+    setTimeout(this.resetErrorMessages.bind(this), 2000);
+  }
+
+  /**
+   * Resets all error messages in the AuthService to false.
+   * This is called after every log-in or sign-up attempt to clear any
+   * previously set error messages.
+   */
+  resetErrorMessages(): void {
+    this.wrongEmail.set(false);
+    this.emailUnavailable.set(false);
+    this.wrongPassword.set(false);
+    this.weakPassword.set(false);
+    this.passwordsDontMatch.set(false);
   }
 
   /**
